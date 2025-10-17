@@ -10,7 +10,6 @@ class VerticalSpace extends StatelessWidget {
     return SizedBox(height: height.h);
   }
 }
-
 class HorizontalSpace extends StatelessWidget {
   final double width;
   const HorizontalSpace(this.width, {super.key});

@@ -1,0 +1,12 @@
+class AppStrings{
+  AppStrings._() ;
+
+
+
+
+
+
+
+
+
+}
