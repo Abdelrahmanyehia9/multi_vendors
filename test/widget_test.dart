@@ -7,13 +7,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:medicoo/core/routes/AppRouter.dart';
-import 'package:medicoo/medicoo_app.dart';
+import 'package:multi_vendor/core/routes/app_router.dart';
+import 'package:multi_vendor/multi_vendor.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget( MedicooApp(router: AppRouter(),));
+    await tester.pumpWidget( MultiVendors(router: AppRouter(),));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

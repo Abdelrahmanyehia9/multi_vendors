@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
+
+import '../theme/decorations.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
   final String imageUrl;
@@ -9,9 +12,12 @@ class AppCachedNetworkImage extends StatelessWidget {
   final BoxFit fit;
   final BorderRadius? borderRadius;
   final Color? color;
+  final double? radius;
   final BlendMode? colorBlendMode;
   final Widget? placeholder;
   final Widget? errorWidget;
+  final double? opacity ;
+  final Alignment? alignment;
 
   const AppCachedNetworkImage(
       this.imageUrl, {
@@ -21,9 +27,12 @@ class AppCachedNetworkImage extends StatelessWidget {
         this.fit = BoxFit.cover,
         this.borderRadius,
         this.color,
+        this.alignment,
+        this.radius,
         this.colorBlendMode,
         this.placeholder,
         this.errorWidget,
+        this.opacity
       });
 
   @override
@@ -32,22 +41,26 @@ class AppCachedNetworkImage extends StatelessWidget {
       return _buildErrorWidget();
     }
 
-    final image = CachedNetworkImage(
-      imageUrl: imageUrl,
-      width: width,
-      height: height,
-      fit: fit,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      memCacheWidth: 600,
-      placeholder: (context, url) =>
-      placeholder ?? _buildPlaceholder(context),
-      errorWidget: (context, url, error) => errorWidget ?? _buildErrorWidget(),
+    final image = Opacity(
+      opacity: opacity ?? 1,
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: width,
+        height: height,
+        fit: fit,
+        color: color,
+        alignment: alignment ?? Alignment.center,
+        colorBlendMode: colorBlendMode,
+        memCacheWidth: 600,
+        placeholder: (context, url) =>
+            _buildPlaceholder(context),
+        errorWidget: (context, url, error) => errorWidget ?? _buildErrorWidget(),
+      ),
     );
 
-    if (borderRadius != null) {
+    if (borderRadius != null || radius != null ) {
       return ClipRRect(
-        borderRadius: borderRadius!,
+        borderRadius: borderRadius ?? BorderRadius.circular(radius!.r),
         child: image,
       );
     }
@@ -58,12 +71,15 @@ class AppCachedNetworkImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: Colors.grey.shade300,
+      decoration: BoxDecoration(
+          color: context.colors.surfaceContainerLowest,
+          borderRadius: borderRadius ?? BorderRadius.circular(radius?.r ?? Decorations.borderRadius8.r)
+      ),
       child:  Center(
         child: SizedBox(
           width: 24.w,
           height: 24.h,
-          child: CircularProgressIndicator(strokeWidth: 2),
+          child: placeholder?? const CircularProgressIndicator(strokeWidth: 2),
         ),
       ),
     );

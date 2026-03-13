@@ -39,9 +39,6 @@ class AppValidation {
     return null;
   }
 }
-
-
-
 class AppRegex {
   AppRegex._();
 
