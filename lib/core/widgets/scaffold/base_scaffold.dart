@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
 class BaseScaffold extends StatelessWidget {
   final Widget? body ;
   final Widget? bottomNavigationBar ;
   final bool topSafeArea ;
-  final PreferredSizeWidget? appBar ;
+  final BaseAppBar? appBar ;
   const BaseScaffold({super.key,this.topSafeArea = true, this.appBar  ,this.body, this.bottomNavigationBar});
 
   @override
@@ -17,9 +18,9 @@ class BaseScaffold extends StatelessWidget {
   }
 
   Widget? _buildBody(){
-    if(appBar!=null) return body ;
     return SafeArea(
         top: topSafeArea,
-        child:body?? const SizedBox.shrink());
+        child:body?? const SizedBox.shrink()
+    );
   }
 }

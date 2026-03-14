@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/context.dart';
-import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import '../../../../../core/widgets/app_button.dart';
@@ -21,30 +19,12 @@ class HomeAppBar extends StatelessWidget {
         _nameWithLocation(),
         Gap.small(),
         /// Notifications
-        AppButton.icon(
-          fixedSize: const Size(40, 40),
-          borderRadius: Decorations.borderRadius16,
-          color: context.colors.surfaceContainerLow,
-          icon: Icon(
-            Icons.notifications,
-            size: 24.sp,
-            color: context.colors.surfaceContainerHigh,
-          ),
-        ),
+        const AppIconButton(icon: Icons.shopping_bag),
         Gap.small(),
         /// Cart
-        Badge(
-          label: const Text('1'),
-          child: AppButton.icon(
-            fixedSize: const Size(40, 40),
-            borderRadius: Decorations.borderRadius16,
-            color: context.colors.surfaceContainerLow,
-            icon: Icon(
-              Icons.shopping_bag,
-              size: 24.sp,
-              color: context.colors.surfaceContainerHigh,
-            ),
-          ),
+        const Badge(
+          label: Text('1'),
+          child: AppIconButton(icon: Icons.notifications),
         ),
       ],
     );
@@ -63,7 +43,7 @@ class HomeAppBar extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(Icons.location_pin, size: 15.sp),
+              Icon(Icons.location_pin, size: 14.sp),
                Expanded(
                 child: Text(
                   "6 october city , Egypt" ,

@@ -9,39 +9,39 @@ class TextStyles {
   const TextStyles._();
   static final TextStyle headline1 = TextStyle(
     fontSize: 40.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle headline2 = TextStyle(
     fontSize: 34.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle headline3 = TextStyle(
     fontSize: 22.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle bodyLarge = TextStyle(
     fontSize: 20.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle bodyMedium = TextStyle(
     fontSize: 16.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle bodySmall = TextStyle(
     fontSize: 12.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle labelLarge = TextStyle(
     fontSize: 20.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle labelMedium = TextStyle(
     fontSize: 16.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle labelSmall = TextStyle(
     fontSize: 12.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.black,
   );
   static final TextStyle captionLarge = TextStyle(
     fontSize: 18.sp * _largerFactor,

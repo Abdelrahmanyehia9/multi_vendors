@@ -11,17 +11,27 @@ class AppTheme {
     margin: EdgeInsets.zero,
     decoration: BoxDecoration(color: AppColors.secondary),
   );
+ static final AppBarTheme _appBarTheme = const AppBarTheme(
+    backgroundColor: Colors.transparent,
+    elevation: 0 ,
+    surfaceTintColor: Colors.transparent,
+    centerTitle: true,
+    leadingWidth: 50,
+    actionsPadding: EdgeInsets.symmetric(horizontal: 4),
+  ) ;
+
   static ThemeData light = ThemeData(
     scaffoldBackgroundColor: _lightBackgroundColor,
     canvasColor: _lightBackgroundColor,
     colorScheme: _ColorScheme.light,
     fontFamily: TextStyles.fontFamily,
+    appBarTheme: _appBarTheme,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
     dividerColor: Colors.transparent,
     dividerTheme: const DividerThemeData(
-      color: AppColors.grey50,
+      color: AppColors.grey200,
       thickness: 1.5,
     ),
     useMaterial3: true,
@@ -31,13 +41,15 @@ class AppTheme {
     canvasColor: _darkBackgroundColor,
     colorScheme: _ColorScheme.dark,
     splashColor: Colors.transparent,
+    appBarTheme: _appBarTheme,
     fontFamily: TextStyles.fontFamily,
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
     dividerColor: Colors.transparent,
     dividerTheme: const DividerThemeData(
-      color: AppColors.grey900,
-      thickness: 1.5,
+      color: AppColors.grey700,
+      space: 24,
+      thickness: 2,
     ),
     useMaterial3: true,
   );

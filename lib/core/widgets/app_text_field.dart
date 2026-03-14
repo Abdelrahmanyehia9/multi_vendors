@@ -63,7 +63,7 @@ class AppTextField extends StatelessWidget {
     this.onEditingComplete,
     this.textAlign,
     this.headerText,
-    this.borderType = TextFieldBorderType.outlined,
+    this.borderType = TextFieldBorderType.filled,
     this.readOnly = false,
     this.padding,
     this.smartDashesType,

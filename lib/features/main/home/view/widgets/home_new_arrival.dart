@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
-import 'package:multi_vendor/features/main/home/view/widgets/home_section_header.dart';
-
-import '../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/section_header.dart';
+import '../../../../../core/routes/routes.dart';
 
 class HomeNewArrival extends StatelessWidget {
   const HomeNewArrival({super.key});
@@ -10,12 +11,11 @@ class HomeNewArrival extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 8.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HomeSectionHeader(title: "New arrival", action: "View details",),
-        Gap.small(),
+        SectionHeader(title: "New arrival", action: "View details",onActionTap: ()=>context.pushNamed(Routes.product),),
         ProductCard.big()
-        
       ],
     );
   }

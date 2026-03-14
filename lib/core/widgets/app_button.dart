@@ -12,11 +12,12 @@ enum ButtonSize {
   medium,
   large;
 
-  Size get size => switch (this) {
-    ButtonSize.small  => Size(100.w, 44.h),
-    ButtonSize.medium => Size(200.w, 50.h),
-    ButtonSize.large  => Size(double.infinity, 56.h),
-  };
+  Size get size =>
+      switch (this) {
+        ButtonSize.small => Size(100.w, 44.h),
+        ButtonSize.medium => Size(200.w, 50.h),
+        ButtonSize.large => Size(double.infinity, 56.h),
+      };
 }
 
 enum ButtonVariant { filled, outlined, text }
@@ -32,6 +33,8 @@ class AppButton extends StatelessWidget {
   final bool enableGradient;
   final double? borderWidth;
   final double borderRadius;
+  final String? toolTip;
+
   final EdgeInsetsGeometry? padding;
   final Gradient? gradient;
   final Widget? icon;
@@ -54,6 +57,7 @@ class AppButton extends StatelessWidget {
     this.padding,
     this.gradient,
     this.icon,
+    this.toolTip,
     this.buttonSize = ButtonSize.medium,
     this.enableGradient = false,
     this.variant = ButtonVariant.filled,
@@ -70,6 +74,7 @@ class AppButton extends StatelessWidget {
     Gradient? gradient,
     TextStyle? style,
     Size? fixedSize,
+    String? toolTip,
     double? borderRadius,
     double? borderWidth,
     Widget? icon,
@@ -86,6 +91,7 @@ class AppButton extends StatelessWidget {
         gradient: gradient,
         style: style,
         fixedSize: fixedSize,
+        toolTip: toolTip,
         enableGradient: enableGradient,
         borderRadius: borderRadius ?? 7,
         borderWidth: borderWidth,
@@ -105,6 +111,7 @@ class AppButton extends StatelessWidget {
     double? borderRadius,
     double? borderWidth,
     Widget? icon,
+    String? toolTip,
     ButtonSize? buttonSize,
     bool enabled = true,
   }) =>
@@ -117,6 +124,7 @@ class AppButton extends StatelessWidget {
         gradient: gradient,
         style: style,
         fixedSize: fixedSize,
+        toolTip: toolTip,
         borderRadius: borderRadius ?? 7,
         borderWidth: borderWidth,
         icon: icon,
@@ -131,6 +139,7 @@ class AppButton extends StatelessWidget {
     Color? color,
     TextStyle? style,
     EdgeInsets? padding,
+    String? toolTip,
     Size? fixedSize,
   }) =>
       AppButton(
@@ -139,8 +148,9 @@ class AppButton extends StatelessWidget {
         color: color ?? AppColors.primary,
         style: style,
         fixedSize: fixedSize,
+        toolTip: toolTip,
         buttonSize: null,
-        padding: padding?? EdgeInsets.zero,
+        padding: padding ?? EdgeInsets.zero,
         variant: ButtonVariant.text,
       );
 
@@ -170,6 +180,7 @@ class AppButton extends StatelessWidget {
     double? borderWidth,
     double borderRadius = 8,
     Size? fixedSize,
+    String? toolTip,
     bool enabled = true,
     bool isLoading = false,
     EdgeInsets? padding,
@@ -178,12 +189,13 @@ class AppButton extends StatelessWidget {
       AppButton(
         text: '',
         onPressed: onPressed,
-        color: color ,
-        borderColor: borderColor ?? color ,
+        color: color,
+        borderColor: borderColor ?? color,
         borderWidth: borderWidth,
         borderRadius: borderRadius,
         fixedSize: fixedSize,
         variant: variant,
+        toolTip: toolTip,
         icon: icon,
         padding: padding ?? EdgeInsets.all(4.w),
         enabled: enabled,
@@ -216,11 +228,7 @@ class AppButton extends StatelessWidget {
     if (!enableGradient || _isTransparentVariant || !enabled) return null;
     final base = _resolveButtonColor(context);
     return gradient ??
-        LinearGradient(colors: [
-          base.darken(0.2),
-          base.darken(0.14),
-          base,
-        ]);
+        LinearGradient(colors: [base.darken(0.2), base.darken(0.14), base]);
   }
 
   @override
@@ -247,18 +255,23 @@ class AppButton extends StatelessWidget {
         ),
       );
     }
-
+    final String? message = toolTip ?? (text.isNotEmpty ? text : null);
     return AppClick(
       onTap: enabled ? onPressed : null,
+      toolTip: message,
       child: Container(
         width: size?.width,
         height: size?.height,
         alignment: Alignment.center,
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        padding:
+        padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         decoration: BoxDecoration(
           gradient: resolvedGradient,
           color: resolvedGradient == null ? _resolveButtonColor(context) : null,
-          border: Border.all(color: resolvedBorderColor, width: borderWidth ?? 1),
+          border: Border.all(
+            color: resolvedBorderColor,
+            width: borderWidth ?? 1,
+          ),
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),
         child: Row(
@@ -268,7 +281,8 @@ class AppButton extends StatelessWidget {
             if (icon != null)
               Theme(
                 data: ThemeData(
-                    iconTheme: IconThemeData(color: _resolveTextColor(context))),
+                  iconTheme: IconThemeData(color: _resolveTextColor(context)),
+                ),
                 child: text.isNotEmpty ? icon!.paddingHr(8) : icon!,
               ),
             if (text.isNotEmpty)
@@ -276,12 +290,47 @@ class AppButton extends StatelessWidget {
                 text,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: (style ?? TextStyles.bodyLarge)
-                    .copyWith(color: _resolveTextColor(context)),
+                style: (style ?? TextStyles.bodyLarge).copyWith(
+                  color: _resolveTextColor(context),
+                ),
               ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppIconButton extends StatelessWidget {
+  final IconData icon;
+
+  final GestureTapCallback? onTap;
+
+  final String? tooltip;
+  final Color? iconColor;
+
+  final Color? backGroundColor;
+
+  final double size;
+
+  const AppIconButton({
+    super.key,
+    this.size = 20,
+    this.tooltip,
+    this.iconColor, this.backGroundColor,
+    this.onTap,
+    required this.icon,
+
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton.icon(
+      onPressed: onTap,
+      toolTip: tooltip,
+      fixedSize: Size(size*2, size*2),
+      color: backGroundColor ?? context.colors.surfaceContainerLow,
+        icon: Icon(icon,size: size.sp, color: iconColor ?? context.colors.surfaceContainerHigh,)
     );
   }
 }

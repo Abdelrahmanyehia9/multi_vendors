@@ -4,11 +4,11 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
-import '../theme/app_colors.dart';
-import '../theme/text_styles.dart';
-import 'gap.dart';
+import '../../theme/app_colors.dart';
+import '../../theme/text_styles.dart';
+import '../gap.dart';
 
-class AppNavbar extends StatefulWidget {
+class BaseNavbar extends StatefulWidget {
   final List<BoxShadow>? shadow;
   final bool showLabel;
   final List<NavbarItem> items;
@@ -16,7 +16,7 @@ class AppNavbar extends StatefulWidget {
 
   final void Function(int)? onSelect;
 
-  const AppNavbar({
+  const BaseNavbar({
     super.key,
     this.initialIndex = 0,
     required this.items,
@@ -26,10 +26,10 @@ class AppNavbar extends StatefulWidget {
   });
 
   @override
-  State<AppNavbar> createState() => _AppNavbarState();
+  State<BaseNavbar> createState() => _BaseNavbarState();
 }
 
-class _AppNavbarState extends State<AppNavbar> {
+class _BaseNavbarState extends State<BaseNavbar> {
   late int _selectedIndex;
 
   @override

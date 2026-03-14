@@ -12,11 +12,11 @@ class MultiVendors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-          designSize: const Size(375, 812),
+          designSize: const Size(375,812),
           minTextAdapt: true,
           splitScreenMode: true,
       child: MaterialApp(
-        theme: AppTheme.dark,
+        theme: AppTheme.light,
         scrollBehavior: AppScrollBehavior(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: router.generateRoute,

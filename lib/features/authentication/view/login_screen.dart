@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_vendor/core/widgets/base_scaffold.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

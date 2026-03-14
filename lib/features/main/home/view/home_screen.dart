@@ -9,9 +9,8 @@ import 'package:multi_vendor/features/main/home/view/widgets/home_banner.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_new_arrival.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_news_section.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_categories.dart';
-import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_tags.dart';
+import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_product_tags.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_vendors_section.dart';
-
 import '../../../../core/utils/app_constants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,7 +32,7 @@ class HomeScreen extends StatelessWidget {
           const HomeShopByCategories().appPaddingAll,
           const HomeNewArrival().appPaddingHr,
           if(AppConstants.shopByTags)
-          const ShopByTags().appPaddingAll,
+          const ShopByProductTags().appPaddingAll,
           if(AppConstants.hasNews)
           const HomeNewsSection().appPaddingHr,
 
@@ -48,9 +47,9 @@ class HomeScreen extends StatelessWidget {
         Text.rich(
             TextSpan(
                 text: "Discover Your Best ",
-                style: TextStyles.bodyLarge,
+                style: TextStyles.labelLarge,
                 children: [
-                  TextSpan(text: "Fashion !", style: TextStyles.bodyLarge.copyWith(
+                  TextSpan(text: "Fashion !", style: TextStyles.labelLarge.copyWith(
                       color: AppColors.primary
                   ))
                 ]
@@ -59,7 +58,6 @@ class HomeScreen extends StatelessWidget {
         Gap.extraSmall(),
         AppTextField(
           hintText: 'Search',
-          borderType: TextFieldBorderType.filled,
           padding: EdgeInsets.zero,
           hintStyle: TextStyles.captionMedium,
           prefix: const Icon(Icons.search),

@@ -45,8 +45,8 @@ class AppCachedNetworkImage extends StatelessWidget {
       opacity: opacity ?? 1,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        width: width,
-        height: height,
+        width: width?.w,
+        height: height?.h,
         fit: fit,
         color: color,
         alignment: alignment ?? Alignment.center,
@@ -69,8 +69,8 @@ class AppCachedNetworkImage extends StatelessWidget {
 
   Widget _buildPlaceholder(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: width?.w,
+      height: height?.h,
       decoration: BoxDecoration(
           color: context.colors.surfaceContainerLowest,
           borderRadius: borderRadius ?? BorderRadius.circular(radius?.r ?? Decorations.borderRadius8.r)
@@ -87,8 +87,8 @@ class AppCachedNetworkImage extends StatelessWidget {
 
   Widget _buildErrorWidget() {
     return Container(
-      width: width,
-      height: height,
+      width: width?.w,
+      height: height?.h,
       color: Colors.grey.shade200,
       alignment: Alignment.center,
       child: const Icon(Icons.broken_image, color: Colors.grey, size: 32),

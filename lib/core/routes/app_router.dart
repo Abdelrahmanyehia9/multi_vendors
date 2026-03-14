@@ -2,24 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/main/layout.dart';
 import '../../features/authentication/view/login_screen.dart';
-
+import '../../features/main/favorite/view/favorite_screen.dart';
+import '../../features/main/shop/product/view/vendor_details_screen.dart';
+import '../../features/main/shop/product/view/all_product_tags_screen.dart';
+import '../../features/main/shop/product/view/all_products_screen.dart';
+import '../../features/main/shop/product/view/all_vendors_screen.dart';
+import '../../features/main/shop/product/view/product_details_screen.dart';
+import '../../features/news/view/all_news_screen.dart';
+import '../../features/news/view/news_item_details.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     // final arguments = settings.arguments;
     switch (settings.name) {
       case Routes.loginScreen:
-        return MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
-        );
-        case Routes.mainLayout:
-        return MaterialPageRoute(
-          builder: (_) => const MainLayout(),
-        );
+        return _page(const LoginScreen(), name: Routes.loginScreen);
+      case Routes.mainLayout:
+        return  _page(const MainLayout(), name: Routes.mainLayout);
+      case Routes.products:
+        return _page(const AllProductsScreen(), name: Routes.products);
+      case Routes.product:
+        return _page(const ProductDetailsScreen(), name: Routes.product);
+      case Routes.productTags:
+        return _page(const AllProductTagsScreen(), name: Routes.productTags);
+      case Routes.news :
+        return _page(const AllNewsScreen(), name: Routes.news);
+      case Routes.newsDetails :
+        return _page(const NewsItemDetails(), name: Routes.newsDetails);
+      case Routes.vendors :
+        return _page(const AllVendorsScreen(), name: Routes.vendors);
+      case Routes.vendor :
+        return _page(const VendorDetailsScreen(), name: Routes.vendor);
+      case Routes.favorites:
+        return _page(const FavoriteScreen(), name: Routes.favorites);
       default:
         return null;
     }
   }
 
-
+  MaterialPageRoute _page(Widget child, { String? name}) =>
+      MaterialPageRoute(
+        builder: (_) => child,
+        settings: RouteSettings(name: name),
+      );
 }
