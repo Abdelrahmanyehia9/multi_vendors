@@ -17,10 +17,26 @@ import '../rating_stars.dart';
 
 class ProductGrid extends StatelessWidget {
   final bool shrinkWrap  ;
-  const ProductGrid({super.key, this.shrinkWrap = false});
+  final bool sliver  ;
+  const ProductGrid({super.key,this.sliver =false ,this.shrinkWrap = false});
 
   @override
   Widget build(BuildContext context) {
+    if(sliver){
+     return SliverGrid(
+       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+         crossAxisCount: 2,
+         mainAxisSpacing: 21.w,
+         crossAxisSpacing: 24.h,
+         childAspectRatio:
+         ProductCard.smallSize.width / ProductCard.smallSize.height,
+       ),
+       delegate: SliverChildBuilderDelegate(
+             (_, __) => ProductCard.small(),
+         childCount: 10,
+       ),
+     ) ;
+    }
     return GridView.builder(
          itemCount: 4,
         shrinkWrap: shrinkWrap,

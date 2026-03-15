@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/user_avatar.dart';
@@ -12,8 +15,11 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-         const UserAvatar(
-           size: 48,
+         AppClick(
+           onTap: ()=>context.pushNamedAndRemoveUntil(Routes.mainLayout, predicate: (_)=>false, arguments: 4),
+           child: const UserAvatar(
+             size: 48,
+           ),
          ),
         Gap.small(),
         _nameWithLocation(),

@@ -303,16 +303,11 @@ class AppButton extends StatelessWidget {
 
 class AppIconButton extends StatelessWidget {
   final IconData icon;
-
   final GestureTapCallback? onTap;
-
   final String? tooltip;
   final Color? iconColor;
-
   final Color? backGroundColor;
-
   final double size;
-
   const AppIconButton({
     super.key,
     this.size = 20,

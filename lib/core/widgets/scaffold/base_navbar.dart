@@ -95,7 +95,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
               const Gap(6),
               Text(
                 label,
-                style: TextStyles.bodySmall.copyWith(color: AppColors.primary),
+                style: TextStyles.bodySmall.copyWith(color: AppColors.white),
               ),
             ],
           ],

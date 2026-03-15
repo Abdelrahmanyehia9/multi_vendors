@@ -8,15 +8,21 @@ class AppChip extends StatelessWidget {
   final bool selected;
   final Color? borderColor;
   final Color? backgroundColor;
+  final EdgeInsets? padding ;
   final Color? labelColor;
+  final Widget? child;
+  final double? elevation;
 
   const AppChip({
     super.key,
     required this.text,
+    this.elevation,
     this.selected = false,
     this.borderColor,
     this.backgroundColor,
     this.labelColor,
+    this.child,
+    this.padding,
   });
 
   @override
@@ -33,7 +39,9 @@ class AppChip extends StatelessWidget {
         (selected ? AppColors.primary : context.colors.surfaceContainerLow);
 
     return Chip(
-      label: Text(
+      padding: padding,
+      elevation: elevation,
+      label: child ??  Text(
         text,
         style: TextStyles.bodySmall.copyWith(color: lblColor),
       ),

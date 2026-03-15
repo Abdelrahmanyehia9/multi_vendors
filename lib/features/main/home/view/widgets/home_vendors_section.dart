@@ -47,20 +47,25 @@ class HomeVendorsSection extends StatelessWidget {
     );
   }
 
-  Widget _vendor(bool lastOne,BuildContext context, {required int reminder}) => CircularBox(
-    radius: 52,
-    child: !lastOne
-        ? const AppCachedNetworkImage(Testing.vendor)
-        : AppClick(
-      onTap: ()=> viewAll(context),
-          child: CircleAvatar(
-                backgroundColor: AppColors.primary,
-                child: Text(
-          "+$reminder",
-          style: TextStyles.captionLarge.copyWith(color: AppColors.white),
+  Widget _vendor(bool lastOne,BuildContext context, {required int reminder}) => AppClick(
+    onTap: ()=> context.pushNamed(Routes.vendor),
+    child: CircularBox(
+      radius: 52,
+      child: !lastOne
+          ? const AppCachedNetworkImage(Testing.vendor)
+          : AppClick(
+        onTap: ()=> viewAll(context),
+            child: CircleAvatar(
+                  backgroundColor: AppColors.primary,
+                  child: Text(
+            "+$reminder",
+            style: TextStyles.captionLarge.copyWith(color: AppColors.white),
+                  ),
                 ),
-              ),
-        ),
+          ),
+    ),
   );
   void viewAll(BuildContext context) => context.pushNamed(Routes.vendors);
 }
+
+

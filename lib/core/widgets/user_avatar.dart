@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'circular_box.dart';
 
 class UserAvatar extends StatelessWidget {
   final double size ;
@@ -9,17 +9,13 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size.w,
-      height: size.h,
-      clipBehavior: Clip.hardEdge,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.primary,
-
-      ),
-      child: AppCachedNetworkImage(imageUrl),
-    );
+  return CircularBox(
+    radius: size.w,
+    child: AppCachedNetworkImage(imageUrl,
+    width: size.w,
+    height: size.h,
+    ),
+  );
   }
 
 

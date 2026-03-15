@@ -9,10 +9,10 @@ import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/rating_stars.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import 'package:multi_vendor/features/main/shop/product/view/widgets/add_to_cart_button.dart';
-import 'package:multi_vendor/features/main/shop/product/view/widgets/product_info_section.dart';
 import 'package:multi_vendor/core/widgets/app_slider.dart';
-import 'package:multi_vendor/features/main/shop/product/view/widgets/product_variant.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/add_to_cart_button.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/product_variant.dart';
 import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/scaffold/base_appbar.dart';
 

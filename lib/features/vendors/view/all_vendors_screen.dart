@@ -9,10 +9,10 @@ import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/widgets/cards/vendor_card.dart';
-import '../../../../../core/widgets/scaffold/base_appbar.dart';
-import '../../../../../core/widgets/section_header.dart';
+import '../../../../core/theme/app_colors.dart';
+import 'widgets/vendor_card.dart';
+import '../../../../core/widgets/scaffold/base_appbar.dart';
+import '../../../../core/widgets/section_header.dart';
 
 class AllVendorsScreen extends StatefulWidget {
   const AllVendorsScreen({super.key});
@@ -31,6 +31,7 @@ class _AllVendorsScreenState extends State<AllVendorsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _Tags(selectedTagIndex),
+          Gap.large(),
           const Expanded(
               child:VendorsCardList()
           )

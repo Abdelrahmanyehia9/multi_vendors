@@ -3,13 +3,13 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/main/layout.dart';
 import '../../features/authentication/view/login_screen.dart';
 import '../../features/main/favorite/view/favorite_screen.dart';
-import '../../features/main/shop/product/view/vendor_details_screen.dart';
-import '../../features/main/shop/product/view/all_product_tags_screen.dart';
-import '../../features/main/shop/product/view/all_products_screen.dart';
-import '../../features/main/shop/product/view/all_vendors_screen.dart';
-import '../../features/main/shop/product/view/product_details_screen.dart';
 import '../../features/news/view/all_news_screen.dart';
 import '../../features/news/view/news_item_details.dart';
+import '../../features/shop/product/view/all_product_tags_screen.dart';
+import '../../features/shop/product/view/all_products_screen.dart';
+import '../../features/vendors/view/all_vendors_screen.dart';
+import '../../features/shop/product/view/product_details_screen.dart';
+import '../../features/vendors/view/vendor_details_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
@@ -18,7 +18,8 @@ class AppRouter {
       case Routes.loginScreen:
         return _page(const LoginScreen(), name: Routes.loginScreen);
       case Routes.mainLayout:
-        return  _page(const MainLayout(), name: Routes.mainLayout);
+        final int? initial = settings.arguments as int?;
+        return  _page(MainLayout(initially: initial ?? 0), name: Routes.mainLayout);
       case Routes.products:
         return _page(const AllProductsScreen(), name: Routes.products);
       case Routes.product:

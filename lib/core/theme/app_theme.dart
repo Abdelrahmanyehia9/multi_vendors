@@ -16,7 +16,9 @@ class AppTheme {
     elevation: 0 ,
     surfaceTintColor: Colors.transparent,
     centerTitle: true,
-    leadingWidth: 50,
+    leadingWidth: 60,
+    toolbarHeight: 60,
+
     actionsPadding: EdgeInsets.symmetric(horizontal: 4),
   ) ;
 
@@ -30,6 +32,7 @@ class AppTheme {
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
     dividerColor: Colors.transparent,
+
     dividerTheme: const DividerThemeData(
       color: AppColors.grey200,
       thickness: 1.5,
@@ -45,6 +48,7 @@ class AppTheme {
     fontFamily: TextStyles.fontFamily,
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
+
     dividerColor: Colors.transparent,
     dividerTheme: const DividerThemeData(
       color: AppColors.grey700,
