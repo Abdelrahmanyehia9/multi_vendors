@@ -7,14 +7,13 @@ import '../../../../../core/theme/text_styles.dart';
 class ProfileListTile extends StatelessWidget {
   final String title ;
   final IconData icon  ;
-  final GestureTapCallback? onTap ;
+  final void Function(BuildContext)? onTap ;
   const ProfileListTile({super.key, this.onTap , required this.icon , required this.title});
 
   @override
   Widget build(BuildContext context) {
     return  ListTile(
-
-      onTap: onTap,
+      onTap: ()=>onTap?.call(context),
       contentPadding: EdgeInsets.zero,
       leading: CircleAvatar(
           backgroundColor: AppColors.primary,

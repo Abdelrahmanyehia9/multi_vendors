@@ -9,4 +9,6 @@ static const bool hasNews = true;
 static const bool enableProductVariants = true;
 static const bool enableMultiShipping = true;
 static const bool enableProductFilters = true;
+static const bool enableForgetPassword = true;
+static const bool enableMultiLanguage = true;
 }

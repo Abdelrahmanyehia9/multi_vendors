@@ -264,7 +264,7 @@ class AppButton extends StatelessWidget {
         height: size?.height,
         alignment: Alignment.center,
         padding:
-        padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+        padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
         decoration: BoxDecoration(
           gradient: resolvedGradient,
           color: resolvedGradient == null ? _resolveButtonColor(context) : null,
@@ -290,7 +290,7 @@ class AppButton extends StatelessWidget {
                 text,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: (style ?? TextStyles.bodyLarge).copyWith(
+                style: (style ?? TextStyles.bodyMedium).copyWith(
                   color: _resolveTextColor(context),
                 ),
               ),

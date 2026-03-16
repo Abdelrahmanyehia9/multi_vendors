@@ -10,5 +10,8 @@ class Routes {
   static const String vendors = '/vendors';
   static const String vendor = '/vendor';
   static const String favorites = '/favorites';
+  static const String editProfile = '/editProfile';
+  static const String changePassword = '/changePassword';
+static const String settings = '/settings';
 
 }

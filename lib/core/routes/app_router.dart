@@ -3,8 +3,11 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/main/layout.dart';
 import '../../features/authentication/view/login_screen.dart';
 import '../../features/main/favorite/view/favorite_screen.dart';
+import '../../features/main/profile/view/change_password_screen.dart';
+import '../../features/main/profile/view/edit_profile_screen.dart';
 import '../../features/news/view/all_news_screen.dart';
 import '../../features/news/view/news_item_details.dart';
+import '../../features/settings/view/settings_screen.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
@@ -36,6 +39,12 @@ class AppRouter {
         return _page(const VendorDetailsScreen(), name: Routes.vendor);
       case Routes.favorites:
         return _page(const FavoriteScreen(), name: Routes.favorites);
+       case Routes.editProfile:
+        return _page(const EditProfileScreen(), name: Routes.editProfile);
+       case Routes.changePassword:
+         return _page(const ChangePasswordScreen(), name: Routes.changePassword);
+       case Routes.settings:
+         return _page(const SettingsScreen(), name: Routes.settings);
       default:
         return null;
     }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/rating_stars.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -15,6 +19,7 @@ import 'package:multi_vendor/features/shop/product/view/widgets/product_info_sec
 import 'package:multi_vendor/features/shop/product/view/widgets/product_variant.dart';
 import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/scaffold/base_appbar.dart';
+import '../../../../core/routes/routes.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
@@ -43,7 +48,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           children: [
             const AppSlider(images: [Testing.menShirt],),
             _buildRating(),
-            const ProductNameWithPrice(),
+            _buildMainInfo(),
              const Divider(height: 0),
             /// product details
             const ProductInfoSection(
@@ -87,5 +92,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       Text("Outwear", style: TextStyles.captionMedium),
     ],
   );
+  Widget _buildMainInfo()=>Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    spacing: 4.h,
+    children: [
+      const ProductNameWithPrice(),
+      if(AppConstants.multiVendor)
+      AppClick(
+        onTap: ()=>context.pushNamed(Routes.vendor),
+        child: const Row(
+          spacing: 4,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Store"),
+           CircularBox(
+                child: AppCachedNetworkImage(Testing.vendor, width: 18,),
+
+            )
+          ],
+        ),
+      ),
+    ],
+  ) ;
+
 }
 
