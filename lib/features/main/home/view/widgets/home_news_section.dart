@@ -11,10 +11,12 @@ class HomeNewsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         SectionHeader(title: "Featured News", onActionTap: ()=>context.pushNamed(Routes.news),),
-        const NewsList(
-          shrinkWrap: true,
+        SectionHeader(
+          title: "Featured News",
+          hasAction: true,
+          onActionTap: () => context.pushNamed(Routes.news),
         ),
+        const NewsList(shrinkWrap: true),
       ],
     );
   }

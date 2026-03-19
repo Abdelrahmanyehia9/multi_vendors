@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -11,10 +12,14 @@ import 'package:multi_vendor/features/main/home/view/widgets/home_news_section.d
 import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_categories.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_product_tags.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_vendors_section.dart';
-import '../../../../core/utils/app_constants.dart';
+import '../../../../core/utils/feature_flags.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final GestureTapCallback onSearch;
+  const HomeScreen({
+    super.key,
+    required this.onSearch,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,47 +27,74 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        const HomeAppBar().appPaddingHr,
+          const HomeAppBar().appPaddingHr,
           Gap.small(),
-          _buildSearchTextField(),
+          StoreSearchBar(onTap: onSearch).appPaddingHr,
           const HomeBanner(),
           Gap.small(),
-          if(AppConstants.multiVendor)
-          const HomeVendorsSection().appPaddingHr,
+          if (FeatureFlags.multiVendor) const HomeVendorsSection().appPaddingHr,
           const HomeShopByCategories().appPaddingAll,
           const HomeNewArrival().appPaddingHr,
-          if(AppConstants.shopByTags)
-          const ShopByProductTags().appPaddingAll,
-          if(AppConstants.hasNews)
-          const HomeNewsSection().appPaddingHr,
-
+          if (FeatureFlags.shopByTags) const ShopByProductTags().appPaddingAll,
+          if (FeatureFlags.hasNews) const HomeNewsSection().appPaddingHr,
         ],
       ),
     );
   }
-  Widget _buildSearchTextField(){
+}
+
+class StoreSearchBar extends StatelessWidget {
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
+  final GestureTapCallback? onTap;
+
+  const StoreSearchBar({
+    super.key,
+    this.focusNode,
+    this.onTap,
+     this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (focusNode == null) return _buildColumn();
+
+    return ListenableBuilder(
+      listenable: focusNode!,
+      builder: (context, _) => _buildColumn(),
+    );
+  }
+
+  Widget _buildColumn() {
+    bool hasFocus= focusNode == null || !focusNode!.hasFocus ;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    spacing: 8.sp,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (hasFocus)
         Text.rich(
-            TextSpan(
-                text: "Discover Your Best ",
-                style: TextStyles.labelLarge,
-                children: [
-                  TextSpan(text: "Fashion !", style: TextStyles.labelLarge.copyWith(
-                      color: AppColors.primary
-                  ))
-                ]
-            )
+          TextSpan(
+            text: "Discover Your Best ",
+            style: TextStyles.labelLarge,
+            children: [
+              TextSpan(
+                text: "Fashion !",
+                style: TextStyles.labelLarge.copyWith(color: AppColors.primary),
+              ),
+            ],
+          ),
         ),
-        Gap.extraSmall(),
-        AppTextField(
-          hintText: 'Search',
-          padding: EdgeInsets.zero,
-          hintStyle: TextStyles.captionMedium,
-          prefix: const Icon(Icons.search),
-        )
-      ],
-    ).appPaddingHr ;
+      AppTextField(
+        focusNode: focusNode,
+        hintText: 'Search',
+        padding: hasFocus ?  EdgeInsets.zero : EdgeInsets.symmetric(horizontal: 16.w),
+        borderType: AppBorderType.filled,
+        controller: controller,
+        onTap: onTap,
+        hintStyle: TextStyles.captionMedium,
+        prefix: !hasFocus? null :  const Icon(Icons.search),
+      ),
+    ],
+  );
   }
 }

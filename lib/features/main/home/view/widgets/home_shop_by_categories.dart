@@ -20,7 +20,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         SectionHeader(title: "Categories", onActionTap: ()=>context.pushNamed(Routes.products),),
+         SectionHeader(title: "Categories", hasAction: true,onActionTap: ()=>context.pushNamed(Routes.products),),
         _Categories(selectedItem: _selectedItem),
         Gap.medium(),
         const ProductGrid(shrinkWrap: true,),

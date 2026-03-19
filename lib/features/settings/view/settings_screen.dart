@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
@@ -9,9 +8,8 @@ import '../../main/profile/view/widgets/profile_list_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
   static final List<ListTileData> _list = [
-    if (AppConstants.enableMultiLanguage)
+    if (FeatureFlags.enableMultiLanguage)
       ("Languange", Icons.language, null),
   ];
   @override
@@ -27,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
             onTap: _list[index].$3,
           ),
         ),
-      ).appPaddingHr,
+      ),
     );
   }
 }

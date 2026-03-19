@@ -14,7 +14,7 @@ class HomeNewArrival extends StatelessWidget {
       spacing: 8.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(title: "New arrival", action: "View details",onActionTap: ()=>context.pushNamed(Routes.product),),
+        SectionHeader(title: "New arrival",hasAction: true ,action: "View details",onActionTap: ()=>context.pushNamed(Routes.product),),
         ProductCard.big()
       ],
     );

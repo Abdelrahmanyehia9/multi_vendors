@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../../core/theme/app_colors.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import '../../../../../../core/theme/text_styles.dart';
 import '../../../../../../core/widgets/gap.dart';
 
@@ -27,15 +26,15 @@ class ProductInfoSection extends StatelessWidget {
           style:
           TextStyles.labelMedium.copyWith(
             fontWeight: FontWeightHelper.black,
-            fontSize: 12.sp,
+            fontSize: 14.sp,
           ),
         ),
         Gap.extraSmall(),
         customBody ?? Text(
           body!,
           style: TextStyles.captionMedium.copyWith(
-            color: AppColors.grey600,
-            fontSize: 12.sp,
+            color: context.colors.surfaceContainerHigh,
+            fontSize: 13.sp,
           ),
         ),
       ],

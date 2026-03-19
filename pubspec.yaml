@@ -41,6 +41,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   url_launcher: ^6.3.2
   get_it: ^8.2.0
+  intl_phone_field: ^3.2.0
+  carousel_slider: ^5.1.2
 
 dev_dependencies:
   flutter_test:

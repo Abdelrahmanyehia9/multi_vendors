@@ -25,7 +25,7 @@ class HomeAppBar extends StatelessWidget {
         _nameWithLocation(),
         Gap.small(),
         /// Notifications
-        const AppIconButton(icon: Icons.shopping_bag),
+         AppIconButton(icon: Icons.shopping_bag, onTap: ()=>context.pushNamed(Routes.cart)),
         Gap.small(),
         /// Cart
         const Badge(

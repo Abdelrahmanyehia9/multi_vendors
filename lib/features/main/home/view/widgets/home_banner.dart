@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import '../../../../../core/routes/routes.dart';
 import '../../../../../core/utils/testing.dart';
 import '../../../../../core/widgets/gap.dart';
 
@@ -61,6 +63,7 @@ class _Slide extends StatelessWidget {
                       AppButton(
                         text: "Shop Now",
                         style: TextStyles.bodySmall,
+                        onPressed: ()=> context.pushNamed(Routes.products),
                         fixedSize: const Size(100, 30),
                         padding: EdgeInsets.zero,
                         buttonSize: null,

@@ -1,6 +1,10 @@
 class Routes {
   const Routes._() ;
-  static const String loginScreen = '/loginScreen';
+
+  static const String splash = '/splash';
+  static const String onBoarding = '/onBoarding';
+  static const String loginScreen = '/login';
+  static const String signup = '/signup';
   static const String mainLayout = '/mainLayout';
   static const String products = '/products';
   static const String product = '/product';
@@ -13,5 +17,10 @@ class Routes {
   static const String editProfile = '/editProfile';
   static const String changePassword = '/changePassword';
 static const String settings = '/settings';
+static const String cart = '/cart';
+static const String promo = '/promo';
+static const String checkout = '/checkout';
+static const String orderSuccess = '/orderSuccess';
+static const String orderDetails = '/orderDetails';
 
 }

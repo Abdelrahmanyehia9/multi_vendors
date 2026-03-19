@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import '../theme/app_colors.dart';
 
@@ -19,24 +20,28 @@ class RatingStars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    if(FeatureFlags.enableRating){
+      return Row(
 
-      children: [
-        ...List.generate(5, (i) => _buildStar(i, context)),
-        if (count != null && count! > 0) ...[
-          Gap.extraSmall(),
-          Text(
-            "($count)",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyles.bodySmall.copyWith(
-              color: context.colors.surfaceContainer,
-              fontSize: (size - 6).sp,
+        children: [
+          ...List.generate(5, (i) => _buildStar(i, context)),
+          if (count != null && count! > 0) ...[
+            Gap.extraSmall(),
+            Text(
+              "($count)",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyles.bodySmall.copyWith(
+                color: context.colors.surfaceContainer,
+                fontSize: (size - 6).sp,
+              ),
             ),
-          ),
-        ]
-      ],
-    );
+          ]
+        ],
+      );
+    }else{
+      return const SizedBox.shrink();
+    }
   }
 
   Widget _buildStar(int i, BuildContext context) {

@@ -16,6 +16,14 @@ extension Navigation on BuildContext {
         .pushNamedAndRemoveUntil(routeName, predicate, arguments: arguments);
   }
 
+  void popUntil({String? routeName, Object? arguments}) {
+    if (routeName != null) {
+      Navigator.of(this).popUntil((route) => route.settings.name == routeName);
+    } else {
+      Navigator.of(this).popUntil((route) => route.isFirst);
+    }
+  }
+
   void pop() => Navigator.of(this).pop();
   bool canPop() => Navigator.of(this).canPop();
 }

@@ -1,33 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/profile/view/profile_screen.dart';
+import 'package:multi_vendor/features/main/search/view/search_screen.dart';
+import '../../core/cubit/search_cubit.dart';
 import '../../core/widgets/scaffold/base_navbar.dart';
+import '../shop/history/view/order_history_screen.dart';
 import 'favorite/view/favorite_screen.dart';
 import 'home/view/home_screen.dart';
 
 class MainLayout extends StatefulWidget {
-  final int initially;
-  const MainLayout({super.key, this.initially = 0});
+  final int initialIndex;
+  const MainLayout({super.key, this.initialIndex = 0});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
 }
 
 class _MainLayoutState extends State<MainLayout> {
-  final List<NavbarItem> items = [
-    NavbarItem(icon: Icons.home, label: "Home", page: const HomeScreen()),
-    NavbarItem(icon: Icons.search, label: "Search", page: const SizedBox()),
-    NavbarItem(icon: Icons.favorite, label: "favorite", page: const FavoriteScreen()),
-    NavbarItem(icon: Icons.history, label: "History", page: const SizedBox(), toolTip: "Order History"),
-    NavbarItem(icon: Icons.person, label: "profile", page: const ProfileScreen()),
-  ];
-
   final ValueNotifier<int> _selectedPage = ValueNotifier(0);
+  late final List<NavbarItem> items;
 
   @override
   void initState() {
-    _selectedPage.value = widget.initially;
     super.initState();
+    items = [
+      NavbarItem(
+        icon: Icons.home,
+        label: "Home",
+        page: HomeScreen(
+          onSearch: () => _selectedPage.value = 1,
+        ),
+      ),
+      NavbarItem(
+        icon: Icons.search,
+        label: "Search",
+        page: BlocProvider(
+            create: (context) => SearchCubit(),
+            child: const SearchScreen())
+      ),
+      NavbarItem(icon: Icons.favorite, label: "favorite", page: const FavoriteScreen()),
+      NavbarItem(icon: Icons.history, label: "History", page: const OrderHistoryScreen(), toolTip: "Order History"),
+      NavbarItem(icon: Icons.person, label: "profile", page: const ProfileScreen()),
+    ];
+    _selectedPage.value = widget.initialIndex;
   }
 
   @override
@@ -46,6 +62,8 @@ class _MainLayoutState extends State<MainLayout> {
           if (!didPop) _selectedPage.value = 0;
         },
         child: BaseScaffold(
+          paddingHr: 0,
+          paddingVr: 0,
           bottomNavigationBar: BaseNavbar(
             key: ValueKey(value),
             showLabel: true,

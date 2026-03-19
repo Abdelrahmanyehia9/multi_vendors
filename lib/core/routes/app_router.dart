@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/main/layout.dart';
 import '../../features/authentication/view/login_screen.dart';
+import '../../features/authentication/view/sign_up_screen.dart';
+import '../../features/intro/view/on_boarding_screen.dart';
+import '../../features/intro/view/splash_screen.dart';
 import '../../features/main/favorite/view/favorite_screen.dart';
 import '../../features/main/profile/view/change_password_screen.dart';
 import '../../features/main/profile/view/edit_profile_screen.dart';
 import '../../features/news/view/all_news_screen.dart';
 import '../../features/news/view/news_item_details.dart';
 import '../../features/settings/view/settings_screen.dart';
+import '../../features/shop/cart/view/apply_promo_voucher.dart';
+import '../../features/shop/cart/view/cart_screen.dart';
+import '../../features/shop/checkout/view/checkout_screen.dart';
+import '../../features/shop/checkout/view/order_success.dart';
+import '../../features/shop/history/view/order_details_screen.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
@@ -18,11 +26,17 @@ class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     // final arguments = settings.arguments;
     switch (settings.name) {
+      case Routes.splash:
+        return _page(const SplashScreen(), name: Routes.splash);
+       case Routes.onBoarding:
+        return _page(const OnBoardingScreen(), name: Routes.onBoarding);
       case Routes.loginScreen:
         return _page(const LoginScreen(), name: Routes.loginScreen);
+      case Routes.signup:
+        return _page(const SignUpScreen(), name: Routes.signup);
       case Routes.mainLayout:
-        final int? initial = settings.arguments as int?;
-        return  _page(MainLayout(initially: initial ?? 0), name: Routes.mainLayout);
+        final int? initialIndex = settings.arguments as int?;
+        return  _page(MainLayout(initialIndex: initialIndex ?? 0), name: Routes.mainLayout);
       case Routes.products:
         return _page(const AllProductsScreen(), name: Routes.products);
       case Routes.product:
@@ -45,6 +59,16 @@ class AppRouter {
          return _page(const ChangePasswordScreen(), name: Routes.changePassword);
        case Routes.settings:
          return _page(const SettingsScreen(), name: Routes.settings);
+       case Routes.cart:
+         return _page(const CartScreen(), name: Routes.cart);
+       case Routes.promo:
+         return _page(const ApplyPromoVoucher(), name: Routes.promo);
+        case Routes.checkout:
+          return _page(const CheckoutScreen(), name: Routes.checkout);
+        case Routes.orderSuccess:
+          return _page(const OrderSuccessScreen(), name: Routes.orderSuccess);
+        case Routes.orderDetails:
+          return _page(const OrderDetailsScreen(), name: Routes.orderDetails);
       default:
         return null;
     }

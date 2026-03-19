@@ -9,7 +9,8 @@ class SectionHeader extends StatelessWidget {
   final double verticalSpace ;
   final bool hasAction ;
   final GestureTapCallback? onActionTap ;
-  const SectionHeader({super.key,this.onActionTap ,this.hasAction =true,this.verticalSpace =8 ,required this.title , this.action});
+  final Widget? customAction ;
+  const SectionHeader({super.key,this.onActionTap, this.customAction ,this.hasAction =false,this.verticalSpace =8 ,required this.title , this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +19,21 @@ class SectionHeader extends StatelessWidget {
         Text(title, style: TextStyles.bodyMedium,),
         const Spacer(),
         if (hasAction)
-        AppButton.text(text: action??"View all",style: TextStyles.bodySmall,
-          onPressed:  onActionTap,
-
-        )
+          _buildAction(),
       ],
     ).paddingVr(verticalSpace);
   }
+
+  Widget _buildAction(){
+    late final Widget widget ;
+    if(customAction!=null) {
+      widget = customAction!;
+    }else{
+      widget =AppButton.text(text: action??"View all",style: TextStyles.bodySmall,
+          onPressed:  onActionTap);
+    }
+    return widget;
+  }
+
 }
+

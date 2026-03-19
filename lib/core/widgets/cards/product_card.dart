@@ -5,7 +5,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -29,7 +29,7 @@ class ProductGrid extends StatelessWidget {
          mainAxisSpacing: 21.w,
          crossAxisSpacing: 24.h,
          childAspectRatio:
-         ProductCard.smallSize.width / ProductCard.smallSize.height,
+         ProductCard.smallSize.aspectRatio,
        ),
        delegate: SliverChildBuilderDelegate(
              (_, __) => ProductCard.small(),
@@ -46,7 +46,7 @@ class ProductGrid extends StatelessWidget {
             crossAxisCount: 2 ,
         crossAxisSpacing: 21.h,
         mainAxisSpacing: 24.h,
-        childAspectRatio: ProductCard.smallSize.width / ProductCard.smallSize.height,
+        childAspectRatio: ProductCard.smallSize.aspectRatio,
         ),
         itemBuilder: (_,__)=>  ProductCard.small());
   }
@@ -80,7 +80,7 @@ class ProductCard extends StatelessWidget {
     final h = size.height.h;
 
     return AppClick(
-      onTap:isBig ? null :  ()=>context.pushNamed(Routes.product),
+      onTap:()=>context.pushNamed(Routes.product),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
         child: SizedBox(
@@ -107,7 +107,7 @@ class ProductCard extends StatelessWidget {
               Gap.small(),
               RatingStars(rating: 3.6, count: 12, size: isBig ? 18 : 14),
               ProductNameWithPrice(isBig:  isBig,),
-              if (AppConstants.multiVendor) ...[
+              if (FeatureFlags.multiVendor) ...[
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -20,7 +20,7 @@ class BaseAppBar extends AppBar {
         actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
         scrolledUnderElevation: 0,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(24.h),
+          preferredSize: Size.fromHeight(8.h),
           child: const SizedBox.shrink(),
         ),
       );

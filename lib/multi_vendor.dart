@@ -20,7 +20,7 @@ class MultiVendors extends StatelessWidget {
         scrollBehavior: AppScrollBehavior(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: router.generateRoute,
-        initialRoute: Routes.mainLayout,
+        initialRoute: Routes.splash,
       ),
     );
   }

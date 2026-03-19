@@ -33,7 +33,7 @@ class ProductVariant<T> extends StatelessWidget {
   }
 
   Widget _buildVariantItem(T variant,BuildContext context ,{bool isActive = false}){
-    final Color surfaceLow = context.colors.surfaceContainer ;
+    final Color surfaceLow = context.colors.surfaceContainerLow ;
     if(variant is Color){
       return Stack(
         children: [

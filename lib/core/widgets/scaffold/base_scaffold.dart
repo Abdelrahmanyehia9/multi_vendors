@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
 class BaseScaffold extends StatelessWidget {
@@ -6,13 +7,15 @@ class BaseScaffold extends StatelessWidget {
   final Widget? bottomNavigationBar ;
   final bool topSafeArea ;
   final BaseAppBar? appBar ;
-  const BaseScaffold({super.key,this.topSafeArea = true, this.appBar  ,this.body, this.bottomNavigationBar});
+  final double paddingHr  ;
+  final double paddingVr ;
+  const BaseScaffold({super.key, this.paddingHr=16,this.paddingVr=16,this.topSafeArea = true, this.appBar  ,this.body, this.bottomNavigationBar});
 
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: appBar,
-      body: _buildBody(),
+      body: _buildBody()?.paddingHr(paddingHr).paddingVr(paddingVr),
       bottomNavigationBar: bottomNavigationBar,
     );
   }

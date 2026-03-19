@@ -16,11 +16,10 @@ class HomeVendorsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = 5;
+    final items = 22;
     final maxItems = 6;
     final displayCount = items < maxItems ? items : maxItems;
     final reminder = items - displayCount + 1;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,15 +37,13 @@ class HomeVendorsSection extends StatelessWidget {
                 lastOne,
                 context,
                 reminder: reminder,
-              );
-                  },
+              );},
             ),
           ),
         ),
       ],
     );
   }
-
   Widget _vendor(bool lastOne,BuildContext context, {required int reminder}) => AppClick(
     onTap: ()=> context.pushNamed(Routes.vendor),
     child: CircularBox(

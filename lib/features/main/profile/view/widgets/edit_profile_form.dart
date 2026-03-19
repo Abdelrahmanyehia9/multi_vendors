@@ -28,7 +28,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
   }
 
   Widget _textField({required String label, int? maxLines, bool readOnly = false})=>AppTextField(
-    borderType: TextFieldBorderType.outlined,
     borderWidth: 1.2,
     maxLines: maxLines??1,
     readOnly: readOnly,

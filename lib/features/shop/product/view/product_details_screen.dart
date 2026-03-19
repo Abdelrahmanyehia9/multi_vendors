@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
@@ -60,7 +59,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               body: "Men's Outwear",
             ),
 
-            if(AppConstants.enableProductVariants)...[
+            if(FeatureFlags.enableProductVariants)...[
               ProductInfoSection(
                 header: "Select Color",
                 customBody: ProductVariant<Color>(
@@ -80,7 +79,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             const AddToCartButton(),
             Gap.medium()
           ],
-        ).appPaddingHr,
+        ),
       ),
     );
   }
@@ -97,7 +96,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     spacing: 4.h,
     children: [
       const ProductNameWithPrice(),
-      if(AppConstants.multiVendor)
+      if(FeatureFlags.multiVendor)
       AppClick(
         onTap: ()=>context.pushNamed(Routes.vendor),
         child: const Row(

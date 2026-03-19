@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../theme/app_colors.dart';
 import '../theme/decorations.dart';
 import 'app_cached_network_image.dart';
 
@@ -11,7 +9,7 @@ class AppDropDown extends StatelessWidget {
   final ValueChanged<int?> onChanged;
   final String? hint;
   final bool enabled;
-
+  final AppInputDecoration decoration;
   final bool showText;
   final bool showImage;
 
@@ -21,6 +19,7 @@ class AppDropDown extends StatelessWidget {
     this.value,
     this.hint,
     this.enabled = true,
+    this.decoration = AppInputDecoration.instance,
     this.showText = true,
     this.showImage = false,
   });
@@ -33,12 +32,14 @@ class AppDropDown extends StatelessWidget {
     int? value,
     String? hint,
     bool enabled = true,
+    AppInputDecoration decoration = AppInputDecoration.instance,
   }) {
     return AppDropDown._(
       items: items.map((e) => DropDownItem.text(e)).toList(),
       onChanged: onChanged,
       value: value,
       hint: hint,
+      decoration: decoration,
       enabled: enabled,
     );
   }
@@ -48,6 +49,7 @@ class AppDropDown extends StatelessWidget {
     required ValueChanged<int?> onChanged,
     int? value,
     String? hint,
+    AppInputDecoration decoration = AppInputDecoration.instance,
     bool enabled = true,
   }) {
     return AppDropDown._(
@@ -57,6 +59,7 @@ class AppDropDown extends StatelessWidget {
       hint: hint,
       enabled: enabled,
       showText: false,
+      decoration: decoration,
       showImage: true,
     );
   }
@@ -66,6 +69,7 @@ class AppDropDown extends StatelessWidget {
     required ValueChanged<int?> onChanged,
     int? value,
     String? hint,
+    AppInputDecoration decoration = AppInputDecoration.instance,
     bool enabled = true,
   }) {
     return AppDropDown._(
@@ -74,6 +78,7 @@ class AppDropDown extends StatelessWidget {
       value: value,
       hint: hint,
       enabled: enabled,
+      decoration: decoration,
       showImage: true,
     );
   }
@@ -81,30 +86,19 @@ class AppDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int? initialValue;
-
     if (value != null && value! < items.length) {
       initialValue = value;
     } else if (items.isNotEmpty) {
       initialValue = 0;
     }
-
     return DropdownButtonFormField<int>(
       initialValue: initialValue,
       padding: EdgeInsets.symmetric(horizontal: 16.w,),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.zero,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
-              borderSide: const BorderSide(color: AppColors.grey200)
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-              borderSide: const BorderSide(color: AppColors.grey200)
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-              borderSide: const BorderSide(color: AppColors.grey)
-          )
+          border: decoration.getBorder(context),
+          enabledBorder: decoration.getBorder(context),
+          focusedBorder: decoration.getFocusedBorder(context)
       ),
       items: List.generate(
         items.length,

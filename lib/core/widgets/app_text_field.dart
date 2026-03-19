@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
+import '../theme/decorations.dart';
 import '../theme/text_styles.dart';
 import 'gap.dart';
-enum TextFieldBorderType { filled, outlined, underlined, none }
+
+enum AppBorderType { filled, outlined, underlined, none }
+
+enum AuthTextFieldType { email, phone, password }
 
 class AppTextField extends StatelessWidget {
-  final TextFieldBorderType borderType;
+  final AppBorderType borderType;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final String? initialValue;
@@ -63,7 +67,7 @@ class AppTextField extends StatelessWidget {
     this.onEditingComplete,
     this.textAlign,
     this.headerText,
-    this.borderType = TextFieldBorderType.filled,
+    this.borderType = AppBorderType.outlined,
     this.readOnly = false,
     this.padding,
     this.smartDashesType,
@@ -100,85 +104,10 @@ class AppTextField extends StatelessWidget {
     this.prefix,
     this.autocorrect = true,
     this.borderColor,
-    this.borderRadius = 10,
+    this.borderRadius = Decorations.borderRadius8,
     this.borderWidth = 0.5,
     this.scrollController,
   });
-
-  InputBorder _getBorder(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    switch (borderType) {
-      case TextFieldBorderType.filled:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide.none,
-        );
-      case TextFieldBorderType.outlined:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(
-            color: borderColor ?? theme.colorScheme.surfaceContainer,
-            width: borderWidth,
-          ),
-        );
-      case TextFieldBorderType.underlined:
-        return UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: borderColor ?? theme.colorScheme.surfaceContainer,
-            width: borderWidth,
-          ),
-        );
-      case TextFieldBorderType.none:
-        return InputBorder.none;
-    }
-  }
-  InputBorder _getFocusedBorder(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    switch (borderType) {
-      case TextFieldBorderType.filled:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide.none,
-        );
-      case TextFieldBorderType.outlined:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(
-            color: borderColor ?? theme.colorScheme.surfaceContainerHighest,
-            width: borderWidth,
-          ),
-        );
-      case TextFieldBorderType.underlined:
-        return UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: borderColor ?? theme.colorScheme.surfaceContainerHighest,
-            width: borderWidth,
-          ),
-        );
-      case TextFieldBorderType.none:
-        return InputBorder.none;
-    }
-  }
-  InputBorder _getErrorBorder() {
-    switch (borderType) {
-      case TextFieldBorderType.filled:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: AppColors.error, width: borderWidth),
-        );
-      case TextFieldBorderType.outlined:
-        return OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: BorderSide(color: AppColors.error, width: borderWidth),
-        );
-      case TextFieldBorderType.underlined:
-        return UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.error, width: borderWidth),
-        );
-      case TextFieldBorderType.none:
-        return InputBorder.none;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +125,23 @@ class AppTextField extends StatelessWidget {
   }
 
   Widget _textField(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    final AppInputDecoration decorations = AppInputDecoration.instance.copyWith(
+      borderType: borderType,
+      borderRadius: borderRadius,
+      borderWidth: borderWidth,
+      borderColor: borderColor,
+      helperStyle: helperStyle,
+      hintStyle: hintStyle,
+      labelStyle: labelStyle,
+      errorStyle: errorStyle,
+      padding: padding,
+      filledColor: filledColor,
+      hintText: hintText,
+      labelText: labelText,
+      helperText: helperText,
+      suffix: suffix,
+      prefix: prefix,
+    );
     return TextFormField(
       obscureText: obscureText,
       enabled: enabled,
@@ -228,41 +173,8 @@ class AppTextField extends StatelessWidget {
       style: style ?? TextStyles.bodyMedium,
       cursorColor: AppColors.primary,
       autovalidateMode: autoValidateMode,
-      decoration: InputDecoration(
-        prefixIconColor: theme.colorScheme.surfaceContainer,
-        contentPadding: padding,
-        suffixIconColor: theme.colorScheme.surfaceContainer,
-        filled: borderType == TextFieldBorderType.filled,
-        fillColor:
-        filledColor ??
-            (borderType == TextFieldBorderType.filled
-                ? theme.colorScheme.surfaceContainerLow
-                : null),
-        prefixIcon: prefix,
-        suffixIcon: suffix,
-        helperText: helperText,
-        hintText: hintText,
-        helperStyle: helperStyle,
-        errorStyle: errorStyle,
-        counterText: hideCounter ? '' : null,
-        hintStyle:
-        hintStyle ??
-            TextStyles.bodyMedium.copyWith(
-              color: theme.colorScheme.surfaceContainer,
-            ),
-        labelStyle:
-        labelStyle ??
-            TextStyles.bodyMedium.copyWith(
-              color: theme.colorScheme.surfaceContainer,
-            ),
-        labelText: labelText,
-        border: _getBorder(context),
-        enabledBorder: _getBorder(context),
-        disabledBorder: _getBorder(context),
-        focusedBorder: _getFocusedBorder(context),
-        errorBorder: _getErrorBorder(),
-        focusedErrorBorder: _getErrorBorder(),
-      ),
+      decoration: decorations.inputDecoration(context),
     );
   }
 }
+

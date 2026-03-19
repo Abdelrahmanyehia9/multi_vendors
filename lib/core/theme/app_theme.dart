@@ -71,9 +71,9 @@ class _ColorScheme {
     onTertiary: Colors.white,
     error: AppColors.error,
     onError: Colors.white,
-    surfaceContainerLowest: AppColors.grey50,
-    surfaceContainerLow: AppColors.grey200,
-    surfaceContainer: AppColors.grey300,
+    surfaceContainerLowest: AppColors.grey200,
+    surfaceContainerLow: AppColors.grey300,
+    surfaceContainer: AppColors.grey500,
     surfaceContainerHigh: AppColors.grey700,
     surfaceContainerHighest: AppColors.grey900,
   );

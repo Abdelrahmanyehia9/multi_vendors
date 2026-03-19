@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/cards/news_card.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/scaffold/base_appbar.dart';
@@ -19,11 +18,10 @@ class AllNewsScreen extends StatelessWidget {
         children: [
           _buildSearchField(),
           const Expanded(
-            child: NewsList(
-            ),
+            child: NewsList(),
           ),
         ],
-      ).appPaddingHr,
+      ),
     );
   }
 

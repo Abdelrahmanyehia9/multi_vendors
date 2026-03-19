@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -30,13 +29,12 @@ class ChangePasswordScreen extends StatelessWidget {
           const AppButton(
             text: "Change Password", buttonSize: null,),
         ],
-      ).appPaddingHr,
+      ),
     );
 
 
   }
   Widget _textField({required String label, int? maxLines, bool readOnly = false})=>AppTextField(
-    borderType: TextFieldBorderType.outlined,
     borderWidth: 1.2,
     maxLines: maxLines??1,
     readOnly: readOnly,

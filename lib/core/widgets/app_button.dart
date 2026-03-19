@@ -324,7 +324,7 @@ class AppIconButton extends StatelessWidget {
       onPressed: onTap,
       toolTip: tooltip,
       fixedSize: Size(size*2, size*2),
-      color: backGroundColor ?? context.colors.surfaceContainerLow,
+      color: backGroundColor ?? context.colors.surfaceContainerLowest,
         icon: Icon(icon,size: size.sp, color: iconColor ?? context.colors.surfaceContainerHigh,)
     );
   }
