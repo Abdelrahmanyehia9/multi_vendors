@@ -77,8 +77,8 @@ class SliderDots extends StatelessWidget {
       children: List.generate(
         total,
             (index) => AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: EdgeInsets.symmetric(horizontal: 4.w),
+          duration: const Duration(milliseconds: 400),
+          margin: EdgeInsets.symmetric(horizontal: 2.w),
           width: currentIndex == index ? 30.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(

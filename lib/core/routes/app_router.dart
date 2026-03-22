@@ -16,6 +16,8 @@ import '../../features/shop/cart/view/cart_screen.dart';
 import '../../features/shop/checkout/view/checkout_screen.dart';
 import '../../features/shop/checkout/view/order_success.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
+import '../../features/shop/history/view/rate_order_screen.dart';
+import '../../features/shop/history/view/rate_product_screen.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
@@ -69,6 +71,10 @@ class AppRouter {
           return _page(const OrderSuccessScreen(), name: Routes.orderSuccess);
         case Routes.orderDetails:
           return _page(const OrderDetailsScreen(), name: Routes.orderDetails);
+        case Routes.rateOrder:
+          return _page(const RateOrderScreen(), name: Routes.rateOrder);
+        case Routes.rateProduct:
+          return _page(const RateProductScreen(), name: Routes.rateProduct);
       default:
         return null;
     }

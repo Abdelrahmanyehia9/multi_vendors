@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -13,11 +14,13 @@ import '../../../../core/widgets/app_text_field.dart';
 class PasswordField extends StatefulWidget {
   final String hint;
   final String header;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   const PasswordField({
     super.key,
     this.hint = "Enter Your Password",
     this.header = "Password",
+    this.controller,
     this.validator = AppValidation.validatePassword,
   });
 
@@ -33,6 +36,7 @@ class _PasswordFieldState extends State<PasswordField> {
         builder: (context, value, child) {
           return AppTextField(
             hintText: widget.hint,
+            controller: widget.controller,
             autoValidateMode: AutovalidateMode.disabled,
             borderType: AppBorderType.filled,
             validator: widget.validator,
@@ -53,22 +57,26 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 class EmailField extends StatelessWidget {
-  const EmailField({super.key});
+  final TextEditingController? controller ;
+  const EmailField({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return const AppTextField(
+    return  AppTextField(
       hintText: "Enter Your Email",
+      controller: controller,
       headerText: "Email Address",
       validator: AppValidation.validateEmail,
       keyboardType: TextInputType.emailAddress,
-      suffix: Icon(Icons.email),
+      suffix: const Icon(Icons.email),
       borderType: AppBorderType.filled,
     );
   }
 }
 class PhoneField extends StatelessWidget {
-  const PhoneField({super.key});
+  final TextEditingController? controller ;
+  final void Function(Country)? onCountryChanged;
+  const PhoneField({super.key, this.controller, this.onCountryChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +90,15 @@ class PhoneField extends StatelessWidget {
             FilteringTextInputFormatter.digitsOnly,
           ],
           initialCountryCode: 'EG',
+
+          controller: controller,
           pickerDialogStyle: PickerDialogStyle(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             backgroundColor: context.scaffoldBackground,
             searchFieldInputDecoration: decoration(context, hintText: "search ...."),
           ),
           flagsButtonMargin: EdgeInsets.symmetric(horizontal: 16.w),
-          onCountryChanged: (value) {},
+          onCountryChanged: onCountryChanged,
           showDropdownIcon: false,
           decoration:decoration(context, hintText: "Enter  Phone Number",),
         ),

@@ -35,18 +35,14 @@ class OnboardingItem extends StatelessWidget {
           width: double.infinity,
           radius: Decorations.borderRadius16,
         ),
-
         /// dots
         SliderDots(
           total: total,
           currentIndex: currentIndex,
         ),
-
         Gap.extraLarge(),
-
         /// title
         _buildTitle(item),
-
         /// description
         Text(
           item.description,

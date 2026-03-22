@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 
-class SplashLogic{
+class SplashLogic {
   const SplashLogic._();
 
-
-  static Future<void>init(BuildContext context)async{
-   await Future.delayed(const Duration(seconds: 3)) ;
-   if(context.mounted){
-     context.pushNamed(Routes.onBoarding) ;
-   }
+  static Future<void> init(BuildContext context) async {
+    userCubit.init();
   }
-
-
 }

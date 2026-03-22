@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
@@ -20,6 +21,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   static const List<OnBoardingItemData> items = AppConstants.items;
   final PageController _pageController = PageController();
   final _currentIndexNotifier = ValueNotifier(0);
+
   void _next(isLast) {
     if (isLast) {
       _onFinish();
@@ -32,53 +34,51 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
   void _onFinish() {
+    userCubit.finishIntro() ;
     context.pushReplacementNamed(Routes.mainLayout);
   }
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       paddingHr: 0,
-        body: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: items.length,
-                onPageChanged: (i) => _currentIndexNotifier.value = i,
-                itemBuilder: (_, i) => OnboardingItem(
-                  item: items[i],
-                  currentIndex: i,
-                  total: items.length,
-                ),
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: items.length,
+              onPageChanged: (i) => _currentIndexNotifier.value = i,
+              itemBuilder: (_, i) => OnboardingItem(
+                item: items[i],
+                currentIndex: i,
+                total: items.length,
               ),
             ),
-            ValueListenableBuilder(
-              valueListenable: _currentIndexNotifier,
-              builder: (context, value, _) {
-                final isLast = value == items.length - 1;
-                return _action(isLast);
-              },
-            ),
-          ],
-        )    );
-
-
-  }
-Widget _action(bool isLast)=>Column(
-  spacing: 8.h,
-  children: [
-    AppButton(
-      text: isLast ? "Get Started" : "Next",
-      buttonSize: null,
-      onPressed:()=> _next(isLast),
-    ),
-    if (!isLast)
-      AppButton.outlined(
-        text: "Skip",
-        onPressed:_onFinish,
+          ),
+          ValueListenableBuilder(
+            valueListenable: _currentIndexNotifier,
+            builder: (context, value, _) {
+              final isLast = value == items.length - 1;
+              return _action(isLast);
+            },
+          ),
+        ],
       ),
-  ],
-).appPaddingHr;
+    );
+  }
+
+  Widget _action(bool isLast) => Column(
+    spacing: 8.h,
+    children: [
+      AppButton(
+        text: isLast ? "Get Started" : "Next",
+        buttonSize: null,
+        onPressed: () => _next(isLast),
+      ),
+      if (!isLast) AppButton.outlined(text: "Skip", onPressed: _onFinish),
+    ],
+  ).appPaddingHr;
+
   @override
   void dispose() {
     _pageController.dispose();

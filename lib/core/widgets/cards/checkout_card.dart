@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
 
 import '../../theme/decorations.dart';
 import '../../theme/text_styles.dart';
@@ -37,45 +38,57 @@ class CheckoutProductList extends StatelessWidget {
 
 
 class CheckoutProductCard extends StatelessWidget {
-  final double height ; 
-  const CheckoutProductCard({super.key, this.height = 70});
+  final double height ;
+  final Widget? customAction;
+  final GestureTapCallback? onTap ;
+  const CheckoutProductCard({super.key,this.customAction, this.onTap ,this.height = 70});
 
   @override
   Widget build(BuildContext context) {
     final width = context.width;
-    return SizedBox(
-      height: height.h,
-      child: Row(
-        children: [
-          AppCachedNetworkImage(
-            Testing.menShirt,
-            width: width * 0.2,
-            height: height,
-            radius: Decorations.borderRadius8,
-          ),
-          Gap.small(),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Men's Shirts", maxLines: 1,overflow: TextOverflow.ellipsis,  style: TextStyles.labelMedium,),
-                _buildVariation(),
-              ],
+    return AppClick(
+      onTap: onTap,
+      child: SizedBox(
+        height: height.h,
+        child: Row(
+          children: [
+            AppCachedNetworkImage(
+              Testing.menShirt,
+              width: width * 0.2,
+              height: height,
+              radius: Decorations.borderRadius8,
             ),
-          ),
-          Text("x5", style: TextStyles.labelMedium.copyWith(color: AppColors.primary),).paddingHr(8)
-        ],
+            Gap.small(),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Men's Shirts", maxLines: 1,overflow: TextOverflow.ellipsis,  style: TextStyles.labelMedium.copyWith(fontSize: (height*.25).sp),),
+                   _buildVariation(),
+                ],
+              ),
+            ),
+           if(customAction!=null) customAction! else Text("x5", style: TextStyles.labelMedium.copyWith(color: AppColors.primary),).paddingHr(8)
+          ],
+        ),
       ),
     ); 
   
   }
-  Widget _buildVariation()=>Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("Size : Large", style: TextStyles.captionMedium,),
-      Text("color : Green", style: TextStyles.captionMedium,),
+  Widget _buildVariation()=>Expanded(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: Text("Size : Large", style: TextStyles.captionMedium.copyWith(
+          fontSize: (height*.2).sp
+        ),)),
+        Expanded(child: Text("color : Green", style: TextStyles.captionMedium.copyWith(
+          fontSize: (height*.2).sp
+        ),)),
 
-    ],
-  ).paddingHr(4);
+      ],
+    ).paddingHr(4),
+  );
 
 }

@@ -22,5 +22,8 @@ static const String promo = '/promo';
 static const String checkout = '/checkout';
 static const String orderSuccess = '/orderSuccess';
 static const String orderDetails = '/orderDetails';
+static const String  rateOrder = '/rateOrder';
+static const String  rateProduct = '/rateProduct';
+
 
 }

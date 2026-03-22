@@ -29,6 +29,7 @@ class AppConstants {
     titleHighlighter: null
     ),
   ];
-
+  static const  String supabaseUrl ="https://rjhzydonszurlkfrnhdc.supabase.co";
+  static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
 
 }

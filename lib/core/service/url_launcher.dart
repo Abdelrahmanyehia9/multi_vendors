@@ -3,11 +3,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:io' show Platform;
 
 /// A service class to handle various URL launching operations
-class UrlLauncherService {
+final class UrlLauncherService {
   const UrlLauncherService._();
-
   static final instance = const UrlLauncherService._();
-
   /// Launches a URL with error handling
   Future<void> launchUrlString(String url, {LaunchMode? mode}) async {
     final Uri uri = Uri.parse(url);

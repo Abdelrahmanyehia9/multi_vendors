@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 
 class BaseAppBar extends AppBar {
-  BaseAppBar({super.key, String? title, super.actions})
+  BaseAppBar({super.key,Widget? leading , String? title, super.actions})
     : super(
         title: title == null
             ? null
@@ -14,7 +14,7 @@ class BaseAppBar extends AppBar {
                 padding: EdgeInsets.only(top: 6.h),
                 child: Text(title, style: TextStyles.bodyMedium),
               ),
-        leading: _buildLeading(),
+        leading: leading ?? _buildLeading(),
         leadingWidth: 60.sp,
         toolbarHeight: 60.sp,
         actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
@@ -52,16 +52,22 @@ class BaseSliverAppBar extends SliverAppBar {
          ),
          leadingWidth: 60.sp,
          centerTitle: true,
-         leading:leading ??  AppBackButton(iconColor: iconColor, backgroundColor: iconBackgroundColor,),
+         leading:
+             leading ??
+             AppBackButton(
+               iconColor: iconColor,
+               backgroundColor: iconBackgroundColor,
+             ),
          actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
        );
 }
 
 class AppBackButton extends StatelessWidget {
-  final Color? iconColor ;
-  final Color? backgroundColor ;
-  const AppBackButton({super.key, this.iconColor, this.backgroundColor
-  });
+  final Color? iconColor;
+
+  final Color? backgroundColor;
+
+  const AppBackButton({super.key, this.iconColor, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {

@@ -69,7 +69,6 @@ class ProductCard extends StatelessWidget {
   factory ProductCard.small({Key? key}) => ProductCard._(key: key, type: _ProductCardType.small);
   static Size get bigSize => _ProductCardType.big.size;
   static Size get smallSize => _ProductCardType.small.size;
-
   bool get isBig => _type == _ProductCardType.big;
   Size get cardSize => _type.size;
 
