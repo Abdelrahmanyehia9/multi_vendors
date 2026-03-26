@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/main/layout.dart';
+import '../../features/authentication/logic/login_cubit.dart';
+import '../../features/authentication/logic/otp_confirm_cubit.dart';
+import '../../features/authentication/logic/sign_up_cubit.dart';
 import '../../features/authentication/view/login_screen.dart';
+import '../../features/authentication/view/otp_confirm_screen.dart';
 import '../../features/authentication/view/sign_up_screen.dart';
 import '../../features/intro/view/on_boarding_screen.dart';
 import '../../features/intro/view/splash_screen.dart';
 import '../../features/main/favorite/view/favorite_screen.dart';
+import '../../features/main/profile/data/repository/profile_repository.dart';
+import '../../features/main/profile/logic/edit_password_cubit.dart';
+import '../../features/main/profile/logic/edit_profile_cubit.dart';
 import '../../features/main/profile/view/change_password_screen.dart';
 import '../../features/main/profile/view/edit_profile_screen.dart';
 import '../../features/news/view/all_news_screen.dart';
@@ -33,9 +43,24 @@ class AppRouter {
        case Routes.onBoarding:
         return _page(const OnBoardingScreen(), name: Routes.onBoarding);
       case Routes.loginScreen:
-        return _page(const LoginScreen(), name: Routes.loginScreen);
+        return _page(MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => LoginCubit(getIt.get<AuthRepository>()),
+              ),
+            ],
+            child: const LoginScreen()), name: Routes.loginScreen);
+      case Routes.otp:
+        return _page( BlocProvider(
+          create: (context) => OtpConfirmCubit(getIt.get<AuthRepository>()),
+          child: OtpConfirmScreen(
+            phoneNumber: settings.arguments as String,
+          ),
+        ), name: Routes.otp);
       case Routes.signup:
-        return _page(const SignUpScreen(), name: Routes.signup);
+        return _page(BlocProvider(
+            create: (context) => SignupCubit(getIt.get<AuthRepository>()),
+            child: const SignUpScreen()), name: Routes.signup);
       case Routes.mainLayout:
         final int? initialIndex = settings.arguments as int?;
         return  _page(MainLayout(initialIndex: initialIndex ?? 0), name: Routes.mainLayout);
@@ -56,9 +81,13 @@ class AppRouter {
       case Routes.favorites:
         return _page(const FavoriteScreen(), name: Routes.favorites);
        case Routes.editProfile:
-        return _page(const EditProfileScreen(), name: Routes.editProfile);
+        return _page(BlocProvider(
+            create: (context) => EditProfileCubit(getIt.get<ProfileRepository>()),
+            child: const EditProfileScreen()), name: Routes.editProfile);
        case Routes.changePassword:
-         return _page(const ChangePasswordScreen(), name: Routes.changePassword);
+         return _page(BlocProvider(
+             create: (context) => EditPasswordCubit(getIt.get<ProfileRepository>()),
+             child: const ChangePasswordScreen()), name: Routes.changePassword);
        case Routes.settings:
          return _page(const SettingsScreen(), name: Routes.settings);
        case Routes.cart:

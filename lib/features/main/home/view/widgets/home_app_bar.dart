@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/user_cubit.dart';
+import 'package:multi_vendor/core/cubit/user_states.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
+import '../../../../../core/DI/setup_get_it.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/user_avatar.dart';
 
@@ -13,55 +18,61 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-         AppClick(
-           onTap: ()=>context.pushNamedAndRemoveUntil(Routes.mainLayout, predicate: (_)=>false, arguments: 4),
-           child: const UserAvatar(
-             size: 48,
-           ),
-         ),
-        Gap.small(),
-        _nameWithLocation(),
-        Gap.small(),
-        /// Notifications
-         AppIconButton(icon: Icons.shopping_bag, onTap: ()=>context.pushNamed(Routes.cart)),
-        Gap.small(),
-        /// Cart
-        const Badge(
-          label: Text('1'),
-          child: AppIconButton(icon: Icons.notifications),
-        ),
-      ],
-    );
-  }
-
-  Widget _nameWithLocation(){
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<UserCubit, UserStates>(
+      builder: (_, _) => Row(
         children: [
-           Text(
-            "ahmed khaled",
-            maxLines: 1,
-            style: TextStyles.labelSmall,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Row(
-            children: [
-              Icon(Icons.location_pin, size: 14.sp),
-               Expanded(
-                child: Text(
-                  "6 october city , Egypt" ,
-                  style: TextStyles.captionMedium,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+          Expanded(
+            child: AppClick(
+              onTap: () => context.pushNamedAndRemoveUntil(
+                  Routes.mainLayout, predicate: (_) => false, arguments: 4),
+              child: Row(
+                children: [
+                  const UserAvatar(size: 48),
+                  Gap.small(),
+                  Expanded(child: _nameWithLocation()),
+                ],
               ),
-            ],
+            ),
+          ),
+          Gap.small(),
+          AppIconButton(icon: Icons.shopping_bag, onTap: () => context.pushNamed(Routes.cart)),
+          Gap.small(),
+          Badge(
+            label: Text('1', style: TextStyles.labelSmall),
+            child: const AppIconButton(icon: Icons.notifications),
           ),
         ],
       ),
-    ) ;
+    );
+  }
+
+  Widget _nameWithLocation() {
+    final address = userCubit.user?.address;
+    final location = address != null ? address.split(" ").first : "Not defined";
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          userCubit.userName,
+          maxLines: 1,
+          style: TextStyles.bodyMedium,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Row(
+          spacing: 4.w,
+          children: [
+            Icon(Icons.my_location, color: AppColors.primary, size: 14.sp),
+            Expanded(
+              child: Text(
+                location,
+                style: TextStyles.captionMedium.copyWith(color: AppColors.primary),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

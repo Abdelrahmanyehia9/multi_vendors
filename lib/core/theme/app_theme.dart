@@ -21,10 +21,14 @@ class AppTheme {
 
     actionsPadding: EdgeInsets.symmetric(horizontal: 4),
   ) ;
-
   static ThemeData light = ThemeData(
     scaffoldBackgroundColor: _lightBackgroundColor,
     canvasColor: _lightBackgroundColor,
+    datePickerTheme: DatePickerThemeData(
+        backgroundColor: _lightBackgroundColor,
+        headerForegroundColor: Colors.white,
+        headerBackgroundColor: AppColors.primary
+    ),
     colorScheme: _ColorScheme.light,
     fontFamily: TextStyles.fontFamily,
     appBarTheme: _appBarTheme,
@@ -43,6 +47,11 @@ class AppTheme {
     scaffoldBackgroundColor: _darkBackgroundColor,
     canvasColor: _darkBackgroundColor,
     colorScheme: _ColorScheme.dark,
+    datePickerTheme: DatePickerThemeData(
+        backgroundColor: _darkBackgroundColor,
+        headerForegroundColor: Colors.white,
+        headerBackgroundColor: AppColors.primary
+    ),
     splashColor: Colors.transparent,
     appBarTheme: _appBarTheme,
     fontFamily: TextStyles.fontFamily,

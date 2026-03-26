@@ -6,7 +6,6 @@ import '../models/base_user_model.dart';
 
 class UserCubit extends Cubit<UserStates> {
   final UserSessionHelper _sessionHelper ;
-  BaseUserModel? _model ;
   UserCubit(this._sessionHelper) : super(const UserInitial());
   Future<void>init()async{
     _sessionHelper.setupListener(
@@ -15,12 +14,12 @@ class UserCubit extends Cubit<UserStates> {
    onSignOut: () => safeEmit(UserSignOut()),
     onUpdateUser:  (user) => safeEmit(UserUpdated(user)),
     );
-    _model =_sessionHelper.cachedUser;
   }
   Future<void>logout()async{
     await _sessionHelper.logout();
-    _model = null;
   }
    void finishIntro() => _sessionHelper.finishIntro();
-  BaseUserModel? get user => _model;
+  BaseUserModel? get user => _sessionHelper.cachedUser;
+  String get userName => user?.fullName??"Guest" ;
+  bool get isGuest => user == null;
 }

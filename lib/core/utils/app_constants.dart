@@ -1,3 +1,5 @@
+import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 
 import '../enum/login_providers.dart';
@@ -29,6 +31,7 @@ class AppConstants {
     titleHighlighter: null
     ),
   ];
+  static final Country initialCountry = "EG".toCountry;
   static const  String supabaseUrl ="https://rjhzydonszurlkfrnhdc.supabase.co";
   static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
 

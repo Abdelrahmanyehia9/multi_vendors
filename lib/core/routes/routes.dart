@@ -5,6 +5,7 @@ class Routes {
   static const String onBoarding = '/onBoarding';
   static const String loginScreen = '/login';
   static const String signup = '/signup';
+  static const String otp = '/otp';
   static const String mainLayout = '/mainLayout';
   static const String products = '/products';
   static const String product = '/product';

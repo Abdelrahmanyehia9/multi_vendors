@@ -5,7 +5,7 @@ import '../errors/exceptions.dart';
 
 class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
     extends StatelessWidget {
-  final Widget Function(S? data)? builder;
+  final Widget Function(BaseState data)? builder;
   final Widget Function()? loadingBuilder;
   final Widget Function(S data)? successBuilder;
   final Widget Function(AppException error)? failureBuilder;
@@ -56,7 +56,7 @@ class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
       },
       builder: (context, state) {
         if (state.isLoading && loadingBuilder != null) return loadingBuilder!();
-        if (builder != null) return builder!(state.data);
+        if (builder != null) return builder!(state);
         if (state.isSuccess && successBuilder != null) {
           return successBuilder!(state.data as S);
         }

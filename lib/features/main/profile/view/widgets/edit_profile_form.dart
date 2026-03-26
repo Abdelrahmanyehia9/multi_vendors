@@ -1,78 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/theme/text_styles.dart';
+import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
+import 'package:multi_vendor/features/main/profile/view/widgets/profile_text_fields.dart';
+import '../../../../../core/enum/login_providers.dart';
 import '../../../../../core/widgets/app_text_field.dart';
-import '../../../../../core/widgets/gap.dart';
 
-class EditProfileForm extends StatefulWidget {
-  const EditProfileForm({super.key});
-  @override
-  State<EditProfileForm> createState() => _EditProfileFormState();
-}
+class EditProfileForm extends StatelessWidget {
+  final TextEditingController usernameController ;
+  final TextEditingController phoneController ;
+  final TextEditingController emailController ;
+  final ValueNotifier<bool> isMaleNotifier ;
+  final ValueChanged<DateTime> onBirthDateSelected;
+  final TextEditingController addressController ;
+  final ValueChanged<Country> onCountryChanged;
 
-class _EditProfileFormState extends State<EditProfileForm> {
-  final ValueNotifier<bool>_isMaleNotifier = ValueNotifier(true);
+  const EditProfileForm({super.key,
+    required this.usernameController,
+    required this.phoneController,
+    required this.emailController,
+    required this.isMaleNotifier,
+    required this.onBirthDateSelected,
+    required this.addressController,
+    required this.onCountryChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
+    final bool isEmailProvided = AppConstants.authFormType == AuthFormType.emailAndPassword;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 16.h,
       children: [
-        _textField(label: "Full Name"),
-        _textField(label: "Mobile Number"),
-        _GenderSelector(_isMaleNotifier),
-       _textField(label: "Birth Date", readOnly: true),
-        _textField(label: "Address", maxLines: 2),
+        _textField(label: "Full Name", controller: usernameController),
+         EmailField(
+           readOnly: isEmailProvided,
+           controller: emailController,),
+         PhoneField(
+           readOnly: !isEmailProvided,
+           onCountryChanged: onCountryChanged,
+           controller: phoneController ,),
+        GenderSelector(isMaleNotifier),
+        BirthDateField(
+            initialDate: userCubit.user?.birthDate,
+            onSelected: onBirthDateSelected),
+        _textField(
+            maxLength: 256,
+            label: "Address",
+            controller: addressController,
+            maxLines: 2),
       ],
     );
   }
 
-  Widget _textField({required String label, int? maxLines, bool readOnly = false})=>AppTextField(
+  Widget _textField({
+    required String label,
+    int? maxLines,
+    TextEditingController? controller,
+    int? maxLength,
+  }) => AppTextField(
     borderWidth: 1.2,
-    maxLines: maxLines??1,
-    readOnly: readOnly,
-    hintText: "Enter $label",headerText: label,);
-}
-class _GenderSelector extends StatelessWidget {
-  final ValueNotifier<bool> isMale;
+    maxLines: maxLines ?? 1,
+    borderType: AppBorderType.filled,
+    hintText: "Enter $label",
+    controller: controller,
+    headerText: label,
+    maxLength: maxLength,
 
-  const _GenderSelector(this.isMale);
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: isMale,
-      builder: (context, value, child) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            child!,
-            RadioGroup<bool>(
-              groupValue: value,
-              onChanged: (v) => isMale.value = v!,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children:  [
-                  _ratioItem(value: true, title: "Men"),
-                  Gap.medium(),
-                  _ratioItem(value: false, title: "Women"),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-      child: Text("Gender", style: TextStyles.labelSmall,),
-    );
-  }
-
-  Widget _ratioItem({required bool value, required String title})=> Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Radio<bool>(value: value,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      ),
-      Text(title, style: TextStyles.captionMedium,),
-    ],
   );
+
 }
+
+

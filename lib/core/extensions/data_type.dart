@@ -1,6 +1,4 @@
 
-import 'dart:ui';
-
 /// String ///
 extension StringExtension on String? {
   bool get isNullOrEmpty => this == null || this == "";
@@ -12,6 +10,12 @@ extension ListExtension<T> on List<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 }
 
-extension SizeExtension on Size?{
-  // double get aspectRatio => this==null ? 0 : width/height;
+extension RemoveNulls on Map<String, dynamic> {
+  Map<String, dynamic> withoutNulls() {
+    return Map.fromEntries(
+      entries.where(
+            (e) => e.value != null && (e.value is! String || e.value.isNotEmpty),
+      ),
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
@@ -12,12 +13,11 @@ enum ButtonSize {
   medium,
   large;
 
-  Size get size =>
-      switch (this) {
-        ButtonSize.small => Size(100.w, 44.h),
-        ButtonSize.medium => Size(200.w, 50.h),
-        ButtonSize.large => Size(double.infinity, 56.h),
-      };
+  Size get size => switch (this) {
+    ButtonSize.small => Size(100.w, 44.h),
+    ButtonSize.medium => Size(200.w, 50.h),
+    ButtonSize.large => Size(double.infinity, 56.h),
+  };
 }
 
 enum ButtonVariant { filled, outlined, text }
@@ -81,24 +81,23 @@ class AppButton extends StatelessWidget {
     ButtonSize? buttonSize,
     bool enabled = true,
     bool enableGradient = true,
-  }) =>
-      AppButton(
-        text: text,
-        onPressed: onPressed,
-        color: color ?? AppColors.primary,
-        textColor: textColor,
-        borderColor: borderColor,
-        gradient: gradient,
-        style: style,
-        fixedSize: fixedSize,
-        toolTip: toolTip,
-        enableGradient: enableGradient,
-        borderRadius: borderRadius ?? 7,
-        borderWidth: borderWidth,
-        icon: icon,
-        buttonSize: buttonSize,
-        enabled: enabled,
-      );
+  }) => AppButton(
+    text: text,
+    onPressed: onPressed,
+    color: color ?? AppColors.primary,
+    textColor: textColor,
+    borderColor: borderColor,
+    gradient: gradient,
+    style: style,
+    fixedSize: fixedSize,
+    toolTip: toolTip,
+    enableGradient: enableGradient,
+    borderRadius: borderRadius ?? 7,
+    borderWidth: borderWidth,
+    icon: icon,
+    buttonSize: buttonSize,
+    enabled: enabled,
+  );
 
   factory AppButton.outlined({
     required String text,
@@ -114,24 +113,23 @@ class AppButton extends StatelessWidget {
     String? toolTip,
     ButtonSize? buttonSize,
     bool enabled = true,
-  }) =>
-      AppButton(
-        text: text,
-        onPressed: onPressed,
-        color: Colors.transparent,
-        textColor: textColor ?? color ?? AppColors.primary,
-        borderColor: color ?? AppColors.primary,
-        gradient: gradient,
-        style: style,
-        fixedSize: fixedSize,
-        toolTip: toolTip,
-        borderRadius: borderRadius ?? 7,
-        borderWidth: borderWidth,
-        icon: icon,
-        buttonSize: buttonSize,
-        enabled: enabled,
-        variant: ButtonVariant.outlined,
-      );
+  }) => AppButton(
+    text: text,
+    onPressed: onPressed,
+    color: Colors.transparent,
+    textColor: textColor ?? color ?? AppColors.primary,
+    borderColor: color ?? AppColors.primary,
+    gradient: gradient,
+    style: style,
+    fixedSize: fixedSize,
+    toolTip: toolTip,
+    borderRadius: borderRadius ?? 7,
+    borderWidth: borderWidth,
+    icon: icon,
+    buttonSize: buttonSize,
+    enabled: enabled,
+    variant: ButtonVariant.outlined,
+  );
 
   factory AppButton.text({
     required String text,
@@ -141,18 +139,17 @@ class AppButton extends StatelessWidget {
     EdgeInsets? padding,
     String? toolTip,
     Size? fixedSize,
-  }) =>
-      AppButton(
-        text: text,
-        onPressed: onPressed,
-        color: color ?? AppColors.primary,
-        style: style,
-        fixedSize: fixedSize,
-        toolTip: toolTip,
-        buttonSize: null,
-        padding: padding ?? EdgeInsets.zero,
-        variant: ButtonVariant.text,
-      );
+  }) => AppButton(
+    text: text,
+    onPressed: onPressed,
+    color: color ?? AppColors.primary,
+    style: style,
+    fixedSize: fixedSize,
+    toolTip: toolTip,
+    buttonSize: null,
+    padding: padding ?? EdgeInsets.zero,
+    variant: ButtonVariant.text,
+  );
 
   factory AppButton.loading({
     Color? color,
@@ -160,17 +157,16 @@ class AppButton extends StatelessWidget {
     Color? borderColor,
     Size? fixedSize,
     double borderRadius = 8,
-  }) =>
-      AppButton(
-        text: '',
-        enabled: false,
-        isLoading: true,
-        color: color ?? AppColors.primary,
-        textColor: textColor,
-        borderColor: borderColor,
-        fixedSize: fixedSize ?? Size(double.infinity, 50.h),
-        borderRadius: borderRadius,
-      );
+  }) => AppButton(
+    text: '',
+    enabled: false,
+    isLoading: true,
+    color: color ?? AppColors.primary,
+    textColor: textColor,
+    borderColor: borderColor,
+    fixedSize: fixedSize ?? Size(double.infinity, 50.h),
+    borderRadius: borderRadius,
+  );
 
   factory AppButton.icon({
     required Widget icon,
@@ -185,23 +181,22 @@ class AppButton extends StatelessWidget {
     bool isLoading = false,
     EdgeInsets? padding,
     ButtonVariant variant = ButtonVariant.filled,
-  }) =>
-      AppButton(
-        text: '',
-        onPressed: onPressed,
-        color: color,
-        borderColor: borderColor ?? color,
-        borderWidth: borderWidth,
-        borderRadius: borderRadius,
-        fixedSize: fixedSize,
-        variant: variant,
-        toolTip: toolTip,
-        icon: icon,
-        padding: padding ?? EdgeInsets.all(4.w),
-        enabled: enabled,
-        buttonSize: null,
-        isLoading: isLoading,
-      );
+  }) => AppButton(
+    text: '',
+    onPressed: onPressed,
+    color: color,
+    borderColor: borderColor ?? color,
+    borderWidth: borderWidth,
+    borderRadius: borderRadius,
+    fixedSize: fixedSize,
+    variant: variant,
+    toolTip: toolTip,
+    icon: icon,
+    padding: padding ?? EdgeInsets.all(4.w),
+    enabled: enabled,
+    buttonSize: null,
+    isLoading: isLoading,
+  );
 
   bool get _isTransparentVariant =>
       variant == ButtonVariant.text || variant == ButtonVariant.outlined;
@@ -240,7 +235,7 @@ class AppButton extends StatelessWidget {
     if (isLoading) {
       return Container(
         width: size?.width,
-        height: size?.height,
+        height: size?.height ?? 40.h,
         padding: EdgeInsets.symmetric(vertical: 8.h),
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
@@ -248,9 +243,9 @@ class AppButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),
         child: Center(
-          child: CircularProgressIndicator(
+          child: SpinKitThreeBounce(
             color: textColor ?? Colors.white,
-            strokeWidth: 2.5,
+            size: style?.fontSize ?? TextStyles.bodyMedium.fontSize ?? 20.w,
           ),
         ),
       );
@@ -261,10 +256,10 @@ class AppButton extends StatelessWidget {
       toolTip: message,
       child: Container(
         width: size?.width,
-        height: size?.height,
+        height: size?.height ?? 40.h,
         alignment: Alignment.center,
         padding:
-        padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+            padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
         decoration: BoxDecoration(
           gradient: resolvedGradient,
           color: resolvedGradient == null ? _resolveButtonColor(context) : null,
@@ -308,14 +303,15 @@ class AppIconButton extends StatelessWidget {
   final Color? iconColor;
   final Color? backGroundColor;
   final double size;
+
   const AppIconButton({
     super.key,
     this.size = 20,
     this.tooltip,
-    this.iconColor, this.backGroundColor,
+    this.iconColor,
+    this.backGroundColor,
     this.onTap,
     required this.icon,
-
   });
 
   @override
@@ -323,9 +319,13 @@ class AppIconButton extends StatelessWidget {
     return AppButton.icon(
       onPressed: onTap,
       toolTip: tooltip,
-      fixedSize: Size(size*2, size*2),
+      fixedSize: Size(size * 2, size * 2),
       color: backGroundColor ?? context.colors.surfaceContainerLowest,
-        icon: Icon(icon,size: size.sp, color: iconColor ?? context.colors.surfaceContainerHigh,)
+      icon: Icon(
+        icon,
+        size: size.sp,
+        color: iconColor ?? context.colors.surfaceContainerHigh,
+      ),
     );
   }
 }

@@ -17,5 +17,8 @@ extension ColorExtension on Color {
     );
     return hslDark.toColor();
   }
+
+
+  Color get veryLight => lighten().withAppOpacity(0.2) ;
 }
 

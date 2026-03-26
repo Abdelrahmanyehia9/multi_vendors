@@ -24,8 +24,8 @@ final class UserSessionHelper {
       LocalStorageConstants.firstTime,
       defaultValue: true,
     );
-    if (firstTime) onFirstTimeJoin.call();
 
+    if (firstTime) onFirstTimeJoin.call();
     _authService.setupAuthListener(
           (id) async {
         final result = await _getUserRemote(id);
@@ -43,6 +43,7 @@ final class UserSessionHelper {
     );
 
     if (_authService.isAuthenticated) {
+      _getUserRemote(_authService.currentUser!.id);
       onSignIn.call();
     } else if (!firstTime) {
       onSignOut.call();

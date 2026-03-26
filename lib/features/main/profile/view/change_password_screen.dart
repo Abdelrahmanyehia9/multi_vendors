@@ -1,42 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
-import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import '../../../../core/widgets/forget_password_button.dart';
-import '../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/password_validations_hint.dart';
+import 'package:multi_vendor/features/main/profile/logic/edit_password_cubit.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
+class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 
   @override
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+}
+
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  EditPasswordCubit get cubit => context.read<EditPasswordCubit>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Future<void> onChangePassword() async {
+    if (!_formKey.currentState!.validate()) return;
+    await cubit.editPassword(_passwordController.text);
+  }
+  @override
   Widget build(BuildContext context) {
-    return  BaseScaffold(
-      appBar: BaseAppBar(
-        title: "Change Password",
-      ),
-      body:  Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-         _textField(label: "Current Password"),
-         const ForgetPasswordButton(),
-         Divider(height: 36.h,),
-         _textField(label: "New Password"),
-          Gap.medium(),
-         _textField(label: "Confirm Password"),
-          Gap.large(),
-          const AppButton(
-            text: "Change Password", buttonSize: null,),
-        ],
+    return BaseScaffold(
+      appBar: BaseAppBar(title: "Change Password"),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            spacing: 16.h,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              PasswordField(controller: _passwordController),
+              PasswordField.confirm(
+                password: _passwordController.text,
+                controller: _confirmPasswordController,
+              ),
+              PasswordValidationBuilder(controller: _passwordController),
+              BaseBlocConsumer(
+                bloc: cubit,
+                onFailure: (e)=>context.errorBar(message :e.message),
+                onSuccess: (_)=>context.successBar(message :"Password changed successfully"),
+                builder: (s) => AppButton(
+                  text: "Change Password",
+                  isLoading: s.isLoading,
+                  buttonSize: null,
+                  onPressed: onChangePassword,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-
-
   }
-  Widget _textField({required String label, int? maxLines, bool readOnly = false})=>AppTextField(
-    borderWidth: 1.2,
-    maxLines: maxLines??1,
-    readOnly: readOnly,
-    hintText: "Enter $label",headerText: label,);
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 }
