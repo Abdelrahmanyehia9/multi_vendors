@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/logic/sign_up_cubit.dart';
@@ -28,7 +30,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phone = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   SignupCubit get _cubit => context.read<SignupCubit>();
-  Country _selectedCountry = AppConstants.initialCountry;
+  Country _selectedCountry = userCubit.user?.country ?? AppConstants.initialCountry;
 
   void onSignUp() {
     if (!(formKey.currentState?.validate() ?? false)) return;
@@ -36,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       password: _password.text.trim(),
       user: BaseUserModel(
         email: _email.text.trim(),
-        phone: _phone.text.isNotEmpty? "${_selectedCountry.dialCode}${_phone.text.trim()}":null,
+        phone: _phone.text.isNullOrEmpty? null : _phone.text.trim(),
         fullName: _userName.text.trim(),
         country: _selectedCountry,
       ),

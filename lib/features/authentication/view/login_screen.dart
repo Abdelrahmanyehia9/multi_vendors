@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -28,8 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _phone = TextEditingController();
   LoginCubit get _cubit => context.read<LoginCubit>();
-  String _dialCode = AppConstants.initialCountry.dialCode;
-  String get completeNumber => _dialCode + _phone.text.trim();
+  Country selectedCountry = AppConstants.initialCountry;
   void onLogin() {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     if (AppConstants.authFormType == AuthFormType.emailAndPassword) {
@@ -38,9 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     onLoginWithMobile();
   }
-
   void onLoginWithMobile() {
-    _cubit.loginWithMobile(mobile: completeNumber);
+    _cubit.loginWithMobile(country: selectedCountry, mobile: _phone.text);
   }
 
   @override
@@ -54,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: _formKey,
               child: LoginForm(
-                onCountryChanged: (country) => _dialCode = country.dialCode,
+                onCountryChanged: (country) => selectedCountry = country,
                 emailController: _email,
                 passwordController: _password,
                 phoneController: _phone,
@@ -65,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onFailure: (e) => context.errorBar(message: e.message),
               onSuccess: (e) {
                 if (AppConstants.authFormType == AuthFormType.mobile) {
-                  context.pushNamed(Routes.otp, arguments: completeNumber);
+                  context.pushNamed(Routes.otp, arguments: selectedCountry.dialCode+_phone.text);
                 }
               },
               builder: (state) => AppButton(

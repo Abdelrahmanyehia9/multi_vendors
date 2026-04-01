@@ -4,12 +4,24 @@ import 'package:multi_vendor/core/cubit/user_cubit.dart';
 import 'package:multi_vendor/core/cubit/user_states.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 
+import '../service/deep_link.dart';
 import '../service/navigation_service.dart';
 
-class UserSessionBuilder extends StatelessWidget {
+class UserSessionBuilder extends StatefulWidget {
   final Widget child ;
   const UserSessionBuilder({super.key, required this.child});
 
+  @override
+  State<UserSessionBuilder> createState() => _UserSessionBuilderState();
+}
+
+class _UserSessionBuilderState extends State<UserSessionBuilder> {
+
+@override
+  void initState() {
+    DeepLinkService.instance.initDeepLink();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserStates>(
@@ -18,7 +30,7 @@ class UserSessionBuilder extends StatelessWidget {
           if(state is UserSignIn) _go(Routes.mainLayout) ;
           if(state is UserSignOut) _go(Routes.loginScreen) ;
         },
-      child: child,
+      child: widget.child,
     );
 
   }
@@ -28,6 +40,5 @@ class UserSessionBuilder extends StatelessWidget {
       NavigationService.navigator?.pushNamedAndRemoveUntil(route, (_) => false);
     });
   }
-
 }
 

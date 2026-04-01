@@ -35,11 +35,9 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
           Gap.small(),
-          AppIconButton(icon: Icons.shopping_bag, onTap: () => context.pushNamed(Routes.cart)),
-          Gap.small(),
           Badge(
             label: Text('1', style: TextStyles.labelSmall),
-            child: const AppIconButton(icon: Icons.notifications),
+            child:  AppIconButton(icon: Icons.shopping_cart, onTap: () => context.pushNamed(Routes.cart)),
           ),
         ],
       ),
@@ -48,7 +46,6 @@ class HomeAppBar extends StatelessWidget {
 
   Widget _nameWithLocation() {
     final address = userCubit.user?.address;
-    final location = address != null ? address.split(" ").first : "Not defined";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -64,9 +61,9 @@ class HomeAppBar extends StatelessWidget {
             Icon(Icons.my_location, color: AppColors.primary, size: 14.sp),
             Expanded(
               child: Text(
-                location,
+                address ?? "Not defined",
                 style: TextStyles.captionMedium.copyWith(color: AppColors.primary),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

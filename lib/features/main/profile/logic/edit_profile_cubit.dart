@@ -10,9 +10,9 @@ class EditProfileCubit extends Cubit<BaseState<Unit>>{
   final ProfileRepository _repository;
   EditProfileCubit(this._repository) : super(const BaseState.initial());
   Future<void> editProfile(BaseUserModel user)async{
-  if(user == userCubit.user) return  safeEmit(const BaseState.empty());
+  if(user == userCubit.user) return  safeEmit(state.copyWith(status: StateStatus.empty, version: DateTime.now().microsecondsSinceEpoch));
     safeEmit(const BaseState.loading());
-    final result = await _repository.editProfile(user: user);
+    final result = await _repository.editUser(user);
     result.fold(
       (l) => safeEmit(BaseState.failure(l)),
       (r) => safeEmit(BaseState.success(r)),

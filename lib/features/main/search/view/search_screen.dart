@@ -5,9 +5,9 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/search_builder.dart';
+import 'package:multi_vendor/features/main/home/view/widgets/home_store_search_bar.dart';
 import 'package:multi_vendor/features/main/search/view/widget/search_history.dart';
 import '../../../../core/cubit/search_cubit.dart';
-import '../../home/view/home_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -19,13 +19,13 @@ class SearchScreen extends StatelessWidget {
       spacing: 16.h,
       children: [
         Gap.tiny(),
-        StoreSearchBar(
+        HomeStoreSearchBar(
           focusNode: searchCubit.focusNode,
           controller: searchCubit.controller,
         ),
         const SearchBuilder(
           builder: SearchHistory(),
-          resultBuilder: Expanded(child: ProductGrid()),
+          resultBuilder: Expanded(child: ProductGrid(products: [],)),
         ),
       ],
     ).appPaddingHr;

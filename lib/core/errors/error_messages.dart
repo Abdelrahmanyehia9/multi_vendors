@@ -1,171 +1,151 @@
 class AppErrorMessages {
   const AppErrorMessages._();
 
-  static const unexpectedError = 'حدث خطأ غير متوقع، حاول مرة أخرى';
-  static const networkError =
-      'خطأ في الاتصال بالإنترنت، تأكد من الشبكة وحاول مرة أخرى';
-  static const timeoutError = 'انتهت مهلة الطلب، برجاء المحاولة مرة أخرى';
-  static const unauthorized = 'غير مصرح لك بتنفيذ هذا الإجراء';
-  static const formatException = 'حدث خطأ في صيغة البيانات';
+  static const unexpectedError = 'An unexpected error occurred, please try again';
+  static const networkError = 'Internet connection error, check your network and try again';
+  static const timeoutError = 'Request timed out, please try again';
+  static const unauthorized = 'You are not authorized to perform this action';
+  static const formatException = 'A data format error occurred';
 }
+
 class DatabaseErrorMessages {
   const DatabaseErrorMessages._();
 
   /// DATABASE
-  static const duplicate = 'البيانات موجودة بالفعل';
-  static const foreignKey = 'لا يمكن الحذف أو الإضافة لوجود بيانات مرتبطة';
-  static const notNullViolation = 'يجب إدخال كل الحقول المطلوبة';
-  static const checkViolation = 'القيمة المدخلة غير مسموح بها';
+  static const duplicate = 'Data already exists';
+  static const foreignKey = 'Cannot delete or add due to related data';
+  static const notNullViolation = 'All required fields must be filled';
+  static const checkViolation = 'The entered value is not allowed';
 
-  static const insufficientPrivilege = 'ليس لديك صلاحية لتنفيذ هذا الإجراء';
-  static const undefinedTable = 'البيانات المطلوبة غير موجودة';
-  static const undefinedColumn = 'حدث خطأ في بنية البيانات';
-  static const undefinedFunction = 'عملية غير مدعومة حالياً';
+  static const insufficientPrivilege = 'You do not have permission to perform this action';
+  static const undefinedTable = 'The requested data was not found';
+  static const undefinedColumn = 'A data structure error occurred';
+  static const undefinedFunction = 'Operation is not currently supported';
 
-  static const invalidInputSyntax = 'البيانات المدخلة غير صحيحة';
-  static const readOnlyTransaction = 'لا يمكن التعديل حالياً';
+  static const invalidInputSyntax = 'The entered data is invalid';
+  static const readOnlyTransaction = 'Modification is not allowed at this time';
 
-  static const connectionFailure = 'فشل الاتصال بقاعدة البيانات';
-  static const internalError = 'حدث خطأ داخلي في الخادم';
+  static const connectionFailure = 'Failed to connect to the database';
+  static const internalError = 'An internal server error occurred';
 
   /// POSTGREST
-  static const noRows = 'لا توجد بيانات';
-  static const parseError = 'خطأ في صيغة الطلب';
-  static const invalidBody = 'البيانات المرسلة غير صحيحة';
-  static const invalidRange = 'المدى المطلوب غير صحيح';
-  static const invalidPath = 'الرابط غير صحيح';
-  static const invalidMethod = 'العملية غير مسموح بها';
+  static const noRows = 'No data found';
+  static const parseError = 'Request format error';
+  static const invalidBody = 'The sent data is invalid';
+  static const invalidRange = 'The requested range is invalid';
+  static const invalidPath = 'The path is invalid';
+  static const invalidMethod = 'This operation is not allowed';
 
-  static const connectionError = 'تعذر الاتصال بالخادم';
-  static const timeout = 'انتهت مهلة الاتصال';
+  static const connectionError = 'Unable to connect to the server';
+  static const timeout = 'Connection timed out';
 
-  static const staleRelation = 'البيانات غير متزامنة، حاول مرة أخرى';
-  static const ambiguousRelation = 'الطلب غير واضح';
-  static const staleFunction = 'الدالة غير موجودة';
-  static const columnNotFound = 'العمود غير موجود';
-  static const tableNotFound = 'الجدول غير موجود';
+  static const staleRelation = 'Data is out of sync, please try again';
+  static const ambiguousRelation = 'The request is ambiguous';
+  static const staleFunction = 'Function not found';
+  static const columnNotFound = 'Column not found';
+  static const tableNotFound = 'Table not found';
 
-  static const jwtInvalid = 'جلسة الدخول غير صالحة';
-  static const jwtMissing = 'يجب تسجيل الدخول أولاً';
-  static const jwtClaimsInvalid = 'انتهت صلاحية الجلسة';
+  static const jwtInvalid = 'Session is invalid';
+  static const jwtMissing = 'You must log in first';
+  static const jwtClaimsInvalid = 'Session has expired';
 
-  static const unknown = 'حدث خطأ غير متوقع';
+  static const unknown = 'An unexpected error occurred';
 }
+
 class AuthErrorMessages {
   const AuthErrorMessages._();
 
-  static const invalidEmail = 'عنوان البريد الإلكتروني غير صحيح';
-  static const emailExists = 'البريد الإلكتروني مستخدم بالفعل';
-  static const emailNotConfirmed =
-      'برجاء تأكيد البريد الإلكتروني قبل تسجيل الدخول';
-  static const emailProviderDisabled =
-      'التسجيل بالبريد الإلكتروني غير متاح حاليًا';
-  static const emailConflictIdentityNotDeletable =
-      'يوجد تعارض في البريد الإلكتروني ولا يمكن حذف الهوية';
+  static const invalidEmail = 'The email address is invalid';
+  static const emailExists = 'This email is already in use';
+  static const emailNotConfirmed = 'Please confirm your email before logging in';
+  static const emailProviderDisabled = 'Email registration is currently unavailable';
+  static const emailConflictIdentityNotDeletable = 'There is an email conflict and the identity cannot be deleted';
 
-  static const invalidCredentials = 'بيانات تسجيل الدخول غير صحيحة';
-  static const userNotFound = 'هذا المستخدم غير موجود';
-  static const userAlreadyExists = 'هذا المستخدم مسجل بالفعل';
-  static const userBanned = 'تم حظر هذا الحساب مؤقتًا';
+  static const invalidCredentials = 'Invalid login credentials';
+  static const userNotFound = 'This user does not exist';
+  static const userAlreadyExists = 'This user is already registered';
+  static const userBanned = 'This account has been temporarily banned';
 
-  static const weakPassword = 'كلمة المرور ضعيفة جدًا';
-  static const samePassword =
-      'يجب أن تكون كلمة المرور الجديدة مختلفة عن الحالية';
-  static const reauthenticationNeeded =
-      'يجب إعادة تسجيل الدخول لتنفيذ هذا الإجراء';
-  static const reauthenticationNotValid = 'بيانات إعادة تسجيل الدخول غير صحيحة';
+  static const weakPassword = 'The password is too weak';
+  static const samePassword = 'The new password must be different from the current one';
+  static const reauthenticationNeeded = 'You must log in again to perform this action';
+  static const reauthenticationNotValid = 'Re-authentication credentials are invalid';
 
-  static const otpExpired = 'انتهت صلاحية رمز التحقق، برجاء طلب رمز جديد';
-  static const otpDisabled =
-      'تسجيل الدخول برمز التحقق غير متاح لهذا الرقم جرب تسجيل حساب جديد ';
-  static const mfaVerificationFailed = 'فشل التحقق بخطوتين';
-  static const mfaChallengeExpired =
-      'انتهت صلاحية التحقق بخطوتين، حاول مرة أخرى';
-  static const tooManyEnrolledMfaFactors =
-      'تم تسجيل عدد كبير من وسائل التحقق، برجاء إزالة أحدها';
+  static const otpExpired = 'The verification code has expired, please request a new one';
+  static const otpDisabled = 'OTP login is not available for this number, try creating a new account';
+  static const mfaVerificationFailed = 'Two-factor verification failed';
+  static const mfaChallengeExpired = 'Two-factor verification expired, please try again';
+  static const tooManyEnrolledMfaFactors = 'Too many verification methods enrolled, please remove one';
 
-  static const sessionExpired = 'انتهت الجلسة، برجاء تسجيل الدخول مرة أخرى';
-  static const refreshTokenNotFound =
-      'انتهت صلاحية الجلسة، برجاء تسجيل الدخول مرة أخرى';
-  static const refreshTokenAlreadyUsed =
-      'تم استخدام الجلسة مسبقًا، برجاء تسجيل الدخول مرة أخرى';
-  static const noAuthorization = 'غير مصرح لك بالوصول إلى هذه البيانات';
+  static const sessionExpired = 'Session expired, please log in again';
+  static const refreshTokenNotFound = 'Session has expired, please log in again';
+  static const refreshTokenAlreadyUsed = 'Session was already used, please log in again';
+  static const noAuthorization = 'You are not authorized to access this data';
 
-  static const oauthProviderNotSupported = 'طريقة تسجيل الدخول غير مدعومة';
-  static const providerDisabled = 'طريقة تسجيل الدخول هذه غير متاحة حاليًا';
-  static const providerEmailNeedsVerification =
-      'يجب تأكيد البريد الإلكتروني أولًا';
-  static const userSsoManaged =
-      'هذا الحساب مدار بواسطة نظام دخول خارجي ولا يمكن تعديل بعض البيانات';
+  static const oauthProviderNotSupported = 'This login method is not supported';
+  static const providerDisabled = 'This login method is currently unavailable';
+  static const providerEmailNeedsVerification = 'Email must be verified first';
+  static const userSsoManaged = 'This account is managed by an external login system and some data cannot be modified';
 
-  static const overRequestRateLimit = 'عدد محاولات كبير، برجاء المحاولة لاحقًا';
-  static const overEmailSendRateLimit =
-      'تم إرسال عدد كبير من الرسائل، برجاء المحاولة لاحقًا';
-  static const overSmsSendRateLimit =
-      'تم إرسال عدد كبير من رسائل التحقق، برجاء الانتظار قليلًا';
+  static const overRequestRateLimit = 'Too many attempts, please try again later';
+  static const overEmailSendRateLimit = 'Too many messages sent, please try again later';
+  static const overSmsSendRateLimit = 'Too many verification messages sent, please wait a moment';
 
-  static const phoneExists = 'رقم الهاتف مستخدم بالفعل';
-  static const phoneNotConfirmed = 'رقم الهاتف غير مُفعل';
-  static const phoneProviderDisabled = 'التسجيل برقم الهاتف غير متاح حاليًا';
-  static const smsSendFailed = 'فشل إرسال رسالة التحقق، حاول مرة أخرى';
+  static const phoneExists = 'This phone number is already in use';
+  static const phoneNotConfirmed = 'Phone number is not activated';
+  static const phoneProviderDisabled = 'Phone number registration is currently unavailable';
+  static const smsSendFailed = 'Failed to send verification message, please try again';
 
-  static const flowStateExpired =
-      'انتهت عملية التسجيل، برجاء المحاولة مرة أخرى';
-  static const flowStateNotFound =
-      'حدث خطأ في عملية التسجيل، برجاء المحاولة مرة أخرى';
+  static const flowStateExpired = 'Registration process expired, please try again';
+  static const flowStateNotFound = 'An error occurred in the registration process, please try again';
 
-  static const unexpectedFailure = 'حدث خطأ غير متوقع، برجاء المحاولة مرة أخرى';
+  static const unexpectedFailure = 'An unexpected error occurred, please try again';
 
-  static const String signInCanceled = 'تم إلغاء تسجيل الدخول بواسطة المستخدم.';
+  static const String signInCanceled = 'Sign in was canceled by the user.';
+  static const String interrupted = 'Sign in was interrupted. Please try again.';
+  static const String accountExistsWithDifferentCredential = 'This account exists with a different sign-in method. Please use the same method as before.';
 
-  static const String interrupted = 'تم مقاطعة تسجيل الدخول. حاول مرة أخرى.';
+  static const String userConfigError = 'There is an error in the login settings. Please try again later.';
+  static const String providerConfigurationError = 'Login provider configuration error. Please try again later.';
+  static const String uiUnavailable = 'The login interface is not available on this device.';
 
-  static const String accountExistsWithDifferentCredential =
-      'هذا الحساب موجود مع طريقة تسجيل مختلفة. استخدم نفس الطريقة السابقة.';
-
-  static const String userConfigError =
-      'هناك خطأ في إعدادات تسجيل الدخول. يرجى المحاولة لاحقًا.';
-  static const String providerConfigurationError =
-      'خطأ في إعدادات مزود تسجيل الدخول. حاول مرة أخرى لاحقًا.';
-  static const String uiUnavailable =
-      'واجهة تسجيل الدخول غير متاحة على هذا الجهاز.';
-
-  static const String unknown =
-      'حدث خطأ غير متوقع أثناء تسجيل الدخول. حاول مرة أخرى.';
+  static const String unknown = 'An unexpected error occurred during sign in. Please try again.';
 }
+
 class StorageErrorMessage {
   const StorageErrorMessage._();
-  static const noSuchBucket = 'المجلد غير موجود';
-  static const noSuchKey = 'الملف غير موجود';
-  static const noSuchUpload = 'عملية الرفع غير موجودة';
-  static const invalidJWT = 'جلسة الدخول غير صالحة';
-  static const invalidRequest = 'الطلب غير صحيح';
-  static const tenantNotFound = 'حدث خطأ في إعدادات التخزين';
-  static const entityTooLarge = 'حجم الملف كبير جداً';
-  static const internalError = 'حدث خطأ داخلي في الخادم';
-  static const resourceAlreadyExists = 'الملف موجود بالفعل';
-  static const invalidBucketName = 'اسم المجلد غير صالح';
-  static const invalidKey = 'اسم الملف غير صالح';
-  static const invalidRange = 'المدى المطلوب غير صحيح';
-  static const invalidMimeType = 'نوع الملف غير مدعوم';
-  static const invalidUploadId = 'معرّف الرفع غير صالح';
-  static const keyAlreadyExists = 'اسم الملف مستخدم بالفعل';
-  static const bucketAlreadyExists = 'المجلد موجود بالفعل';
-  static const databaseTimeout = 'انتهت مهلة الخادم';
-  static const invalidSignature = 'توقيع غير صالح';
-  static const signatureDoesNotMatch = 'فشل التحقق من التوقيع';
-  static const accessDenied = 'لا تملك صلاحية الوصول';
-  static const resourceLocked = 'الملف مقفول حالياً';
-  static const databaseError = 'خطأ في قاعدة البيانات';
-  static const missingContentLength = 'بيانات الملف غير مكتملة';
-  static const missingParameter = 'يوجد بيانات ناقصة';
-  static const invalidUploadSignature = 'توقيع الرفع غير صالح';
-  static const lockTimeout = 'انتهت مهلة القفل';
-  static const s3Error = 'خطأ في خدمة التخزين';
-  static const s3InvalidAccessKeyId = 'مفتاح الوصول غير صحيح';
-  static const s3MaximumCredentialsLimit = 'تم الوصول للحد الأقصى من المفاتيح';
-  static const invalidChecksum = 'الملف تالف أو غير مكتمل';
-  static const missingPart = 'جزء من الملف مفقود';
-  static const slowDown = 'طلبات كثيرة، حاول لاحقاً';
-  static const unknown = 'حدث خطأ غير متوقع';
+
+  static const noSuchBucket = 'Bucket not found';
+  static const noSuchKey = 'File not found';
+  static const noSuchUpload = 'Upload operation not found';
+  static const invalidJWT = 'Session is invalid';
+  static const invalidRequest = 'The request is invalid';
+  static const tenantNotFound = 'A storage configuration error occurred';
+  static const entityTooLarge = 'File size is too large';
+  static const internalError = 'An internal server error occurred';
+  static const resourceAlreadyExists = 'File already exists';
+  static const invalidBucketName = 'Bucket name is invalid';
+  static const invalidKey = 'File name is invalid';
+  static const invalidRange = 'The requested range is invalid';
+  static const invalidMimeType = 'File type is not supported';
+  static const invalidUploadId = 'Upload ID is invalid';
+  static const keyAlreadyExists = 'File name is already in use';
+  static const bucketAlreadyExists = 'Bucket already exists';
+  static const databaseTimeout = 'Server timed out';
+  static const invalidSignature = 'Invalid signature';
+  static const signatureDoesNotMatch = 'Signature verification failed';
+  static const accessDenied = 'You do not have access permission';
+  static const resourceLocked = 'File is currently locked';
+  static const databaseError = 'Database error';
+  static const missingContentLength = 'File data is incomplete';
+  static const missingParameter = 'Some data is missing';
+  static const invalidUploadSignature = 'Upload signature is invalid';
+  static const lockTimeout = 'Lock timed out';
+  static const s3Error = 'Storage service error';
+  static const s3InvalidAccessKeyId = 'Access key is incorrect';
+  static const s3MaximumCredentialsLimit = 'Maximum number of keys reached';
+  static const invalidChecksum = 'File is corrupted or incomplete';
+  static const missingPart = 'A part of the file is missing';
+  static const slowDown = 'Too many requests, please try again later';
+  static const unknown = 'An unexpected error occurred';
 }

@@ -16,7 +16,7 @@ enum ButtonSize {
   Size get size => switch (this) {
     ButtonSize.small => Size(100.w, 44.h),
     ButtonSize.medium => Size(200.w, 50.h),
-    ButtonSize.large => Size(double.infinity, 56.h),
+    ButtonSize.large => Size(double.infinity, 60.h),
   };
 }
 

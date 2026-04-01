@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 import '../../routes/routes.dart';
 import '../../theme/decorations.dart';
 import '../../theme/text_styles.dart';
-import '../../utils/testing.dart';
 import '../app_cached_network_image.dart';
 import '../gap.dart';
 
 class NewsList extends StatelessWidget {
   final bool shrinkWrap ;
-  const NewsList({super.key, this.shrinkWrap = false});
+  final List<NewsModel> news;
+  const NewsList({super.key,required this.news ,this.shrinkWrap = false});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,8 @@ class NewsList extends StatelessWidget {
         shrinkWrap: shrinkWrap,
         separatorBuilder: (_, __) => Gap.small(),
         physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
-        itemBuilder: (_,__)=> const NewsCard(),
-        itemCount: 5,
+        itemBuilder: (_,i)=>  NewsCard(news: news[i],),
+        itemCount: news.length,
     );
   }
 }
@@ -29,16 +30,17 @@ class NewsList extends StatelessWidget {
 
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+  final NewsModel news;
+  const NewsCard({super.key, required this.news});
 
   @override
   Widget build(BuildContext context) {
     return AppClick(
-      onTap: ()=>context.pushNamed(Routes.newsDetails),
+      onTap: ()=>context.pushNamed(Routes.newsDetails , arguments: news),
       child: Row(
         children: [
-          const AppCachedNetworkImage(
-            Testing.girlModel,
+           AppCachedNetworkImage(
+            news.thumbnail,
             height: 100,
             width: 120,
             radius: Decorations.borderRadius8,
@@ -50,13 +52,13 @@ class NewsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Fashion Celebrates Beauty in All Shapes and Sizes",
+                  news.title??"",
                   style: TextStyles.bodySmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
-                  "The fashion industry is increasingly embracing diversity by featuring models that represent a variety of body shapes, skin colors and backgrounds.",
+                  news.description,
                   style: TextStyles.captionSmall,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,

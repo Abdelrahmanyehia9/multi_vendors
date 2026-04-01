@@ -20,6 +20,6 @@ class UserCubit extends Cubit<UserStates> {
   }
    void finishIntro() => _sessionHelper.finishIntro();
   BaseUserModel? get user => _sessionHelper.cachedUser;
-  String get userName => user?.fullName??"Guest" ;
+  String get userName => user?.fullName?? user?.phone??"Guest" ;
   bool get isGuest => user == null;
 }

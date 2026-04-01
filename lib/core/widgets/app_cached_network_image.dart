@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 
 import '../theme/decorations.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final double? width;
   final double? height;
   final BoxFit fit;
@@ -37,14 +38,14 @@ class AppCachedNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl.isEmpty) {
+    if (imageUrl.isNullOrEmpty) {
       return _buildErrorWidget();
     }
 
     final image = Opacity(
       opacity: opacity ?? 1,
       child: CachedNetworkImage(
-        imageUrl: imageUrl,
+        imageUrl: imageUrl!,
         width: width?.w,
         height: height?.h,
         fit: fit,

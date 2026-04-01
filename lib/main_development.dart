@@ -16,6 +16,7 @@ void main() async{
   );
  await  Future.wait([
     setupGetIt(),
+    AppConstants.setupPhoneSystem(),
     ScreenUtil.ensureScreenSize(),
   ]);
   final AppRouter router =AppRouter() ;

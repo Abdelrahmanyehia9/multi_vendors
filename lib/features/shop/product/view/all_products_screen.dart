@@ -25,6 +25,7 @@ class AllProductsScreen extends StatelessWidget {
           _buildFilterChips(["men", "to 500 EGP", "from 20 EGP", "formal", ]),
           const Expanded(
             child: ProductGrid(
+              products: [],
             ),
           ),
         ],

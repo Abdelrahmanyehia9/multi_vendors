@@ -29,7 +29,9 @@ class LoginForm extends StatelessWidget {
           PasswordField(
             controller: passwordController,
           ),
-          const ForgetPasswordButton(),
+           ForgetPasswordButton(
+             email: emailController.text,
+           ),
         ] else ...[
           PhoneField(
             onCountryChanged: onCountryChanged,

@@ -15,11 +15,13 @@ class DatabaseService {
   Future<List<Map<String, dynamic>>> GET({
     required String table,
     String? select,
-    PostgrestFilterBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
+    PostgrestTransformBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
   }) async {
     PostgrestFilterBuilder<PostgrestList> query = _supabase.from(table).select(select ?? "*");
-    if (filter != null) query = filter(query);
-    return List<Map<String, dynamic>>.from(await query);
+    final result = List<Map<String, dynamic>>.from(
+      await (filter != null ? filter(query) : query),
+    );
+    return result;
   }
 
   Future<Map<String, dynamic>> GET_SINGLE({

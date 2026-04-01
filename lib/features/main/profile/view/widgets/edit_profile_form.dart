@@ -37,6 +37,7 @@ class EditProfileForm extends StatelessWidget {
         _textField(label: "Full Name", controller: usernameController),
          EmailField(
            readOnly: isEmailProvided,
+           nullable: true,
            controller: emailController,),
          PhoneField(
            readOnly: !isEmailProvided,

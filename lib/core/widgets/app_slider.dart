@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 
 import '../theme/decorations.dart';
@@ -9,17 +10,19 @@ import 'app_cached_network_image.dart';
 import 'gap.dart';
 
 class AppSlider extends StatefulWidget {
-  final List<String> images;
+  final List<String>? images;
   final double height;
   final double viewPort;
   final bool showDots;
+  final String? placeHolder;
 
   const AppSlider({
     super.key,
     this.height = 250,
     this.viewPort = 1,
     this.showDots = true,
-    required this.images,
+     this.images,
+    this.placeHolder
   });
 
   @override
@@ -31,10 +34,11 @@ class _AppSliderState extends State<AppSlider> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.images.isNullOrEmpty) return AppCachedNetworkImage(widget.placeHolder, height: widget.height, width: double.infinity,radius: Decorations.borderRadius24,) ;
     return Column(
       children: [
         CarouselSlider(
-          items: widget.images.map((i) => _item(i)).toList(),
+          items: widget.images!.map((i) => _item(i)).toList(),
           options: CarouselOptions(
             height: widget.height.h,
             enlargeCenterPage: true,
@@ -49,7 +53,7 @@ class _AppSliderState extends State<AppSlider> {
         if (widget.showDots) ...[
           Gap.medium(),
           SliderDots(
-            total: widget.images.length,
+            total: widget.images!.length,
             currentIndex: _currentIndex,
           ),
         ],
@@ -82,7 +86,7 @@ class SliderDots extends StatelessWidget {
           width: currentIndex == index ? 30.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Decorations.borderRadius50),
+            borderRadius: BorderRadius.circular(Decorations.borderRadius24),
             color: currentIndex == index
                 ? AppColors.primary
                 : context.colors.surfaceContainerLow,

@@ -10,6 +10,7 @@ extension SizeExt on BuildContext{
 
 extension ThemeEXT on BuildContext{
   ThemeData get theme => Theme.of(this) ;
+  bool get isDark => theme.brightness == Brightness.dark;
   ColorScheme get colors => theme.colorScheme ;
   Color get scaffoldBackground => theme.scaffoldBackgroundColor;
 }
@@ -29,4 +30,9 @@ extension SnackBarExt on BuildContext{
  void warningBar({required String message,String title ="warning" })  {
  return  SnackBars.warning(message: message, title: title);
  }
+}
+
+extension DirectionExt on BuildContext {
+  bool get isRTL =>
+      Directionality.of(this) == TextDirection.rtl;
 }

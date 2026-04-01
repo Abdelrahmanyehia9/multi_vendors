@@ -18,7 +18,7 @@ class AllNewsScreen extends StatelessWidget {
         children: [
           _buildSearchField(),
           const Expanded(
-            child: NewsList(),
+            child: NewsList(news: []),
           ),
         ],
       ),

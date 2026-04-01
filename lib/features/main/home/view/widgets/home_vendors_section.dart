@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -7,62 +8,102 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/section_header.dart';
-
+import 'package:multi_vendor/features/main/home/data/models/home_vendor_model.dart';
+import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
 import '../../../../../core/routes/routes.dart';
-import '../../../../../core/utils/testing.dart';
 
 class HomeVendorsSection extends StatelessWidget {
   const HomeVendorsSection({super.key});
+  int get maxItems => 6;
 
   @override
   Widget build(BuildContext context) {
-    final items = 22;
-    final maxItems = 6;
-    final displayCount = items < maxItems ? items : maxItems;
-    final reminder = items - displayCount + 1;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionHeader(
-          title: "Vendors",
-          hasAction: items <= maxItems,
-          onActionTap: () => viewAll(context),
+    return BaseBlocConsumer<HomeVendorsCubit, List<HomeVendorModel>>(
+      successBuilder: (v) {
+        final items = v.length;
+        final displayCount = items < maxItems ? items : maxItems;
+        return _builder(
+          v,
+          displayCount: displayCount,
+          context: context,
+        );
+      },
+      loadingBuilder: () {
+        final item =const HomeVendorModel(name: "", image: "") ;
+        return _builder(
+        List.generate(
+          maxItems,
+          (_) =>item,
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          clipBehavior: Clip.none,
-          child: Row(
-            spacing: 8.w,
-            children: List.generate(displayCount, (index) {
-              bool lastOne = items > maxItems && index == displayCount - 1;
-              return _vendor(lastOne, context, reminder: reminder);
-            }),
-          ),
-        ),
-      ],
+        displayCount: maxItems,
+        context: context,
+      );
+      },
     );
   }
 
-  Widget _vendor(bool lastOne, BuildContext context, {required int reminder}) =>
-      AppClick(
-        onTap: () => context.pushNamed(Routes.vendor),
-        child: CircularBox(
-          radius: 52,
-          child: !lastOne
-              ? const AppCachedNetworkImage(Testing.vendor)
-              : AppClick(
-                  onTap: () => viewAll(context),
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.primary,
-                    child: Text(
-                      "+$reminder",
-                      style: TextStyles.bodyMedium.copyWith(
-                        color: AppColors.white,
-                      ),
+  Widget _builder(
+    List<HomeVendorModel> vendors, {
+    required int displayCount,
+    required BuildContext context,
+  }) {
+
+    final reminder = vendors.length - displayCount + 1;
+    return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const SectionHeader(
+        title: "Vendors",
+      ),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        child: Row(
+          spacing: 8.w,
+          children: List.generate(displayCount, (index) {
+            bool lastOne =
+                vendors.length > maxItems && index == displayCount - 1;
+            return _Vendor(
+              vendors[index],
+              lastOne: lastOne,
+              reminder: reminder,
+            );
+          }),
+        ),
+      ),
+    ],
+  );
+  }
+}
+
+class _Vendor extends StatelessWidget {
+  final bool lastOne;
+  final int reminder;
+  final HomeVendorModel vendor;
+  const _Vendor(this.vendor, {this.lastOne = false, required this.reminder});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppClick(
+      onTap: () => context.pushNamed(Routes.vendor),
+      child: CircularBox(
+        radius: 52,
+        padding: EdgeInsets.zero,
+        child: !lastOne
+            ? AppCachedNetworkImage(vendor.image)
+            : AppClick(
+                onTap: () => context.pushNamed(Routes.vendors),
+                child: CircleAvatar(
+                  backgroundColor: AppColors.primary,
+                  child: Text(
+                    "+$reminder",
+                    style: TextStyles.bodyMedium.copyWith(
+                      color: AppColors.white,
                     ),
                   ),
                 ),
-        ),
-      );
-  void viewAll(BuildContext context) => context.pushNamed(Routes.vendors);
+              ),
+      ),
+    );
+  }
 }

@@ -11,11 +11,16 @@ extension ListExtension<T> on List<T>? {
 }
 
 extension RemoveNulls on Map<String, dynamic> {
-  Map<String, dynamic> withoutNulls() {
+  Map<String, dynamic> get withoutNulls {
     return Map.fromEntries(
       entries.where(
             (e) => e.value != null && (e.value is! String || e.value.isNotEmpty),
       ),
     );
   }
+}
+
+
+extension PriceExtension on num{
+  String get usdPrice => "${toString()}\$";
 }

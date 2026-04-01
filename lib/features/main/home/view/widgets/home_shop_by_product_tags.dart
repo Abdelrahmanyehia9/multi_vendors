@@ -1,25 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/section_header.dart';
+import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
 import '../../../../../core/routes/routes.dart';
 import '../../../../../core/widgets/cards/product_tag_tile.dart';
+import '../../data/models/product_tag_model.dart';
 
 class ShopByProductTags extends StatelessWidget {
   const ShopByProductTags({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-         SectionHeader(
-           hasAction: true,
-           title: "Filter by ${AppConstants.tagsString}", onActionTap: ()=>context.pushNamed(Routes.productTags),),
-        const ProductTagTileList(shrinkWrap: true,)
-
-      ],
+    return BaseBlocConsumer<HomeTagsFilterCubit, List<ProductTagModel>>(
+      successBuilder: (tags) => _builder(context, tags: tags),
+      loadingBuilder: () => _builder(
+        context,
+        tags: List.generate(4, (_) {
+          final item = ProductTagModel.fake();
+          return item;
+        }),
+      ),
     );
   }
+
+  Widget _builder(
+    BuildContext context, {
+    required List<ProductTagModel> tags,
+  }) => Column(
+    children: [
+      SectionHeader(
+        hasAction: true,
+        title: "Filter by ${AppConstants.tagsString}",
+        onActionTap: () => context.pushNamed(Routes.productTags),
+      ),
+      ProductTagTileList(shrinkWrap: true, tags: tags),
+    ],
+  );
 }
-
-

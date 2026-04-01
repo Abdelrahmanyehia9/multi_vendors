@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/login_required.dart';
 import 'package:multi_vendor/core/widgets/user_avatar.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
+import '../../../../core/enum/login_providers.dart';
 import '../../../../core/widgets/gap.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -21,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
       Icons.edit,
       (context) => context.pushNamed(Routes.editProfile),
     ),
+    if(AppConstants.authFormType == AuthFormType.emailAndPassword)
     (
       "Change Password",
       Icons.lock,
@@ -41,7 +45,16 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             Text("Profile", style: TextStyles.labelLarge).appPaddingVr,
-            const Center(child: UserAvatar(size: 100)).appPaddingVr,
+             Center(child: Column(
+              children: [
+                const UserAvatar(size: 100),
+                Gap.small(),
+                Text(userCubit.userName, style: TextStyles.labelMedium,),
+                Text(userCubit.user?.email??userCubit.user?.phone??"", style: TextStyles.bodyMedium.copyWith(
+                  color: context.colors.surfaceContainerLow
+                ),),
+              ],
+            )).appPaddingVr,
             Gap.extraLarge(),
             ..._items.expand(
               (e) => [

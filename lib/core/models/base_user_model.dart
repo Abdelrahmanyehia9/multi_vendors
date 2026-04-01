@@ -112,7 +112,7 @@ class BaseUserModel extends Equatable {
       'birth_date': birthDate?.toIso8601String(),
       'address': address,
       'phone_number': phone,
-    }.withoutNulls();
+    }.withoutNulls;
   }
 
   @override

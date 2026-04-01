@@ -20,7 +20,9 @@ extension Navigation on BuildContext {
     if (routeName != null) {
       Navigator.of(this).popUntil((route) => route.settings.name == routeName);
     } else {
-      Navigator.of(this).popUntil((route) => route.isFirst);
+      while (Navigator.of(this).canPop()) {
+        Navigator.of(this).pop();
+      }
     }
   }
 

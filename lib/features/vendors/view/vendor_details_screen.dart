@@ -54,7 +54,7 @@ void setupListeners() {
           ),
             SliverPadding(
                padding: EdgeInsets.symmetric(horizontal: 16.w),
-               sliver: const ProductGrid(sliver: true,))
+               sliver: const ProductGrid(sliver: true,products: [],))
         ],
       ),
     );

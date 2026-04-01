@@ -4,7 +4,6 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import '../../../../../core/widgets/cards/product_tag_tile.dart';
 import '../../../../../core/widgets/scaffold/base_appbar.dart';
 
 class AllProductTagsScreen extends StatelessWidget {
@@ -19,9 +18,9 @@ class AllProductTagsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildSearchField(),
-          const Expanded(
-            child: ProductTagTileList()
-          ),
+          // const Expanded(
+          //   child: ProductTagTileList()
+          // ),
         ],
       ).appPaddingHr,
     );

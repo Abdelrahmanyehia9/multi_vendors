@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 final class AuthenticationService {
   final SupabaseClient _client;
+
   const AuthenticationService(this._client);
 
   Future<void> signIn({
@@ -16,7 +17,24 @@ final class AuthenticationService {
     required String email,
     required String password,
     Map<String, dynamic>? data,
-  }) async => await _client.auth.signUp(password: password, email: email, data: data);
+  }) async =>
+      await _client.auth.signUp(password: password, email: email, data: data);
+
+  Future<void> sendForgetPasswordEmail({required String email}) async =>
+      await _client.auth.resetPasswordForEmail(
+        email,
+        redirectTo: 'myapp://reset-password',
+      );
+
+  Future<void> updateUser({
+    String? password,
+    String? email,
+    Object? data,
+  }) async {
+    await _client.auth.updateUser(
+      UserAttributes(password: password, email: email, data: data),
+    );
+  }
 
   Future<void> sendOtp({
     String? phone,
@@ -39,7 +57,8 @@ final class AuthenticationService {
     required String otp,
     OtpType type = OtpType.sms,
   }) async {
-    return await _client.auth.verifyOTP(phone: phone, token: otp, type: type);
+    return await _client.auth.verifyOTP(
+        phone: phone, token: otp, type: type);
   }
 
   Future<AuthResponse> googleSignIn({
@@ -77,6 +96,7 @@ final class AuthenticationService {
       case AuthChangeEvent.signedOut:
         onSignedOut.call();
         break;
+
       case AuthChangeEvent.userUpdated:
         onUserUpdated.call(data.session!.user.id);
         break;
@@ -86,7 +106,8 @@ final class AuthenticationService {
   });
 
   bool get isAuthenticated => _client.auth.currentUser != null;
-  Future<void> logout() async => await _client.auth.signOut();
 
+  Future<void> logout() async => await _client.auth.signOut();
+  Future<void>reAuth()async=>await _client.auth.reauthenticate() ;
   User? get currentUser => _client.auth.currentUser;
 }

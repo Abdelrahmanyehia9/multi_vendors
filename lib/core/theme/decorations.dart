@@ -192,29 +192,24 @@ class AppInputDecoration {
         return InputBorder.none;
     }
   }
-
   InputDecoration inputDecoration(BuildContext context) {
     final theme = Theme.of(context);
 
     return InputDecoration(
       contentPadding: padding,
-
       prefixIcon: prefix,
       suffixIcon: suffix,
-
       prefixIconColor: theme.colorScheme.surfaceContainer,
       suffixIconColor: theme.colorScheme.surfaceContainer,
       hintText: hintText,
       labelText: labelText,
       helperText: helperText,
-
       hintStyle:
       hintStyle ?? TextStyle(color: theme.colorScheme.surfaceContainer),
       labelStyle:
       labelStyle ?? TextStyle(color: theme.colorScheme.surfaceContainer),
       helperStyle: helperStyle,
       errorStyle: errorStyle,
-
       filled: borderType == AppBorderType.filled,
       fillColor: filledColor ??
           (borderType == AppBorderType.filled

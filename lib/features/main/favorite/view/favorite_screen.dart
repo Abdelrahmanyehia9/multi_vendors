@@ -46,13 +46,13 @@ class _FavoriteScreenState extends State<FavoriteScreen>
               child: TabBarView(
                 controller: controller,
                 children: [
-                  const ProductGrid().appPaddingHr,
+                  const ProductGrid(products: [],).appPaddingHr,
                   const VendorCardGrid().appPaddingHr,
                 ],
               ),
             ),
           ] else
-            Expanded(child: const ProductGrid().appPaddingHr),
+            Expanded(child: const ProductGrid(products: [],).appPaddingHr),
         ],
       ),
     );

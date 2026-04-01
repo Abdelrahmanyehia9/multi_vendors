@@ -6,24 +6,29 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 
 class BaseAppBar extends AppBar {
-  BaseAppBar({super.key,Widget? leading , String? title, super.actions})
-    : super(
-        title: title == null
-            ? null
-            : Padding(
-                padding: EdgeInsets.only(top: 6.h),
-                child: Text(title, style: TextStyles.bodyMedium),
-              ),
-        leading: leading ?? _buildLeading(),
-        leadingWidth: 60.sp,
-        toolbarHeight: 60.sp,
-        actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
-        scrolledUnderElevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(8.h),
-          child: const SizedBox.shrink(),
-        ),
-      );
+  BaseAppBar({
+    super.key,
+    Widget? leading,
+    String? title,
+    bool showLeading = true,
+    super.actions,
+  }) : super(
+         title: title == null
+             ? null
+             : Padding(
+                 padding: EdgeInsets.only(top: 6.h),
+                 child: Text(title, style: TextStyles.bodyMedium),
+               ),
+         leading: showLeading ? leading ?? _buildLeading() : const SizedBox(),
+         leadingWidth: 60.sp,
+         toolbarHeight: 60.sp,
+         actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
+         scrolledUnderElevation: 0,
+         bottom: PreferredSize(
+           preferredSize: Size.fromHeight(8.h),
+           child: const SizedBox.shrink(),
+         ),
+       );
 
   static Widget _buildLeading() {
     return const AppBackButton();
@@ -64,10 +69,15 @@ class BaseSliverAppBar extends SliverAppBar {
 
 class AppBackButton extends StatelessWidget {
   final Color? iconColor;
-
   final Color? backgroundColor;
+  final GestureTapCallback? onBack;
 
-  const AppBackButton({super.key, this.iconColor, this.backgroundColor});
+  const AppBackButton({
+    super.key,
+    this.onBack,
+    this.iconColor,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +88,18 @@ class AppBackButton extends StatelessWidget {
         size: 24,
         iconColor: iconColor,
         backGroundColor: backgroundColor,
-        onTap: () {
-          if (context.canPop()) {
-            context.pop();
-          } else {
-            context.pushNamedAndRemoveUntil(
-              Routes.mainLayout,
-              predicate: (_) => false,
-            );
-          }
-        },
+        onTap:
+            onBack ??
+            () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.pushNamedAndRemoveUntil(
+                  Routes.mainLayout,
+                  predicate: (_) => false,
+                );
+              }
+            },
       ),
     );
   }

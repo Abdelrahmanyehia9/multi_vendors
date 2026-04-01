@@ -34,3 +34,8 @@ extension PaddingExt on Widget {
   Widget get  appPaddingAll => paddingAll() ;
 
 }
+
+extension TextControllerEXT on TextEditingController {
+  String? get textOrNull => text.trim().isEmpty ? null : text.trim();
+
+}

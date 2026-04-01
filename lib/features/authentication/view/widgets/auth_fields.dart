@@ -82,10 +82,10 @@ class _PasswordFieldState extends State<PasswordField> {
 
 class EmailField extends StatelessWidget {
   final TextEditingController? controller;
-
+ final bool nullable ;
   final bool readOnly;
 
-  const EmailField({super.key, this.readOnly = false, this.controller});
+  const EmailField({super.key,this.nullable = false ,this.readOnly = false, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class EmailField extends StatelessWidget {
       hintText: "Enter Your Email",
       controller: controller,
       headerText: "Email Address",
-      validator: AppValidation.validateEmail,
+      validator:(v)=> AppValidation.validateEmail(v, nullable),
       keyboardType: TextInputType.emailAddress,
       suffix: const Icon(Icons.email),
       borderType: AppBorderType.filled,
@@ -154,6 +154,7 @@ class PhoneField extends StatelessWidget {
   }) {
     final AppInputDecoration decoration = AppInputDecoration.instance.copyWith(
       hintText: hintText,
+      filledColor: readOnly ? context.colors.surfaceContainerLowest.darken() :null,
       padding: contentPadding,
     );
     return decoration.inputDecoration(context);

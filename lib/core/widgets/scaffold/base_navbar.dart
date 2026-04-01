@@ -40,24 +40,29 @@ class _BaseNavbarState extends State<BaseNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        color: context.scaffoldBackground,
-        boxShadow: widget.shadow,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: List.generate(
-          widget.items.length,
-          (index) => AppClick(
-            onTap: () {
-              widget.onSelect?.call(index);
-              setState(() => _selectedIndex = index);
-            },
-            child: _buildItem(
-              item: widget.items[index],
-              isSelected: _selectedIndex == index,
+    return SafeArea(
+      top: false,
+      right: false,
+      left: false,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: context.scaffoldBackground,
+          boxShadow: widget.shadow,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(
+            widget.items.length,
+            (index) => AppClick(
+              onTap: () {
+                widget.onSelect?.call(index);
+                setState(() => _selectedIndex = index);
+              },
+              child: _buildItem(
+                item: widget.items[index],
+                isSelected: _selectedIndex == index,
+              ),
             ),
           ),
         ),

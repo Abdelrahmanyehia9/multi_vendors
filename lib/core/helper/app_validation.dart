@@ -1,3 +1,5 @@
+import 'package:multi_vendor/core/extensions/data_type.dart';
+
 class AppValidation {
   AppValidation._();
 
@@ -28,7 +30,8 @@ class AppValidation {
     }
     return null;
   }
-  static String? validateEmail(String? email) {
+  static String? validateEmail(String? email, bool? nullable) {
+    if (nullable == true && email.isNullOrEmpty) return null;
     final emptyCheck = _checkNullOrEmpty(email, 'Email address');
     if (emptyCheck != null) return emptyCheck;
 

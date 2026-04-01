@@ -16,7 +16,6 @@ import 'package:multi_vendor/core/widgets/app_slider.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/add_to_cart_button.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_variant.dart';
-import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/scaffold/base_appbar.dart';
 import '../../../../core/routes/routes.dart';
 
@@ -95,7 +94,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     crossAxisAlignment: CrossAxisAlignment.start,
     spacing: 4.h,
     children: [
-      const ProductNameWithPrice(),
+      // const ProductNameWithPrice(),
       if(FeatureFlags.multiVendor)
       AppClick(
         onTap: ()=>context.pushNamed(Routes.vendor),

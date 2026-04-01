@@ -12,7 +12,7 @@ class EditPasswordCubit extends Cubit<BaseState<Unit>>{
 
   Future<void>editPassword(String password)async{
     safeEmit(const BaseState.loading()) ;
-    final result = await _repository.editProfile(password: password);
+    final result = await _repository.changePassword(password);
     result.fold(
       (l) => safeEmit(BaseState.failure(l)),
       (r) => safeEmit(BaseState.success(r)),

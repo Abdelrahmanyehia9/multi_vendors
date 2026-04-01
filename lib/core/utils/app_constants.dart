@@ -1,16 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
-
 import '../enum/login_providers.dart';
 import '../types/type_def.dart';
+/*
 
+
+
+ */
 class AppConstants {
   const AppConstants._();
+  static Future<void> setupPhoneSystem() async {
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        systemStatusBarContrastEnforced: false,
+        systemNavigationBarContrastEnforced: false,
+        statusBarColor: Colors.transparent,
+      ),
+    );
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
   static const String appName = 'Multi Vendor';
   ///filters by or tags Like (outwear, formal, casual)
   static const String tagsString = "Fashion Style" ;
-  static const AuthFormType authFormType = AuthFormType.emailAndPassword;
+  static const ProductTags homeFeaturedItem = ProductTags.newArrivals ;
+  static const AuthFormType authFormType = AuthFormType.mobile;
   static const List<OnBoardingItemData> items = [
     (
     title: "Collection of Your Favorite \nBest",

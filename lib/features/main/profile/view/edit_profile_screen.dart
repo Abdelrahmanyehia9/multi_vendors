@@ -5,12 +5,12 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_pic.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/edit_profile_form.dart';
-import '../../../../core/models/base_user_model.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 import '../logic/edit_profile_cubit.dart';
 
@@ -22,48 +22,42 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  late final TextEditingController usernameController;
-  late final TextEditingController phoneController;
-  late final TextEditingController emailController;
+  late final TextEditingController usernameController,
+      phoneController,
+      emailController,
+      addressController;
   late final ValueNotifier<bool> isMaleNotifier;
-  late final TextEditingController addressController;
   late DateTime? birthDate;
-  late Country _selectedCountry ;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+  Country _selectedCountry = userCubit.user!.country ?? AppConstants.initialCountry;
   EditProfileCubit get profileCubit => context.read<EditProfileCubit>();
-
 
   Future<void> _onSave() async {
     if (formKey.currentState!.validate()) {
-     final newUser =   userCubit.user!.copyWith(
-          fullName: usernameController.text.trim(),
-          phone: _selectedCountry.dialCode + phoneController.text.trim(),
-          email: emailController.text.trim(),
-          address: addressController.text.trim(),
+      profileCubit.editProfile(
+        userCubit.user!.copyWith(
+          fullName: usernameController.textOrNull,
+          phone: phoneController.textOrNull,
+          email: emailController.textOrNull,
+          address: addressController.textOrNull,
           isMale: isMaleNotifier.value,
+          country: _selectedCountry,
           birthDate: birthDate,
-        );
-      profileCubit.editProfile(newUser);
+        ),
+      );
     }
   }
 
   @override
   void initState() {
-    super.initState();
-    final BaseUserModel? u = userCubit.user;
-    late final String? purePhone;
-    _selectedCountry = u?.country ?? AppConstants.initialCountry;
-    if(u!=null && u.phone != null){
-      purePhone  = u.phone!.replaceFirst(u.country?.dialCode??"" , '');
-    } else{
-      purePhone = u?.phone ;
-    }
+    final u = userCubit.user;
     usernameController = TextEditingController(text: u?.fullName);
-    phoneController = TextEditingController(text: purePhone);
+    phoneController = TextEditingController(text: u?.phone);
     emailController = TextEditingController(text: u?.email);
     addressController = TextEditingController(text: u?.address);
-    isMaleNotifier = ValueNotifier<bool>(u?.isMale ?? true);
+    isMaleNotifier = ValueNotifier(u?.isMale ?? true);
     birthDate = u?.birthDate;
+    super.initState();
   }
 
   @override
@@ -84,19 +78,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 phoneController: phoneController,
                 emailController: emailController,
                 isMaleNotifier: isMaleNotifier,
-                onBirthDateSelected: (date) {
-                  birthDate = date;
-                },
+                onBirthDateSelected: (d) => birthDate = d,
                 addressController: addressController,
               ),
             ),
             BaseBlocConsumer(
-              onSuccess: (e)=>context.successBar(message: "Profile Updated Successfully"),
-              onEmpty: ()=>context.warningBar(message: "You're all set! No changes made"),
-              onFailure: (e)=>context.errorBar(message: e.message),
               bloc: profileCubit,
+              onSuccess: (_) => context.successBar(message: "Updated"),
+              onEmpty: () => context.warningBar(message: "No changes"),
+              onFailure: (e) => context.errorBar(message: e.message),
               builder: (state) => AppButton(
-                text: "Saved",
+                text: "Save",
                 isLoading: state.isLoading,
                 onPressed: _onSave,
                 buttonSize: null,
@@ -110,16 +102,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   void dispose() {
-    final controllers = [
-      usernameController,
-      phoneController,
-      emailController,
-      addressController,
-    ];
-    for (var c in controllers) {
-      c.dispose();
-    }
+    usernameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    addressController.dispose();
     isMaleNotifier.dispose();
     super.dispose();
   }
 }
+

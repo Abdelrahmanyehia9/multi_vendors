@@ -5,23 +5,25 @@ import '../theme/app_colors.dart';
 import '../theme/text_styles.dart';
 import 'gap.dart';
 enum MessagesAlertType{
-  orderSuccess , loginRequired;
+  orderSuccess , loginRequired , resetPasswordSuccess;
 
 
   String get title => switch(this){
     orderSuccess => "Order Successful",
-    loginRequired => "Login Required"
+    loginRequired => "Login Required",
+    resetPasswordSuccess => "Password Reset Successful"
   };
   String get message => switch(this){
     orderSuccess => "We are happy to inform you that your purchase has been completed. Thank you for your trust in shopping at our store",
-    loginRequired => "You're just one step away! Sign in to access your account and pick up right where you left off."
+    loginRequired => "You're just one step away! Sign in to access your account and pick up right where you left off.",
+    resetPasswordSuccess => "Your password has been reset successfully. You can now sign in with your new password."
   };
   IconData get icon => switch(this){
-    orderSuccess =>Icons.verified ,
-  loginRequired => Icons.login
+    orderSuccess || resetPasswordSuccess =>Icons.verified ,
+   loginRequired => Icons.login
   };
   Color get color => switch(this){
-    orderSuccess =>AppColors.success ,
+    orderSuccess || resetPasswordSuccess =>AppColors.success ,
   loginRequired => AppColors.error
   };
 }
