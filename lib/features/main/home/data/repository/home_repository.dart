@@ -7,107 +7,88 @@ import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/models/product_model.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
+import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_vendor_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
-import 'home_quieries.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../../../core/queries/home_queries.dart';
 
 class HomeRepository {
   final DatabaseService _databaseService;
-
   HomeRepository(this._databaseService);
 
-  final HomeQueries _queries = HomeQueries();
 
-  Future<Either<AppException, List<CategoryModel>>> getCategories() async {
+  Future<Either<AppException, List<T>>> _getList<T>({
+    required String table,
+    String? select,
+  PostgrestTransformBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
+    required T Function(Map<String, dynamic>) fromJson,
+  }) async {
     try {
       final response = await _databaseService.GET(
-        table: RemoteDatabaseConstants.category_table,
-        select: _queries.homeCategories,
+        table: table,
+        select: select,
+        filter: filter,
       );
-      final List<CategoryModel> categories = response
-          .map((e) => CategoryModel.fromJson(e))
-          .toList();
-      return right(categories);
+      final data = response.map<T>((e) => fromJson(e)).toList();
+      return right(data);
     } catch (e) {
       return left(e.toAppException);
     }
   }
-
-  Future<Either<AppException, List<HomeVendorModel>>> getVendors() async {
-    try {
-      final response = await _databaseService.GET(
-        table: RemoteDatabaseConstants.vendor_table,
-        select: _queries.homeVendors,
-      );
-      final List<HomeVendorModel> vendors = response
-          .map((e) => HomeVendorModel.fromJson(e))
-          .toList();
-      return right(vendors);
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
-
+  Future<Either<AppException, List<CategoryModel>>> getCategories() =>
+     _getList(
+      table: RemoteDatabaseConstants.category_table,
+      select: HomeQueries.homeCategories,
+      fromJson: CategoryModel.fromJson,
+    );
+  Future<Either<AppException, List<HomeVendorModel>>> getVendors() =>
+     _getList(
+      table: RemoteDatabaseConstants.vendor_table,
+      select: HomeQueries.homeVendors,
+      fromJson: HomeVendorModel.fromJson,
+    );
   Future<Either<AppException, List<ProductModel>>> getProductByCategory({
     required int catId,
-  }) async {
-    try {
-      final response = await _databaseService.GET(
-        table: RemoteDatabaseConstants.product_table,
-        select: _queries.productByCategory,
-        filter: (e) => e.eq(RemoteDatabaseConstants.category_id_column, catId),
-      );
-      final List<ProductModel> products = response
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
-      return right(products);
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
-
+  }) => _getList(
+      table: RemoteDatabaseConstants.product_table,
+      select: HomeQueries.productByCategory,
+      filter: (e) =>
+          e.eq(RemoteDatabaseConstants.category_id_column, catId),
+      fromJson: ProductModel.fromJson,
+    );
   Future<Either<AppException, List<ProductModel>>> getItemByFilter(
-    ProductTags tag, {
-    int limit = 1,
-  }) async {
-    try {
-      final response = await _databaseService.GET(
-        table: RemoteDatabaseConstants.product_table,
-        select: _queries.productByFilter,
-        filter: (q) => tag.filters(q).limit(limit),
-      );
-      final List<ProductModel> products = response
-          .map((e) => ProductModel.fromJson(e))
-          .toList();
-      return right(products);
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
+      ProductTags tag, {
+        int limit = 1,
+      }) => _getList(
+      table: RemoteDatabaseConstants.product_table,
+      select: HomeQueries.productByFilter,
+      filter: (q) => tag.filters(q).limit(limit),
+      fromJson: ProductModel.fromJson,
+    );
+  Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() =>
+    _getList(
+      table: RemoteDatabaseConstants.tags_table,
+      fromJson: ProductTagModel.fromJson,
+    );
+  Future<Either<AppException, List<NewsModel>>> getNews() => _getList(
+      table: RemoteDatabaseConstants.news_table,
+      filter: (e) => e.order(
+        RemoteDatabaseConstants.created_at_column,
+        ascending: true,
+      ),
+      fromJson: NewsModel.fromJson,
+    );
+  Future<Either<AppException, List<HomeBannerModel>>> getBanners() => _getList(
+      table: RemoteDatabaseConstants.banner_table,
+      filter: (e) => e
+          .eq(RemoteDatabaseConstants.is_active_column, true)
+          .order(
+        RemoteDatabaseConstants.created_at_column,
+        ascending: true,
+      ),
+      fromJson: HomeBannerModel.fromJson,
+    );
 
-  Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() async {
-    try {
-      final response = await _databaseService.GET(table: RemoteDatabaseConstants.tags_table,);
-      final List<ProductTagModel> tags = response
-          .map((e) => ProductTagModel.fromJson(e))
-          .toList();
-      return right(tags);
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
-
-  Future<Either<AppException, List<NewsModel>>> getNews() async {
-    try {
-      final response = await _databaseService.GET(table: RemoteDatabaseConstants.news_table,
-      filter: (e)=>e.order(RemoteDatabaseConstants.created_at_column, ascending: true)
-      );
-      final List<NewsModel> news = response
-          .map((e) => NewsModel.fromJson(e))
-          .toList();
-      return right(news);
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
 }

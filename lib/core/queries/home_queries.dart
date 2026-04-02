@@ -1,0 +1,11 @@
+class HomeQueries {
+  const HomeQueries._();
+
+  /// home
+  static const String homeCategories = "id,name";
+  static const String homeVendors = "id,name,image";
+  static const String productByCategory =
+      "id,name,price,thumbnail,vendor(name,image),rating";
+  static const String productByFilter =
+      "id,name,price,thumbnail,vendor(name,image),rating";
+}

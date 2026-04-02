@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'core/helper/app_scroll_behavior.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
 import 'core/service/navigation_service.dart';
 import 'core/theme/app_theme.dart';
+import 'core/utils/helper/app_scroll_behavior.dart';
 import 'core/widgets/user_session_builder.dart';
 
 class MultiVendors extends StatelessWidget {

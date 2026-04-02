@@ -19,6 +19,13 @@ extension ColorExtension on Color {
   }
 
 
+
+  String  get toRgbString => toARGB32().toString() ;
+  static Color? fromRgbString(String value) {
+    final int? color = int.tryParse(value);
+    return color == null ? null : Color(color);
+  }
+
   Color get veryLight => lighten().withAppOpacity(0.2) ;
 }
 

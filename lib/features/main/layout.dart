@@ -9,6 +9,7 @@ import '../../core/cubit/search_cubit.dart';
 import '../../core/widgets/scaffold/base_navbar.dart';
 import '../shop/history/view/order_history_screen.dart';
 import 'favorite/view/favorite_screen.dart';
+import 'home/logic/home_banner_cubit.dart';
 import 'home/logic/home_cateogries_logic.dart';
 import 'home/logic/home_featured_item_cubit.dart';
 import 'home/logic/home_news_cubit.dart';
@@ -65,6 +66,10 @@ class _MainLayoutState extends State<MainLayout> {
             BlocProvider(
               create: (context) =>
                   HomeNewsCubit(getIt.get<HomeRepository>())..getNews(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  HomeBannerCubit(getIt.get<HomeRepository>())..getBanners(),
             ),
           ],
           child: HomeScreen(onSearch: () => _selectedPage.value = 1),

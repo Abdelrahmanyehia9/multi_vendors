@@ -13,8 +13,8 @@ import '../../features/main/home/data/repository/home_repository.dart';
 import '../cubit/user_cubit.dart';
 import '../database/local_storage.dart';
 import '../database/shared_pref_local_storage.dart';
-import '../helper/user_session_helper.dart';
 import '../service/database_service.dart';
+import '../utils/helper/user_session_helper.dart';
 
 GetIt getIt = GetIt.instance;
 UserCubit userCubit = getIt.get<UserCubit>();

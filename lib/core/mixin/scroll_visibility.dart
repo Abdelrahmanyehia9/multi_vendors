@@ -20,3 +20,29 @@ mixin ScrollVisibilityMixin<T extends StatefulWidget> on State<T> {
     super.dispose();
   }
 }
+mixin ScrollTitleVisibilityMixin<T extends StatefulWidget> on State<T> {
+  final ScrollController scrollController = ScrollController();
+  final ValueNotifier<bool> showTitle = ValueNotifier(false);
+
+  double get titleThreshold => 210.0;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    final shouldShow = scrollController.offset > titleThreshold;
+    if (shouldShow != showTitle.value) {
+      showTitle.value = shouldShow;
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    showTitle.dispose();
+    super.dispose();
+  }
+}

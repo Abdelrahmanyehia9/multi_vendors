@@ -33,7 +33,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
         children: [
           SizedBox(
             height: 70.h,
-            child: BaseAppBar(title: "Favorite"),
+            child: BaseAppBar(title: "Favorite", showLeading: false,),
           ),
           if (FeatureFlags.multiVendor) ...[
             BaseTabBar(

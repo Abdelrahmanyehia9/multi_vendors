@@ -9,32 +9,37 @@ class BaseAppBar extends AppBar {
   BaseAppBar({
     super.key,
     Widget? leading,
-    String? title,
+    Object? title,
     bool showLeading = true,
     super.actions,
-  }) : super(
-         title: title == null
-             ? null
-             : Padding(
-                 padding: EdgeInsets.only(top: 6.h),
-                 child: Text(title, style: TextStyles.bodyMedium),
-               ),
-         leading: showLeading ? leading ?? _buildLeading() : const SizedBox(),
-         leadingWidth: 60.sp,
-         toolbarHeight: 60.sp,
-         actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
-         scrolledUnderElevation: 0,
-         bottom: PreferredSize(
-           preferredSize: Size.fromHeight(8.h),
-           child: const SizedBox.shrink(),
-         ),
-       );
+  }) : assert(
+  title == null || title is String || title is Widget,
+  'title must be a String or Widget',
+  ),
+        super(
+        title: title == null
+            ? null
+            : Padding(
+          padding: EdgeInsets.only(top: 6.h),
+          child: title is String
+              ? Text(title, style: TextStyles.bodyMedium)  // ✅ String زي الأول
+              : title as Widget,                            // ✅ Widget للحالات الخاصة
+        ),
+        leading: showLeading ? leading ?? _buildLeading() : const SizedBox(),
+        leadingWidth: 60.sp,
+        toolbarHeight: 60.sp,
+        actionsPadding: EdgeInsetsDirectional.only(top: 12.h, end: 16.w),
+        scrolledUnderElevation: 0,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(8.h),
+          child: const SizedBox.shrink(),
+        ),
+      );
 
   static Widget _buildLeading() {
     return const AppBackButton();
   }
 }
-
 class BaseSliverAppBar extends SliverAppBar {
   BaseSliverAppBar({
     Widget? leading,

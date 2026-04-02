@@ -15,6 +15,7 @@ class AppSlider extends StatefulWidget {
   final double viewPort;
   final bool showDots;
   final String? placeHolder;
+  final List<Widget>? slides ;
 
   const AppSlider({
     super.key,
@@ -22,7 +23,8 @@ class AppSlider extends StatefulWidget {
     this.viewPort = 1,
     this.showDots = true,
      this.images,
-    this.placeHolder
+    this.placeHolder,
+    this.slides,
   });
 
   @override
@@ -34,11 +36,12 @@ class _AppSliderState extends State<AppSlider> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.images.isNullOrEmpty) return AppCachedNetworkImage(widget.placeHolder, height: widget.height, width: double.infinity,radius: Decorations.borderRadius24,) ;
+    final int count = widget.images?.length ?? widget.slides?.length ?? 0;
+    if(widget.images.isNullOrEmpty && widget.slides.isNullOrEmpty) return AppCachedNetworkImage(widget.placeHolder, height: widget.height, width: double.infinity,radius: Decorations.borderRadius24,) ;
     return Column(
       children: [
         CarouselSlider(
-          items: widget.images!.map((i) => _item(i)).toList(),
+          items:widget.slides ?? widget.images!.map((i) => _item(i)).toList(),
           options: CarouselOptions(
             height: widget.height.h,
             enlargeCenterPage: true,
@@ -53,7 +56,7 @@ class _AppSliderState extends State<AppSlider> {
         if (widget.showDots) ...[
           Gap.medium(),
           SliderDots(
-            total: widget.images!.length,
+            total: count,
             currentIndex: _currentIndex,
           ),
         ],

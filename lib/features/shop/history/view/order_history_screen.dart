@@ -13,7 +13,7 @@ class OrderHistoryScreen extends StatelessWidget {
       children: [
         SizedBox(
           height: 70.h,
-          child: BaseAppBar(title: "Order History"),
+          child: BaseAppBar(title: "Order History", showLeading: false,),
         ),
         Expanded(
             child: ListView.separated(

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
 class BaseScaffold extends StatelessWidget {
   final Widget? body ;
   final Widget? bottomNavigationBar ;
   final bool topSafeArea ;
-  final BaseAppBar? appBar ;
+  final PreferredSizeWidget? appBar ;
   final double paddingHr  ;
   final double paddingVr ;
   const BaseScaffold({super.key, this.paddingHr=16,this.paddingVr=16,this.topSafeArea = true, this.appBar  ,this.body, this.bottomNavigationBar});

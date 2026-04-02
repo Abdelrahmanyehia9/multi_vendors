@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
-import 'package:multi_vendor/core/helper/app_validation.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/password_validations_hint.dart';
 
+import '../../../../core/utils/helper/app_validation.dart';
 import '../../../../core/widgets/app_text_field.dart';
 
 class SignupForm extends StatelessWidget {

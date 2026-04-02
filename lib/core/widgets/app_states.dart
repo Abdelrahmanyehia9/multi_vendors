@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import '../models/action_model.dart';
@@ -38,6 +39,7 @@ class AppStates extends StatelessWidget {
   final String? customSvg;
   final String? message;
   final ActionModel? actionModel;
+
   const AppStates({
     super.key,
     this.actionModel,
@@ -47,6 +49,16 @@ class AppStates extends StatelessWidget {
     this.message,
     required this.state,
   });
+
+  factory AppStates.error(AppException e,
+      {double size = 20, IconData? customIcon, String? customSvg, ActionModel? actionModel})=>
+      AppStates(state: States.error, message: e.message,
+      customIcon: customIcon,
+      customSvg: customSvg,
+      size: size,
+      actionModel: actionModel
+      ) ;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -66,8 +78,8 @@ class AppStates extends StatelessWidget {
           if (actionModel != null)
             AppButton(
               text: actionModel!.text,
-              onPressed:()=> actionModel?.action?.call(context),
-              fixedSize: Size( size * 7,  size * 1.4),
+              onPressed: () => actionModel?.action?.call(context),
+              fixedSize: Size(size * 7, size * 1.4),
               style: TextStyles.bodyMedium.copyWith(
                 color: Colors.white,
                 fontSize: size * .586.sp,
@@ -77,6 +89,7 @@ class AppStates extends StatelessWidget {
       ).paddingAll(size),
     );
   }
+
   Widget _buildImage() {
     if (customIcon != null) {
       return Opacity(
