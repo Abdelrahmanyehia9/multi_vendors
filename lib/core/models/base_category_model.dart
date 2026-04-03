@@ -26,6 +26,11 @@ class CategoryModel extends Equatable {
     parent: json['parent'] != null ? CategoryModel.fromJson(json['parent']) : null,
   );
 
+
+  factory CategoryModel.fake()=>const CategoryModel(
+    name: "Category",
+  ) ;
+
   @override
   List<Object?> get props => [id, img, count, description, parent];
 }

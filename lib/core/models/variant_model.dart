@@ -18,4 +18,9 @@ class VariantModel {
     required this.available,
     this.price,
   });
+
+  factory VariantModel.fromJson(Map<String, dynamic>json)=>VariantModel(
+      value: json['value'],
+      type: json['type'],
+      available: json['available'])  ;
 }

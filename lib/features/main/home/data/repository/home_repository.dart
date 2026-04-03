@@ -70,6 +70,7 @@ class HomeRepository {
   Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() =>
     _getList(
       table: RemoteDatabaseConstants.tags_table,
+      filter: (e)=>e.limit(4),
       fromJson: ProductTagModel.fromJson,
     );
   Future<Either<AppException, List<NewsModel>>> getNews() => _getList(

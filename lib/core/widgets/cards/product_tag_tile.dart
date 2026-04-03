@@ -12,7 +12,9 @@ class ProductTagTileList extends StatelessWidget {
 
   final List<ProductTagModel> tags;
 
-  const ProductTagTileList({
+  const ProductTagTileList(
+
+      {
     super.key,
     required this.tags,
     this.shrinkWrap = false,

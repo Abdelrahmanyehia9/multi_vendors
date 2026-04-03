@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/text_styles.dart';
+
 mixin ScrollVisibilityMixin<T extends StatefulWidget> on State<T> {
   final ScrollController scrollController = ScrollController();
   final ValueNotifier<bool> showFixedArea = ValueNotifier(true);
@@ -39,6 +41,34 @@ mixin ScrollTitleVisibilityMixin<T extends StatefulWidget> on State<T> {
     }
   }
 
+
+  Widget title(String? title){
+    return ValueListenableBuilder(
+      valueListenable: showTitle,
+      builder: (_, value, _) => AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, -0.3),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          ),
+        ),
+        child: value
+            ? Text(
+          title ?? "",
+          key: const ValueKey('title'),
+          style: TextStyles.bodyMedium,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        )
+            : const SizedBox.shrink(),
+      ),
+    ) ;
+  }
   @override
   void dispose() {
     scrollController.dispose();

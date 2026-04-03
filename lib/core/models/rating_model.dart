@@ -1,3 +1,5 @@
+import '../utils/helper/fake_data.dart';
+
 class RatingModel{
   final num rating;
   final int count;
@@ -8,6 +10,11 @@ class RatingModel{
       rating: json['value'],
       count: json['count'],
       distribution:  json['distribution']==null?null:RatingDistribution.fromJson(json['distribution'])
+  );
+
+  factory RatingModel.fake()=>const RatingModel(
+    rating: FakeData.fakeDouble,
+    count: FakeData.fakeInt,
   );
 
 }
@@ -26,5 +33,6 @@ class RatingDistribution{
       three: json["3"],
       four: json["4"],
       five: json["5"]);
+
 
 }

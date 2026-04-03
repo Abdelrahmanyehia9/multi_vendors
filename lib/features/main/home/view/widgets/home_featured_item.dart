@@ -28,7 +28,7 @@ class HomeFeaturedItem extends StatelessWidget {
         title: AppConstants.homeFeaturedItem.toText,
         hasAction: true,
         action: "View details",
-        onActionTap: () => context.pushNamed(Routes.product),
+        onActionTap: () => context.pushNamed(Routes.product, arguments: product!.id),
       ),
       ProductCard.big(
         product: product ?? const ProductModel(name: '', price: null),

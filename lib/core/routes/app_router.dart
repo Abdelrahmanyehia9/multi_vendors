@@ -34,6 +34,9 @@ import '../../features/shop/checkout/view/order_success.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
 import '../../features/shop/history/view/rate_order_screen.dart';
 import '../../features/shop/history/view/rate_product_screen.dart';
+import '../../features/shop/product/data/repository/product_repository.dart';
+import '../../features/shop/product/logic/product_all_tags_cubit.dart';
+import '../../features/shop/product/logic/product_details_cubit.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
@@ -54,7 +57,10 @@ class AppRouter {
           MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => LoginCubit(getIt.get<AuthRepository>() , getIt.get<OtpRepository>()),
+                create: (context) => LoginCubit(
+                  getIt.get<AuthRepository>(),
+                  getIt.get<OtpRepository>(),
+                ),
               ),
             ],
             child: const LoginScreen(),
@@ -79,13 +85,26 @@ class AppRouter {
           name: Routes.signup,
         );
       case Routes.forgetPassword:
-        final ForgetPasswordArgs args = settings.arguments as ForgetPasswordArgs;
+        final ForgetPasswordArgs args =
+            settings.arguments as ForgetPasswordArgs;
         return _page(
           MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => ForgetPasswordSendEmailCubit(getIt.get<ResetPasswordRepository>())),
-              BlocProvider(create: (context) => ForgetPasswordChangePasswordCubit(getIt.get<ResetPasswordRepository>())),
-              BlocProvider(create: (context) => ForgetPasswordStepperCubit()..init(email: args.email, initialStep: args.initialStep)),
+              BlocProvider(
+                create: (context) => ForgetPasswordSendEmailCubit(
+                  getIt.get<ResetPasswordRepository>(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => ForgetPasswordChangePasswordCubit(
+                  getIt.get<ResetPasswordRepository>(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    ForgetPasswordStepperCubit()
+                      ..init(email: args.email, initialStep: args.initialStep),
+              ),
             ],
             child: const ForgetPasswordScreen(),
           ),
@@ -100,14 +119,30 @@ class AppRouter {
       case Routes.products:
         return _page(const AllProductsScreen(), name: Routes.products);
       case Routes.product:
-        return _page(const ProductDetailsScreen(), name: Routes.product);
+        final int pId = settings.arguments as int;
+        return _page(
+          BlocProvider(
+            create: (context) =>
+                ProductDetailsCubit(getIt.get<ProductRepository>())..getProductDetails(pId: pId),
+            child: const ProductDetailsScreen(),
+          ),
+          name: Routes.product,
+        );
       case Routes.productTags:
-        return _page(const AllProductTagsScreen(), name: Routes.productTags);
+        return _page(
+          BlocProvider(
+            create: (context) =>
+                ProductAllTagsCubit(getIt.get<ProductRepository>())
+                  ..getAllTags(),
+            child: const AllProductTagsScreen(),
+          ),
+          name: Routes.productTags,
+        );
       case Routes.news:
         return _page(const AllNewsScreen(), name: Routes.news);
       case Routes.newsDetails:
         final NewsModel news = settings.arguments as NewsModel;
-        return _page(NewsItemDetails(news: news,), name: Routes.newsDetails);
+        return _page(NewsItemDetails(news: news), name: Routes.newsDetails);
       case Routes.vendors:
         return _page(const AllVendorsScreen(), name: Routes.vendors);
       case Routes.vendor:

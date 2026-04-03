@@ -29,7 +29,7 @@ class AppConstants {
   static const String appName = 'Multi Vendor';
   ///filters by or tags Like (outwear, formal, casual)
   static const String tagsString = "Fashion Style" ;
-  static const ProductTags homeFeaturedItem = ProductTags.newArrivals ;
+  static const ProductTags homeFeaturedItem = ProductTags.summerOffer ;
   static const AuthFormType authFormType = AuthFormType.mobile;
   static const List<OnBoardingItemData> items = [
     (

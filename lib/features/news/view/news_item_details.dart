@@ -26,31 +26,7 @@ class _NewsItemDetailsState extends State<NewsItemDetails>
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: ValueListenableBuilder(
-          valueListenable: showTitle,
-          builder: (_, value, _) => AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            transitionBuilder: (child, animation) => FadeTransition(
-              opacity: animation,
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(0, -0.3),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              ),
-            ),
-            child: value
-                ? Text(
-              widget.news.title ?? "",
-              key: const ValueKey('title'),
-              style: TextStyles.bodyMedium,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-                : const SizedBox.shrink(),
-          ),
-        ),
+        title: title(widget.news.title),
         actions: const [
           AppIconButton(icon: Icons.share),
         ],

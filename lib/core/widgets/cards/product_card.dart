@@ -87,13 +87,9 @@ class ProductCard extends StatelessWidget {
 
   factory ProductCard.small({Key? key, required ProductModel product}) =>
       ProductCard._(key: key, type: _ProductCardType.small, product: product);
-
   static Size get bigSize => _ProductCardType.big.size;
-
   static Size get smallSize => _ProductCardType.small.size;
-
   bool get isBig => _type == _ProductCardType.big;
-
   Size get cardSize => _type.size;
 
   @override
@@ -103,7 +99,7 @@ class ProductCard extends StatelessWidget {
     final h = size.height.h;
 
     return AppClick(
-      onTap: () => context.pushNamed(Routes.product),
+      onTap: () => context.pushNamed(Routes.product, arguments: product.id),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
         child: SizedBox(
@@ -123,15 +119,17 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     _favorite(),
-                    _ribbon("Best Seller", context),
+                    if(!product.productTags.isNullOrEmpty)
+                    _ribbon(product.productTags!.first.toText, context
+                    , color: product.productTags!.first.color,
+                    ),
                   ],
                 ),
               ),
               Gap.small(),
               if (product.rating != null)
                 RatingStars(
-                  rating: product.rating!.rating.toDouble(),
-                  count: product.rating!.count,
+                  rating: product.rating,
                   size: isBig ? 18 : 14,
                 ),
               ProductNameWithPrice(
@@ -175,7 +173,6 @@ class ProductCard extends StatelessWidget {
       isFavorite: true,
     ),
   );
-
   Widget _ribbon(String text, BuildContext context, {Color? color}) {
     final r = Radius.circular(Decorations.borderRadius16.r);
     final rtl = Directionality.of(context) == TextDirection.rtl;

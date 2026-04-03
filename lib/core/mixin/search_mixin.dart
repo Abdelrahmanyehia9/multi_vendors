@@ -6,8 +6,6 @@ mixin SearchMixin<T extends StatefulWidget> on State<T> {
 
   Widget body(bool hasFocus, bool hasText);
 
-
-
   Widget listenBuilder(){
     return ListenableBuilder(
       listenable: Listenable.merge([node, controller]),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 
+import '../../../../../core/models/rating_model.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/cards/checkout_card.dart';
@@ -21,7 +22,7 @@ class RateProductBody extends StatelessWidget {
         RatingStars(
           readOnly: false,
           title: "Overall rating",
-          rating: 0,
+          rating: RatingModel.fake(),
           onRatingChanged: (rate) {},
           size: 30,
         ),

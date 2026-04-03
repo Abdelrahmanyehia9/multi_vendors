@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/photo_overlay.dart';
+import '../../../../core/models/rating_model.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/decorations.dart';
@@ -79,7 +80,7 @@ class VendorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("LC Waikiki", maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyles.bodyMedium),
-                  const RatingStars(rating: 4.2, count: 23),
+                   RatingStars(rating: RatingModel.fake(),),
                   Row(
                     spacing: 8.w,
                     children: [

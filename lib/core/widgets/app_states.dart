@@ -50,14 +50,35 @@ class AppStates extends StatelessWidget {
     required this.state,
   });
 
-  factory AppStates.error(AppException e,
-      {double size = 20, IconData? customIcon, String? customSvg, ActionModel? actionModel})=>
-      AppStates(state: States.error, message: e.message,
-      customIcon: customIcon,
-      customSvg: customSvg,
-      size: size,
-      actionModel: actionModel
-      ) ;
+  factory AppStates.error(
+    AppException e, {
+    double size = 20,
+    IconData? customIcon,
+    String? customSvg,
+    ActionModel? actionModel,
+  }) => AppStates(
+    state: States.error,
+    message: e.message,
+    customIcon: customIcon,
+    customSvg: customSvg,
+    size: size,
+    actionModel: actionModel,
+  );
+
+  factory AppStates.empty({
+    double size = 20,
+    IconData? customIcon,
+    String? customSvg,
+    ActionModel? actionModel,
+    String? message,
+  }) => AppStates(
+    state: States.empty,
+    customIcon: customIcon,
+    customSvg: customSvg,
+    size: size,
+    message: message,
+    actionModel: actionModel,
+  );
 
   @override
   Widget build(BuildContext context) {

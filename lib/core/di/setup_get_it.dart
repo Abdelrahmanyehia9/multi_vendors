@@ -10,6 +10,7 @@ import '../../features/authentication/data/repository/auth_repository.dart';
 import '../../features/authentication/data/repository/otp_repository.dart';
 import '../../features/authentication/data/repository/reset_password_repository.dart';
 import '../../features/main/home/data/repository/home_repository.dart';
+import '../../features/shop/product/data/repository/product_repository.dart';
 import '../cubit/user_cubit.dart';
 import '../database/local_storage.dart';
 import '../database/shared_pref_local_storage.dart';
@@ -52,4 +53,5 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(()=>ResetPasswordRepository(getIt.get<AuthenticationService>())) ;
   getIt.registerFactory(()=>ProfileRepository(getIt.get<AuthenticationService>())) ;
   getIt.registerFactory(()=>HomeRepository(getIt.get<DatabaseService>()));
+  getIt.registerFactory(()=>ProductRepository(getIt.get<DatabaseService>()));
 }

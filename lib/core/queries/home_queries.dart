@@ -5,7 +5,7 @@ class HomeQueries {
   static const String homeCategories = "id,name";
   static const String homeVendors = "id,name,image";
   static const String productByCategory =
-      "id,name,price,thumbnail,vendor(name,image),rating";
+      "id,name,price,thumbnail,vendor(name,image),rating,tags";
   static const String productByFilter =
-      "id,name,price,thumbnail,vendor(name,image),rating";
+      "id,name,price,thumbnail,vendor(name,image),rating,tags";
 }
