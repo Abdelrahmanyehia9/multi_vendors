@@ -1,4 +1,5 @@
 import 'package:multi_vendor/core/enum/stock_availability.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 
@@ -34,7 +35,7 @@ class ProductDetailsModel extends BaseProductModel {
             ? DateTime.parse(json["created_at"])
             : null,
         name: json['name'],
-        vendor: VendorModel.fromJson(json['vendor']),
+        vendor: json['vendor'] == null ? null : VendorModel.fromJson(json['vendor']),
         description: json['description'],
         variants: json['variants'] != null
             ? List<VariantModel>.from(
@@ -54,19 +55,64 @@ class ProductDetailsModel extends BaseProductModel {
         category: json['category'] != null
             ? CategoryModel.fromJson(json['category'])
             : null,
-        images: List<String>.from(json['images']),
+        images: json['images'] == null ? null : List<String>.from(json['images']),
         thumbnail: json['thumbnail'],
-        productTags: json['product_tags'] != null
+        productTags: json['tags'] != null
             ? List<ProductTags>.from(
-                json['product_tags'].map(
+                json['tags'].map(
                   (x) =>
                       ProductTags.values.firstWhere((e) => e.toDatabase == x),
                 ),
               )
             : null,
       );
-
-
+  ProductDetailsModel copyWith({
+    int? id,
+    DateTime? createdAt,
+    String? name,
+    VendorModel? vendor,
+    String? description,
+    List<VariantModel>? variants,
+    RatingModel? rating,
+    PriceModel? price,
+    StockAvailability? stockAvailability,
+    bool? ratingEnabled,
+    CategoryModel? category,
+    List<String>? images,
+    String? thumbnail,
+    List<ProductTags>? productTags,
+  }) {
+    return ProductDetailsModel(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      name: name ?? this.name,
+      vendor: vendor ?? this.vendor,
+      description: description ?? this.description,
+      variants: variants ?? this.variants,
+      rating: rating ?? this.rating,
+      price: price ?? this.price,
+      stockAvailability: stockAvailability ?? this.stockAvailability,
+      ratingEnabled: ratingEnabled ?? this.ratingEnabled,
+      category: category ?? this.category,
+      images: images ?? this.images,
+      thumbnail: thumbnail ?? this.thumbnail,
+      productTags: productTags ?? this.productTags,
+    );
+  }
+  List<String>? get sliderImages {
+    late List<String>? slider;
+    if (!images.isNullOrEmpty) {
+      slider = images;
+    }
+    else {
+      final result = variants
+        ?.map((e) => e.images)
+        .whereType<String>()
+        .toList();
+      slider = result ;
+    }
+    return [?thumbnail, ...?slider];
+  }
   factory ProductDetailsModel.fake()=>ProductDetailsModel(
     images: const [],
     description: FakeData.fakeStringDesc,
@@ -82,5 +128,7 @@ class ProductDetailsModel extends BaseProductModel {
     ratingEnabled: true,
     createdAt: FakeData.fakeDateTime
   ) ;
-
 }
+
+
+

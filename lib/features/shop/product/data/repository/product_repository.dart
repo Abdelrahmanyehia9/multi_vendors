@@ -5,6 +5,7 @@ import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
+import '../../../../../core/queries/shop_queries.dart';
 import '../../../../../core/service/database_service.dart';
 
 class ProductRepository {
@@ -27,15 +28,14 @@ class ProductRepository {
   Future<Either<AppException, ProductDetailsModel>> getSingleProduct({
     required int pId,
   }) async {
-    try {
+
       final response = await _databaseService.GET_SINGLE(
         table: RemoteDatabaseConstants.product_table,
+        select: ShopQueries.productItemDetails,
         filter: (e) => e.eq(RemoteDatabaseConstants.id_column, pId),
       );
       final product = ProductDetailsModel.fromJson(response);
       return right(product);
-    } catch (e) {
-      return left(e.toAppException);
-    }
+
   }
 }

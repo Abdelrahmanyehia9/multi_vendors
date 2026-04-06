@@ -7,8 +7,6 @@ import 'package:multi_vendor/features/shop/product/data/repository/product_repos
 class ProductDetailsCubit extends Cubit<BaseState<ProductDetailsModel>>{
   final ProductRepository _repository ;
   ProductDetailsCubit(this._repository):super(const BaseState.initial()) ;
-
-
   Future<void> getProductDetails({required int pId})async{
     safeEmit(const BaseState.loading()) ;
     final result = await _repository.getSingleProduct(pId: pId) ;
