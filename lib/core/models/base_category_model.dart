@@ -19,7 +19,7 @@ class CategoryModel extends Equatable {
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
     id: json['id'],
-    img: json['img'],
+    img: json['image'],
     name: json['name'],
     count: json['count'],
     description: json['description'],
@@ -32,5 +32,5 @@ class CategoryModel extends Equatable {
   ) ;
 
   @override
-  List<Object?> get props => [id, img, count, description, parent];
+  List<Object?> get props => [id];
 }

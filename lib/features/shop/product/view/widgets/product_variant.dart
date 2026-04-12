@@ -38,7 +38,7 @@ class _VariantsSectionState extends State<VariantsSection>
               .mapIndexed(
                 (i, item) => ProductInfoSection(
               header: item.key,
-              customBody: _ProductVariant(
+              customBody: ProductVariant.single(
                 variants: item.value,
                 availableVariants: availableValuesForKey(item.key),
                 activeIndex: indexNotifierForKey(item.key)!,
@@ -62,25 +62,97 @@ class _VariantsSectionState extends State<VariantsSection>
 
 
 
-class _ProductVariant extends StatelessWidget {
+class ProductVariant extends StatelessWidget {
   final List<VariantsAttributes> variants;
-  final ValueNotifier<int> activeIndex;
+  final ValueNotifier<int> _activeIndex;
+  final ValueNotifier<List<int>>? _activeIndexes;
+  final bool _multiSelect;
   final List<VariantsAttributes>? availableVariants;
   final ValueChanged<VariantsAttributes>? onSelect;
   final ValueChanged<VariantsAttributes>? onDeselect;
 
-  const _ProductVariant({
+  const ProductVariant._({
+    super.key,
     this.availableVariants,
     this.onSelect,
-    this.onDeselect ,
+    this.onDeselect,
+    required ValueNotifier<int> activeIndex,
+    ValueNotifier<List<int>>? activeIndexes,
+    bool multiSelect = false,
     required this.variants,
-    required this.activeIndex,
-  });
+  })  : _activeIndex = activeIndex,
+        _activeIndexes = activeIndexes,
+        _multiSelect = multiSelect;
+
+  factory ProductVariant.single({
+    Key? key,
+    required List<VariantsAttributes> variants,
+    required ValueNotifier<int> activeIndex,
+    List<VariantsAttributes>? availableVariants,
+    ValueChanged<VariantsAttributes>? onSelect,
+    ValueChanged<VariantsAttributes>? onDeselect,
+  }) =>
+      ProductVariant._(
+        key: key,
+        variants: variants,
+        activeIndex: activeIndex,
+        availableVariants: availableVariants,
+        onSelect: onSelect,
+        onDeselect: onDeselect,
+      );
+
+  factory ProductVariant.multi({
+    Key? key,
+    required List<VariantsAttributes> variants,
+    required ValueNotifier<List<int>> activeIndexes,
+    List<VariantsAttributes>? availableVariants,
+    ValueChanged<VariantsAttributes>? onSelect,
+    ValueChanged<VariantsAttributes>? onDeselect,
+  }) =>
+      ProductVariant._(
+        key: key,
+        variants: variants,
+        activeIndex: ValueNotifier(-1),
+        activeIndexes: activeIndexes,
+        multiSelect: true,
+        availableVariants: availableVariants,
+        onSelect: onSelect,
+        onDeselect: onDeselect,
+      );
+
+  void _handleTap(int i, VariantsAttributes attr) {
+    if (_multiSelect) {
+      final current = List<int>.from(_activeIndexes!.value);
+      if (current.contains(i)) {
+        current.remove(i);
+        onDeselect?.call(attr);
+      } else {
+        current.add(i);
+        onSelect?.call(attr);
+      }
+      _activeIndexes.value = current;
+    } else {
+      if (_activeIndex.value == i) {
+        _activeIndex.value = -1;
+        onDeselect?.call(attr);
+      } else {
+        _activeIndex.value = i;
+        onSelect?.call(attr);
+      }
+    }
+  }
+
+  bool _isActive(int i, dynamic value) {
+    if (_multiSelect) return (value as List<int>).contains(i);
+    return value == i;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final listenable = _multiSelect ? _activeIndexes! as ValueNotifier : _activeIndex;
+
     return ValueListenableBuilder(
-      valueListenable: activeIndex,
+      valueListenable: listenable,
       builder: (context, value, child) {
         return Wrap(
           spacing: 6.w,
@@ -91,22 +163,8 @@ class _ProductVariant extends StatelessWidget {
               final attr = variants[i];
               final isAvailable = availableVariants?.any((a) => a.value == attr.value) ?? true;
               return AppClick(
-                onTap: isAvailable ? () {
-                  if(activeIndex.value == i){
-                    activeIndex.value = -1;
-                    onDeselect?.call(attr);
-                  }else{
-                    activeIndex.value = i;
-                    onSelect?.call(attr);
-                  }
-                } : null,
-
-                child: _buildVariantItem(
-                  attr,
-                  isAvailable,
-                  context,
-                  isActive: value == i,
-                ),
+                onTap: isAvailable ? () => _handleTap(i, attr) : null,
+                child: _buildVariantItem(attr, isAvailable, context, isActive: _isActive(i, value)),
               );
             },
           ),
@@ -140,12 +198,11 @@ class _ProductVariant extends StatelessWidget {
                 ),
               ],
             ),
-            if (isActive )CircularBox(
+            if (isActive)
+              CircularBox(
                 backgroundColor: Colors.black.withAppOpacity(0.2),
                 radius: 30,
-                child:  Icon(
-                size: 20.sp,
-                Icons.check, color: AppColors.white),
+                child: Icon(Icons.check, size: 20.sp, color: AppColors.white),
               ),
           ],
         ),
@@ -164,11 +221,7 @@ class _ProductVariant extends StatelessWidget {
       child: Text(
         variant.value,
         style: TextStyles.labelSmall.copyWith(
-          color: isActive
-              ? AppColors.white
-              : isAvailable
-              ? null
-              : surfaceLow,
+          color: isActive ? AppColors.white : isAvailable ? null : surfaceLow,
           decoration: isAvailable ? null : TextDecoration.lineThrough,
           decorationThickness: 2,
           decorationColor: surfaceLow,

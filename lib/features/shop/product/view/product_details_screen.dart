@@ -25,7 +25,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         successBuilder: (p) => ProductDetailsBody(
             model: p,
           onAddCart: (v){
-
           },
           ),
         loadingBuilder: () => ProductDetailsBody(

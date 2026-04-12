@@ -90,7 +90,6 @@ mixin ProductVariantMixin on State<VariantsSection> {
   @override
   void dispose() {
     selectedAttributesNotifier.dispose();
-    selectedVariant.dispose();
     for (final n in _indexNotifiers.values) {
       n.dispose();
     }

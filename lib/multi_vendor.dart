@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
 import 'core/service/navigation_service.dart';
@@ -18,14 +19,16 @@ class MultiVendors extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        theme: AppTheme.light,
-        navigatorKey: NavigationService.navigatorKey,
-        scrollBehavior: AppScrollBehavior(),
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: router.generateRoute,
-        initialRoute: Routes.splash,
-        builder: (context, child) => UserSessionBuilder(child: child!),
+      child: GlobalLoaderOverlay(
+        child: MaterialApp(
+          theme: AppTheme.light,
+          navigatorKey: NavigationService.navigatorKey,
+          scrollBehavior: AppScrollBehavior(),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: router.generateRoute,
+          initialRoute: Routes.splash,
+          builder: (context, child) => UserSessionBuilder(child: child!),
+        ),
       ),
     );
   }

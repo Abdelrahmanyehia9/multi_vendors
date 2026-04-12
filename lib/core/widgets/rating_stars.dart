@@ -100,7 +100,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
             return Row(
               children: [
                 ...List.generate(5, (i) => _buildStar(i, currentRating, context)),
-                if (widget.rating?.count != null && widget.rating!.count > 0) ...[
+                if (widget.rating?.count != null) ...[
                   Gap.extraSmall(),
                   Text(
                     "(${widget.rating!.count})",

@@ -41,9 +41,7 @@ class BottomSheets {
             DecoratedBox(
               decoration: BoxDecoration(
                 boxShadow: shadow,
-                color:
-                    backgroundColor ??
-                    context.colors.surfaceContainerLowest,
+                color: backgroundColor ?? context.scaffoldBackground,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(borderRadius.r),
                 ),
@@ -74,81 +72,82 @@ class BottomSheets {
       },
     );
   }
-  //
-  // static Future<T?> showBasic<T>({
-  //   required BuildContext context,
-  //   Widget? icon,
-  //   String? title,
-  //   String? subtitle,
-  //   Widget? action,
-  //   Widget? action2,
-  //   bool dismissible = true,
-  //   bool showCloseButton = true,
-  //   bool showPattern = false,
-  // })
-  // {
-  //   return show<T>(
-  //     context,
-  //     dismissible: dismissible,
-  //     showCloseButton: showCloseButton,
-  //     showPattern: showPattern,
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       crossAxisAlignment: CrossAxisAlignment.stretch,
-  //       children: [
-  //         if (icon != null) ...[icon, const Gap(8)],
-  //         if (title != null)
-  //           Text(
-  //             title,
-  //             style: TextStyles.labelMedium,
-  //             textAlign: TextAlign.center,
-  //           ),
-  //         if (subtitle != null)
-  //           Text(
-  //             subtitle,
-  //             style: TextStyles.bodyMedium.copyWith(
-  //               color: context.colorScheme.surfaceContainerHigh,
-  //               fontWeight: FontWeightHelper.regular,
-  //             ),
-  //             textAlign: TextAlign.center,
-  //           ),
-  //         const Gap(16),
-  //         if (action != null) ...[action, const Gap(8)],
-  //         if (action2 != null) ...[action2, const Gap(4)],
-  //       ],
-  //     ).appPaddingHr(),
-  //   );
-  // }
-  //
-  // static Future<bool> alertBottomSheet({
-  //   required BuildContext context,
-  //   String? title,
-  //   required String message,
-  // })
-  // async {
-  //   final bool? selected = await BottomSheets.showBasic<bool>(
-  //     context: context,
-  //     title: title ?? "هل انت متاكد",
-  //     showCloseButton: false,
-  //     icon: Column(
-  //       children: [
-  //         const Gap(24),
-  //         Icon(AppIcons.warning, size: 60.sp, color: AppColors.warning),
-  //       ],
-  //     ),
-  //     subtitle: message,
-  //     action: AppButton(
-  //       text: "تاكيد",
-  //       onPressed: () => context.pop(true),
-  //       height: 40,
-  //     ),
-  //     action2: AppButton(
-  //       text: "الغاء",
-  //       onPressed: () => context.pop(false),
-  //       height: 40,
-  //       isTextButton: true,
-  //     ),
-  //   );
-  //   return selected ?? false;
-  // }
+
 }
+//
+// static Future<T?> showBasic<T>({
+//   required BuildContext context,
+//   Widget? icon,
+//   String? title,
+//   String? subtitle,
+//   Widget? action,
+//   Widget? action2,
+//   bool dismissible = true,
+//   bool showCloseButton = true,
+//   bool showPattern = false,
+// })
+// {
+//   return show<T>(
+//     context,
+//     dismissible: dismissible,
+//     showCloseButton: showCloseButton,
+//     showPattern: showPattern,
+//     child: Column(
+//       mainAxisSize: MainAxisSize.min,
+//       crossAxisAlignment: CrossAxisAlignment.stretch,
+//       children: [
+//         if (icon != null) ...[icon, const Gap(8)],
+//         if (title != null)
+//           Text(
+//             title,
+//             style: TextStyles.labelMedium,
+//             textAlign: TextAlign.center,
+//           ),
+//         if (subtitle != null)
+//           Text(
+//             subtitle,
+//             style: TextStyles.bodyMedium.copyWith(
+//               color: context.colorScheme.surfaceContainerHigh,
+//               fontWeight: FontWeightHelper.regular,
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         const Gap(16),
+//         if (action != null) ...[action, const Gap(8)],
+//         if (action2 != null) ...[action2, const Gap(4)],
+//       ],
+//     ).appPaddingHr(),
+//   );
+// }
+//
+// static Future<bool> alertBottomSheet({
+//   required BuildContext context,
+//   String? title,
+//   required String message,
+// })
+// async {
+//   final bool? selected = await BottomSheets.showBasic<bool>(
+//     context: context,
+//     title: title ?? "هل انت متاكد",
+//     showCloseButton: false,
+//     icon: Column(
+//       children: [
+//         const Gap(24),
+//         Icon(AppIcons.warning, size: 60.sp, color: AppColors.warning),
+//       ],
+//     ),
+//     subtitle: message,
+//     action: AppButton(
+//       text: "تاكيد",
+//       onPressed: () => context.pop(true),
+//       height: 40,
+//     ),
+//     action2: AppButton(
+//       text: "الغاء",
+//       onPressed: () => context.pop(false),
+//       height: 40,
+//       isTextButton: true,
+//     ),
+//   );
+//   return selected ?? false;
+// }

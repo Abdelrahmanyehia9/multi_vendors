@@ -10,12 +10,24 @@ enum StockAvailability {
   onBackOrder;
 
   static const Map<StockAvailability, String> _map = {
-    StockAvailability.inStock: "in_Stock",
-    StockAvailability.outOfStock: "out_of_Stock",
+    StockAvailability.inStock: "in_stock",
+    StockAvailability.outOfStock: "out_of_stock",
     StockAvailability.onBackOrder: "on_back_order",
   };
 
   String get toDatabase => _map[this]!;
+
+  String get toText=>switch(this){
+    StockAvailability.inStock=>"In Stock",
+    StockAvailability.outOfStock=>"Out of Stock",
+    StockAvailability.onBackOrder=>"On Back Order",
+  };
+
+  Color get color => switch (this) {
+    StockAvailability.inStock => AppColors.success700,
+    StockAvailability.outOfStock => AppColors.error700,
+    StockAvailability.onBackOrder => AppColors.grey,
+  };
 
   factory StockAvailability.fromDatabase(String value) {
     return _map.entries

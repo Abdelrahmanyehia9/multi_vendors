@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:multi_vendor/core/models/price_model.dart';
 
 enum VariantType { color, text }
@@ -8,7 +9,6 @@ class VariantModel {
   final int? inStock;
   final String? images;
   final List<VariantsAttributes>? attributes;
-
   const VariantModel({
     this.sku,
     this.images,
@@ -18,7 +18,7 @@ class VariantModel {
   });
   factory VariantModel.fromJson(Map<String, dynamic> json) => VariantModel(
     sku: json['sku'],
-    price: PriceModel.fromJson(json['price']),
+    price: PriceModel.fromJson(json),
     inStock: json['stock'],
     images: json['image_url'],
     attributes: json['attributes'] == null
@@ -31,48 +31,60 @@ class VariantModel {
 class VariantsAttributes {
   final String key;
   final String value;
-  final String description;
+  final String? description;
   final VariantType type;
 
   VariantsAttributes({
     required this.key,
     required this.value,
-    required this.description,
+    this.description,
     required this.type,
   });
 
-  factory VariantsAttributes.fromMap(String key, dynamic data) {
-    if (key.contains("color") && data is Map) {
-      return VariantsAttributes(
-        key: key,
-        value: data['code'],
-        description: data['title'],
-        type: VariantType.color,
-      );
-    }
-
+  factory VariantsAttributes._fromMap(String key, dynamic data) {
     return VariantsAttributes(
       key: key,
-      value: data.toString(),
-      description: data.toString(),
-      type: VariantType.text,
+      value: data['value'],
+      description: data['description'],
+      type: key.contains("color") ? VariantType.color : VariantType.text,
     );
   }
   static List<VariantsAttributes> fromAttributesMap(Map<String, dynamic> map) {
     return map.entries
-        .map((e) => VariantsAttributes.fromMap(e.key, e.value))
+        .map((e) => VariantsAttributes._fromMap(e.key, e.value))
         .toList();
+  }
+  static List<VariantsAttributes> fromFilterMap(Map<String, dynamic> map) {
+    final List<VariantsAttributes> result = [];
+
+    for (final entry in map.entries) {
+      final key = entry.key;
+      final values = entry.value;
+
+      if (values is List) {
+        for (final item in values) {
+          result.add(
+            VariantsAttributes(
+              key: key,
+              value: item['value'],
+              description: item['description'],
+              type: key.contains("color") ? VariantType.color : VariantType.text,
+            ),
+          );
+        }
+      }
+    }
+
+    return result;
   }
 
   @override
   String toString() {
     return 'VariantsAttributes(key: $key, value: $value, description: $description, type: $type)';
   }
+
   String get message => "$key : $description";
-
 }
-
-
 extension VariantExt on List<VariantModel>? {
   Map<String, List<VariantsAttributes>> get availableAttributes {
     final Map<String, List<VariantsAttributes>> result = {};
@@ -115,4 +127,15 @@ extension VariantExt on List<VariantModel>? {
 
     return result;
   }
+}
+extension VariantAttrExt on List<VariantsAttributes>? {
+
+List<List<VariantsAttributes>>  get  groupedVariants => this==null?[]: groupBy(
+  this!,
+  (VariantsAttributes e) => e.key,
+  ).values.toList();
+static List<VariantsAttributes> expanded (List<List<VariantsAttributes>> grouped){
+  return grouped.expand((g) => g).toList();
+}
+
 }

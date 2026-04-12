@@ -6,38 +6,40 @@ import '../theme/text_styles.dart';
 class AppChip extends StatelessWidget {
   final String text;
   final bool selected;
-  final Color? borderColor;
-  final Color? backgroundColor;
+  final Color? unSelectedBorderColor;
+  final Color? selectedBorderColor;
+  final Color? selectedColor;
   final EdgeInsets? padding ;
   final Color? labelColor;
   final Widget? child;
   final double? elevation;
+  final  Color? unselectedColor;
 
   const AppChip({
     super.key,
     required this.text,
     this.elevation,
     this.selected = false,
-    this.borderColor,
-    this.backgroundColor,
+    this.unselectedColor,
+    this.unSelectedBorderColor,
+    this.selectedColor,
     this.labelColor,
     this.child,
     this.padding,
+    this.selectedBorderColor,
   });
 
   @override
   Widget build(BuildContext context) {
     final bgColor = selected
-        ? backgroundColor ?? AppColors.primary
-        : backgroundColor ?? Colors.transparent;
-
-    final lblColor = selected
+        ? selectedColor ?? AppColors.primary
+        : unselectedColor ?? Colors.transparent;
+final lblColor = selected
         ? labelColor ?? Colors.white
         : labelColor ?? context.colors.onSurface;
-
-    final bColor = borderColor ??
-        (selected ? AppColors.primary : context.colors.surfaceContainerLow);
-
+final bColor = selected
+        ? selectedBorderColor ?? AppColors.primary
+        : unSelectedBorderColor ?? context.colors.surfaceContainerLow;
     return Chip(
       padding: padding,
       elevation: elevation,

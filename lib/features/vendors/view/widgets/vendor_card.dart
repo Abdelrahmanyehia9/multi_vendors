@@ -107,7 +107,7 @@ class VendorCard extends StatelessWidget {
       );
     }
     return AppClick(
-        onTap: () => context.pushNamed(Routes.vendor),
+        onTap: () => context.pushNamed(Routes.vendor,),
         child: widget);
   }
 

@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import '../models/range_model.dart';
+
 extension DateTimeX on DateTime {
   String get timeAgo {
     final now = DateTime.now();
@@ -83,4 +87,9 @@ class DateTimeStrings {
     'January', 'February', 'March',     'April',   'May',      'June',
     'July',    'August',   'September', 'October', 'November', 'December',
   ];
+}
+
+
+extension RangeValuesExt on RangeValues {
+  RangeModel get toRangeModel=> RangeModel(min: start, max: end);
 }

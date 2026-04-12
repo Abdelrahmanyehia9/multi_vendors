@@ -85,7 +85,7 @@ class _Vendor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppClick(
-      onTap: () => context.pushNamed(Routes.vendor),
+      onTap: () => context.pushNamed(Routes.vendor, arguments: vendor.id),
       child: CircularBox(
         radius: 52,
         padding: EdgeInsets.zero,

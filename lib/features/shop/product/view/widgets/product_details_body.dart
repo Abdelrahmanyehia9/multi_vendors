@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/models/variant_model.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
@@ -96,11 +97,12 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                 spacing: 4.w,
                 runSpacing: 4.h,
                 children: widget.model.productTags!
-                    .map((e) => AppChip(text: e.toText,selected: true,))
+                    .map((e) => AppChip(text: e.toText, selected: true))
                     .toList(),
               ),
             ),
-          if (FeatureFlags.enableProductVariants)
+          if (FeatureFlags.enableProductVariants &&
+              !widget.model.variants.isNullOrEmpty)
             VariantsSection(
               selectedVariant: selectedVariant,
               showRemaining: true,
@@ -113,7 +115,9 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
               return Column(
                 spacing: 8.h,
                 children: [
-                  AddToCartButton(enabled: v != null, onAddToCart: () {}),
+                  AddToCartButton(
+                      enabled: v != null || widget.model.variants.isNullOrEmpty,
+                      onAddToCart: () {}),
                   if (inStock > 0) _stockStatus(inStock),
                 ],
               );

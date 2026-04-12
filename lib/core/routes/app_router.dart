@@ -5,6 +5,7 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
 import 'package:multi_vendor/features/main/layout.dart';
+import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import '../../features/authentication/data/repository/otp_repository.dart';
 import '../../features/authentication/logic/forget_password_change_password_cubit.dart';
 import '../../features/authentication/logic/forget_password_send_email_cubit.dart';
@@ -34,11 +35,15 @@ import '../../features/shop/checkout/view/order_success.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
 import '../../features/shop/history/view/rate_order_screen.dart';
 import '../../features/shop/history/view/rate_product_screen.dart';
+import '../../features/shop/product/data/model/products_filters_model.dart';
 import '../../features/shop/product/data/repository/product_repository.dart';
 import '../../features/shop/product/logic/product_all_tags_cubit.dart';
 import '../../features/shop/product/logic/product_details_cubit.dart';
+import '../../features/shop/product/logic/products_by_filters_cubit.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
+import '../../features/vendors/data/repository/vendor_repository.dart';
+import '../../features/vendors/logic/vendor_details_cubit.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
 import '../../features/shop/product/view/product_details_screen.dart';
 import '../../features/vendors/view/vendor_details_screen.dart';
@@ -48,148 +53,171 @@ class AppRouter {
   Route? generateRoute(RouteSettings settings) {
     // final arguments = settings.arguments;
     switch (settings.name) {
-      case Routes.splash:
-        return _page(const SplashScreen(), name: Routes.splash);
-      case Routes.onBoarding:
-        return _page(const OnBoardingScreen(), name: Routes.onBoarding);
-      case Routes.loginScreen:
-        return _page(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => LoginCubit(
-                  getIt.get<AuthRepository>(),
-                  getIt.get<OtpRepository>(),
-                ),
-              ),
-            ],
-            child: const LoginScreen(),
-          ),
-          name: Routes.loginScreen,
-        );
-      case Routes.otp:
-        return _page(
-          BlocProvider(
-            create: (context) => OtpConfirmCubit(getIt.get<OtpRepository>()),
-            child: OtpConfirmScreen(phoneNumber: settings.arguments as String),
-          ),
-          name: Routes.otp,
-        );
+    case Routes.splash:
+    return _page(const SplashScreen(), name: Routes.splash);
+    case Routes.onBoarding:
+    return _page(const OnBoardingScreen(), name: Routes.onBoarding);
+    case Routes.loginScreen:
+    return _page(
+    MultiBlocProvider(
+    providers: [
+    BlocProvider(
+    create: (context) => LoginCubit(
+    getIt.get<AuthRepository>(),
+    getIt.get<OtpRepository>(),
+    ),
+    ),
+    ],
+    child: const LoginScreen(),
+    ),
+    name: Routes.loginScreen,
+    );
+    case Routes.otp:
+    return _page(
+    BlocProvider(
+    create: (context) => OtpConfirmCubit(getIt.get<OtpRepository>()),
+    child: OtpConfirmScreen(phoneNumber: settings.arguments as String),
+    ),
+    name: Routes.otp,
+    );
 
-      case Routes.signup:
-        return _page(
-          BlocProvider(
-            create: (context) => SignupCubit(getIt.get<AuthRepository>()),
-            child: const SignUpScreen(),
-          ),
-          name: Routes.signup,
-        );
-      case Routes.forgetPassword:
-        final ForgetPasswordArgs args =
-            settings.arguments as ForgetPasswordArgs;
-        return _page(
-          MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => ForgetPasswordSendEmailCubit(
-                  getIt.get<ResetPasswordRepository>(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => ForgetPasswordChangePasswordCubit(
-                  getIt.get<ResetPasswordRepository>(),
-                ),
-              ),
-              BlocProvider(
-                create: (context) =>
-                    ForgetPasswordStepperCubit()
-                      ..init(email: args.email, initialStep: args.initialStep),
-              ),
-            ],
-            child: const ForgetPasswordScreen(),
-          ),
-          name: Routes.forgetPassword,
-        );
-      case Routes.mainLayout:
-        final int? initialIndex = settings.arguments as int?;
-        return _page(
-          MainLayout(initialIndex: initialIndex ?? 0),
-          name: Routes.mainLayout,
-        );
-      case Routes.products:
-        return _page(const AllProductsScreen(), name: Routes.products);
-      case Routes.product:
-        final int pId = settings.arguments as int;
-        return _page(
-          BlocProvider(
-            create: (context) =>
-                ProductDetailsCubit(getIt.get<ProductRepository>())..getProductDetails(pId: pId),
-            child: const ProductDetailsScreen(),
-          ),
-          name: Routes.product,
-        );
-      case Routes.productTags:
-        return _page(
-          BlocProvider(
-            create: (context) =>
-                ProductAllTagsCubit(getIt.get<ProductRepository>())
-                  ..getAllTags(),
-            child: const AllProductTagsScreen(),
-          ),
-          name: Routes.productTags,
-        );
-      case Routes.news:
-        return _page(const AllNewsScreen(), name: Routes.news);
-      case Routes.newsDetails:
-        final NewsModel news = settings.arguments as NewsModel;
-        return _page(NewsItemDetails(news: news), name: Routes.newsDetails);
-      case Routes.vendors:
-        return _page(const AllVendorsScreen(), name: Routes.vendors);
-      case Routes.vendor:
-        return _page(const VendorDetailsScreen(), name: Routes.vendor);
-      case Routes.favorites:
-        return _page(const FavoriteScreen(), name: Routes.favorites);
-      case Routes.editProfile:
-        return _page(
-          BlocProvider(
-            create: (context) =>
-                EditProfileCubit(getIt.get<ProfileRepository>()),
-            child: const EditProfileScreen(),
-          ),
-          name: Routes.editProfile,
-        );
-      case Routes.changePassword:
-        return _page(
-          BlocProvider(
-            create: (context) =>
-                EditPasswordCubit(getIt.get<ProfileRepository>()),
-            child: const ChangePasswordScreen(),
-          ),
-          name: Routes.changePassword,
-        );
-      case Routes.settings:
-        return _page(const SettingsScreen(), name: Routes.settings);
-      case Routes.cart:
-        return _page(const CartScreen(), name: Routes.cart);
-      case Routes.promo:
-        return _page(const ApplyPromoVoucher(), name: Routes.promo);
-      case Routes.checkout:
-        return _page(const CheckoutScreen(), name: Routes.checkout);
-      case Routes.orderSuccess:
-        return _page(const OrderSuccessScreen(), name: Routes.orderSuccess);
-      case Routes.orderDetails:
-        return _page(const OrderDetailsScreen(), name: Routes.orderDetails);
-      case Routes.rateOrder:
-        return _page(const RateOrderScreen(), name: Routes.rateOrder);
-      case Routes.rateProduct:
-        return _page(const RateProductScreen(), name: Routes.rateProduct);
-      default:
-        return null;
+    case Routes.signup:
+    return _page(
+    BlocProvider(
+    create: (context) => SignupCubit(getIt.get<AuthRepository>()),
+    child: const SignUpScreen(),
+    ),
+    name: Routes.signup,
+    );
+    case Routes.forgetPassword:
+    final ForgetPasswordArgs args =
+    settings.arguments as ForgetPasswordArgs;
+    return _page(
+    MultiBlocProvider(
+    providers: [
+    BlocProvider(
+    create: (context) => ForgetPasswordSendEmailCubit(
+    getIt.get<ResetPasswordRepository>(),
+    ),
+    ),
+    BlocProvider(
+    create: (context) => ForgetPasswordChangePasswordCubit(
+    getIt.get<ResetPasswordRepository>(),
+    ),
+    ),
+    BlocProvider(
+    create: (context) =>
+    ForgetPasswordStepperCubit()
+    ..init(email: args.email, initialStep: args.initialStep),
+    ),
+    ],
+    child: const ForgetPasswordScreen(),
+    ),
+    name: Routes.forgetPassword,
+    );
+    case Routes.mainLayout:
+    final int? initialIndex = settings.arguments as int?;
+    return _page(
+    MainLayout(initialIndex: initialIndex ?? 0),
+    name: Routes.mainLayout,
+    );
+    case Routes.products:
+    final initialFilters = settings.arguments as ProductsFiltersModel?;
+    return _page(MultiBlocProvider(
+    providers: [
+    BlocProvider(create: (context)=>ProductsByFiltersCubit(getIt.get<ProductRepository>())..getProductsInFilter(filters: initialFilters)),
+    BlocProvider(create: (context)=>ProductsAllFiltersCubit(getIt.get<ProductRepository>())..init(initialFilters))
+    ],
+    child: const AllProductsScreen()), name: Routes.products);
+    case Routes.product:
+    final int pId = settings.arguments as int;
+    return _page(
+    BlocProvider(
+    create: (context) =>
+    ProductDetailsCubit(getIt.get<ProductRepository>())
+    ..getProductDetails(pId: pId),
+    child: const ProductDetailsScreen(),
+    ),
+    name: Routes.product,
+    );
+    case Routes.productTags:
+    return _page(
+    BlocProvider(
+    create: (context) =>
+    ProductAllTagsCubit(getIt.get<ProductRepository>())
+    ..getAllTags(),
+    child: const AllProductTagsScreen(),
+    ),
+    name: Routes.productTags,
+    );
+    case Routes.news:
+    return _page(const AllNewsScreen(), name: Routes.news);
+    case Routes.newsDetails:
+    final NewsModel news = settings.arguments as NewsModel;
+    return _page(NewsItemDetails(news: news), name: Routes.newsDetails);
+    case Routes.vendors:
+    return _page(const AllVendorsScreen(), name: Routes.vendors);
+    case Routes.vendor:
+    final int vendorId = settings.arguments as int;
+    return _page(
+
+    MultiBlocProvider(
+    providers: [
+    BlocProvider(create: (context) =>
+    VendorDetailsCubit(getIt.get<VendorRepository>())
+    ..getVendorDetails(vendorId)),
+    BlocProvider(create: (context)=> ProductsAllFiltersCubit(getIt.get<ProductRepository>())),
+    BlocProvider(create: (context) => ProductsByFiltersCubit(getIt.get<ProductRepository>())
+    ),
+    ],
+
+    child: const VendorDetailsScreen()),
+    name: Routes.vendor,
+    );
+    case Routes.favorites:
+    return _page(const FavoriteScreen(), name: Routes.favorites);
+    case Routes.editProfile:
+    return _page(
+    BlocProvider(
+    create: (context) =>
+    EditProfileCubit(getIt.get<ProfileRepository>()),
+    child: const EditProfileScreen(),
+    ),
+    name: Routes.editProfile,
+    );
+    case Routes.changePassword:
+    return _page(
+    BlocProvider(
+    create: (context) =>
+    EditPasswordCubit(getIt.get<ProfileRepository>()),
+    child: const ChangePasswordScreen(),
+    ),
+    name: Routes.changePassword,
+    );
+    case Routes.settings:
+    return _page(const SettingsScreen(), name: Routes.settings);
+    case Routes.cart:
+    return _page(const CartScreen(), name: Routes.cart);
+    case Routes.promo:
+    return _page(const ApplyPromoVoucher(), name: Routes.promo);
+    case Routes.checkout:
+    return _page(const CheckoutScreen(), name: Routes.checkout);
+    case Routes.orderSuccess:
+    return _page(const OrderSuccessScreen(), name: Routes.orderSuccess);
+    case Routes.orderDetails:
+    return _page(const OrderDetailsScreen(), name: Routes.orderDetails);
+    case Routes.rateOrder:
+    return _page(const RateOrderScreen(), name: Routes.rateOrder);
+    case Routes.rateProduct:
+    return _page(const RateProductScreen(), name: Routes.rateProduct);
+    default:
+    return null;
     }
   }
 
-  MaterialPageRoute _page(Widget child, {String? name}) => MaterialPageRoute(
-    builder: (_) => child,
-    settings: RouteSettings(name: name),
-  );
+  MaterialPageRoute _page(Widget child, {String? name}) =>
+      MaterialPageRoute(
+        builder: (_) => child,
+        settings: RouteSettings(name: name),
+      );
 }

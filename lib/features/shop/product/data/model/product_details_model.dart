@@ -47,7 +47,7 @@ class ProductDetailsModel extends BaseProductModel {
             : RatingModel.fromJson(json['rating']),
         price: json["price"] == null
             ? null
-            : PriceModel.fromJson(json['price']),
+            : PriceModel.fromJson(json),
         stockAvailability: StockAvailability.fromDatabase(
           json['stock_availability'],
         ),

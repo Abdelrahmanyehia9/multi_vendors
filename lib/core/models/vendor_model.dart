@@ -1,21 +1,31 @@
+import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
-class VendorModel{
+class VendorModel extends Equatable{
   final int? id;
   final String name;
   final String image ;
+  final int? count ;
 
-  const VendorModel({required this.id, required this.name, required this.image});
+  const VendorModel({required this.id,this.count ,required this.name, required this.image});
 
   factory VendorModel.fromJson(Map<String ,dynamic>json)=>VendorModel(
       id: json['id'],
       name: json['name'],
       image: json['image'],
+      count: json['count'],
   );
 
   factory VendorModel.fake()=> const VendorModel(
     id: FakeData.fakeInt,
     name: "Vendor",
     image: FakeData.fakeImg,
+    count: FakeData.fakeInt,
   );
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
+
+
 }

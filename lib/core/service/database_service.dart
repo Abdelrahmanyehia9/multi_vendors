@@ -52,6 +52,11 @@ class DatabaseService {
     return List<Map<String, dynamic>>.from(await query.select());
   }
 
+  Future<dynamic>RPC({required String function,  Map<String, dynamic>? params})async{
+  final  response = await _supabase.rpc(function, params: params) ;
+  return response;
+  }
+
   Future<void> DELETE({
     required String table,
     required dynamic id,

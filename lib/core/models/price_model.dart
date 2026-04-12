@@ -12,15 +12,18 @@ class PriceModel {
      this.saleEndDate,
   });
 
-  factory PriceModel.fromJson(Map<String ,dynamic>json)=>PriceModel(
+  factory PriceModel.fromJson(Map<String ,dynamic>json) {
+    final interval = json['sale_interval'] ;
+    return PriceModel(
       price: json['price'],
-      salePrice: json['sale_price'],
-      saleStartDate: json['sale_start_date'],
-      saleEndDate: json['sale_end_date'],
+      salePrice: json['price_before_discount'],
+      saleStartDate: interval==null?null:DateTime.parse(interval['start']) ,
+      saleEndDate: interval==null?null:DateTime.parse(interval['end']) ,
   );
+  }
 
 
   factory PriceModel.fake()=>PriceModel(price: FakeData.fakeDouble);
-
   num get totalPrice => salePrice ?? price;
 }
+

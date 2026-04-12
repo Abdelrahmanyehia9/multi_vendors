@@ -8,6 +8,7 @@ import 'package:multi_vendor/core/widgets/app_chip.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/features/main/home/logic/home_cateogries_logic.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import '../../../../../core/models/product_model.dart';
 import '../../../../../core/routes/routes.dart';
 import '../../../../../core/widgets/app_states.dart';
@@ -24,6 +25,7 @@ class HomeShopByCategories extends StatefulWidget {
 
 class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
   late final ValueNotifier<int> _selectedItem;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,14 +34,13 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
           onSuccess: (i) {
             _selectedItem = ValueNotifier<int>(0);
             context.read<HomeProductByCategoryCubit>().getProductByCategory(
-                i![_selectedItem.value].id!
+              i![_selectedItem.value].id!,
             );
             _selectedItem.addListener(() {
               context.read<HomeProductByCategoryCubit>().getProductByCategory(
-                  i[_selectedItem.value].id!
+                i[_selectedItem.value].id!,
               );
             });
-
           },
           successBuilder: (categories) =>
               _Categories(selectedItem: _selectedItem, categories: categories),
@@ -58,9 +59,8 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
               (_) => const ProductModel(name: '', price: null),
             ),
           ),
-          emptyBuilder: ()=>const AppStates(state: States.empty),
-          failureBuilder: (e)=> AppStates(state: States.error, message: e.message),
-
+          emptyBuilder: AppStates.empty,
+          failureBuilder: AppStates.error,
         ),
       ],
     );
@@ -86,7 +86,12 @@ class _Categories extends StatelessWidget {
         SectionHeader(
           title: "Categories",
           hasAction: true,
-          onActionTap: () => context.pushNamed(Routes.products),
+          onActionTap: () => context.pushNamed(
+            Routes.products,
+            arguments: ProductsFiltersModel(
+              categories: [categories[selectedItem.value]],
+            ),
+          ),
         ),
         ValueListenableBuilder(
           valueListenable: selectedItem,
@@ -106,7 +111,7 @@ class _Categories extends StatelessWidget {
                     selected: value == i,
                   ),
                 ),
-                separatorBuilder: (_, _) => SizedBox(width: 12.w,),
+                separatorBuilder: (_, _) => SizedBox(width: 12.w),
                 itemCount: categories.length,
               ),
             );

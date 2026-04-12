@@ -22,6 +22,10 @@ mixin ScrollVisibilityMixin<T extends StatefulWidget> on State<T> {
     super.dispose();
   }
 }
+
+
+
+
 mixin ScrollTitleVisibilityMixin<T extends StatefulWidget> on State<T> {
   final ScrollController scrollController = ScrollController();
   final ValueNotifier<bool> showTitle = ValueNotifier(false);
@@ -33,20 +37,17 @@ mixin ScrollTitleVisibilityMixin<T extends StatefulWidget> on State<T> {
     super.initState();
     scrollController.addListener(_onScroll);
   }
-
   void _onScroll() {
-    final shouldShow = scrollController.offset > titleThreshold;
+    final shouldShow = scrollController.offset  > titleThreshold ;
     if (shouldShow != showTitle.value) {
       showTitle.value = shouldShow;
     }
   }
-
-
   Widget title(String? title){
     return ValueListenableBuilder(
       valueListenable: showTitle,
       builder: (_, value, _) => AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 400),
         transitionBuilder: (child, animation) => FadeTransition(
           opacity: animation,
           child: SlideTransition(
