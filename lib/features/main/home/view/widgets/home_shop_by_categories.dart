@@ -9,6 +9,7 @@ import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/features/main/home/logic/home_cateogries_logic.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
 import '../../../../../core/models/product_model.dart';
 import '../../../../../core/routes/routes.dart';
 import '../../../../../core/widgets/app_states.dart';
@@ -88,9 +89,11 @@ class _Categories extends StatelessWidget {
           hasAction: true,
           onActionTap: () => context.pushNamed(
             Routes.products,
-            arguments: ProductsFiltersModel(
-              categories: [categories[selectedItem.value]],
-            ),
+            arguments:   ProductsScreenArgs(
+              initialFilters: ProductsFiltersModel(
+                categories: [categories[selectedItem.value]],
+              ),
+            )
           ),
         ),
         ValueListenableBuilder(

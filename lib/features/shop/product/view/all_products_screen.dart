@@ -11,17 +11,26 @@ import 'package:multi_vendor/features/shop/product/view/widgets/filters/products
 import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/scaffold/base_appbar.dart';
 import '../data/model/products_response_model.dart';
+import '../logic/products_all_filters_cubit.dart';
 import '../logic/products_by_filters_cubit.dart';
+class ProductsScreenArgs{
+  final ProductsFiltersModel? initialFilters ;
+  final List<ProductsFilters>? exclude;
+  const ProductsScreenArgs({this.initialFilters , this.exclude});
+}
+
+
+
 
 class AllProductsScreen extends StatelessWidget {
-  final ProductsFiltersModel? initialFilters ;
-  const AllProductsScreen({super.key,this.initialFilters });
+  final  ProductsScreenArgs? args ;
+  const AllProductsScreen({super.key,this.args });
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: "all products",
+        title: "Shop",
         actions:const [
           ProductFiltersAction(),
         ],

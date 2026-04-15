@@ -22,7 +22,7 @@ class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
 
   final B? bloc;
 
-  const BaseBlocConsumer({
+  const  BaseBlocConsumer({
     super.key,
     this.bloc,
     this.builder,
@@ -75,9 +75,7 @@ class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
               child: loadingBuilder!());
           }
           if (builder != null) {
-            return Skeletonizer(
-              enabled: state.isLoading,
-              child: builder!(state));
+            return builder!(state);
           }
           if (state.isSuccess && successBuilder != null) {
             return successBuilder!(state.data as S);

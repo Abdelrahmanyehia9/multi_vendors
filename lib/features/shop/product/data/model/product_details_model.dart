@@ -2,7 +2,6 @@ import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
-
 import '../../../../../core/enum/product_tags.dart';
 import '../../../../../core/models/base_category_model.dart';
 import '../../../../../core/models/base_product_model.dart';
@@ -128,7 +127,28 @@ class ProductDetailsModel extends BaseProductModel {
     ratingEnabled: true,
     createdAt: FakeData.fakeDateTime
   ) ;
-}
 
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "created_at": createdAt?.toIso8601String(),
+    "name": name,
+    "vendor": vendor?.toJson(),
+    "description": description,
+    "variants": variants?.map((e) => e.toJson()).toList(),
+    "price": price?.toJson(),
+    "stock_availability": stockAvailability?.toDatabase,
+    "rating_enabled": ratingEnabled,
+    "category": category?.toJson(),
+    "images": images,
+    "thumbnail": thumbnail,
+    "tags": productTags
+        ?.map((e) => e.toDatabase)
+        .toList(),
+  }.withoutNulls;
+
+
+  bool get  isAvailable =>  stockAvailability == StockAvailability.inStock || stockAvailability ==null;
+}
 
 

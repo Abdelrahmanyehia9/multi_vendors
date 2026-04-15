@@ -14,11 +14,24 @@ extension RemoveNulls on Map<String, dynamic> {
   Map<String, dynamic> get withoutNulls {
     return Map.fromEntries(
       entries.where(
-            (e) => e.value != null && (e.value is! String || e.value.isNotEmpty),
+            (e) => e.value != null && (e.value is! String || e.value.isNotEmpty) && (e.value is! List || e.value.isNotEmpty),
       ),
     );
   }
 }
+extension MapEXt on Map{
+
+
+  Map<String,dynamic> get deepCast{
+    return map((key, value) {
+      if (value is Map) return MapEntry(key.toString(), value.deepCast);
+      if (value is List) return MapEntry(key.toString(), value.map((e) => e is Map ? e.deepCast : e).toList());
+      return MapEntry(key.toString(), value);
+    });
+  }
+
+}
+
 
 
 extension PriceExtension on num{

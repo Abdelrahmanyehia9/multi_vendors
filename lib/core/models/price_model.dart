@@ -22,7 +22,16 @@ class PriceModel {
   );
   }
 
-
+  Map<String, dynamic> toJson() => {
+    "price": price,
+    "price_before_discount": salePrice,
+    "sale_interval": (saleStartDate != null || saleEndDate != null)
+        ? {
+      "start": saleStartDate?.toIso8601String(),
+      "end": saleEndDate?.toIso8601String(),
+    }
+        : null,
+  };
   factory PriceModel.fake()=>PriceModel(price: FakeData.fakeDouble);
   num get totalPrice => salePrice ?? price;
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class VendorModel extends Equatable{
@@ -23,6 +24,12 @@ class VendorModel extends Equatable{
     count: FakeData.fakeInt,
   );
 
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "image": image,
+    "count": count,
+  }.withoutNulls;
   @override
   // TODO: implement props
   List<Object?> get props => [id];

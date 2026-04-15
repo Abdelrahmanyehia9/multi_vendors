@@ -10,6 +10,7 @@ import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../core/models/vendor_model.dart';
 import 'widgets/vendor_card.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 import '../../../../core/widgets/section_header.dart';
@@ -32,8 +33,10 @@ class _AllVendorsScreenState extends State<AllVendorsScreen> {
         children: [
           _Tags(selectedTagIndex),
           Gap.large(),
-          const Expanded(
-              child:VendorsCardList()
+           Expanded(
+              child:VendorsCardList(
+             vendors:   List.generate(10, (i) => VendorModel.fake()),
+              )
           )
         ],
       ).appPaddingHr,

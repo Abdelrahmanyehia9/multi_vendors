@@ -1,107 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-
-import '../../theme/app_colors.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import '../../models/variant_attributes_model.dart';
 import '../../theme/decorations.dart';
 import '../../theme/text_styles.dart';
-import '../../utils/testing.dart';
 import '../app_cached_network_image.dart';
 import '../gap.dart';
+import '../quantity_stepper.dart';
 
 class CartList extends StatelessWidget {
-  const CartList({super.key});
+  final List<CartModel> cart;
+  const CartList({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: 4,
+      itemCount: cart.length,
       primary: false,
       padding: EdgeInsets.zero,
-      separatorBuilder: (_,i)=>Divider(height: 24.h,).appPaddingHr  ,
+      separatorBuilder: (_, i) => Divider(height: 24.h).appPaddingHr,
       shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (_,i)=>const CartCard(),
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, i) => CartCard(cartItem: cart[i]),
     );
   }
 }
 
-
 class CartCard extends StatelessWidget {
   final double height;
-  const CartCard({super.key, this.height = 100});
+  final CartModel cartItem;
+
+  const CartCard({super.key, required this.cartItem, this.height = 100});
 
   @override
   Widget build(BuildContext context) {
     final width = context.width;
-    return SizedBox(
-      height: height.h,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-           AppCachedNetworkImage(
-            Testing.menShirt,
-            width: width * 0.25,
-            height: height,
-            radius: Decorations.borderRadius16,
-          ),
-          Gap.small(),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Men's Shirts", maxLines: 1,overflow: TextOverflow.ellipsis,  style: TextStyles.labelMedium,),
-                 _buildVariation(),
-                 Gap.extraSmall(),
-                const _AddOrMinusRow(),
-              ],
+    return BaseBlocConsumer(
+      bloc: cartCubit,
+      builder: (_) => SizedBox(
+        height: height.h,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppCachedNetworkImage(
+              cartItem.product.image,
+              width: width * 0.25,
+              height: height,
+              radius: Decorations.borderRadius16,
             ),
-          ),
-          Icon(Icons.close, size: 18.sp,)
-        ],
+            Gap.small(),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    cartItem.product.name ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.labelMedium,
+                  ),
+                  if (cartItem.product.variant != null)
+                    _buildVariation(cartItem.product.variant!.attributes),
+                  Gap.extraSmall(),
+                  QuantityStepper.narrow(item: cartItem.product),
+                ],
+              ),
+            ),
+            AppClick(
+              onTap: () => cartCubit.removeItem(cartItem.product),
+              child: Icon(Icons.close, size: 18.sp),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildVariation()=>Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("Size : Large", style: TextStyles.captionMedium,),
-      Text("color : Green", style: TextStyles.captionMedium,),
-
-    ],
-  ).paddingHr(4);
-}
-
-class _AddOrMinusRow extends StatelessWidget {
-  const _AddOrMinusRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return  Container(
-      decoration: BoxDecoration(
-        color: context.colors.surfaceContainerLowest,
-        borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CircleAvatar(
-            radius: 12.r,
-            backgroundColor: AppColors.primary,
-            child: Icon(Icons.add, size: 12.sp, color: AppColors.white
-              ,),
-          ),
-          Text("1", style: TextStyles.labelSmall,).appPaddingHr,
-          CircleAvatar(
-            radius: 12.r,
-            backgroundColor: AppColors.primary,
-            child: Icon(Icons.remove, size: 12.r, color: Colors.white,),
-          ),
-        ],
-      ),
-    );
+  Widget _buildVariation(List<VariantsAttributes>? variants) {
+    if (variants.isNullOrEmpty) return const SizedBox.shrink();
+    final String variantsStr = variants!.map((e) => e.message).join("\n");
+    return Text(variantsStr, maxLines: 2, overflow: TextOverflow.ellipsis);
   }
+
 }

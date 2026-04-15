@@ -26,23 +26,41 @@ final class SearchState {
 class SearchCubit extends Cubit<SearchState> {
   late final TextEditingController controller;
   late final FocusNode focusNode;
-  SearchCubit() : super(SearchState(query: '', hasFocus: false)){
-  init() ;
+
+  final bool autoFocus;
+
+  SearchCubit({this.autoFocus = true})
+      : super(SearchState(query: '', hasFocus: false)) {
+    init();
   }
 
-  void init(){
-    focusNode = FocusNode()..requestFocus();
+  void init() {
+    focusNode = FocusNode();
     controller = TextEditingController();
-    focusNode.addListener(() => onFocusChanged(focusNode.hasFocus));
-    controller.addListener(() => onQueryChanged(controller.text));
+
+    if (autoFocus) {
+      focusNode.requestFocus();
+    }
+
+    focusNode.addListener(() {
+      onFocusChanged(focusNode.hasFocus);
+    });
+
+    controller.addListener(() {
+      final text = controller.text;
+      if (text != state.query) {
+        onQueryChanged(text);
+      }
+    });
   }
+
   void onFocusChanged(bool focused) {
     safeEmit(state.copyWith(hasFocus: focused));
   }
+
   void onQueryChanged(String query) {
     safeEmit(state.copyWith(query: query));
   }
-
 
   @override
   Future<void> close() {

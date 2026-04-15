@@ -78,10 +78,7 @@ class _MainLayoutState extends State<MainLayout> {
       NavbarItem(
         icon: Icons.search,
         label: "Search",
-        page: BlocProvider(
-          create: (context) => SearchCubit(),
-          child: const SearchScreen(),
-        ),
+        page: const SearchScreen(),
       ),
       NavbarItem(
         icon: Icons.favorite,

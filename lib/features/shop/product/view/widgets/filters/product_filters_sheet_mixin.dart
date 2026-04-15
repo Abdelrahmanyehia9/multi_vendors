@@ -30,10 +30,7 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
     for (final notifier in notifiers) {
       notifier.addListener(_getFiltersByFilters);
     }
-
   }
-
-
   List<ValueNotifier> get notifiers => [
     _selectedStock,
     _selectedVendors,
@@ -44,7 +41,6 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
   ];
 
   Future<void> _onSet() async {
-
       _filters = ProductsFiltersModel(
         categories: _selectedCategories.value,
         tags: _selectedTags.value,
@@ -54,11 +50,12 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
         ratingRange: _selectedRating.value?.toRangeModel,
         sortBy: _cubit.selectedFilters?.sortBy
       );
-
-    _cubit.setFilters(_filters!);
   }
 
-
+  void _onSubmit() {
+    if (_filters != null) _cubit.setFilters(_filters!);
+    context.pop(_filters);
+  }
   Future<void> _getFiltersByFilters() async {
     EasyDebounce.debounce(
       'filter_change',
@@ -66,7 +63,7 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
           () async {
         context.loaderOverlay.show();
         _onSet();
-        await _cubit.getFiltersByFilters();
+        await _cubit.getCountByFilters(_filters);
         if (mounted) context.loaderOverlay.hide();
       },
     );
@@ -81,6 +78,14 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
     _selectedStock.value = [];
   }
 
+
+
+  bool _isVisible(dynamic value, ProductsFilters type) {
+    final ex = _cubit.excludes;
+    if (value == null) return false;
+    if (value is List && value.isEmpty) return false;
+    return !ex.contains(type);
+  }
 
 
   @override

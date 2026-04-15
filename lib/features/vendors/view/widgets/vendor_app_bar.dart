@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/features/main/favorite/view/widgets/add_to_favorite_button.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
@@ -27,6 +28,10 @@ class VendorAppBar extends StatelessWidget {
         backgroundColor: context.scaffoldBackground,
         elevation: collapsed ? 2 : 0,
         title: _buildAppBarTitle(collapsed),
+        actions: [
+          if(vendor.id!=null)
+          FavoriteButton.vendor(size: 24, vendor: vendor)
+        ],
         flexibleSpace: _VendorProfileCover(collapsed: collapsed, vendor: vendor,),
       ),
     );
@@ -41,7 +46,7 @@ class VendorAppBar extends StatelessWidget {
         children: [
           Text(vendor.name, style: TextStyles.labelMedium),
           if(vendor.isVerified)
-          const Icon(Icons.verified , color: AppColors.success,)
+          const Icon(Icons.verified , color: AppColors.success,),
         ],
       ),
     ),

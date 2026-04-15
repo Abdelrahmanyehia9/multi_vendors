@@ -20,6 +20,7 @@ import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import '../../../../../../core/theme/text_styles.dart';
+import '../../../../../../core/utils/feature_flags.dart';
 import '../../../../../../core/widgets/app_radion_button.dart';
 import '../../../../../../core/widgets/gap.dart';
 import '../../../../../../core/widgets/range_input.dart';
@@ -47,107 +48,141 @@ class ProductFiltersSheet extends StatefulWidget {
 
 class _ProductFiltersSheetState extends State<ProductFiltersSheet>
     with _ProductFiltersSheetMixin {
+
   @override
   Widget build(BuildContext context) {
     return BaseBlocConsumer<ProductsAllFiltersCubit, ProductsFiltersModel>(
-      successBuilder: _builder,
-      loadingBuilder: () => _builder(ProductsFiltersModel.fake()),
+      successBuilder: _buildContent,
+      loadingBuilder: () => _buildContent(ProductsFiltersModel.fake()),
     );
   }
 
-  Widget _builder(ProductsFiltersModel f) {
+  Widget _buildContent(ProductsFiltersModel f) {
     return DraggableScrollableSheet(
       minChildSize: 0.5,
       maxChildSize: 0.9,
       initialChildSize: 0.9,
       expand: false,
-      builder:(_,c) {
-        final exclude = _cubit.excludeFilters;
+      builder: (_, controller) {
         return SingleChildScrollView(
-        controller: c,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 12.h,
-          children: [
-            Gap.small(),
-            SectionHeader(
-             title: "Filters",
-              headerStyle: TextStyles.headline3,
-              action: "Reset",
-              hasAction: true,
-              actionStyle: TextStyles.labelLarge,
-              onActionTap: resetFilters,
-            ),
-            if (!f.categories.isNullOrEmpty&&!exclude.contains(ProductsFilters.categories))
-              ValueListenableBuilder(
-                     valueListenable: _selectedCategories,
-                     builder: (context, value, child) {
-                       final String? selectedText = value.isNullOrEmpty?null:  value.map((e) => e.name).join(", ");
-                       return _FilterItem(
-                         title: "Categories",
-                            subtitle: selectedText,
-                            _CategoryFilter(items: f.categories!,selected: _selectedCategories));
-                     }
-                   ),
-            if (f.priceRange!=null &&!exclude.contains(ProductsFilters.price))
-            _FilterItem(
-             _PriceFilter(
-                priceRange: _priceRange,
-                availableRange: f.priceRange!.toRangeValues(),
+          controller: controller,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 12.h,
+            children: [
+              Gap.small(),
+              /// Header
+              SectionHeader(
+                title: "Filters",
+                headerStyle: TextStyles.headline3,
+                action: "Reset",
+                hasAction: true,
+                actionStyle: TextStyles.labelLarge,
+                onActionTap: resetFilters,
               ),
-              title: "Price",
-            ),
-            if (f.ratingRange!=null &&!exclude.contains(ProductsFilters.rating))
-            _FilterItem(
-               _RatingFilter(
-                 selectedRating: _selectedRating,
-                 ratingRange: f.ratingRange!.toRangeValues(),
-              ),
-              title: "Rating",
-            ),
-            if (!f.vendors.isNullOrEmpty&&!exclude.contains(ProductsFilters.vendor))
-              _FilterItem(
-                 _VendorFilters(
-                  items: f.vendors!,
-                  selected: _selectedVendors,
+
+              /// Categories
+              if (_isVisible(f.categories, ProductsFilters.categories))
+                ValueListenableBuilder(
+                  valueListenable: _selectedCategories,
+                  builder: (_, value, __) {
+                    final selectedText = value.isNullOrEmpty
+                        ? null
+                        : value.map((e) => e.name).join(", ");
+
+                    return _FilterItem(
+                      title: "Categories",
+                      subtitle: selectedText,
+                       _CategoryFilter(
+                        items: f.categories!,
+                        selected: _selectedCategories,
+                      ),
+                    );
+                  },
                 ),
-                title: "Vendor",
-              ),
-            if (!f.tags.isNullOrEmpty&&!exclude.contains(ProductsFilters.tags))
-              _FilterItem(
-                title: "Tags",
-                initiallyExpanded: false,
-                _TagsFilters(tags: f.tags!, selectedTags: _selectedTags),
-              ),
-            // if (!f.attributes.isNullOrEmpty&&_selectedVariants.length == f.attributes!.groupedVariants.length)
-            //   _FilterItem(
-            //     title: "Attributes",
-            //     showTrailing: false,
-            //     _VariantFilters(
-            //       groupedVariants: f.attributes!.groupedVariants,
-            //       activeIndexes: _selectedVariants,
-            //     ),
-            //   ),
-              if(!f.stockAvailability.isNullOrEmpty&&!exclude.contains(ProductsFilters.stock))
-              _FilterItem(
+
+              /// Price
+              if (_isVisible(f.priceRange, ProductsFilters.price))
+                _FilterItem(
+                  title: "Price",
+                   _PriceFilter(
+                    priceRange: _priceRange,
+                    availableRange: f.priceRange!.toRangeValues(),
+                  ),
+                ),
+
+              /// Rating
+              if (_isVisible(f.ratingRange, ProductsFilters.rating))
+                _FilterItem(
+                  title: "Rating",
+                   _RatingFilter(
+                    selectedRating: _selectedRating,
+                    ratingRange: f.ratingRange!.toRangeValues(),
+                  ),
+                ),
+
+              /// Vendors
+              if (_isVisible(f.vendors, ProductsFilters.vendor) && FeatureFlags.multiVendor)
+                _FilterItem(
+                  title: "Vendor",
+                   _VendorFilters(
+                    items: f.vendors!,
+                    selected: _selectedVendors,
+                  ),
+                ),
+
+              /// Tags
+              if (_isVisible(f.tags, ProductsFilters.tags) && FeatureFlags.shopByTags)
+                _FilterItem(
+                  title: "Tags",
+                  initiallyExpanded: false,
+                   _TagsFilters(
+                    tags: f.tags!,
+                    selectedTags: _selectedTags,
+                  ),
+                ),
+
+              /// Stock
+              if (_isVisible(f.stockAvailability, ProductsFilters.stock))
+                _FilterItem(
                   title: "Availability",
                   initiallyExpanded: false,
-                  _StockFilters(items: f.stockAvailability!, selected: _selectedStock)),
-            ValueListenableBuilder(
-              valueListenable: _cubit.totalProducts,
-              builder: (context, value, child) {
-                return AppButton(
-                    text: "See ${value??""} product/s",
+                  _StockFilters(
+                    items: f.stockAvailability!,
+                    selected: _selectedStock,
+                  ),
+                ),
+
+              /// Button
+              ValueListenableBuilder(
+                valueListenable: _cubit.totalProducts,
+                builder: (_, value, __) {
+                  return AppButton(
+                    text: "See ${value ?? ""} product/s",
                     buttonSize: null,
-                    onPressed:()=> context.pop(_filters),
+                    onPressed: _onSubmit,
                   );
-              }
-            ),
-            Gap.medium(),
-          ],
-        ).appPaddingHr,
-      );
+                },
+              ),
+
+              Gap.medium(),
+            ],
+          ).appPaddingHr,
+        );
       },
     );
   }
+
 }
+
+
+
+// if (!f.attributes.isNullOrEmpty&&_selectedVariants.length == f.attributes!.groupedVariants.length)
+//   _FilterItem(
+//     title: "Attributes",
+//     showTrailing: false,
+//     _VariantFilters(
+//       groupedVariants: f.attributes!.groupedVariants,
+//       activeIndexes: _selectedVariants,
+//     ),
+//   ),

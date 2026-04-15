@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/slogan_text.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_app_bar.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_banner.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_featured_item.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_news_section.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_categories.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_product_tags.dart';
-import 'package:multi_vendor/features/main/home/view/widgets/home_store_search_bar.dart';
+import 'package:multi_vendor/core/widgets/app_search_bar.dart';
 import 'package:multi_vendor/features/main/home/view/widgets/home_vendors_section.dart';
 import '../../../../core/utils/feature_flags.dart';
 
@@ -26,7 +27,9 @@ class HomeScreen extends StatelessWidget {
         children: [
           const HomeAppBar().appPaddingHr,
           Gap.small(),
-          HomeStoreSearchBar(onTap: onSearch).appPaddingHr,
+          AppSearchbar(
+              title: const SloganText(),
+              onTap: onSearch).appPaddingHr,
           const HomeBanner(),
           Gap.small(),
           if (FeatureFlags.multiVendor)...[

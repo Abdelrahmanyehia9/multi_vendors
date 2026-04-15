@@ -5,7 +5,8 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/search_builder.dart';
-import 'package:multi_vendor/features/main/home/view/widgets/home_store_search_bar.dart';
+import 'package:multi_vendor/core/widgets/slogan_text.dart';
+import 'package:multi_vendor/core/widgets/app_search_bar.dart';
 import 'package:multi_vendor/features/main/search/view/widget/search_history.dart';
 import '../../../../core/cubit/search_cubit.dart';
 
@@ -14,14 +15,12 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchCubit = context.read<SearchCubit>();
     return Column(
       spacing: 16.h,
       children: [
         Gap.tiny(),
-        HomeStoreSearchBar(
-          focusNode: searchCubit.focusNode,
-          controller: searchCubit.controller,
+        AppSearchbar(
+          title: const SloganText(),
         ),
         const SearchBuilder(
           builder: SearchHistory(),

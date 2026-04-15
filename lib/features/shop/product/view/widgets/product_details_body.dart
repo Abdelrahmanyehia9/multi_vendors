@@ -5,9 +5,10 @@ import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/models/variant_model.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
-import 'package:multi_vendor/features/shop/product/view/widgets/product_variant.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/variant_selection.dart';
 import '../../../../../core/routes/routes.dart';
 import '../../../../../core/theme/text_styles.dart';
 import '../../../../../core/utils/feature_flags.dart';
@@ -19,6 +20,7 @@ import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/circular_box.dart';
 import '../../../../../core/widgets/gap.dart';
 import '../../../../../core/widgets/rating_stars.dart';
+import '../../../cart/data/models/cart_product_model.dart';
 import '../../data/model/product_details_model.dart';
 import 'add_to_cart_button.dart';
 
@@ -68,7 +70,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
               ),
               if (FeatureFlags.multiVendor && widget.model.vendor != null)
                 AppClick(
-                  onTap: () => context.pushNamed(Routes.vendor),
+                  onTap: () => context.pushNamed(Routes.vendor, arguments: widget.model.vendor?.id),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -92,7 +94,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
           ),
           if (widget.model.productTags != null)
             ProductInfoSection(
-              header: "",
+              header: "Product Tags",
               customBody: Wrap(
                 spacing: 4.w,
                 runSpacing: 4.h,
@@ -108,21 +110,30 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
               showRemaining: true,
               variants: widget.model.variants,
             ),
-          ValueListenableBuilder(
-            valueListenable: selectedVariant,
-            builder: (_, v, __) {
-              final inStock = v?.inStock ?? 0;
-              return Column(
-                spacing: 8.h,
-                children: [
-                  AddToCartButton(
-                      enabled: v != null || widget.model.variants.isNullOrEmpty,
-                      onAddToCart: () {}),
-                  if (inStock > 0) _stockStatus(inStock),
-                ],
-              );
-            },
-          ),
+          if (widget.model.stockAvailability == StockAvailability.outOfStock)
+            Center(
+              child: Text(
+                "Out of Stock",
+                style: TextStyles.labelMedium.copyWith(color: AppColors.error),
+              ),
+            )
+          else
+            ValueListenableBuilder(
+              valueListenable: selectedVariant,
+              builder: (_, v, __) {
+                final int? inStock = v?.inStock;
+                return Column(
+                  spacing: 8.h,
+                  children: [
+                    AddToCartButton(
+                      enabled: isAvailable(),
+                      product: CartProductModel.fromProductModel(widget.model, selectedVariant: v),
+                    ),
+                    if (inStock != null) _stockStatus(inStock),
+                  ],
+                );
+              },
+            ),
         ],
       ),
     );
@@ -149,6 +160,16 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
         ],
       ),
     );
+  }
+
+  bool isAvailable() {
+    final variant = selectedVariant.value;
+    if (variant == null) {
+      return widget.model.variants.isNullOrEmpty
+          ? widget.model.isAvailable
+          : false;
+    }
+    return (variant.inStock ?? 1) > 0;
   }
 
   @override

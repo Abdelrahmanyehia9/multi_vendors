@@ -118,6 +118,7 @@ class ProductCard extends StatelessWidget {
                         alignment: Alignment.topCenter,
                       ),
                     ),
+                    if(product.id!=null)
                     _favorite(),
                     if(!product.productTags.isNullOrEmpty)
                     _ribbon(product.productTags!.first.toText, context
@@ -167,10 +168,10 @@ class ProductCard extends StatelessWidget {
 
   Widget _favorite() => Align(
     alignment: AlignmentDirectional.topEnd,
-    child: AddToFavoriteButton(
-      padding: isBig ? 8 : 6,
+    child: FavoriteButton.product(
+      padding: isBig ? 12 : 8,
       size: isBig ? 28 : 20,
-      isFavorite: true,
+      product: product,
     ),
   );
   Widget _ribbon(String text, BuildContext context, {Color? color}) {

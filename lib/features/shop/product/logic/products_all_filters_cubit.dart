@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/models/extension/products_filters.dart';
 import '../data/model/products_filters_model.dart';
 import '../data/repository/product_repository.dart';
 
@@ -11,7 +12,8 @@ enum ProductsFilters{
   vendor,
   stock,
   tags,
-  categories
+  categories,
+  variants
 }
 
 
@@ -32,9 +34,9 @@ class ProductsAllFiltersCubit extends Cubit<BaseState<ProductsFiltersModel>> {
       },
     );
   }
-  Future<void> getFiltersByFilters()async{
+  Future<void> getCountByFilters([ProductsFiltersModel? filters])async{
     final result = await _productRepository.getProductFilters(
-      selectedFilters: _selectedFilters,
+      selectedFilters: filters,
     );
     result.fold(
       (_) {},
@@ -43,12 +45,21 @@ class ProductsAllFiltersCubit extends Cubit<BaseState<ProductsFiltersModel>> {
       }
     );
   }
-  void setFilters(ProductsFiltersModel filters) {
+  void setFilters(ProductsFiltersModel? filters) {
     _selectedFilters = filters;
     safeEmit(state.copyWith(
       version: DateTime.now().microsecondsSinceEpoch
     ));
   }
+  void clearFilters() {
+    _selectedFilters = _selectedFilters?.withoutEXCLUDES(excludes);
+    safeEmit(state.copyWith(
+      version: DateTime.now().microsecondsSinceEpoch,
+    ));
+  }
+
   ProductsFiltersModel? get selectedFilters => _selectedFilters;
-  List<ProductsFilters> excludeFilters = [];
+  List<ProductsFilters> _excludeFilters = [];
+  void exclude(List<ProductsFilters>? excludes)=>_excludeFilters = excludes??_excludeFilters;
+  List<ProductsFilters> get excludes => _excludeFilters;
 }

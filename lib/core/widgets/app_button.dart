@@ -303,6 +303,7 @@ class AppIconButton extends StatelessWidget {
   final Color? iconColor;
   final Color? backGroundColor;
   final double size;
+  final bool enabled ;
 
   const AppIconButton({
     super.key,
@@ -311,6 +312,7 @@ class AppIconButton extends StatelessWidget {
     this.iconColor,
     this.backGroundColor,
     this.onTap,
+    this.enabled = true,
     required this.icon,
   });
 
@@ -319,6 +321,7 @@ class AppIconButton extends StatelessWidget {
     return AppButton.icon(
       onPressed: onTap,
       toolTip: tooltip,
+      enabled: enabled,
       fixedSize: Size(size * 2, size * 2),
       color: backGroundColor ?? context.colors.surfaceContainerLowest,
       icon: Icon(

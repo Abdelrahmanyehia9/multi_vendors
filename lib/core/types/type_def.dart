@@ -6,4 +6,3 @@ typedef OnBoardingItemData = ({String title , String description,String imagePat
 
 
 
-

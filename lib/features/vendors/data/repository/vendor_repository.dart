@@ -10,7 +10,6 @@ class VendorRepository {
   Future<Either<AppException, VendorDetailsModel>> getVendorDetails(
     int vendorId,
   ) async {
-
       final response = await _db.GET_SINGLE(
         table: RemoteDatabaseConstants.vendor_table,
         filter: (q) => q.eq(RemoteDatabaseConstants.id_column, vendorId),

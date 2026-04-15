@@ -16,6 +16,9 @@ class RatingModel{
     rating: FakeData.fakeDouble,
     count: FakeData.fakeInt,
   );
+  Map<String, dynamic> toJson() => {
+    "value": rating,
+    "count": count,};
 
 }
 

@@ -3,6 +3,7 @@ import 'package:multi_vendor/core/models/price_model.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
+import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
 import 'base_product_model.dart';
 
@@ -21,7 +22,7 @@ class ProductModel extends BaseProductModel {
       ProductModel(
         id: json['id'],
           name: json['name'],
-          price: PriceModel.fromJson(json),
+          price: json['price'] is Map ? PriceModel.fromJson(json['price']): PriceModel.fromJson(json),
         productTags:json["tags"]== null ? null:  (json['tags'] as List)
             .map((e) => ProductTags.fromDatabase(e))
             .toList(),
@@ -32,6 +33,7 @@ class ProductModel extends BaseProductModel {
       );
   factory ProductModel.fake()=>
       ProductModel(
+        id: FakeData.fakeInt,
           name: FakeData.fakeStringTitle,
           price: PriceModel.fake(),
         productTags:const [],
@@ -41,5 +43,27 @@ class ProductModel extends BaseProductModel {
 
       );
 
+
+  Map<String, dynamic>toJson()=>{
+    'id':id,
+    "name":name,
+    "price":price?.toJson(),
+    "tags":productTags?.map((e) => e.toDatabase).toList(),
+    "thumbnail":thumbnail,
+    "vendor":vendor?.toJson(),
+    "rating":rating?.toJson(),
+  };
+
+
+ factory ProductModel.fromProductDetails(ProductDetailsModel model)=>ProductModel(
+      name: model.name,
+     price: model.price ,
+    id: model.id,
+    thumbnail: model.thumbnail,
+    vendor: model.vendor,
+    rating: model.rating,
+   productTags: model.productTags,
+
+ );
 
 }

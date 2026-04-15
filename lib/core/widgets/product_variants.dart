@@ -1,66 +1,13 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/widgets/app_click.dart';
-import 'package:multi_vendor/core/widgets/circular_box.dart';
-import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
 
-import '../../../../../../core/theme/app_colors.dart';
-import '../../../../../core/models/variant_model.dart';
-import '../../../mixin/product_variants_mixin.dart';
-
-
-
-class VariantsSection extends StatefulWidget {
-  final List<VariantModel>? variants;
-  final ValueNotifier<VariantModel?> selectedVariant ;
-  final bool showRemaining;
-  const VariantsSection({super.key, this.showRemaining = false, this.variants, required this.selectedVariant});
-
-  @override
-  State<VariantsSection> createState() => _VariantsSectionState();
-}
-
-class _VariantsSectionState extends State<VariantsSection>
-    with ProductVariantMixin {
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: selectedAttributesNotifier,
-      builder: (_, selectedAttrs, __) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8.h,
-        children:[
-          ...availableAttributes.entries
-              .mapIndexed(
-                (i, item) => ProductInfoSection(
-              header: item.key,
-              customBody: ProductVariant.single(
-                variants: item.value,
-                availableVariants: availableValuesForKey(item.key),
-                activeIndex: indexNotifierForKey(item.key)!,
-                onDeselect: (_) => onDeselectAttribute(item.key),
-                onSelect: (selected) => onSelectAttribute(item.key, selected),
-              ),
-            ),
-          ),
-          if(selectedVariant.value==null && widget.showRemaining)
-            Text("please select :${unselectedAttributes.join(" , ")}", style: TextStyles.bodySmall.copyWith(
-              color: AppColors.error
-            ))
-        ], 
-      ),
-    );
-  }
-}
-
-
-
-
-
+import '../extensions/colors.dart';
+import '../models/variant_attributes_model.dart';
+import '../theme/app_colors.dart';
+import '../theme/text_styles.dart';
+import 'app_click.dart';
+import 'circular_box.dart';
 
 class ProductVariant extends StatelessWidget {
   final List<VariantsAttributes> variants;

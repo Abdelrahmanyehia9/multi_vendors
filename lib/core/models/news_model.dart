@@ -1,4 +1,5 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class NewsModel {
   final int? id;
@@ -52,5 +53,14 @@ class NewsModel {
       images: images ?? this.images,
       description: description ?? this.description,
     );
+
+
+  factory NewsModel.fake()=>const NewsModel(
+    id: FakeData.fakeInt,
+    title: FakeData.fakeStringTitle,
+    description: FakeData.fakeStringDesc,
+    thumbnail: FakeData.fakeImg,
+    images: [FakeData.fakeImg],
+  );
 
 }

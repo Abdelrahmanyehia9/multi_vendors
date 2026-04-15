@@ -27,9 +27,22 @@ class CategoryModel extends Equatable {
   );
 
 
+
+
   factory CategoryModel.fake()=>const CategoryModel(
     name: "Category",
   ) ;
+
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "image": img,
+    "name": name,
+    "count": count,
+    "description": description,
+    "parent": parent?.toJson(),
+  };
+
 
   @override
   List<Object?> get props => [id];

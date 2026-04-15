@@ -29,18 +29,16 @@ class VendorDetailsScreen extends StatefulWidget {
 class _VendorDetailsScreenState extends State<VendorDetailsScreen>
     with ScrollTitleVisibilityMixin {
 
-  Future<void> _fetchProducts(VendorDetailsModel? v) async {
+
+    Future<void> _fetchProducts(VendorDetailsModel? v) async {
     final filters = ProductsFiltersModel(
       vendors: [VendorModel(id: v!.id, name: v.name, image: v.image)],
     );
-
     final filtersCubit = context.read<ProductsAllFiltersCubit>();
-    filtersCubit
-      ..init(filters)
-      ..excludeFilters.add(ProductsFilters.vendor);
-
-    context.read<ProductsByFiltersCubit>()
-        .getProductsInFilter(filters: filters);
+    filtersCubit..init(filters)..exclude([ProductsFilters.vendor]);
+    context.read<ProductsByFiltersCubit>().getProductsInFilter(
+      filters: filters,
+    );
   }
 
   @override
@@ -65,7 +63,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
         ),
         SliverToBoxAdapter(child: VendorInfoCard(vendor: vendor)),
         _productsHeader(),
-        const SliverToBoxAdapter(child: ProductsFiltersChip()),
+        SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),
         _productsList(),
       ],
     );
@@ -103,10 +101,8 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
   Widget _productsList() {
     return SliverToBoxAdapter(
       child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
-        successBuilder: (res) => ProductGrid(
-          shrinkWrap: true,
-          products: res.products,
-        ),
+        successBuilder: (res) =>
+            ProductGrid(shrinkWrap: true, products: res.products),
         loadingBuilder: () => ProductGrid(
           shrinkWrap: true,
           products: ProductResponseModel.fake().products,

@@ -52,8 +52,10 @@ class HomeVendorsSection extends StatelessWidget {
     return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const SectionHeader(
+       SectionHeader(
         title: "Vendors",
+        hasAction: true,
+        onActionTap: ()=> context.pushNamed(Routes.vendors)
       ),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,

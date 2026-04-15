@@ -63,6 +63,6 @@ enum StockCountStatus {
 
   String message(int stock) => switch (this) {
     high || medium => "$stock In Stock",
-    low => "Only $stock left 🔥",
+    low => stock == 0 ? "Out of Stock": "Only $stock left 🔥",
   };
 }
