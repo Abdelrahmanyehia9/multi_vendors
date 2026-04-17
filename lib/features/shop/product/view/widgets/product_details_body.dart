@@ -20,7 +20,7 @@ import '../../../../../core/widgets/cards/product_card.dart';
 import '../../../../../core/widgets/circular_box.dart';
 import '../../../../../core/widgets/gap.dart';
 import '../../../../../core/widgets/rating_stars.dart';
-import '../../../cart/data/models/cart_product_model.dart';
+import '../../../cart/data/models/cart_model.dart';
 import '../../data/model/product_details_model.dart';
 import 'add_to_cart_button.dart';
 

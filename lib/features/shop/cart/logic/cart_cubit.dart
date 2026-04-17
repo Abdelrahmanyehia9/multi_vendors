@@ -4,7 +4,6 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/cart_repository.dart';
-import 'package:multi_vendor/features/shop/cart/data/models/cart_product_model.dart';
 
 class CartCubit extends Cubit<BaseState<List<CartModel>>> {
   final CartRepository _repository;
@@ -75,6 +74,8 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
     _update;
   }
 
+
+  List<CartModel>get cartItems => _cart;
   void clearCart() {
     _cart.clear();
     _update;

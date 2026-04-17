@@ -5,26 +5,32 @@ import '../theme/app_colors.dart';
 import '../theme/text_styles.dart';
 import 'gap.dart';
 enum MessagesAlertType{
-  orderSuccess , loginRequired , resetPasswordSuccess;
+  orderSuccess , loginRequired , resetPasswordSuccess, promoSuccess , promoFailed;
 
 
   String get title => switch(this){
     orderSuccess => "Order Successful",
     loginRequired => "Login Required",
-    resetPasswordSuccess => "Password Reset Successful"
+    resetPasswordSuccess => "Password Reset Successful",
+    promoSuccess => "Promo Code Applied Successfully",
+    promoFailed => "Promo Code Failed"
   };
   String get message => switch(this){
+
     orderSuccess => "We are happy to inform you that your purchase has been completed. Thank you for your trust in shopping at our store",
     loginRequired => "You're just one step away! Sign in to access your account and pick up right where you left off.",
-    resetPasswordSuccess => "Your password has been reset successfully. You can now sign in with your new password."
+    resetPasswordSuccess => "Your password has been reset successfully. You can now sign in with your new password.",
+    promoSuccess => "Promo Code Applied Successfully",
+    promoFailed => "Promo Code Failed"
   };
   IconData get icon => switch(this){
-    orderSuccess || resetPasswordSuccess =>Icons.verified ,
-   loginRequired => Icons.login
+    orderSuccess || resetPasswordSuccess || promoSuccess =>Icons.verified ,
+   loginRequired => Icons.login,
+    promoFailed => Icons.error
   };
   Color get color => switch(this){
-    orderSuccess || resetPasswordSuccess =>AppColors.success ,
-  loginRequired => AppColors.error
+    orderSuccess || resetPasswordSuccess || promoSuccess =>AppColors.success ,
+  _ => AppColors.error
   };
 }
 
@@ -35,10 +41,14 @@ class MessageAlert extends StatelessWidget {
   final MessagesAlertType type ;
   final TextStyle? titleStyle;
   final TextStyle? messageStyle ;
+  final String ? customMessage ;
+  final String ? customTitle ;
   final double iconSize ;
   const MessageAlert(this.type, {super.key,
     this.titleStyle,
     this.messageStyle,
+    this.customTitle,
+    this.customMessage,
     this.iconSize = 80
   });
 
@@ -49,9 +59,9 @@ class MessageAlert extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Icon(type.icon, color: type.color, size: iconSize.sp,),
-        Text(type.title, textAlign: TextAlign.center, style: titleStyle?? TextStyles.labelMedium,),
+        Text(customTitle ?? type.title, textAlign: TextAlign.center, style: titleStyle?? TextStyles.labelMedium,),
         Gap.tiny(),
-        Text(type.message, textAlign: TextAlign.center, style: messageStyle?? TextStyles.captionMedium,),
+        Text(customMessage ?? type.message, textAlign: TextAlign.center, style: messageStyle?? TextStyles.captionMedium,),
       ],
     );
   }

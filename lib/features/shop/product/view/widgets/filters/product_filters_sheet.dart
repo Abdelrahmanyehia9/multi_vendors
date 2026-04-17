@@ -10,7 +10,6 @@ import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/models/base_category_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
@@ -19,6 +18,7 @@ import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import '../../../../../../core/models/category_model.dart';
 import '../../../../../../core/theme/text_styles.dart';
 import '../../../../../../core/utils/feature_flags.dart';
 import '../../../../../../core/widgets/app_radion_button.dart';
@@ -171,6 +171,12 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
         );
       },
     );
+  }
+  bool _isVisible(dynamic value, ProductsFilters type) {
+    final ex = _cubit.excludes;
+    if (value == null) return false;
+    if (value is List && value.isEmpty) return false;
+    return !ex.contains(type);
   }
 
 }

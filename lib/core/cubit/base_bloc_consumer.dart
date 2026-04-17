@@ -68,29 +68,25 @@ class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
           }
         },
         builder: (context, state) {
-
           if (state.isLoading && loadingBuilder != null) {
 
             return Skeletonizer(
               child: loadingBuilder!());
           }
-          if (builder != null) {
-            return builder!(state);
-          }
           if (state.isSuccess && successBuilder != null) {
             return successBuilder!(state.data as S);
           }
-          if (state.isFailure) {
+          if (state.isFailure && failureBuilder!=null) {
             return failureBuilder == null
                 ? const SizedBox.shrink()
                 : failureBuilder!(state.error!);
           }
-          if (state.isEmpty) {
+          if (state.isEmpty && emptyBuilder!=null) {
             return emptyBuilder == null
                 ? const SizedBox.shrink()
                 : emptyBuilder!();
           }
-          return const SizedBox.shrink();
+          return builder == null ? const SizedBox.shrink() : builder!(state);
         },
       ),
     );

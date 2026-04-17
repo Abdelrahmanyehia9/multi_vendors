@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
@@ -6,7 +7,6 @@ import 'package:multi_vendor/core/service/database_service.dart';
 import '../../database/local_storage.dart';
 import '../../database/local_storage_constants.dart';
 import '../../errors/exceptions.dart';
-import '../../models/base_user_model.dart';
 
 final class UserSessionHelper {
   final AuthenticationService _authService;
@@ -25,7 +25,7 @@ final class UserSessionHelper {
     required void Function() onSignIn,
     required void Function() onSignOut,
     required void Function() onFirstTimeJoin,
-    required void Function(BaseUserModel) onUpdateUser,
+    required void Function(UserModel) onUpdateUser,
   }) {
     final bool firstTime = _settingsStorage.read(
       LocalStorageConstants.firstTime,
@@ -66,15 +66,15 @@ final class UserSessionHelper {
     await _settingsStorage.write(LocalStorageConstants.firstTime, false);
   }
 
-  BaseUserModel? get cachedUser => _getLocalUser();
+  UserModel? get cachedUser => _getLocalUser();
 
-  Future<Either<AppException, BaseUserModel>> _getUserRemote(String id) async {
+  Future<Either<AppException, UserModel>> _getUserRemote(String id) async {
     try {
       final response = await _databaseService.GET_SINGLE(
         table: RemoteDatabaseConstants.profile_table,
         filter: (q) => q.eq(RemoteDatabaseConstants.id_column, id),
       );
-      final BaseUserModel user = BaseUserModel.fromJson(response);
+      final UserModel user = UserModel.fromJson(response);
       await _cacheUser(user);
       return right(user);
     } catch (e) {
@@ -82,12 +82,12 @@ final class UserSessionHelper {
     }
   }
 
-  Future<void> _cacheUser(BaseUserModel user) async =>
+  Future<void> _cacheUser(UserModel user) async =>
       _cacheStorage.write(LocalStorageConstants.user, user.toJson());
 
-  BaseUserModel? _getLocalUser() {
+  UserModel? _getLocalUser() {
     final userJson = _cacheStorage.read(LocalStorageConstants.user);
-    return userJson != null ? BaseUserModel.fromJson(userJson) : null;
+    return userJson != null ? UserModel.fromJson(userJson) : null;
   }
 
   Future<void> _clearLocalUser() async =>

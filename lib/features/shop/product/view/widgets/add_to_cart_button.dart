@@ -5,9 +5,7 @@ import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
-import 'package:multi_vendor/features/shop/cart/data/models/cart_product_model.dart';
 import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
-
 import '../../../../../core/widgets/quantity_stepper.dart';
 
 

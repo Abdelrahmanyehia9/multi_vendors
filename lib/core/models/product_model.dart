@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/models/price_model.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
@@ -5,17 +6,25 @@ import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
-import 'base_product_model.dart';
 
-class ProductModel extends BaseProductModel {
+class ProductModel extends Equatable {
+  final int? id ;
+  final RatingModel? rating;
+  final PriceModel? price ;
+  final List<ProductTags>? productTags;
+  final String? name ;
+  final String? thumbnail ;
+  final VendorModel? vendor ;
+
+
   const ProductModel({
-    super.id,
-    super.rating,
-    required super.name,
-    required super.price,
-    super.productTags,
-    super.thumbnail,
-    super.vendor,
+    this.id,
+    this.rating,
+    required this.name,
+    required this.price,
+    this.productTags,
+    this.thumbnail,
+    this.vendor,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic>json)=>
@@ -47,7 +56,7 @@ class ProductModel extends BaseProductModel {
   Map<String, dynamic>toJson()=>{
     'id':id,
     "name":name,
-    "price":price?.toJson(),
+    if(price != null)...price!.toJson(),
     "tags":productTags?.map((e) => e.toDatabase).toList(),
     "thumbnail":thumbnail,
     "vendor":vendor?.toJson(),
@@ -65,5 +74,9 @@ class ProductModel extends BaseProductModel {
    productTags: model.productTags,
 
  );
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, rating, price, productTags, name, thumbnail, vendor];
 
 }

@@ -20,7 +20,7 @@ class OrderDetailsScreen extends StatelessWidget {
             OrderDetailsCard(hasAction: false,title: "Order Details",),
             OrderAddressInfoCard(hasAction: false, title: "Shipping Address",),
             CheckoutProductList(showHeader: true,),
-            OrderReceiptCard(hasTitle: true,),
+            // OrderReceiptCard(hasTitle: true,),
             OrderDetailsActions(),
           ],
         ),

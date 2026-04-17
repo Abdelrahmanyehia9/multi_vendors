@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
-import 'package:multi_vendor/core/models/base_user_model.dart';
+import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<BaseState<Unit>> {
     final result = await _otpRepository.sendOtp(
       channel: channel,
       phone: country.dialCode+mobile,
-      user: BaseUserModel(
+      user: UserModel(
         phone: mobile,
         country: country,
       )

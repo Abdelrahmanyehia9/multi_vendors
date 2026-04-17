@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../features/shop/cart/data/models/cart_product_model.dart';
+import '../../features/shop/cart/data/models/cart_model.dart';
 import '../DI/setup_get_it.dart';
 import '../theme/app_colors.dart';
 import '../theme/decorations.dart';

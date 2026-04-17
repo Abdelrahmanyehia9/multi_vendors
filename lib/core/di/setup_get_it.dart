@@ -12,9 +12,12 @@ import '../../features/authentication/data/repository/reset_password_repository.
 import '../../features/main/favorite/data/repository/favorite_repository.dart';
 import '../../features/main/favorite/logic/favorite_cubit.dart';
 import '../../features/main/home/data/repository/home_repository.dart';
+import '../../features/main/search/data/repository/search_repository.dart';
 import '../../features/news/data/repository/news_repository.dart';
 import '../../features/shop/cart/data/repository/cart_repository.dart';
+import '../../features/shop/cart/data/repository/promo_code_repository.dart';
 import '../../features/shop/cart/logic/cart_cubit.dart';
+import '../../features/shop/checkout/data/repository/checkout_repository.dart';
 import '../../features/shop/product/data/repository/product_repository.dart';
 import '../../features/vendors/data/repository/vendor_repository.dart';
 import '../cubit/user_cubit.dart';
@@ -36,6 +39,7 @@ static const String _userCache = 'userCache';
 static const String _cartCache = 'cartCache';
 static const String _favoriteCache = 'favoriteCache';
 static const String _settings = 'settings';
+static const String _searchHistoryCache = 'searchHistoryCache';
 
  static Future<void> setupGetIt() async {
    await _setupLocalStorage();
@@ -70,6 +74,9 @@ static const String _settings = 'settings';
     getIt.registerFactory(()=>CartRepository(getIt.get<LocalStorage>(instanceName: _cartCache)));
     getIt.registerFactory(()=>FavoriteRepository(getIt.get<LocalStorage>(instanceName: _favoriteCache)));
     getIt.registerFactory(()=>NewsRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>PromoCodeRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>CheckoutRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
   }
 
   static Future<void>_setupLocalStorage()async{
@@ -77,6 +84,7 @@ static const String _settings = 'settings';
     await HiveLocalStorage.openBox(HiveBoxes.userBox) ;
     await HiveLocalStorage.openBox(HiveBoxes.cartBox) ;
     await HiveLocalStorage.openBox(HiveBoxes.favoriteBox) ;
+    await HiveLocalStorage.openBox(HiveBoxes.searchHistoryBox) ;
 
     getIt.registerSingleton<LocalStorage>(
       await SharedPrefLocalStorage.create(),
@@ -93,6 +101,10 @@ static const String _settings = 'settings';
     getIt.registerLazySingleton<LocalStorage>(
           () => HiveLocalStorage(HiveBoxes.favoriteBox),
       instanceName: _favoriteCache,
+    );
+    getIt.registerLazySingleton<LocalStorage>(
+          () => HiveLocalStorage(HiveBoxes.searchHistoryBox),
+      instanceName: _searchHistoryCache,
     );
 
   }

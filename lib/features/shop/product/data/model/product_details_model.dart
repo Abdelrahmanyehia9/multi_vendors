@@ -1,30 +1,44 @@
+import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import '../../../../../core/enum/product_tags.dart';
-import '../../../../../core/models/base_category_model.dart';
-import '../../../../../core/models/base_product_model.dart';
+import '../../../../../core/models/category_model.dart';
 import '../../../../../core/models/price_model.dart';
 import '../../../../../core/models/variant_model.dart';
 import '../../../../../core/utils/helper/fake_data.dart';
 
-class ProductDetailsModel extends BaseProductModel {
+class ProductDetailsModel extends Equatable {
+  final int? id ;
+  final DateTime? createdAt ;
+  final String? name;
+   final VendorModel? vendor;
+   final String? description;
+   final List<VariantModel>? variants;
+   final RatingModel? rating;
+   final StockAvailability? stockAvailability;
+   final PriceModel price ;
+   final bool? ratingEnabled;
+   final CategoryModel? category;
+   final List<String>? images;
+   final String? thumbnail;
+   final List<ProductTags>? productTags;
   const ProductDetailsModel({
-    super.id,
-    super.createdAt,
-    super.name,
-    super.vendor,
-    super.description,
-    super.variants,
-    super.rating,
-    super.price,
-    super.stockAvailability,
-    super.ratingEnabled,
-    super.category,
-    super.images,
-    super.thumbnail,
-    super.productTags,
+    this.id,
+    this.createdAt,
+    this.name,
+    this.vendor,
+    this.description,
+    this.variants,
+    this.rating,
+  required this.price,
+    this.stockAvailability,
+    this.ratingEnabled,
+    this.category,
+    this.images,
+    this.thumbnail,
+    this.productTags,
   });
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
@@ -44,9 +58,7 @@ class ProductDetailsModel extends BaseProductModel {
         rating: json['rating'] == null
             ? null
             : RatingModel.fromJson(json['rating']),
-        price: json["price"] == null
-            ? null
-            : PriceModel.fromJson(json),
+        price: PriceModel.fromJson(json),
         stockAvailability: StockAvailability.fromDatabase(
           json['stock_availability'],
         ),
@@ -136,7 +148,7 @@ class ProductDetailsModel extends BaseProductModel {
     "vendor": vendor?.toJson(),
     "description": description,
     "variants": variants?.map((e) => e.toJson()).toList(),
-    "price": price?.toJson(),
+    ...price.toJson(),
     "stock_availability": stockAvailability?.toDatabase,
     "rating_enabled": ratingEnabled,
     "category": category?.toJson(),
@@ -149,6 +161,10 @@ class ProductDetailsModel extends BaseProductModel {
 
 
   bool get  isAvailable =>  stockAvailability == StockAvailability.inStock || stockAvailability ==null;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, createdAt, name, vendor, description, variants, price, stockAvailability, ratingEnabled, category, images, thumbnail, productTags, rating];
 }
 
 

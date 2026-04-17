@@ -9,13 +9,12 @@ class CartRepository {
   CartRepository(this._localStorage);
 
   Future<List<CartModel>> getCart() async {
-    final response = await _localStorage.read(LocalStorageConstants.cart);
+     final response = await _localStorage.read(LocalStorageConstants.cart);
     if (response is! List || response.isEmpty) return [];
     return response
         .map((e)=>CartModel.fromJson((e as Map).deepCast))
         .toList();
   }
-
   Future<void> updateCart(List<CartModel> cart) async {
     await _localStorage.write(
       LocalStorageConstants.cart,

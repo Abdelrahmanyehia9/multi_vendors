@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
-import 'package:multi_vendor/core/models/base_category_model.dart';
+import 'package:multi_vendor/core/models/category_model.dart';
 import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/models/product_model.dart';
 import 'package:multi_vendor/core/service/database_service.dart';

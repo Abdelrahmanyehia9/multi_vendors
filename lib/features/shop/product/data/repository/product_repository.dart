@@ -37,7 +37,6 @@ class ProductRepository {
         select: ShopQueries.productItemDetails,
         filter: (e) => e.eq(RemoteDatabaseConstants.id_column, pId),
       );
-      print(response);
       final product = ProductDetailsModel.fromJson(response);
       return right(product);
     } catch (e) {
@@ -49,13 +48,19 @@ class ProductRepository {
     ProductsFiltersModel? selectedFilters,
   })
   async {
+try{
 
-     final response = await _databaseService.RPC(
-       function: RpcFunctions.getProductsFiltersRPC,
-       params: selectedFilters?.toJson(),
-     );
-     final filters = ProductsFiltersModel.fromJson(response);
-     return right(filters);
+
+  final response = await _databaseService.RPC(
+    function: RpcFunctions.getProductsFiltersRPC,
+    params: selectedFilters?.toJson(),
+  );
+  final filters = ProductsFiltersModel.fromJson(response);
+  return right(filters);
+
+}catch(e){
+  return left(e.toAppException);
+}
 
   }
   Future<Either<AppException, ProductResponseModel>> getProductInFilters({

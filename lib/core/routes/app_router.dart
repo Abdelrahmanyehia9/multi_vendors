@@ -5,6 +5,8 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
 import 'package:multi_vendor/features/main/layout.dart';
+import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import '../../features/authentication/data/repository/otp_repository.dart';
 import '../../features/authentication/logic/forget_password_change_password_cubit.dart';
@@ -32,6 +34,8 @@ import '../../features/news/view/news_item_details.dart';
 import '../../features/settings/view/settings_screen.dart';
 import '../../features/shop/cart/view/apply_promo_voucher.dart';
 import '../../features/shop/cart/view/cart_screen.dart';
+import '../../features/shop/checkout/data/repository/checkout_repository.dart';
+import '../../features/shop/checkout/logic/checkout_summery_cubit.dart';
 import '../../features/shop/checkout/view/checkout_screen.dart';
 import '../../features/shop/checkout/view/order_success.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
@@ -121,8 +125,9 @@ class AppRouter {
         final int? initialIndex = settings.arguments as int?;
         return _page(
           BlocProvider(
-            create: (context)=>SearchCubit(),
-              child: MainLayout(initialIndex: initialIndex ?? 0)),
+            create: (context) => SearchCubit(),
+            child: MainLayout(initialIndex: initialIndex ?? 0),
+          ),
           name: Routes.mainLayout,
         );
       case Routes.products:
@@ -168,18 +173,19 @@ class AppRouter {
           name: Routes.productTags,
         );
       case Routes.news:
-        return _page(MultiBlocProvider(
+        return _page(
+          MultiBlocProvider(
             providers: [
               BlocProvider(
                 create: (context) =>
                     NewsCubit(getIt.get<NewsRepository>())..getAllNews(),
               ),
-              BlocProvider(
-                create: (context) =>
-                    SearchCubit(autoFocus: false),
-              ),
+              BlocProvider(create: (context) => SearchCubit(autoFocus: false)),
             ],
-            child: const AllNewsScreen()), name: Routes.news);
+            child: const AllNewsScreen(),
+          ),
+          name: Routes.news,
+        );
       case Routes.newsDetails:
         final NewsModel news = settings.arguments as NewsModel;
         return _page(NewsItemDetails(news: news), name: Routes.newsDetails);
@@ -232,9 +238,29 @@ class AppRouter {
       case Routes.settings:
         return _page(const SettingsScreen(), name: Routes.settings);
       case Routes.cart:
-        return _page(const CartScreen(), name: Routes.cart);
+        return _page(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    ValidatePromoCubit(getIt.get<PromoCodeRepository>()),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    CheckoutSummeryCubit(getIt.get<CheckoutRepository>()),
+              ),
+            ],
+            child: const CartScreen(),
+          ),
+          name: Routes.cart,
+        );
       case Routes.promo:
-        return _page(const ApplyPromoVoucher(), name: Routes.promo);
+        final ValidatePromoCubit cubit =
+            settings.arguments as ValidatePromoCubit;
+        return _page(
+          BlocProvider.value(value: cubit, child: const ApplyPromoVoucher()),
+          name: Routes.promo,
+        );
       case Routes.checkout:
         return _page(const CheckoutScreen(), name: Routes.checkout);
       case Routes.orderSuccess:

@@ -21,7 +21,7 @@ class OrderSuccessScreen extends StatelessWidget {
           const OrderDetailsCard(hasStatus: false, hasAction: false,title: "Order Details",),
           const OrderAddressInfoCard(hasAction: false, title: "Shipping Address",),
           const CheckoutProductList(showHeader: true,),
-          const OrderReceiptCard(hasTitle: true,),
+          // const OrderReceiptCard(hasTitle: true,),
           AppButton(text: "Back to home", buttonSize: null,
           onPressed: ()=> context.popUntil(),
 

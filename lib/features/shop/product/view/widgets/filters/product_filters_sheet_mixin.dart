@@ -70,22 +70,16 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
   }
 
   void resetFilters() {
-    _priceRange.value = null;
-    _selectedRating.value = null;
-    _selectedCategories.value = [];
-    _selectedTags.value = [];
-    _selectedVendors.value = [];
-    _selectedStock.value = [];
+  if(!_cubit.excludes.contains(ProductsFilters.price))  _priceRange.value = null;
+  if(!_cubit.excludes.contains(ProductsFilters.rating))  _selectedRating.value = null;
+  if(!_cubit.excludes.contains(ProductsFilters.categories))  _selectedCategories.value = [];
+  if(!_cubit.excludes.contains(ProductsFilters.tags))  _selectedTags.value = [];
+  if(!_cubit.excludes.contains(ProductsFilters.vendor))  _selectedVendors.value = [];
+   if(!_cubit.excludes.contains(ProductsFilters.stock)) _selectedStock.value = [];
   }
 
 
 
-  bool _isVisible(dynamic value, ProductsFilters type) {
-    final ex = _cubit.excludes;
-    if (value == null) return false;
-    if (value is List && value.isEmpty) return false;
-    return !ex.contains(type);
-  }
 
 
   @override

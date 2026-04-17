@@ -1,11 +1,11 @@
 import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import 'package:multi_vendor/core/models/base_category_model.dart';
 import 'package:multi_vendor/core/models/extension/variants.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_sort_by.dart';
+import '../../../../../core/models/category_model.dart';
 import '../../../../../core/models/range_model.dart';
 import '../../../../../core/models/variant_attributes_model.dart';
 

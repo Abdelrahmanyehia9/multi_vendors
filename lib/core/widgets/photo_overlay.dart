@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_cached_network_image.dart';
 
 class PhotoOverlay extends StatelessWidget {
-  final String img;
+  final String? img;
   final Widget? title ;
   final int titlePadding;
-  const PhotoOverlay({super.key,this.title, this.titlePadding =16 ,required this.img});
+  const PhotoOverlay({super.key,this.title, this.titlePadding =16 , this.img});
 
   @override
   Widget build(BuildContext context) {

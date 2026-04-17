@@ -1,9 +1,11 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/models/extension/variants.dart';
-import '../../../core/models/variant_attributes_model.dart';
-import '../../../core/models/variant_model.dart';
-import '../product/view/widgets/variant_selection.dart';
+
+import '../../../../core/models/variant_attributes_model.dart';
+import '../../../../core/models/variant_model.dart';
+import '../view/widgets/variant_selection.dart';
+
 
 ///AI Generated
 mixin ProductVariantMixin on State<VariantsSection> {

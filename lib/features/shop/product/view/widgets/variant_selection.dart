@@ -7,7 +7,7 @@ import 'package:multi_vendor/features/shop/product/view/widgets/product_info_sec
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../core/models/variant_model.dart';
 import '../../../../../core/widgets/product_variants.dart';
-import '../../../mixin/product_variants_mixin.dart';
+import '../../mixin/product_variants_mixin.dart';
 
 
 

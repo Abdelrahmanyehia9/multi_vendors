@@ -20,9 +20,7 @@ class NewsRepository {
           if (q == null || q.isEmpty) {
             return e.order(RemoteDatabaseConstants.created_at_column, ascending: false);
           }
-
           final safe = q.replaceAll(RegExp(r'[,%]'), '');
-
           return e
               .or('title.ilike.%$safe%,description.ilike.%$safe%')
               .order(RemoteDatabaseConstants.created_at_column, ascending: false);

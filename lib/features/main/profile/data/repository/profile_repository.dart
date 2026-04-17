@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
+import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import '../../../../../core/errors/exceptions.dart';
-import '../../../../../core/models/base_user_model.dart';
 
 class ProfileRepository {
   final AuthenticationService _service;
@@ -26,7 +26,7 @@ class ProfileRepository {
 
     }catch(e){return left(e.toAppException); }
   }
-  Future<Either<AppException , Unit>>editUser(BaseUserModel user)async{
+  Future<Either<AppException , Unit>>editUser(UserModel user)async{
     try{
 
       await _service.updateUser(data: user.toJson());

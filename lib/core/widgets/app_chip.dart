@@ -14,6 +14,7 @@ class AppChip extends StatelessWidget {
   final Widget? child;
   final double? elevation;
   final  Color? unselectedColor;
+  final TextStyle? textStyle;
 
   const AppChip({
     super.key,
@@ -26,6 +27,7 @@ class AppChip extends StatelessWidget {
     this.labelColor,
     this.child,
     this.padding,
+    this.textStyle,
     this.selectedBorderColor,
   });
 
@@ -45,7 +47,7 @@ final bColor = selected
       elevation: elevation,
       label: child ??  Text(
         text,
-        style: TextStyles.bodySmall.copyWith(color: lblColor),
+        style: textStyle ?? TextStyles.bodySmall.copyWith(color: lblColor),
       ),
       backgroundColor: bgColor,
       side: BorderSide(color: bColor),

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/user_states.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
-import '../models/base_user_model.dart';
+import '../models/user_model.dart';
 import '../utils/helper/user_session_helper.dart';
 
 class UserCubit extends Cubit<UserStates> {
@@ -19,7 +19,7 @@ class UserCubit extends Cubit<UserStates> {
     await _sessionHelper.logout();
   }
    void finishIntro() => _sessionHelper.finishIntro();
-  BaseUserModel? get user => _sessionHelper.cachedUser;
+  UserModel? get user => _sessionHelper.cachedUser;
   String get userName => user?.fullName?? user?.phone??"Guest" ;
   bool get isGuest => user == null;
 }

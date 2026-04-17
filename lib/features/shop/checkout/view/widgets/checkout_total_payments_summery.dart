@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/widgets/section_header.dart';
-import '../../../../../core/widgets/cards/order_cards.dart';
 
 class CheckoutTotalPaymentsSummery extends StatelessWidget {
   const CheckoutTotalPaymentsSummery({super.key});
@@ -10,7 +9,7 @@ class CheckoutTotalPaymentsSummery extends StatelessWidget {
     return const Column(
       children: [
         SectionHeader(title: "Total Payment",),
-        OrderReceiptCard(),
+        // OrderReceiptCard(),
       ],
     );
   }

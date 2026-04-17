@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/cubit/user_cubit.dart';
 import 'package:multi_vendor/core/cubit/user_states.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
@@ -35,9 +36,16 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
           Gap.small(),
-          Badge(
-            label: Text('1', style: TextStyles.labelSmall),
-            child:  AppIconButton(icon: Icons.shopping_cart, onTap: () => context.pushNamed(Routes.cart)),
+          BaseBlocConsumer(
+            bloc: cartCubit,
+            builder:(_) {
+              final int? count = cartCubit.state.data?.length;
+              return Badge(
+                isLabelVisible: count != null && count > 0,
+              label: Text(count?.toString() ?? '', style: TextStyles.labelSmall),
+              child:  AppIconButton(icon: Icons.shopping_cart, onTap: () => context.pushNamed(Routes.cart)),
+            );
+            },
           ),
         ],
       ),

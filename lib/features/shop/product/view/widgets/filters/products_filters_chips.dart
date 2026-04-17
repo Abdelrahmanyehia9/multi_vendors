@@ -41,9 +41,7 @@ class ProductsFiltersChip extends StatelessWidget {
         ),
         if (filters.isNotEmpty)
           AppIconButton(
-            onTap: () {
-              cubit.clearFilters();
-            },
+            onTap: cubit.clearFilters,
             icon: Icons.delete,
             backGroundColor: AppColors.error,
             iconColor: AppColors.white,

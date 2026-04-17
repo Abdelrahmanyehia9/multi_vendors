@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
-import 'package:multi_vendor/core/models/base_user_model.dart';
+import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/features/authentication/data/repository/social_media_login.dart';
 import '../../../../core/service/auth_service.dart';
 
@@ -24,7 +24,7 @@ class AuthRepository {
   Future<Either<AppException, Unit>> signUp(
     String email,
     String password,
-    BaseUserModel user,
+    UserModel user,
   ) async {
     try {
       await _authService.signUp(

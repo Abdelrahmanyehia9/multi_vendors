@@ -5,11 +5,8 @@ import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/models/product_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-
 import '../../../../../core/models/vendor_model.dart';
-import '../../logic/favorite_cubit.dart';
 
 class FavoriteButton extends StatelessWidget {
   final double padding;

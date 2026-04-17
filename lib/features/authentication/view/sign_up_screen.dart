@@ -6,11 +6,11 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/logic/sign_up_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/signup_form.dart';
-import '../../../core/models/base_user_model.dart';
 import '../../../core/theme/text_styles.dart';
 import '../../../core/utils/app_constants.dart';
 import '../../../core/widgets/app_button.dart';
@@ -36,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (!(formKey.currentState?.validate() ?? false)) return;
     _cubit.signup(
       password: _password.text.trim(),
-      user: BaseUserModel(
+      user: UserModel(
         email: _email.text.trim(),
         phone: _phone.text.isNullOrEmpty? null : _phone.text.trim(),
         fullName: _userName.text.trim(),

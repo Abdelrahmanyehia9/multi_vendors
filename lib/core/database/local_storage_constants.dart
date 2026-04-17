@@ -6,6 +6,7 @@ class LocalStorageConstants{
   static const String firstTime = 'firstTime';
   static const String cart = 'cart';
   static const String favorite = 'favorite';
+  static const String searchHistory = 'searchHistory';
 
 }
 
@@ -15,4 +16,5 @@ class HiveBoxes{
   static const String userBox = 'userBox';
   static const String cartBox = 'cartBox';
   static const String favoriteBox = 'favoriteBox';
+  static const String searchHistoryBox = 'searchHistoryBox';
 }

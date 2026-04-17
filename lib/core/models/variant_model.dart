@@ -22,9 +22,7 @@ class VariantModel extends Equatable {
 
   factory VariantModel.fromJson(Map<String, dynamic> json) => VariantModel(
     sku: json['sku'],
-    price: json['price'] is Map
-        ? PriceModel.fromJson(Map<String, dynamic>.from(json['price']))
-        : PriceModel.fromJson(json),
+    price: PriceModel.fromJson(json),
     inStock: json['stock'],
     images: json['image_url'],
     attributes: json['attributes'] == null
@@ -34,7 +32,7 @@ class VariantModel extends Equatable {
 
   Map<String, dynamic> toJson() => {
     "sku": sku,
-    "price": price?.toJson(),
+    if(price!=null)...price!.toJson(),
     "stock": inStock,
     "image_url": images,
     "attributes": attributes?.map((e) => e.toJson()).toList(),

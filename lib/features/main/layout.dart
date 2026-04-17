@@ -4,8 +4,10 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 import 'package:multi_vendor/features/main/profile/view/profile_screen.dart';
+import 'package:multi_vendor/features/main/search/data/repository/search_repository.dart';
+import 'package:multi_vendor/features/main/search/logic/search_product_history_cubit.dart';
+import 'package:multi_vendor/features/main/search/logic/search_products_cubit.dart';
 import 'package:multi_vendor/features/main/search/view/search_screen.dart';
-import '../../core/cubit/search_cubit.dart';
 import '../../core/widgets/scaffold/base_navbar.dart';
 import '../shop/history/view/order_history_screen.dart';
 import 'favorite/view/favorite_screen.dart';
@@ -78,7 +80,19 @@ class _MainLayoutState extends State<MainLayout> {
       NavbarItem(
         icon: Icons.search,
         label: "Search",
-        page: const SearchScreen(),
+        page: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) =>
+                  SearchProductHistoryCubit(getIt.get<SearchRepository>())
+                    ..getHistory(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  SearchProductsCubit(getIt.get<SearchRepository>()),
+            ),
+          ],
+            child: const SearchScreen()),
       ),
       NavbarItem(
         icon: Icons.favorite,

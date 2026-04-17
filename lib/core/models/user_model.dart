@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import '../enum/user_roles.dart';
 
-class BaseUserModel extends Equatable {
+class UserModel extends Equatable {
   final String? id;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -20,8 +20,8 @@ class BaseUserModel extends Equatable {
   final DateTime? birthDate;
   final String? address;
 
-  const BaseUserModel({
-     this.id,
+  const UserModel({
+    this.id,
     this.createdAt,
     this.updatedAt,
     this.fullName,
@@ -37,7 +37,7 @@ class BaseUserModel extends Equatable {
     this.phone,
   });
 
-  BaseUserModel copyWith({
+  UserModel copyWith({
     String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -53,7 +53,7 @@ class BaseUserModel extends Equatable {
     String? email,
     String? phone,
   }) {
-    return BaseUserModel(
+    return UserModel(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -71,8 +71,8 @@ class BaseUserModel extends Equatable {
     );
   }
 
-  factory BaseUserModel.fromJson(Map<String, dynamic> json) {
-    return BaseUserModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       id: json['id'] as String,
       createdAt: json['created_at'] != null
           ? DateTime.tryParse(json['created_at'])
