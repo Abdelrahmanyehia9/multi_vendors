@@ -25,26 +25,29 @@ class HomeShopByCategories extends StatefulWidget {
 }
 
 class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
-  late final ValueNotifier<int> _selectedItem;
+  final ValueNotifier<int> _selectedItem = ValueNotifier<int>(-1);
+
+
+  void _onCategoriesGetSuccess(List<CategoryModel>? i){
+    if(i == null) return;
+    _selectedItem.value = 0;
+    context.read<HomeProductByCategoryCubit>().getProductByCategory(
+      i[_selectedItem.value].id!,
+    );
+    _selectedItem.addListener(() {
+      context.read<HomeProductByCategoryCubit>().getProductByCategory(
+        i[_selectedItem.value].id!,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         BaseBlocConsumer<HomeCategoriesCubit, List<CategoryModel>>(
-          onSuccess: (i) {
-            _selectedItem = ValueNotifier<int>(0);
-            context.read<HomeProductByCategoryCubit>().getProductByCategory(
-              i![_selectedItem.value].id!,
-            );
-            _selectedItem.addListener(() {
-              context.read<HomeProductByCategoryCubit>().getProductByCategory(
-                i[_selectedItem.value].id!,
-              );
-            });
-          },
-          successBuilder: (categories) =>
-              _Categories(selectedItem: _selectedItem, categories: categories),
+          onSuccess: _onCategoriesGetSuccess,
+          successBuilder: (categories) => _Categories(selectedItem: _selectedItem, categories: categories),
           loadingBuilder: () => _Categories(
             selectedItem: ValueNotifier(-1),
             categories: List.generate(10, (_) => const CategoryModel(name: '')),

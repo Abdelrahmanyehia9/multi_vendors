@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/models/extension/products_filters.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
 
 import '../../../../../../core/cubit/base_bloc_consumer.dart';
@@ -40,12 +40,11 @@ class ProductsFiltersChip extends StatelessWidget {
           (i) => AppChip(text: filters[i].toUpperCase(), selected: true),
         ),
         if (filters.isNotEmpty)
-          AppIconButton(
+          AppDeleteButton(
             onTap: cubit.clearFilters,
-            icon: Icons.delete,
             backGroundColor: AppColors.error,
             iconColor: AppColors.white,
-          ),
+          )
       ],
     );
   }

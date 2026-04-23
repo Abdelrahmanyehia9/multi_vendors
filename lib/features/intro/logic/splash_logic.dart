@@ -5,6 +5,7 @@ class SplashLogic {
   const SplashLogic._();
 
   static Future<void> init(BuildContext context) async {
+
     userCubit.init();
   }
 }

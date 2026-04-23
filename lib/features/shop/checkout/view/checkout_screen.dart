@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/sticky_bottom_layout.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
+import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_address_info.dart';
+import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_expansion_tile.dart';
+import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_shipping_info_card.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_total_payments_summery.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/select_payment_tile.dart';
-import '../../../../core/routes/routes.dart';
-import '../../../../core/widgets/cards/checkout_card.dart';
-import '../../../../core/widgets/cards/order_cards.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/extension/checkout_summery_model_extension.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 import '../../../../core/widgets/scaffold/base_scaffold.dart';
-import '../../../../core/widgets/section_header.dart';
+import '../../../payments/logic/payment_cubit.dart';
+import 'mixin/checkout_mixin.dart';
 
-class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({super.key});
+class CheckoutScreenArgs{
+  final CouponInfo? coupon;
+  final CheckoutSummeryModel summery;
+  CheckoutScreenArgs({this.coupon,
+    required this.summery});
 
+}
+class CheckoutScreen extends StatefulWidget {
+  final CheckoutScreenArgs args ;
+  const CheckoutScreen({super.key, required this.args});
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin{
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -22,43 +39,56 @@ class CheckoutScreen extends StatelessWidget {
       paddingVr: 0,
       appBar: BaseAppBar(title: "Checkout"),
       body: StickyBottomLayout(
-        sticky:  AppButton(
-          text: "Place an Order",
-          buttonSize: null,
-          onPressed: ()=>context.pushNamed(Routes.orderSuccess)
+        sticky: BaseBlocConsumer<PaymentCubit, int?>(
+          bloc: paymentCubit,
+          onSuccess:placeOrder,
+          builder:(payStates)=>BaseBlocConsumer(
+            onFailure: onOrderFailure,
+            bloc: checkoutCubit,
+            onSuccess: onOrderSuccess,
+            builder:(orderState)=> ValueListenableBuilder(
+              valueListenable: selectedOption,
+              builder: (context, value, child) {
+                return AppButton(
+                  text: "Place an Order",
+                  isLoading: orderState.isLoading || payStates.isLoading,
+                  buttonSize: null,
+                  enabled: value != null,
+                  onPressed: ()=> pay(amount: widget.args.summery.total.toDouble()),
+                );
+              }
+            ),
+          ),
         ),
-        content: Column(
-          spacing:  16.h,
-          children: [
-            _buildAddressInfo(),
-            _buildShippingDate(),
-            _buildProducts(),
-            const SelectPaymentTile(),
-            const CheckoutTotalPaymentsSummery(),
-          ],
+        content: Form(
+          key: formKey,
+          child: Column(
+            spacing: 16.h,
+            children: [
+              const CheckoutAddressInfo(),
+              _buildShippingDate(),
+               _buildListProducts(),
+               CheckoutExpansionTile(
+                   "Payment options",
+                    CheckoutPaymentOptionsList(selectedOption: selectedOption)),
+              CheckoutTotalPaymentsSummery(summery: widget.args.summery ,coupon: widget.args.coupon),
+            ],
+          ),
         ),
       ),
     );
   }
-  Widget _buildAddressInfo()=>const _CheckoutExpansionTile("Shipping Address", OrderAddressInfoCard());
-  Widget _buildShippingDate()=>   const _CheckoutExpansionTile("Delivery date",  OrderShippingDateCard()) ;
-  Widget _buildProducts()=> const _CheckoutExpansionTile("Ordered Product (6)",    CheckoutProductList(),initiallyExpanded: false);
-}
-class _CheckoutExpansionTile extends StatelessWidget {
-  final String title ;
-  final Widget content  ;
-  final bool initiallyExpanded;
-  const _CheckoutExpansionTile(this.title,this.content, {this.initiallyExpanded=true});
 
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      childrenPadding: EdgeInsets.zero,
-      tilePadding: EdgeInsets.zero,
-      initiallyExpanded: initiallyExpanded,
-      title: SectionHeader(title: title),
-      children: [content],
-    );
+  Widget _buildShippingDate() {
+    final String shipping = widget.args.summery.shippingDisplay(widget.args.coupon)??"UNKnown" ;
+    return CheckoutExpansionTile("Delivery date", OrderShippingInfoCard(shipping: shipping, estimatedDelivery: estimatedDelivery));
   }
+   Widget _buildListProducts() {
+     return  CheckoutExpansionTile(
+     "Ordered Product (${cartCubit.cartItems.length})",
+     CheckoutListProducts(items: cartCubit.cartItems),
+     initiallyExpanded: false,
+   );
+   }
 }
 

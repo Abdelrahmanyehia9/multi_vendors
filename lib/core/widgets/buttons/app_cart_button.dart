@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
+
+import '../../DI/setup_get_it.dart';
+import '../../cubit/base_bloc_consumer.dart';
+import '../../routes/routes.dart';
+import '../../theme/text_styles.dart';
+import 'app_icon_button.dart';
+
+class AppCartButton extends StatelessWidget {
+  const AppCartButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseBlocConsumer(
+      bloc: cartCubit,
+      builder:(_) {
+        final int? count = cartCubit.state.data?.length;
+        return Badge(
+          isLabelVisible: count != null && count > 0,
+          label: Text(count?.toString() ?? '', style: TextStyles.labelSmall),
+          child:  AppIconButton(icon: Icons.shopping_cart, onTap: () => context.pushNamed(Routes.cart)),
+        );
+      },
+    );
+  }
+}

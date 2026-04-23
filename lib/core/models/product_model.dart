@@ -2,12 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/models/price_model.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
+import 'package:multi_vendor/core/models/stock_availabilty_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
+import '../../features/main/favorite/data/model/favorite_item.dart';
 
-class ProductModel extends Equatable {
+
+class ProductModel extends Equatable implements FavoriteItem{
   final int? id ;
   final RatingModel? rating;
   final PriceModel? price ;
@@ -15,13 +18,14 @@ class ProductModel extends Equatable {
   final String? name ;
   final String? thumbnail ;
   final VendorModel? vendor ;
-
+  final StockAvailabilityModel? stockAvailability;
 
   const ProductModel({
     this.id,
     this.rating,
     required this.name,
     required this.price,
+    this.stockAvailability,
     this.productTags,
     this.thumbnail,
     this.vendor,
@@ -36,6 +40,7 @@ class ProductModel extends Equatable {
             .map((e) => ProductTags.fromDatabase(e))
             .toList(),
         thumbnail: json['thumbnail'],
+       stockAvailability: json['in_stock'] == null ? null : StockAvailabilityModel(quantity: json['in_stock']),
           vendor: json['vendor'] == null ? null : VendorModel.fromJson(json['vendor']),
            rating: json['rating'] == null ? null : RatingModel.fromJson(json['rating']),
 
@@ -51,8 +56,6 @@ class ProductModel extends Equatable {
            rating: RatingModel.fake(),
 
       );
-
-
   Map<String, dynamic>toJson()=>{
     'id':id,
     "name":name,
@@ -62,8 +65,6 @@ class ProductModel extends Equatable {
     "vendor":vendor?.toJson(),
     "rating":rating?.toJson(),
   };
-
-
  factory ProductModel.fromProductDetails(ProductDetailsModel model)=>ProductModel(
       name: model.name,
      price: model.price ,
@@ -79,4 +80,10 @@ class ProductModel extends Equatable {
   // TODO: implement props
   List<Object?> get props => [id, rating, price, productTags, name, thumbnail, vendor];
 
+  @override
+  int get favoriteId => id!;
+  @override
+  String? get favoriteName => name;
+  @override
+  FavoriteType get favoriteType => FavoriteType.product;
 }

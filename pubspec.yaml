@@ -57,7 +57,8 @@ dependencies:
   app_links: ^6.4.1
   easy_debounce: ^2.0.3
   loader_overlay: ^5.0.0
-  sliver_tools: ^0.2.12
+  geolocator: ^14.0.2
+  geocoding: ^4.0.0
 
 dev_dependencies:
   flutter_test:

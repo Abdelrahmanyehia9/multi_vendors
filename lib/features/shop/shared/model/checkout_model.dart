@@ -1,17 +1,16 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
-import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
 
 class CheckoutSummeryModel {
   final num subtotal;
-  final num? shipping;
+  final num shipping;
   final num total;
   final num? discount;
   final num? tax;
 
   CheckoutSummeryModel({
     required this.subtotal,
-    this.shipping,
+    required this.shipping,
     required this.total,
     this.discount,
     this.tax,
@@ -21,7 +20,7 @@ class CheckoutSummeryModel {
     subtotal: json['subtotal'],
     total: json['total'],
     tax: json['taxes'],
-    shipping: json['shipping'],
+    shipping: json['shipping']??0,
     discount: json['discount'],
   ) ;
   factory CheckoutSummeryModel.fake()=>CheckoutSummeryModel(
@@ -32,10 +31,14 @@ class CheckoutSummeryModel {
     discount: FakeData.fakeInt,
   );
 
+  Map<String, dynamic> toJson()=>{
+    "subtotal" : subtotal,
+    "total" : total,
+    "taxes" : tax,
+    "discount" : discount,
+    "shipping" : shipping,
+  }.withoutNulls;
 
-   String get subTotalDisplay => subtotal.usdPrice ;
-   String get totalDisplay => total.usdPrice ;
-   String?  shippingDisplay(CouponInfo? promo)=>promo?.type == PromoCodeType.freeShipping? "FREE": shipping?.usdPrice;
-   String? get taxDisplay=>tax?.usdPrice;
-   String? get discountDisplay=>discount == 0 || discount == null ?"":"-${discount!.usdPrice}";
 }
+
+

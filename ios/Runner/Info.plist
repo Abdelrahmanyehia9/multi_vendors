@@ -7,6 +7,10 @@
 	<key>CFBundleDisplayName</key>
 	<string>Untitd</string>
 	<key>CFBundleExecutable</key>
+	<key>UIBackgroundModes</key>
+    <array>
+      <string>location</string>
+    </array>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>

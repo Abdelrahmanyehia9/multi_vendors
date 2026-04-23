@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 
+
 enum StockAvailability {
   inStock,
   outOfStock,
@@ -14,15 +15,12 @@ enum StockAvailability {
     StockAvailability.outOfStock: "out_of_stock",
     StockAvailability.onBackOrder: "on_back_order",
   };
-
   String get toDatabase => _map[this]!;
-
   String get toText=>switch(this){
     StockAvailability.inStock=>"In Stock",
     StockAvailability.outOfStock=>"Out of Stock",
     StockAvailability.onBackOrder=>"On Back Order",
   };
-
   Color get color => switch (this) {
     StockAvailability.inStock => AppColors.success700,
     StockAvailability.outOfStock => AppColors.error700,
@@ -35,34 +33,31 @@ enum StockAvailability {
             ?.key ??
         StockAvailability.inStock;
   }
+  factory StockAvailability.fromCount(int count){
+    return count > 0
+        ? StockAvailability.inStock
+        : StockAvailability.outOfStock;
+  }
 }
 
-enum StockCountStatus {
+enum StockStatus {
   high,
   medium,
   low;
-
- static StockCountStatus fromInt(int count) {
+ static StockStatus fromCount(int count) {
     return count > 70
-        ? StockCountStatus.high
+        ? high
         : count > 19
-        ? StockCountStatus.medium
-        : StockCountStatus.low;
+        ? medium
+        : low;
   }
-
   Color get color => switch (this) {
     high => AppColors.success700,
     medium => AppColors.grey,
     low => AppColors.error700,
   };
-
   IconData? get icon => switch (this) {
     high => Icons.check_circle,
    _=>null
-  };
-
-  String message(int stock) => switch (this) {
-    high || medium => "$stock In Stock",
-    low => stock == 0 ? "Out of Stock": "Only $stock left 🔥",
   };
 }

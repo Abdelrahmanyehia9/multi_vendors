@@ -13,7 +13,7 @@ import 'package:multi_vendor/features/authentication/logic/sign_up_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/signup_form.dart';
 import '../../../core/theme/text_styles.dart';
 import '../../../core/utils/app_constants.dart';
-import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/buttons/app_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

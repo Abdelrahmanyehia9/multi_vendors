@@ -22,13 +22,13 @@ class ProductsAllFiltersCubit extends Cubit<BaseState<ProductsFiltersModel>> {
   ProductsAllFiltersCubit(this._productRepository) : super(const BaseState.initial());
   ProductsFiltersModel? _selectedFilters ;
   ValueNotifier<int?> totalProducts = ValueNotifier<int?>(null);
-  Future<void> init([ProductsFiltersModel? initialFilters]) async {
+  Future<void> init([ProductsFiltersModel? filters]) async {
     safeEmit(const BaseState.loading());
-    final result = await _productRepository.getProductFilters(selectedFilters: initialFilters);
+    final result = await _productRepository.getProductFilters(selectedFilters: filters);
     result.fold(
       (l) => safeEmit(BaseState.failure(l)),
       (r) {
-        _selectedFilters = initialFilters;
+        _selectedFilters = filters;
         totalProducts.value = r.totalProducts;
         safeEmit(BaseState.success(r));
       },
@@ -52,12 +52,11 @@ class ProductsAllFiltersCubit extends Cubit<BaseState<ProductsFiltersModel>> {
     ));
   }
   void clearFilters() {
-    _selectedFilters = _selectedFilters?.withoutEXCLUDES(excludes);
+    _selectedFilters = _selectedFilters?.withoutEXCLUDES(excludes) ;
     safeEmit(state.copyWith(
       version: DateTime.now().microsecondsSinceEpoch,
     ));
   }
-
   ProductsFiltersModel? get selectedFilters => _selectedFilters;
   List<ProductsFilters> _excludeFilters = [];
   void exclude(List<ProductsFilters>? excludes)=>_excludeFilters = excludes??_excludeFilters;

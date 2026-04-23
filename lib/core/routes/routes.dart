@@ -17,6 +17,7 @@ class Routes {
   static const String vendor = '/vendor';
   static const String favorites = '/favorites';
   static const String editProfile = '/editProfile';
+  static const String address = '/addAddress';
   static const String changePassword = '/changePassword';
 static const String settings = '/settings';
 static const String cart = '/cart';
@@ -24,6 +25,7 @@ static const String promo = '/promo';
 static const String checkout = '/checkout';
 static const String orderSuccess = '/orderSuccess';
 static const String orderDetails = '/orderDetails';
+static const String orderTracking = '/orderTracking';
 static const String  rateOrder = '/rateOrder';
 static const String  rateProduct = '/rateProduct';
 

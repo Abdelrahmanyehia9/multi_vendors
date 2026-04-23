@@ -14,7 +14,7 @@ class StickyBottomLayout extends StatefulWidget {
 }
 
 class _StickyBottomLayoutState extends State<StickyBottomLayout> with ScrollVisibilityMixin {
-  static const double _fixedAreaHeight = 70;
+  static const double _fixedAreaHeight = 60;
 
   @override
   Widget build(BuildContext context) {

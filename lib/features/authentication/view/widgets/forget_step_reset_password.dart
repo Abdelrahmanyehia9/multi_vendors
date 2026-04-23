@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/message_alert.dart';
 import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
-import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/gap.dart';
 import '../../logic/forget_password_change_password_cubit.dart';
 import 'forget_password_form.dart';

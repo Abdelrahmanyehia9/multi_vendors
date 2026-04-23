@@ -48,7 +48,7 @@ class SnackBars {
                 children: [
                   if(hasTitle)
                   Text(title, style:titleStyle?? TextStyles.labelSmall),
-                  Text(message, style: messageStyle?? TextStyles.captionLarge),
+                  Text(message,maxLines: 2 ,style: messageStyle?? TextStyles.captionLarge),
                 ],
               ),
             ),

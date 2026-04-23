@@ -1,3 +1,4 @@
+
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -84,27 +85,40 @@ final class AuthenticationService {
   }
 
   void setupAuthListener(
-    Function(String id) onSignedIn,
-    Function() onSignedOut,
-    Function(String id) onUserUpdated,
-  ) => _client.auth.onAuthStateChange.listen((data) async {
-    final event = data.event;
-    switch (event) {
-      case AuthChangeEvent.signedIn:
-        onSignedIn.call(data.session!.user.id);
-        break;
-      case AuthChangeEvent.signedOut:
+      Function(String id) onSignedIn,
+      Function() onSignedOut,
+      Function(String id) onUserUpdated,
+      ) => _client.auth.onAuthStateChange.listen(
+        (data) async {
+      final event = data.event;
+      switch (event) {
+        case AuthChangeEvent.signedIn:
+        case AuthChangeEvent.tokenRefreshed:
+        case AuthChangeEvent.initialSession:
+          if (data.session != null) {
+            onSignedIn.call(data.session!.user.id);
+          } else {
+            onSignedOut.call();
+          }
+          break;
+        case AuthChangeEvent.signedOut:
+          onSignedOut.call();
+          break;
+        case AuthChangeEvent.userUpdated:
+          onUserUpdated.call(data.session!.user.id);
+          break;
+        default:
+          debugPrint("Auth event: $event");
+      }
+    },
+       onError: (error) {
+      if (error is AuthRetryableFetchException) {
+        debugPrint("Token refresh failed temporarily: $error");
+      } else {
         onSignedOut.call();
-        break;
-
-      case AuthChangeEvent.userUpdated:
-        onUserUpdated.call(data.session!.user.id);
-        break;
-      default:
-        debugPrint("Auth event: $event");
-    }
-  });
-
+      }
+    },
+  );
   bool get isAuthenticated => _client.auth.currentUser != null;
 
   Future<void> logout() async => await _client.auth.signOut();

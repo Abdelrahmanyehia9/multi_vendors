@@ -44,9 +44,9 @@ class InfoBox extends StatelessWidget {
           ...List.generate(items.length, (i)=>Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(items[i].$1),
+              Flexible(child: Text(items[i].$1)),
               if(!items[i].$2.isNullOrEmpty)
-                Text(items[i].$2!),
+                Flexible(child: Text(items[i].$2!, textAlign: TextAlign.end,)),
             ],
           )),
           if(bottom != null) bottom!.paddingVr(4),

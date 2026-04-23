@@ -7,8 +7,8 @@ import '../DI/setup_get_it.dart';
 import '../theme/app_colors.dart';
 import '../theme/decorations.dart';
 import '../theme/text_styles.dart';
-import 'app_button.dart';
 import 'app_click.dart';
+import 'buttons/app_icon_button.dart';
 
 enum QuantityStepperStyle {wide, narrow}
 
@@ -42,12 +42,9 @@ class QuantityStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         final int inCart = cartCubit.inCart(product);
-        final int? remaining = product.variant?.inStock == null
-            ? null
-            : product.variant!.inStock! - inCart;
         final args = _AddOrMinusArgs(
           quantity: inCart,
-          addEnabled: remaining == null || remaining > 0,
+          addEnabled: true,
           minusEnabled: inCart > 0,
           onAdd: () => cartCubit.updateQuantity(true, item: product),
           onMinus: () => cartCubit.updateQuantity(false, item: product),

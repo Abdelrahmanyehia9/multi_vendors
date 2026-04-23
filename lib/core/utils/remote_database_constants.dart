@@ -3,8 +3,11 @@
 class RemoteDatabaseConstants {
   const RemoteDatabaseConstants._();
   static const String profile_table = 'profiles';
+  static const String address_table = 'address';
   static const String category_table = 'category';
   static const String vendor_table = 'vendor';
+  static const String payment_table = 'payments';
+  static const String orders_table = 'orders';
   static const String product_table = 'product';
   static const String news_table = 'news';
   static const String banner_table = 'banner';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/cubit/user_cubit.dart';
 import 'package:multi_vendor/core/cubit/user_states.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
@@ -9,9 +8,9 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_cart_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import '../../../../../core/DI/setup_get_it.dart';
-import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/user_avatar.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -36,17 +35,7 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
           Gap.small(),
-          BaseBlocConsumer(
-            bloc: cartCubit,
-            builder:(_) {
-              final int? count = cartCubit.state.data?.length;
-              return Badge(
-                isLabelVisible: count != null && count > 0,
-              label: Text(count?.toString() ?? '', style: TextStyles.labelSmall),
-              child:  AppIconButton(icon: Icons.shopping_cart, onTap: () => context.pushNamed(Routes.cart)),
-            );
-            },
-          ),
+          const AppCartButton()
         ],
       ),
     );
@@ -69,7 +58,7 @@ class HomeAppBar extends StatelessWidget {
             Icon(Icons.my_location, color: AppColors.primary, size: 14.sp),
             Expanded(
               child: Text(
-                address ?? "Not defined",
+                address?.addressDisplay ?? "Not defined",
                 style: TextStyles.captionMedium.copyWith(color: AppColors.primary),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

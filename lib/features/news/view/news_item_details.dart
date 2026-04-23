@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/core/widgets/app_slider.dart';
 import '../../../core/mixin/scroll_visibility.dart';
@@ -28,7 +28,7 @@ class _NewsItemDetailsState extends State<NewsItemDetails>
       appBar: BaseAppBar(
         title: title(widget.news.title),
         actions: const [
-          AppIconButton(icon: Icons.share),
+          AppShareButton(),
         ],
       ),
       body: SingleChildScrollView(

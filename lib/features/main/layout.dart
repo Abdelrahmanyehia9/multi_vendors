@@ -8,7 +8,10 @@ import 'package:multi_vendor/features/main/search/data/repository/search_reposit
 import 'package:multi_vendor/features/main/search/logic/search_product_history_cubit.dart';
 import 'package:multi_vendor/features/main/search/logic/search_products_cubit.dart';
 import 'package:multi_vendor/features/main/search/view/search_screen.dart';
+import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
+import '../../core/utils/feature_flags.dart';
 import '../../core/widgets/scaffold/base_navbar.dart';
+import '../shop/history/logic/order_history_cubit.dart';
 import '../shop/history/view/order_history_screen.dart';
 import 'favorite/view/favorite_screen.dart';
 import 'home/logic/home_banner_cubit.dart';
@@ -94,6 +97,7 @@ class _MainLayoutState extends State<MainLayout> {
           ],
             child: const SearchScreen()),
       ),
+      if(FeatureFlags.enableFavorite)
       NavbarItem(
         icon: Icons.favorite,
         label: "favorite",
@@ -102,7 +106,9 @@ class _MainLayoutState extends State<MainLayout> {
       NavbarItem(
         icon: Icons.history,
         label: "History",
-        page: const OrderHistoryScreen(),
+        page: BlocProvider(
+            create: (context) => OrderHistoryCubit(getIt.get<OrderHistoryRepository>())..getOrdersHistory(),
+            child: const OrderHistoryScreen()),
         toolTip: "Order History",
       ),
       NavbarItem(

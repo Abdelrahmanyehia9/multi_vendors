@@ -7,6 +7,7 @@ import 'package:multi_vendor/features/authentication/data/repository/reset_passw
 import 'package:multi_vendor/features/main/layout.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import '../../features/authentication/data/repository/otp_repository.dart';
 import '../../features/authentication/logic/forget_password_change_password_cubit.dart';
@@ -26,11 +27,14 @@ import '../../features/main/profile/data/repository/profile_repository.dart';
 import '../../features/main/profile/logic/edit_password_cubit.dart';
 import '../../features/main/profile/logic/edit_profile_cubit.dart';
 import '../../features/main/profile/view/change_password_screen.dart';
+import '../../features/main/profile/view/edit_address_screen.dart';
 import '../../features/main/profile/view/edit_profile_screen.dart';
 import '../../features/news/data/repository/news_repository.dart';
 import '../../features/news/logic/news_cubit.dart';
 import '../../features/news/view/all_news_screen.dart';
 import '../../features/news/view/news_item_details.dart';
+import '../../features/payments/data/repository/payment_repository.dart';
+import '../../features/payments/logic/payment_cubit.dart';
 import '../../features/settings/view/settings_screen.dart';
 import '../../features/shop/cart/view/apply_promo_voucher.dart';
 import '../../features/shop/cart/view/cart_screen.dart';
@@ -38,7 +42,10 @@ import '../../features/shop/checkout/data/repository/checkout_repository.dart';
 import '../../features/shop/checkout/logic/checkout_summery_cubit.dart';
 import '../../features/shop/checkout/view/checkout_screen.dart';
 import '../../features/shop/checkout/view/order_success.dart';
+import '../../features/shop/history/data/repository/order_history_repository.dart';
+import '../../features/shop/history/logic/order_details_cubit.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
+import '../../features/shop/history/view/order_tracking_screen.dart';
 import '../../features/shop/history/view/rate_order_screen.dart';
 import '../../features/shop/history/view/rate_product_screen.dart';
 import '../../features/shop/product/data/repository/product_repository.dart';
@@ -47,6 +54,7 @@ import '../../features/shop/product/logic/product_details_cubit.dart';
 import '../../features/shop/product/logic/products_by_filters_cubit.dart';
 import '../../features/shop/product/view/all_product_tags_screen.dart';
 import '../../features/shop/product/view/all_products_screen.dart';
+import '../../features/shop/shared/model/order_model.dart';
 import '../../features/vendors/data/repository/vendor_repository.dart';
 import '../../features/vendors/logic/vendor_details_cubit.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
@@ -226,6 +234,12 @@ class AppRouter {
           ),
           name: Routes.editProfile,
         );
+      case Routes.address:
+        final EditProfileCubit cubit = settings.arguments as EditProfileCubit;
+        return _page(
+          BlocProvider.value(value: cubit, child: const EditAddressScreen()),
+          name: Routes.address,
+        );
       case Routes.changePassword:
         return _page(
           BlocProvider(
@@ -262,11 +276,28 @@ class AppRouter {
           name: Routes.promo,
         );
       case Routes.checkout:
-        return _page(const CheckoutScreen(), name: Routes.checkout);
+        CheckoutScreenArgs args = settings.arguments as CheckoutScreenArgs;
+        return _page(MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    PaymentCubit(getIt.get<PaymentRepository>()),
+              ),
+              BlocProvider(create: (context)=> CheckoutCubit(getIt.get<CheckoutRepository>()))
+            ],
+            child: CheckoutScreen(args: args)), name: Routes.checkout);
       case Routes.orderSuccess:
-        return _page(const OrderSuccessScreen(), name: Routes.orderSuccess);
+        final OrderModel order = settings.arguments as OrderModel;
+        return _page( OrderSuccessScreen(
+          order: order,
+        ), name: Routes.orderSuccess);
       case Routes.orderDetails:
-        return _page(const OrderDetailsScreen(), name: Routes.orderDetails);
+        final int orderId = settings.arguments as int;
+        return _page(BlocProvider(
+            create: (context)=> OrderDetailsCubit(getIt.get<OrderHistoryRepository>())..getXOrderDetails(orderId),
+            child: const OrderDetailsScreen()), name: Routes.orderDetails);
+        case Routes.orderTracking:
+          return _page(const OrderTrackingScreen(), name: Routes.orderTracking);
       case Routes.rateOrder:
         return _page(const RateOrderScreen(), name: Routes.rateOrder);
       case Routes.rateProduct:

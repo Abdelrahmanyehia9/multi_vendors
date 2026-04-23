@@ -3,7 +3,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/message_alert.dart';
 import 'gap.dart';
 

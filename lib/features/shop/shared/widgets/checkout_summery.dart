@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import '../../../../core/cubit/base_bloc_consumer.dart';
 import '../../../../core/cubit/base_state.dart';
-import '../../../../core/widgets/cards/order_cards.dart';
 import '../../cart/data/models/cart_model.dart';
 import '../../cart/data/models/promo_code_model.dart';
 import '../../cart/logic/cart_cubit.dart';
 import '../../cart/logic/validate_promo_cubit.dart';
 import '../../checkout/logic/checkout_summery_cubit.dart';
+import '../mixin/checkout_summery_mixin.dart';
 import '../model/checkout_model.dart';
+import 'order_recipt_card.dart';
 
 class CheckoutSummery extends StatefulWidget {
   const CheckoutSummery({super.key});
@@ -19,41 +19,26 @@ class CheckoutSummery extends StatefulWidget {
   State<CheckoutSummery> createState() => _CheckoutSummeryState();
 }
 
-class _CheckoutSummeryState extends State<CheckoutSummery> {
-
-
-  @override
-  void initState() {
-    _calculateCheckout();
-    super.initState();
-  }
-
-  Future<void>_calculateCheckout()async{
-    final voucher = context.read<ValidatePromoCubit>().state ;
-    context.read<CheckoutSummeryCubit>().calculateSummery(
-      cartCubit.cartItems,
-      code: voucher.isSuccess && voucher.data?.valid == true ? voucher.data?.couponInfo?.code : null,
-    );
-
-  }
-
+class _CheckoutSummeryState extends State<CheckoutSummery>  with CheckoutSummeryMixin{
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
         BlocListener<CartCubit, BaseState<List<CartModel>>>(
+          listenWhen: (prev, curr)=> curr.isSuccess && !curr.data.isNullOrEmpty,
           listener: (context, state) {
-            _calculateCheckout();
+            calculateCheckout();
           },
         ),
         BlocListener<ValidatePromoCubit, BaseState<PromoCardResponse>>(
+          listenWhen: (prev, curr)=> curr.isSuccess && curr.data?.valid == true,
           listener: (context, state) {
-            _calculateCheckout();
+            calculateCheckout();
           },
         ),
       ],
       child: BaseBlocConsumer<CheckoutSummeryCubit, CheckoutSummeryModel>(
-        successBuilder: (sum) => OrderReceiptCard(summery: sum),
+        successBuilder: (sum) => OrderReceiptCard(summery: sum, coupon: context.read<ValidatePromoCubit>().state.data?.couponInfo),
         loadingBuilder:  ()=>OrderReceiptCard(summery: CheckoutSummeryModel.fake()),
       ),
     );

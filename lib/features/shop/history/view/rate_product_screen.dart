@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/rate_product_body.dart';
+import '../../../../core/widgets/buttons/app_back_button.dart';
+import '../../../../core/widgets/buttons/app_forward_button.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 
 class RateProductScreen extends StatefulWidget {
@@ -36,11 +37,7 @@ class _RateProductScreenState extends State<RateProductScreen> {
         leading: _buildLeading(),
         actions: [
           if (!isLastPage)
-            AppIconButton(
-              icon: Icons.arrow_forward,
-              backGroundColor: Colors.transparent,
-              onTap: _nextPage,
-            ),
+          AppForwardButton(onTap: _nextPage, backGroundColor: Colors.transparent,),
         ],
       ),
       body: PageView.builder(
@@ -62,11 +59,9 @@ class _RateProductScreenState extends State<RateProductScreen> {
   Widget _buildLeading() => _currentPage > 0
       ? Padding(
           padding: EdgeInsetsDirectional.only(start: 16.w, top: 16.h),
-          child: AppIconButton(
-            icon: Icons.arrow_back,
-            backGroundColor: Colors.transparent,
-            size: 24,
-            onTap: _prevPage,
+          child: AppBackButton(
+            backgroundColor: Colors.transparent,
+            onBack: _prevPage,
           ),
         )
       : const AppBackButton();

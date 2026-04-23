@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/theme/text_styles.dart';
-import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 
 class ToggleSignupAndLogin extends StatelessWidget {
   const ToggleSignupAndLogin({super.key,});

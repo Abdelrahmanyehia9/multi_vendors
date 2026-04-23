@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/utils/app_assets.dart';
 import '../models/action_model.dart';
 import '../theme/app_colors.dart';
 import '../theme/text_styles.dart';
-import 'app_button.dart';
+import 'buttons/app_button.dart';
 
 enum States {
   error,

@@ -52,6 +52,7 @@ class AppTextField extends StatelessWidget {
   final Color? borderColor;
   final double borderRadius;
   final double borderWidth;
+  final Widget? customHeader ;
   final void Function(String?)? onChange;
   final void Function()? onTap;
   final void Function(String?)? onSubmit;
@@ -67,6 +68,7 @@ class AppTextField extends StatelessWidget {
     this.onEditingComplete,
     this.textAlign,
     this.headerText,
+    this.customHeader,
     this.borderType = AppBorderType.outlined,
     this.readOnly = false,
     this.padding,
@@ -111,11 +113,11 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (headerText != null) {
+    if (headerText != null || customHeader != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(headerText!, style: headerStyle ?? TextStyles.labelSmall),
+           customHeader ??  Text(headerText!, style: headerStyle ?? TextStyles.labelSmall),
           Gap(gapUnderHeader ?? 4),
           _textField(context),
         ],

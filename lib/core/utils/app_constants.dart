@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/enum/payment_option.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
@@ -25,7 +26,6 @@ class AppConstants {
     );
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
-
   static const String appName = 'Multi Vendor';
   ///filters by or tags Like (outwear, formal, casual)
   static const String tagsString = "Fashion Style" ;
@@ -54,5 +54,6 @@ class AppConstants {
   static final Country initialCountry = "EG".toCountry;
   static const  String supabaseUrl ="https://rjhzydonszurlkfrnhdc.supabase.co";
   static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
+  static final List<PaymentOption> payments = [PaymentOption.store, PaymentOption.cod];
 
 }

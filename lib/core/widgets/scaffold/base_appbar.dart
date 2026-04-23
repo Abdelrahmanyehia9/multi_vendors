@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+
+import '../buttons/app_back_button.dart';
 
 class BaseAppBar extends AppBar {
   BaseAppBar({
@@ -72,40 +71,3 @@ class BaseSliverAppBar extends SliverAppBar {
        );
 }
 
-class AppBackButton extends StatelessWidget {
-  final Color? iconColor;
-  final Color? backgroundColor;
-  final GestureTapCallback? onBack;
-
-  const AppBackButton({
-    super.key,
-    this.onBack,
-    this.iconColor,
-    this.backgroundColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 16.w, top: 16.h),
-      child: AppIconButton(
-        icon: Icons.arrow_back,
-        size: 24,
-        iconColor: iconColor,
-        backGroundColor: backgroundColor,
-        onTap:
-            onBack ??
-            () {
-              if (context.canPop()) {
-                context.pop();
-              } else {
-                context.pushNamedAndRemoveUntil(
-                  Routes.mainLayout,
-                  predicate: (_) => false,
-                );
-              }
-            },
-      ),
-    );
-  }
-}

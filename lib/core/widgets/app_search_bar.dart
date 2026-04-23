@@ -31,7 +31,7 @@ class AppSearchbar extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (title != null) ...[
+            if (title != null&&!state.hasFocus) ...[
               title!,
               SizedBox(height: 8.h),
             ],

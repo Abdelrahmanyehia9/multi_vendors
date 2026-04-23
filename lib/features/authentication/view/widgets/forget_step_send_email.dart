@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import '../../../../core/cubit/base_bloc_consumer.dart';
 import '../../../../core/theme/text_styles.dart';
-import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/gap.dart';
 import '../../logic/forget_password_send_email_cubit.dart';
 import '../../logic/forget_password_stepper_cubit.dart';

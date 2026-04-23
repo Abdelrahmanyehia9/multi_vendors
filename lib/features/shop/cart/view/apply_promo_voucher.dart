@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
-import 'package:multi_vendor/core/extensions/context.dart';
-import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/core/widgets/message_alert.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
@@ -14,7 +14,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../core/cubit/base_state.dart';
 import '../../../../core/widgets/gap.dart';
 import '../../../../core/widgets/scaffold/base_scaffold.dart';
-import '../logic/cart_cubit.dart';
 import '../logic/validate_promo_cubit.dart';
 class ApplyPromoVoucher extends StatefulWidget {
   const ApplyPromoVoucher({super.key});
@@ -25,44 +24,43 @@ class ApplyPromoVoucher extends StatefulWidget {
 
 class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
   final _codeController = TextEditingController();
-   List<CartModel>get  items => context.read<CartCubit>().state.data ?? []  ;
+   List<CartModel>get  items => cartCubit.cartItems ;
    ValidatePromoCubit get cubit => context.read<ValidatePromoCubit>();
 
-  @override
-  Widget build(BuildContext context) {
+  Future<void>onSubmit()async{
+    cubit.validatePromo(
+      items: items,
+      code: _codeController.text.trim().toUpperCase(),
+    );
+  }
 
+   @override
+  Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(title: "Promo Voucher", actions: [_buildAction()],),
       body: BaseBlocConsumer<ValidatePromoCubit, PromoCardResponse>(
-        builder: (s) {
-          final data = s.data;
+        builder: (state) {
+          final data = state.data;
           final isValid = data?.valid == true;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (isValid) _buildSuccess(data!) else _buildForm(s, data,),
+              if (isValid) _buildSuccess(data) else _buildForm(state),
             ],
           );
-        },
-        onSuccess: (v){
-          if(!v!.valid && !v.message.isNullOrEmpty) context.errorBar(message: v.message!) ;
         },
       ),
     );
   }
 
-  Widget _buildSuccess(PromoCardResponse data, ) {
-    return MessageAlert(
+  Widget _buildSuccess(PromoCardResponse data) => MessageAlert(
       customTitle: data.message,
       MessagesAlertType.promoSuccess,
-      customMessage: data.couponInfo?.message,
-    );
-  }
-
+      customMessage: data.couponInfo?.message) ;
   Widget _buildForm(
       BaseState s,
-      PromoCardResponse? data,
       ) {
+    final data = s.data;
     final hasError = s.isSuccess && data?.valid == false;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,6 +73,7 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
         ),
         Gap.huge(),
         AppTextField(
+          textCapitalization: TextCapitalization.characters,
           validator: (val){
             if(hasError) return data?.message ;
             return null ;
@@ -90,28 +89,20 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
           child: AppButton(
             text: "Use this Voucher Code",
             buttonSize: null,
-            onPressed: () {
-              cubit.validatePromo(
-                items: items,
-                code: _codeController.text.trim(),
-              );
-            },
+            onPressed: onSubmit,
           ),
         ),
       ],
     );
   }
-
-  Widget _buildAction(){
-    return BaseBlocConsumer<ValidatePromoCubit, PromoCardResponse>(
+  Widget _buildAction() => BaseBlocConsumer<ValidatePromoCubit, PromoCardResponse>(
       successBuilder: (s){
         if(s.valid){
-          return AppIconButton(icon: Icons.delete, onTap: cubit.reset,);
+          return AppDeleteButton( onTap: cubit.reset,);
         }
         return const SizedBox.shrink();
       },
     );
-  }
 
   @override
   void dispose() {

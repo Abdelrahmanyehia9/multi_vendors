@@ -8,7 +8,7 @@ import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/intro/view/widgets/onboarding_item.dart';
 import '../../../core/routes/routes.dart';
-import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/buttons/app_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});

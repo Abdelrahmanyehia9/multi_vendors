@@ -13,7 +13,7 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import '../../../features/main/favorite/view/widgets/add_to_favorite_button.dart';
+import '../buttons/app_favorite_button.dart';
 import '../../routes/routes.dart';
 import '../rating_stars.dart';
 
@@ -168,10 +168,10 @@ class ProductCard extends StatelessWidget {
 
   Widget _favorite() => Align(
     alignment: AlignmentDirectional.topEnd,
-    child: FavoriteButton.product(
+    child: AppFavoriteButton(
+      item: product,
       padding: isBig ? 12 : 8,
       size: isBig ? 28 : 20,
-      product: product,
     ),
   );
   Widget _ribbon(String text, BuildContext context, {Color? color}) {

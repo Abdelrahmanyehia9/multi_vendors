@@ -3,6 +3,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import '../enum/user_roles.dart';
+import 'address_model.dart';
 
 class UserModel extends Equatable {
   final String? id;
@@ -18,7 +19,7 @@ class UserModel extends Equatable {
   final String? phone;
   final bool? isMale;
   final DateTime? birthDate;
-  final String? address;
+  final AddressModel? address;
 
   const UserModel({
     this.id,
@@ -35,6 +36,7 @@ class UserModel extends Equatable {
     this.role = UserRole.customer,
     this.email,
     this.phone,
+
   });
 
   UserModel copyWith({
@@ -46,7 +48,7 @@ class UserModel extends Equatable {
     String? fcmToken,
     bool? isMale,
     DateTime? birthDate,
-    String? address,
+    AddressModel? address,
     bool? isActive,
     Country? country,
     UserRole? role,
@@ -81,7 +83,9 @@ class UserModel extends Equatable {
       birthDate: json['birth_date'] != null
           ? DateTime.tryParse(json['birth_date'])
           : null,
-      address: json['address'],
+      address: json['address'] != null
+          ? AddressModel.fromJson(json['address'])
+          : null,
       updatedAt: json['updated_at'] != null
           ? DateTime.tryParse(json['updated_at'])
           : null,
@@ -110,26 +114,22 @@ class UserModel extends Equatable {
       'email': email,
       'is_male': isMale,
       'birth_date': birthDate?.toIso8601String(),
-      'address': address,
+      'address': address?.toJson(),
       'phone_number': phone,
     }.withoutNulls;
   }
 
+
   @override
   List<Object?> get props => [
     id,
-    createdAt,
-    updatedAt,
     fullName,
     profilePic,
-    fcmToken,
-    isActive,
     country,
-    role,
     email,
     isMale,
     birthDate,
-    address,
     phone,
+    address,
   ];
 }

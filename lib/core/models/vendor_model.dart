@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
-class VendorModel extends Equatable{
+import '../../features/main/favorite/data/model/favorite_item.dart';
+
+class VendorModel extends Equatable implements FavoriteItem{
   final int? id;
   final String name;
   final String image ;
@@ -33,6 +35,13 @@ class VendorModel extends Equatable{
   @override
   // TODO: implement props
   List<Object?> get props => [id];
+
+  @override
+  int get favoriteId => id!;
+  @override
+  String get favoriteName => name;
+  @override
+  FavoriteType get favoriteType => FavoriteType.vendor;
 
 
 }

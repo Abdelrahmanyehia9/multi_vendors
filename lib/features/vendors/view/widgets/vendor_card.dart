@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
 import 'package:multi_vendor/core/widgets/photo_overlay.dart';
-import 'package:multi_vendor/features/main/favorite/view/widgets/add_to_favorite_button.dart';
 import '../../../../core/models/rating_model.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -125,7 +125,7 @@ class VendorCardGrid extends StatelessWidget {
           title: Text(vendor.name, style: TextStyles.bodySmall.copyWith(color: AppColors.white)),
         ),
       ),
-      FavoriteButton.vendor(vendor: vendor)
+      AppFavoriteButton(item: vendor),
     ],
   );
 

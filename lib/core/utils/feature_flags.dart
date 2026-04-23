@@ -11,7 +11,8 @@ static const bool enableForgetPassword = true;
 static const bool enableMultiLanguage = true;
 static const bool enableVoucher = true;
 static const bool enableRating = true ;
-
+static const bool enableFavorite = true ;
+static const bool enablePayments = true ;
 }
 
 

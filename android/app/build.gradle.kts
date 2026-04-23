@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.untitd"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

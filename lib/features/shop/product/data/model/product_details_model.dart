@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
+import 'package:multi_vendor/core/models/stock_availabilty_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import '../../../../../core/enum/product_tags.dart';
 import '../../../../../core/models/category_model.dart';
 import '../../../../../core/models/price_model.dart';
-import '../../../../../core/models/variant_model.dart';
 import '../../../../../core/utils/helper/fake_data.dart';
 
 class ProductDetailsModel extends Equatable {
@@ -15,9 +15,8 @@ class ProductDetailsModel extends Equatable {
   final String? name;
    final VendorModel? vendor;
    final String? description;
-   final List<VariantModel>? variants;
    final RatingModel? rating;
-   final StockAvailability? stockAvailability;
+   final StockAvailabilityModel? inStock;
    final PriceModel price ;
    final bool? ratingEnabled;
    final CategoryModel? category;
@@ -30,10 +29,9 @@ class ProductDetailsModel extends Equatable {
     this.name,
     this.vendor,
     this.description,
-    this.variants,
     this.rating,
   required this.price,
-    this.stockAvailability,
+    this.inStock,
     this.ratingEnabled,
     this.category,
     this.images,
@@ -50,18 +48,11 @@ class ProductDetailsModel extends Equatable {
         name: json['name'],
         vendor: json['vendor'] == null ? null : VendorModel.fromJson(json['vendor']),
         description: json['description'],
-        variants: json['variants'] != null
-            ? List<VariantModel>.from(
-                json['variants'].map((x) => VariantModel.fromJson(x)),
-              )
-            : null,
         rating: json['rating'] == null
             ? null
             : RatingModel.fromJson(json['rating']),
         price: PriceModel.fromJson(json),
-        stockAvailability: StockAvailability.fromDatabase(
-          json['stock_availability'],
-        ),
+        inStock: json['in_stock'] == null ? null : StockAvailabilityModel(quantity: json['in_stock']),
         ratingEnabled: json['rating_enabled'],
         category: json['category'] != null
             ? CategoryModel.fromJson(json['category'])
@@ -77,16 +68,30 @@ class ProductDetailsModel extends Equatable {
               )
             : null,
       );
+  factory ProductDetailsModel.fake()=>ProductDetailsModel(
+      images: const [],
+      description: FakeData.fakeStringDesc,
+      name: FakeData.fakeStringTitle,
+      vendor: VendorModel.fake(),
+      category: CategoryModel.fake(),
+      thumbnail: FakeData.fakeImg,
+      productTags: const [],
+      rating: RatingModel.fake(),
+      price: PriceModel.fake(),
+      inStock: StockAvailabilityModel(quantity: FakeData.fakeInt),
+      ratingEnabled: true,
+      createdAt: FakeData.fakeDateTime
+  ) ;
+
   ProductDetailsModel copyWith({
     int? id,
     DateTime? createdAt,
     String? name,
     VendorModel? vendor,
     String? description,
-    List<VariantModel>? variants,
     RatingModel? rating,
     PriceModel? price,
-    StockAvailability? stockAvailability,
+    StockAvailabilityModel? inStock,
     bool? ratingEnabled,
     CategoryModel? category,
     List<String>? images,
@@ -99,10 +104,9 @@ class ProductDetailsModel extends Equatable {
       name: name ?? this.name,
       vendor: vendor ?? this.vendor,
       description: description ?? this.description,
-      variants: variants ?? this.variants,
       rating: rating ?? this.rating,
       price: price ?? this.price,
-      stockAvailability: stockAvailability ?? this.stockAvailability,
+      inStock: inStock ?? this.inStock,
       ratingEnabled: ratingEnabled ?? this.ratingEnabled,
       category: category ?? this.category,
       images: images ?? this.images,
@@ -110,35 +114,11 @@ class ProductDetailsModel extends Equatable {
       productTags: productTags ?? this.productTags,
     );
   }
-  List<String>? get sliderImages {
-    late List<String>? slider;
-    if (!images.isNullOrEmpty) {
-      slider = images;
-    }
-    else {
-      final result = variants
-        ?.map((e) => e.images)
-        .whereType<String>()
-        .toList();
-      slider = result ;
-    }
-    return [?thumbnail, ...?slider];
-  }
-  factory ProductDetailsModel.fake()=>ProductDetailsModel(
-    images: const [],
-    description: FakeData.fakeStringDesc,
-    name: FakeData.fakeStringTitle,
-    vendor: VendorModel.fake(),
-    variants: const [],
-    category: CategoryModel.fake(),
-    thumbnail: FakeData.fakeImg,
-    productTags: const [],
-    rating: RatingModel.fake(),
-    price: PriceModel.fake(),
-    stockAvailability: StockAvailability.inStock,
-    ratingEnabled: true,
-    createdAt: FakeData.fakeDateTime
-  ) ;
+
+
+  bool get isInStock => inStock?.type==StockAvailability.inStock;
+
+
 
 
   Map<String, dynamic> toJson() => {
@@ -147,9 +127,8 @@ class ProductDetailsModel extends Equatable {
     "name": name,
     "vendor": vendor?.toJson(),
     "description": description,
-    "variants": variants?.map((e) => e.toJson()).toList(),
     ...price.toJson(),
-    "stock_availability": stockAvailability?.toDatabase,
+    "in_stock": inStock?.quantity,
     "rating_enabled": ratingEnabled,
     "category": category?.toJson(),
     "images": images,
@@ -159,12 +138,16 @@ class ProductDetailsModel extends Equatable {
         .toList(),
   }.withoutNulls;
 
-
-  bool get  isAvailable =>  stockAvailability == StockAvailability.inStock || stockAvailability ==null;
+  List<String>? get sliderImages {
+    List<String>? slider;
+    if (!images.isNullOrEmpty) {
+      slider = images;
+    }
+    return [?thumbnail, ...?slider];
+  }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [id, createdAt, name, vendor, description, variants, price, stockAvailability, ratingEnabled, category, images, thumbnail, productTags, rating];
+  List<Object?> get props => [id, createdAt, name, vendor, description, price, inStock, ratingEnabled, category, images, thumbnail, productTags, rating];
 }
 
 

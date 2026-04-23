@@ -1,10 +1,10 @@
 library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
-import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
@@ -12,7 +12,8 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/app_expansion_tile.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_chip.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/section_header.dart';
@@ -29,14 +30,23 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/circular_box.dart';
 import '../../../../../../core/models/vendor_model.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+
 part 'stock_filters.dart';
+
 part 'tags_filters.dart';
+
 part 'filter_item.dart';
-part 'product_filters_sheet_mixin.dart';
+
+part '../mixin/product_filters_sheet_mixin.dart';
+
 part 'category_filters.dart';
+
 part 'price_filters.dart';
+
 part 'rating_filters.dart';
+
 part 'vendor_filters.dart';
+
 part 'base_filters.dart';
 
 class ProductFiltersSheet extends StatefulWidget {
@@ -48,7 +58,6 @@ class ProductFiltersSheet extends StatefulWidget {
 
 class _ProductFiltersSheetState extends State<ProductFiltersSheet>
     with _ProductFiltersSheetMixin {
-
   @override
   Widget build(BuildContext context) {
     return BaseBlocConsumer<ProductsAllFiltersCubit, ProductsFiltersModel>(
@@ -71,6 +80,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
             spacing: 12.h,
             children: [
               Gap.small(),
+
               /// Header
               SectionHeader(
                 title: "Filters",
@@ -93,7 +103,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
                     return _FilterItem(
                       title: "Categories",
                       subtitle: selectedText,
-                       _CategoryFilter(
+                      child: _CategoryFilter(
                         items: f.categories!,
                         selected: _selectedCategories,
                       ),
@@ -105,7 +115,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               if (_isVisible(f.priceRange, ProductsFilters.price))
                 _FilterItem(
                   title: "Price",
-                   _PriceFilter(
+                  child: _PriceFilter(
                     priceRange: _priceRange,
                     availableRange: f.priceRange!.toRangeValues(),
                   ),
@@ -115,44 +125,44 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               if (_isVisible(f.ratingRange, ProductsFilters.rating))
                 _FilterItem(
                   title: "Rating",
-                   _RatingFilter(
+                  child: _RatingFilter(
                     selectedRating: _selectedRating,
                     ratingRange: f.ratingRange!.toRangeValues(),
                   ),
                 ),
 
               /// Vendors
-              if (_isVisible(f.vendors, ProductsFilters.vendor) && FeatureFlags.multiVendor)
+              if (_isVisible(f.vendors, ProductsFilters.vendor) &&
+                  FeatureFlags.multiVendor)
                 _FilterItem(
                   title: "Vendor",
-                   _VendorFilters(
+                  child: _VendorFilters(
                     items: f.vendors!,
                     selected: _selectedVendors,
                   ),
                 ),
 
               /// Tags
-              if (_isVisible(f.tags, ProductsFilters.tags) && FeatureFlags.shopByTags)
+              if (_isVisible(f.tags, ProductsFilters.tags) &&
+                  FeatureFlags.shopByTags)
                 _FilterItem(
                   title: "Tags",
-                  initiallyExpanded: false,
-                   _TagsFilters(
+                  child: _TagsFilters(
                     tags: f.tags!,
                     selectedTags: _selectedTags,
                   ),
                 ),
 
-              /// Stock
-              if (_isVisible(f.stockAvailability, ProductsFilters.stock))
-                _FilterItem(
-                  title: "Availability",
-                  initiallyExpanded: false,
-                  _StockFilters(
-                    items: f.stockAvailability!,
-                    selected: _selectedStock,
-                  ),
-                ),
-
+              // /// Stock
+              // if (_isVisible(StockAvailability.values, ProductsFilters.stock))
+              //   _FilterItem(
+              //     title: "Availability",
+              //     initiallyExpanded: false,
+              //     _StockFilters(
+              //       items: StockAvailability.values,
+              //       selected: _selectedStock,
+              //     ),
+              //   ),
               /// Button
               ValueListenableBuilder(
                 valueListenable: _cubit.totalProducts,
@@ -172,16 +182,19 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
       },
     );
   }
-  bool _isVisible(dynamic value, ProductsFilters type) {
+
+  bool _isVisible(Object? value, ProductsFilters type) {
     final ex = _cubit.excludes;
     if (value == null) return false;
     if (value is List && value.isEmpty) return false;
     return !ex.contains(type);
   }
 
+  void _onSubmit() {
+    if (_filters != null) _cubit.setFilters(_filters!);
+    context.pop(_filters);
+  }
 }
-
-
 
 // if (!f.attributes.isNullOrEmpty&&_selectedVariants.length == f.attributes!.groupedVariants.length)
 //   _FilterItem(

@@ -57,7 +57,6 @@ try{
   );
   final filters = ProductsFiltersModel.fromJson(response);
   return right(filters);
-
 }catch(e){
   return left(e.toAppException);
 }

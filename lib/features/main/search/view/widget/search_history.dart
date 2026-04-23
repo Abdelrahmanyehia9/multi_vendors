@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/gap.dart';
 import '../../../../../core/widgets/section_header.dart';
 
@@ -33,7 +33,7 @@ class SearchHistory extends StatelessWidget {
              SectionHeader(
               title: "Search History",
               hasAction: true,
-              customAction:  AppIconButton(icon: Icons.delete, onTap: onRemoveAll),
+              customAction:  AppDeleteButton(onTap: onRemoveAll)
             ),
           Expanded(
             child: ListView.separated(

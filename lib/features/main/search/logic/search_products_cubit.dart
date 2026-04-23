@@ -9,22 +9,28 @@ import 'package:multi_vendor/features/main/search/data/repository/search_reposit
 class SearchProductsCubit extends Cubit<BaseState<List<ProductModel>>>{
   final SearchRepository _repository ;
   SearchProductsCubit(this._repository) : super(const BaseState.initial());
-
    String? _lastQuery;
-  Future<void>search(String? query)async{
-    if(query.isNullOrEmpty || query == _lastQuery) return ;
-    EasyDebounce.debounce('search', const Duration(milliseconds: 800), ()async{
-      safeEmit(const BaseState.loading());
-      final result = await _repository.searchProducts(query!);
-      result.fold(
-            (l) => safeEmit(BaseState.failure(l)),
-            (r) {
-          if(r.isEmpty) return safeEmit(const BaseState.empty());
-          safeEmit(BaseState.success(r));
-        },
-      );
-    });
-    _lastQuery = query;
+  Future<void> search(String? query) async {
+    if (query.isNullOrEmpty||query == _lastQuery) return;
+    safeEmit(const BaseState.loading());
+    EasyDebounce.debounce(
+      'search',
+      const Duration(milliseconds: 500),
+          () async {
+        _lastQuery = query;
+        final result = await _repository.searchProducts(query!);
+        result.fold(
+              (l) => safeEmit(BaseState.failure(l)),
+              (r) {
+            if (r.isEmpty) {
+              safeEmit(const BaseState.empty());
+            } else {
+              safeEmit(BaseState.success(r));
+            }
+          },
+        );
+      },
+    );
   }
 
 

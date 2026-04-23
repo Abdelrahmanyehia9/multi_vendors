@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
+import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show SupabaseClient, Supabase;
 
@@ -14,6 +15,7 @@ import '../../features/main/favorite/logic/favorite_cubit.dart';
 import '../../features/main/home/data/repository/home_repository.dart';
 import '../../features/main/search/data/repository/search_repository.dart';
 import '../../features/news/data/repository/news_repository.dart';
+import '../../features/payments/data/repository/payment_repository.dart';
 import '../../features/shop/cart/data/repository/cart_repository.dart';
 import '../../features/shop/cart/data/repository/promo_code_repository.dart';
 import '../../features/shop/cart/logic/cart_cubit.dart';
@@ -40,8 +42,7 @@ static const String _cartCache = 'cartCache';
 static const String _favoriteCache = 'favoriteCache';
 static const String _settings = 'settings';
 static const String _searchHistoryCache = 'searchHistoryCache';
-
- static Future<void> setupGetIt() async {
+static Future<void> setupGetIt() async {
    await _setupLocalStorage();
     getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
     getIt.registerLazySingleton(
@@ -67,7 +68,7 @@ static const String _searchHistoryCache = 'searchHistoryCache';
             getIt.get<AuthenticationService>() ));
     getIt.registerFactory(()=>OtpRepository(getIt.get<AuthenticationService>())) ;
     getIt.registerFactory(()=>ResetPasswordRepository(getIt.get<AuthenticationService>())) ;
-    getIt.registerFactory(()=>ProfileRepository(getIt.get<AuthenticationService>())) ;
+    getIt.registerFactory(()=>ProfileRepository(getIt.get<AuthenticationService>(), getIt.get<DatabaseService>())) ;
     getIt.registerFactory(()=>HomeRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>ProductRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>VendorRepository(getIt.get<DatabaseService>()));
@@ -76,10 +77,11 @@ static const String _searchHistoryCache = 'searchHistoryCache';
     getIt.registerFactory(()=>NewsRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>PromoCodeRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>CheckoutRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>PaymentRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
+    getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>()));
   }
-
-  static Future<void>_setupLocalStorage()async{
+static Future<void>_setupLocalStorage()async{
     await HiveLocalStorage.init();
     await HiveLocalStorage.openBox(HiveBoxes.userBox) ;
     await HiveLocalStorage.openBox(HiveBoxes.cartBox) ;

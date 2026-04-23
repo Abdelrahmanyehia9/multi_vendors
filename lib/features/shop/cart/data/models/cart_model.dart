@@ -1,6 +1,6 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import '../../../../../core/models/price_model.dart';
-import '../../../../../core/models/variant_model.dart';
 import '../../../product/data/model/product_details_model.dart';
 
 class CartModel {
@@ -19,12 +19,17 @@ class CartModel {
     quantity: json['quantity'],
     product: CartProductModel.fromJson(json['product'] as Map<String, dynamic>),
   );
+  factory CartModel.fake()=>CartModel(
+    quantity: FakeData.fakeInt,
+    product: CartProductModel.fake(),
+  );
 
   Map<String, dynamic> toJson()=>{
     'quantity': quantity,
     'product': product.toJson(),
   }.withoutNulls;
 
+  num get total => quantity * product.priceModel.totalPrice;
 
 }
 
@@ -32,14 +37,12 @@ class CartProductModel{
   final int? id;
   final String? name;
   final String? image;
-  final VariantModel? variant;
   final PriceModel price;
 
   const CartProductModel({
     this.id,
     this.name,
     this.image,
-    this.variant,
     required this.price
   });
 
@@ -48,25 +51,28 @@ class CartProductModel{
     name: json['name'],
     image: json['image'],
     price: PriceModel.fromJson(json),
-    variant:  json['variant'] == null ? null : VariantModel.fromJson(json['variant'] as Map<String, dynamic>),
+  )  ;
+  factory CartProductModel.fake()=>CartProductModel(
+    id:FakeData.fakeInt,
+    name: FakeData.fakeStringTitle,
+    image: FakeData.fakeImg,
+    price: PriceModel.fake(),
   )  ;
   Map<String, dynamic> toJson()=>{
     'id': id,
     "name":name,
     "image":image,
-    "variant":variant?.toJson(),
     ...price.toJson()
   }.withoutNulls ;
-  factory CartProductModel.fromProductModel(ProductDetailsModel v, {VariantModel? selectedVariant})=>CartProductModel(
+  factory CartProductModel.fromProductModel(ProductDetailsModel v)=>CartProductModel(
       id: v.id,
       name: v.name,
       price: v.price,
-      image:selectedVariant?.images?? v.thumbnail,
-      variant: selectedVariant
+      image:v.thumbnail,
   ) ;
 
-  PriceModel get priceModel => variant?.price ?? price ;
-  String get uniqueId => "${id}_${variant?.sku}_${variant?.attributes?.join("_")}";
+  PriceModel get priceModel => price ;
+  int get uniqueId => id!;
 }
 
 

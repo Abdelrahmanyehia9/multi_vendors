@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/models/product_model.dart';
-import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
@@ -26,10 +24,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 
-class _SearchScreenState extends State<SearchScreen> with AutomaticKeepAliveClientMixin{
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final historyCubit = context.read<SearchProductHistoryCubit>();
     final searchCubit = context.read<SearchProductsCubit>();
     return Column(
@@ -39,7 +36,7 @@ class _SearchScreenState extends State<SearchScreen> with AutomaticKeepAliveClie
         AppSearchbar(
           onSubmit: historyCubit.saveToHistory,
            onQueryChanged: searchCubit.search,
-          title: const SloganText(),
+          title:  const SloganText(),
         ),
         SearchBuilder(
           builder: BaseBlocConsumer<SearchProductHistoryCubit, List<String>>(
@@ -52,8 +49,7 @@ class _SearchScreenState extends State<SearchScreen> with AutomaticKeepAliveClie
           resultBuilder:
               Expanded(
                 child: BaseBlocConsumer<SearchProductsCubit, List<ProductModel>>(
-                  successBuilder: (items) =>
-                      ProductGrid(products: items),
+                  successBuilder: (items) => ProductGrid(products: items),
                   loadingBuilder: () {
                     final product = ProductModel.fake();
                     return ProductGrid(
@@ -69,6 +65,4 @@ class _SearchScreenState extends State<SearchScreen> with AutomaticKeepAliveClie
     ).appPaddingHr;
   }
 
-  @override
-  bool get wantKeepAlive => true;
 }

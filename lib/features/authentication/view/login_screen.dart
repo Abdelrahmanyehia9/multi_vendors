@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
-import 'package:multi_vendor/core/widgets/app_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_header.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/login_form.dart';
