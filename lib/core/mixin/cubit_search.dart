@@ -6,7 +6,6 @@ import '../cubit/base_state.dart';
 
 mixin LocalCubitSearch<T> on Cubit<BaseState<List<T>>> {
   List<T> get items;
-
   List<String Function(T)> get searchFields;
 
   void onSearch(String? query) {

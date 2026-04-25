@@ -29,6 +29,7 @@ class _AddOrMinusArgs {
 }
 class QuantityStepper extends StatelessWidget {
   final QuantityStepperStyle style;
+  final CartProductModel product;
   const QuantityStepper._({required this.style, required this.product});
 
   factory QuantityStepper.wide({required CartProductModel item}) =>
@@ -37,14 +38,14 @@ class QuantityStepper extends StatelessWidget {
   factory QuantityStepper.narrow({required CartProductModel item}) =>
       QuantityStepper._(style: QuantityStepperStyle.narrow, product: item);
 
-  final CartProductModel product;
 
   @override
   Widget build(BuildContext context) {
         final int inCart = cartCubit.inCart(product);
+        final remining = product.inStock - inCart ;
         final args = _AddOrMinusArgs(
           quantity: inCart,
-          addEnabled: true,
+          addEnabled: remining > 0,
           minusEnabled: inCart > 0,
           onAdd: () => cartCubit.updateQuantity(true, item: product),
           onMinus: () => cartCubit.updateQuantity(false, item: product),

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/decorations.dart';
 import '../../../../core/theme/text_styles.dart';
@@ -39,14 +41,13 @@ class CheckoutListProducts extends StatelessWidget {
 class CheckoutProductCard extends StatelessWidget {
   final double height ;
   final Widget? customAction;
-  final GestureTapCallback? onTap ;
   final CartModel item ;
-  const CheckoutProductCard({super.key,required this.item ,this.customAction, this.onTap ,this.height = 70});
+  const CheckoutProductCard({super.key,required this.item ,this.customAction,this.height = 70});
 
   @override
   Widget build(BuildContext context) {
     return AppClick(
-      onTap: onTap,
+      onTap: ()=>context.pushNamed(Routes.product, arguments: item.product.id),
         child: Row(
           children: [
             AppCachedNetworkImage(

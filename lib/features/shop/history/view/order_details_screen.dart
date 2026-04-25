@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
+import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
+import 'package:multi_vendor/features/shop/history/logic/order_delete_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/order_details_actions.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
 import '../../../../core/widgets/cards/order_cards.dart';
@@ -9,36 +13,75 @@ import '../../../../core/widgets/scaffold/base_scaffold.dart';
 import '../../shared/model/order_model.dart';
 import '../../shared/widgets/order_address_info_card.dart';
 import '../../shared/widgets/order_recipt_card.dart';
+import '../logic/helper/order_history_helper.dart';
 import '../logic/order_details_cubit.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({super.key});
+  final int orderId ;
+  const OrderDetailsScreen({super.key, required this.orderId}  );
+
+  Future<void> onDeleteOrder(BuildContext context) async {
+    context.read<OrderDeleteCubit>().deleteOrder(orderId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  BaseScaffold(
-      appBar: BaseAppBar(title: "Order Details"),
+    return BaseScaffold(
+      appBar: BaseAppBar(
+        title: "Order Details",
+        actions: [
+          BaseBlocConsumer<OrderDeleteCubit, OrderModel>(
+            onSuccess: (order) => OrderHistoryHelper.onSuccess(context, order: order!,isDelete: true),
+            builder: (_) => _buildDeleteOrder(context, () => onDeleteOrder(context)),
+          ),
+        ],
+      ),
       body: BaseBlocConsumer<OrderDetailsCubit, OrderModel>(
-        successBuilder:(order)=> _buildOrderDetails(order),
-        loadingBuilder: ()=>_buildOrderDetails(OrderModel.fake()),
+        successBuilder: (order) => _buildOrderDetails(order),
+        loadingBuilder: () => _buildOrderDetails(OrderModel.fake()),
       ),
     );
   }
 
-  Widget _buildOrderDetails(OrderModel order)=>SingleChildScrollView(
-    child:  Column(
+  Widget _buildOrderDetails(OrderModel order) => SingleChildScrollView(
+    child: Column(
       spacing: 16.h,
-      children:   [
-         OrderDetailsCard(hasAction: false,title: "Order Details", order: order),
-         if(order.address != null)
-         OrderAddressInfoCard(hasAction: false, title: "Shipping Address", address: order.address!),
-         CheckoutListProducts(showHeader: true, items: order.items!),
-         OrderReceiptCard(hasTitle: true,summery: order.summery!),
+      children: [
+        OrderDetailsCard(
+          hasAction: false,
+          title: "Order Details",
+          order: order,
+        ),
+        if (order.address != null)
+          OrderAddressInfoCard(
+            hasAction: false,
+            title: "Shipping Address",
+            address: order.address!,
+          ),
+        CheckoutListProducts(showHeader: true, items: order.items!),
+        OrderReceiptCard(hasTitle: true, summery: order.summery!),
         OrderDetailsActions(order: order),
       ],
     ),
   );
+
+  Widget _buildDeleteOrder(
+    BuildContext context,
+    GestureTapCallback? onDelete,
+  ) => BaseBlocConsumer<OrderDetailsCubit, OrderModel>(
+    successBuilder: (order) => order.canDelete
+        ? AppDeleteButton(
+            onTap: () {
+              AppDialogues.showWarning(
+                context,
+                title: "Delete Order",
+                onConfirm: onDelete,
+                message:
+                    "Remove Order from Orders history (you cant undo this action) ? ",
+              );
+            },
+          )
+        : const SizedBox.shrink(),
+    loadingBuilder: () => const AppDeleteButton(),
+  );
 }
-
-
-

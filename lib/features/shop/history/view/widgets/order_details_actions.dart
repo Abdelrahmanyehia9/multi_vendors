@@ -18,15 +18,11 @@ class OrderDetailsActions extends StatelessWidget {
       spacing: 8.h,
       children: [
         if(status == OrderStatus.delivered)...[
-          const AppButton(text: "Order Again",buttonSize: null,),
           if(FeatureFlags.enableRating)
             AppButton.outlined(text: "Rate order",onPressed: ()=>context.pushNamed(Routes.rateOrder),),
         ],
-        if(status == OrderStatus.pending)
-        AppButton(text: "Track Order",buttonSize: null, onPressed: ()=>context.pushNamed(Routes.orderTracking)),
-        if(status == OrderStatus.cancelled)
-          const AppButton(text: "reOrder",buttonSize: null,),
-
+        if(status == OrderStatus.pending ||order.trackId!=null)
+        AppButton(text: "Track Order",buttonSize: null, onPressed: ()=>context.pushNamed(Routes.orderTracking, arguments: order.trackId)),
       ],
     );
   }

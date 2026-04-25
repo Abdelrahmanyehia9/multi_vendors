@@ -12,7 +12,8 @@ import '../../../data/model/products_filters_model.dart';
 import '../../../logic/products_all_filters_cubit.dart';
 
 class ProductsFiltersChip extends StatelessWidget {
-  const ProductsFiltersChip({super.key});
+  final GestureTapCallback? onFiltersGetSuccess ;
+  const ProductsFiltersChip({super.key, this.onFiltersGetSuccess});
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +24,15 @@ class ProductsFiltersChip extends StatelessWidget {
           filters: cubit.selectedFilters,
         );
       },
-      builder: (s) {
-        return _buildFilterChips(cubit);
+      successBuilder: (s) {
+        if(cubit.selectedFilters==null)return const SizedBox.shrink();
+        final chips = cubit.selectedFilters!.toChips(cubit.excludes);
+        return _buildFilterChips(chips, onClear: cubit.clearFilters);
       },
+      loadingBuilder: ()=>_buildFilterChips(List.generate(4, (i) => "Filter $i")),
     );
   }
-  Widget _buildFilterChips(ProductsAllFiltersCubit cubit) {
-    if (cubit.selectedFilters == null) return const SizedBox.shrink();
-    final filters = cubit.selectedFilters!.toChips(cubit.excludes);
+  Widget _buildFilterChips(List<String> filters ,{GestureTapCallback? onClear}) {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       spacing: 4.h,
@@ -41,7 +43,7 @@ class ProductsFiltersChip extends StatelessWidget {
         ),
         if (filters.isNotEmpty)
           AppDeleteButton(
-            onTap: cubit.clearFilters,
+            onTap: onClear,
             backGroundColor: AppColors.error,
             iconColor: AppColors.white,
           )

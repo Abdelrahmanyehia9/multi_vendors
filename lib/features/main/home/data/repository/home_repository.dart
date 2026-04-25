@@ -40,7 +40,6 @@ class HomeRepository {
   Future<Either<AppException, List<CategoryModel>>> getCategories() =>
      _getList(
       table: RemoteDatabaseConstants.category_table,
-      select: HomeQueries.homeCategories,
       fromJson: CategoryModel.fromJson,
     );
   Future<Either<AppException, List<HomeVendorModel>>> getVendors() =>
@@ -51,7 +50,8 @@ class HomeRepository {
     );
   Future<Either<AppException, List<ProductModel>>> getProductByCategory({
     required int catId,
-  }) => _getList(
+  }) =>
+      _getList(
       table: RemoteDatabaseConstants.product_table,
       select: HomeQueries.productByCategory,
       filter: (e) =>
@@ -87,7 +87,7 @@ class HomeRepository {
           .eq(RemoteDatabaseConstants.is_active_column, true)
           .order(
         RemoteDatabaseConstants.created_at_column,
-        ascending: true,
+        ascending: false,
       ),
       fromJson: HomeBannerModel.fromJson,
     );

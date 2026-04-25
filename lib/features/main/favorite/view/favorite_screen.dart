@@ -29,39 +29,53 @@ class _FavoriteScreenState extends State<FavoriteScreen>
     super.initState();
     controller = TabController(length: 2, vsync: this);
   }
+  Widget _emptyOrWidget(bool isEmpty, Widget child) =>
+      isEmpty ? AppStates.empty() : child.appPaddingHr;
 
   @override
   Widget build(BuildContext context) {
     return LoginRequired(
       child: BaseBlocConsumer<FavoriteCubit, FavoriteModel>(
-        successBuilder:(favorites)=> Column(
-          children: [
-            SizedBox(
-              height: 70.h,
-              child: BaseAppBar(title: "Favorite", showLeading: false,),
-            ),
-            if (FeatureFlags.multiVendor) ...[
-              BaseTabBar(
-                alignment: TabAlignment.center,
-                controller: controller,
-                tabs: const ['Products', "Vendors"],
-              ),
-              Gap.large(),
-              Expanded(
-                child: TabBarView(
-                  controller: controller,
-                  children: [
-                   favorites.favoriteProducts.isEmpty?AppStates.empty():  ProductGrid(products: favorites.favoriteProducts,).appPaddingHr,
-                   favorites.favoriteVendors.isEmpty?AppStates.empty():  VendorCardGrid(vendors: favorites.favoriteVendors,).appPaddingHr,
-                  ],
+        successBuilder: (favorites) {
+          final products = _emptyOrWidget(
+            favorites.favoriteProducts.isEmpty,
+            ProductGrid(products: favorites.favoriteProducts),
+          );
+
+          final vendors = _emptyOrWidget(
+            favorites.favoriteVendors.isEmpty,
+            VendorCardGrid(vendors: favorites.favoriteVendors),
+          );
+
+          return Column(
+            children: [
+              SizedBox(
+                height: 70.h,
+                child:  BaseAppBar(
+                  title: "Favorite",
+                  showLeading: false,
                 ),
               ),
-            ] else
-              Expanded(child: const ProductGrid(products: [],).appPaddingHr),
-          ],
-        ),
+              if (!FeatureFlags.multiVendor)
+                Expanded(child: products)
+              else ...[
+                BaseTabBar(
+                  alignment: TabAlignment.center,
+                  controller: controller,
+                  tabs: const ['Products', 'Vendors'],
+                ),
+                Gap.large(),
+                Expanded(
+                  child: TabBarView(
+                    controller: controller,
+                    children: [products, vendors],
+                  ),
+                ),
+              ],
+            ],
+          );
+        },
       ),
     );
   }
 }
-

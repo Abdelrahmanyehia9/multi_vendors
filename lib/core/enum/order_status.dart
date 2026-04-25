@@ -25,11 +25,12 @@ enum OrderStatus {
   /// to separate tracking status from order status
 }
 enum TrackStatus{
-  processing,confirmed,shipped,delivered;
+  confirmed,processing,shipped,delivered;
   static const Map<TrackStatus,String>_map= {
     delivered : "delivered",
     processing : "processing",
     shipped : "shipped",
+    confirmed : "confirmed",
   };
   String get toDatabase => _map[this]??"processing";
   factory TrackStatus.fromDatabase(String status)=>_map.entries.firstWhereOrNull((element) => element.value == status)?.key??processing;

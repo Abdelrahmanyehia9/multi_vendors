@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/widgets/app_chip.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/cards/product_card.dart';
-import 'package:multi_vendor/features/main/home/logic/home_cateogries_logic.dart';
+import 'package:multi_vendor/core/cubit/shop_categories_cubit.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
 import '../../../../../core/models/category_model.dart';

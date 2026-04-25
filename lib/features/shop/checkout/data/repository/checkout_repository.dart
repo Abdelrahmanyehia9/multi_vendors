@@ -11,31 +11,39 @@ import '../../../shared/model/checkout_model.dart';
 import '../model/checkout_request.dart';
 
 class CheckoutRepository {
+  final DatabaseService _db;
 
-  final DatabaseService _db  ;
   CheckoutRepository(this._db);
 
-  Future<Either<AppException , CheckoutSummeryModel>>calculateSummery(List<CartModel>items, {String? code})async{
-    try{
-      final response  = await _db.RPC(function: RpcFunctions.calculateOrderSummeryRPC, params: {
-        'p_cart': items,
-        'p_promo_code': code
-      }) ;
+  Future<Either<AppException, CheckoutSummeryModel>> calculateSummery(
+    List<CartModel> items, {
+    String? code,
+  }) async {
+    try {
+      final response = await _db.RPC(
+        function: RpcFunctions.calculateOrderSummeryRPC,
+        params: {'p_cart': items, 'p_promo_code': code},
+      );
       final summery = CheckoutSummeryModel.fromJson(response);
       return right(summery);
-    }catch(e){return left(e.toAppException); }
-
-
+    } catch (e) {
+      return left(e.toAppException);
+    }
   }
-  Future<Either<AppException , OrderModel>> placeOrder({required CheckoutRequest request})async{
+
+  Future<Either<AppException, OrderModel>> placeOrder({
+    required CheckoutRequest request,
+  }) async {
+    try {
       final response = await _db.INSERT(
-          table: RemoteDatabaseConstants.orders_table,
-          select: ShopQueries.orderDetails,
-          data: request.toJson()) ;
+        table: RemoteDatabaseConstants.orders_table,
+        select: ShopQueries.orderDetails,
+        data: request.toJson(),
+      );
       final order = OrderModel.fromJson(response);
       return right(order);
-
-
+    } catch (e) {
+      return left(e.toAppException);
+    }
   }
-
 }

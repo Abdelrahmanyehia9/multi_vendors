@@ -19,16 +19,24 @@ extension ThemeEXT on BuildContext{
 
 extension SnackBarExt on BuildContext{
  void  showSnackBars ({required String message, String title = ""})  {
- return  SnackBars.custom(message, title: title);
+ return  SnackBars.custom(
+     context: this,
+     message, title: title);
  }
  void successBar({required String message,String title ="all done" })  {
- return  SnackBars.success(message: message, title: title);
+ return  SnackBars.success(
+     context: this,
+     message: message, title: title);
  }
  void errorBar({required String message,String title ="error" })  {
- return  SnackBars.error(message: message, title: title);
+ return  SnackBars.error(
+     context: this,
+     message: message, title: title);
  }
  void warningBar({required String message,String title ="warning" })  {
- return  SnackBars.warning(message: message, title: title);
+ return  SnackBars.warning(
+     context: this,
+     message: message, title: title);
  }
 }
 

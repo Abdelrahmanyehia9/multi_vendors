@@ -59,7 +59,6 @@ mixin EditAddressMixin on State<EditAddressScreen> {
     }
     return;
   }
-
   void _initControllers() {
     ///initial address from user cubit
     final iA = userCubit.user?.address;

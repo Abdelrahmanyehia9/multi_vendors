@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -19,9 +20,6 @@ class ProductsScreenArgs{
   const ProductsScreenArgs({this.initialFilters , this.exclude});
 }
 
-
-
-
 class AllProductsScreen extends StatelessWidget {
   final  ProductsScreenArgs? args ;
   const AllProductsScreen({super.key,this.args });
@@ -39,7 +37,13 @@ class AllProductsScreen extends StatelessWidget {
         spacing: 12.h,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProductsFiltersChip(),
+          ProductsFiltersChip(
+            onFiltersGetSuccess: (){
+              context.read<ProductsByFiltersCubit>().getProductsInFilter(
+                filters: args?.initialFilters,
+              );
+            },
+          ),
           Expanded(
             child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
               successBuilder:_buildProducts,

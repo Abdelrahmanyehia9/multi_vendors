@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/circular_box.dart';
 
+import '../../../../../core/models/user_model.dart';
 import '../../../../../core/theme/decorations.dart';
 import '../../../../../core/theme/text_styles.dart';
 import '../../../../../core/widgets/buttons/app_icon_button.dart';
 import '../../../../../core/widgets/section_header.dart';
 
 class OrderCaptainCard extends StatelessWidget {
-  const OrderCaptainCard({super.key});
+  final UserModel captain ;
+  const OrderCaptainCard({super.key, required this.captain});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +32,14 @@ class OrderCaptainCard extends StatelessWidget {
           child: Row(
             spacing: 16.w,
             children: [
-              CircleAvatar(
-                radius: 20.r,backgroundColor: lowest,
-                child: Icon(Icons.person, size: 18.sp),
+              CircularBox(
+                child: AppCachedNetworkImage(captain.profilePic),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("John Doe", style: TextStyles.bodyMedium.copyWith(color: lowest)),
-                  Text("01012345678", style: TextStyles.bodyMedium.copyWith(color: low)),
+                  Text(captain.fullName??"", style: TextStyles.bodyMedium.copyWith(color: lowest)),
+                  Text(captain.phone??"", style: TextStyles.bodyMedium.copyWith(color: low)),
                 ],
               ),
               const Spacer(),

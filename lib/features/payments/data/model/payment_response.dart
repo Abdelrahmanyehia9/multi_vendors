@@ -14,6 +14,11 @@ enum PaymentStatus {
     return _map.entries.firstWhereOrNull((e) => e.value == status)?.key??pending;
   }
 
+  String get title => switch(this){
+    success => "Paid" ,
+    _ => "Pending",
+  } ;
+
 }
 
 class PaymentResponse {
@@ -37,7 +42,7 @@ class PaymentResponse {
   };
   factory  PaymentResponse.fromJson(Map<String, dynamic>json)=>PaymentResponse(
       option: PaymentOption.fromDatabase(json['option']),
-      amount: json['amount'],
+      amount: json['amount'].toDouble(),
       transactionId: json['transaction_id'],
       createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
       status: PaymentStatus.fromDatabase(json['status'])) ;

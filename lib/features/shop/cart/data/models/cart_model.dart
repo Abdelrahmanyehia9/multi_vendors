@@ -38,12 +38,14 @@ class CartProductModel{
   final String? name;
   final String? image;
   final PriceModel price;
+  final int inStock;
 
   const CartProductModel({
     this.id,
     this.name,
     this.image,
-    required this.price
+    required this.price,
+    required this.inStock,
   });
 
   factory CartProductModel.fromJson(Map<String, dynamic> json)=>CartProductModel(
@@ -51,24 +53,28 @@ class CartProductModel{
     name: json['name'],
     image: json['image'],
     price: PriceModel.fromJson(json),
+    inStock: json['in_stock'],
   )  ;
   factory CartProductModel.fake()=>CartProductModel(
     id:FakeData.fakeInt,
     name: FakeData.fakeStringTitle,
     image: FakeData.fakeImg,
     price: PriceModel.fake(),
+    inStock: FakeData.fakeInt,
   )  ;
   Map<String, dynamic> toJson()=>{
     'id': id,
     "name":name,
     "image":image,
-    ...price.toJson()
+    ...price.toJson(),
+    'in_stock': inStock,
   }.withoutNulls ;
   factory CartProductModel.fromProductModel(ProductDetailsModel v)=>CartProductModel(
       id: v.id,
       name: v.name,
       price: v.price,
       image:v.thumbnail,
+       inStock: v.inStock?.quantity??0
   ) ;
 
   PriceModel get priceModel => price ;

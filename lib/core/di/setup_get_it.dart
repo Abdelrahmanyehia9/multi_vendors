@@ -27,6 +27,7 @@ import '../database/hive_local_storage.dart';
 import '../database/local_storage.dart';
 import '../database/shared_pref_local_storage.dart';
 import '../service/database_service.dart';
+import '../service/real_time_service.dart';
 import '../utils/helper/user_session_helper.dart';
 
 GetIt getIt = GetIt.instance;
@@ -50,6 +51,9 @@ static Future<void> setupGetIt() async {
     );
     getIt.registerLazySingleton(
           () => DatabaseService(getIt.get<SupabaseClient>()),
+    );
+    getIt.registerLazySingleton(
+          () => RealtimeService(getIt.get<SupabaseClient>()),
     );
     getIt.registerLazySingleton(
           () =>
@@ -79,7 +83,7 @@ static Future<void> setupGetIt() async {
     getIt.registerFactory(()=>CheckoutRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>PaymentRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
-    getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));
   }
 static Future<void>_setupLocalStorage()async{
     await HiveLocalStorage.init();

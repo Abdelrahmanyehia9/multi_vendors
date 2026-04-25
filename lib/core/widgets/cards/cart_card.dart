@@ -4,10 +4,12 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import '../../routes/routes.dart';
 import '../../theme/decorations.dart';
 import '../../theme/text_styles.dart';
 import '../gap.dart';
@@ -48,11 +50,14 @@ class CartCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppCachedNetworkImage(
-                width: width*.25,
-                height: height,
-                radius: Decorations.borderRadius16,
-                cartItem.product.image),
+            AppClick(
+              onTap: ()=>context.pushNamed(Routes.product, arguments: cartItem.product.id),
+              child: AppCachedNetworkImage(
+                  width: width*.25,
+                  height: height,
+                  radius: Decorations.borderRadius16,
+                  cartItem.product.image),
+            ),
             Gap.small(),
             Expanded(
               child: Column(

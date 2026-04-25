@@ -1,16 +1,21 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/models/category_model.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/circular_box.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/core/cubit/shop_categories_cubit.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../core/models/vendor_model.dart';
+import '../logic/vendors_by_category_cubit.dart';
+import 'all_vendors_screen_mixin.dart';
 import 'widgets/vendor_card.dart';
 import '../../../../core/widgets/scaffold/base_appbar.dart';
 import '../../../../core/widgets/section_header.dart';
@@ -21,8 +26,7 @@ class AllVendorsScreen extends StatefulWidget {
   @override
   State<AllVendorsScreen> createState() => _AllVendorsScreenState();
 }
-class _AllVendorsScreenState extends State<AllVendorsScreen> {
-  final selectedTagIndex = ValueNotifier<int>(0);
+class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScreenMixin{
 
   @override
   Widget build(BuildContext context) {
@@ -31,41 +35,43 @@ class _AllVendorsScreenState extends State<AllVendorsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _Tags(selectedTagIndex),
-          Gap.large(),
-           Expanded(
-              child:VendorsCardList(
-             vendors:   List.generate(10, (i) => VendorModel.fake()),
-              )
-          )
+          BaseBlocConsumer<HomeCategoriesCubit, List<CategoryModel>>(
+            onSuccess:(cat)=> onCategoriesSuccess(cat!),
+            successBuilder: (categories) => _Categories(selectedTagIndex, categories),
+            loadingBuilder: () => _Categories(
+              selectedTagIndex,
+              List.generate(5, (_) => CategoryModel.fake()),
+            ),
+          ),
+          Expanded(
+            child: BaseBlocConsumer<VendorsByCategoryCubit, List<VendorDetailsModel>>(
+              loadingBuilder:()=> VendorsCardList(
+                vendors: List.generate(10, (i) => VendorModel.fake()),
+              ),
+              successBuilder: (vendors) => VendorsCardList(vendors: vendors),
+              failureBuilder: AppStates.error,
+              emptyBuilder: AppStates.empty,
+            ),
+          ),
         ],
-      ).appPaddingHr,
+      ),
     );
   }
-  @override
-  void dispose() {
-    selectedTagIndex.dispose();
-    super.dispose();
-  }
+
 }
 
-class _Tags extends StatelessWidget {
+class _Categories extends StatelessWidget {
   final ValueNotifier<int>selectedTag ;
-  const _Tags(this.selectedTag);
+  final List<CategoryModel>categories;
+  const _Categories(this.selectedTag, this.categories);
 
   @override
   Widget build(BuildContext context) {
-    const int items = 10;
-    const int maxItems = 6;
-    final displayedItems = min(items, maxItems);
-    final bool hasAction = items > maxItems;
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(
+        const SectionHeader(
           title: "Categories",
-          hasAction: hasAction,
-          onActionTap: (){},
         ),
         ValueListenableBuilder<int>(
           valueListenable: selectedTag,
@@ -75,10 +81,10 @@ class _Tags extends StatelessWidget {
             child: Row(
               spacing: 4.w,
               children: List.generate(
-                displayedItems,
+                categories.length,
                     (i) => AppClick(
                   onTap: () => selectedTag.value = i,
-                  child: _categoryItem(selected: i == value),
+                  child: _categoryItem(selected: i == value, category: categories[i]),
                 ),
               ),
             ).paddingVr(8),
@@ -87,7 +93,7 @@ class _Tags extends StatelessWidget {
       ],
     );
   }
-  Widget _categoryItem({double width = 70, bool selected = false}) {
+  Widget _categoryItem({double width = 70, bool selected = false,required CategoryModel category}) {
     return SizedBox(
       width: width.w,
       child: Column(
@@ -95,13 +101,13 @@ class _Tags extends StatelessWidget {
           CircularBox(
             radius: 65,
             borderColor: selected ? AppColors.primary : null,
-            child: const AppCachedNetworkImage(Testing.girlModel),
+            child:  AppCachedNetworkImage(category.img),
           ),
           Gap.tiny(),
           SizedBox(
             width: (width - 20).w,
             child: Text(
-              "Woman Wear",
+              category.name,
               textAlign: TextAlign.center,
               style: TextStyles.bodySmall.copyWith(
                 color: selected ? AppColors.primary : null,

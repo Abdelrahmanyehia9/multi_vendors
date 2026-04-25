@@ -1,10 +1,11 @@
+import 'package:multi_vendor/core/models/category_model.dart';
 import 'package:multi_vendor/core/models/rating_model.dart';
 import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_delivery_option.dart';
 
 class VendorDetailsModel extends VendorModel {
-  final List<String>? categories;
+  final List<CategoryModel>? categories;
   final RatingModel? vendorRating;
   final VendorDeliveryOptionModel? deliveryOption;
   final bool isVerified;
@@ -26,7 +27,7 @@ class VendorDetailsModel extends VendorModel {
         image: json['image'],
         isVerified: json['is_verified'] ?? false,
         categories: json['categories'] != null
-            ? List<String>.from(json['categories'])
+            ? List<CategoryModel>.from(json['categories'].map((x) => CategoryModel.fromJson(x)))
             : null,
         vendorRating: json['rating'] == null
             ? null
@@ -40,7 +41,7 @@ class VendorDetailsModel extends VendorModel {
       VendorDetailsModel(
         name: "",
         image: FakeData.fakeImg,
-        categories: const [],
+        categories:  List<CategoryModel>.generate(10, (index) => CategoryModel.fake()),
         isVerified: FakeData.fakeBoolean,
         vendorRating:RatingModel.fake(),
         deliveryOption: VendorDeliveryOptionModel.fake(),

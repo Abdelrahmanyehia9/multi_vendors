@@ -22,7 +22,7 @@ class VendorsCardList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.separated(
-    itemCount: 5,
+    itemCount: vendors.length,
     shrinkWrap: shrinkWrap,
     physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
     separatorBuilder: (_, __) => Divider(height: 24.h),
@@ -40,7 +40,7 @@ class VendorCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return AppClick(
-        onTap: () => context.pushNamed(Routes.vendor,),
+        onTap: () => context.pushNamed(Routes.vendor, arguments: vendor.id),
         child: SizedBox(
           height: cardSize.height.h,
           child: Row(

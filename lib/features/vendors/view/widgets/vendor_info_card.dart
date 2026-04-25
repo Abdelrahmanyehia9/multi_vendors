@@ -44,7 +44,7 @@ class VendorInfoCard extends StatelessWidget {
                   .map(
                     (e) => AppChip(
                   padding: EdgeInsets.zero,
-                  text: e,
+                  text: e.name,
                   selected: true,
                 ),
               )

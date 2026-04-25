@@ -37,6 +37,14 @@ class _BaseNavbarState extends State<BaseNavbar> {
     _selectedIndex = widget.initialIndex;
     super.initState();
   }
+  @override
+  void didUpdateWidget(covariant BaseNavbar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.initialIndex != widget.initialIndex) {
+      _selectedIndex = widget.initialIndex;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +94,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
           color: isSelected ? AppColors.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
         ),
-        child: Row(
+        child: item.child?? Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
@@ -110,11 +118,19 @@ class _BaseNavbarState extends State<BaseNavbar> {
   }
 }
 
+
 class NavbarItem {
   final IconData icon;
   final String label;
   final String? toolTip;
-  final Widget page ;
+  final Widget? child ;
+  final Widget Function() pageBuilder;
 
-  NavbarItem({required this.icon, required this.label, required this.page, this.toolTip});
+  const NavbarItem({
+    required this.icon,
+    required this.label,
+    required this.pageBuilder,
+    this.toolTip,
+    this.child
+  });
 }

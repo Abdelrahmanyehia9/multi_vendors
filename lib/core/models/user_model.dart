@@ -75,7 +75,7 @@ class UserModel extends Equatable {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] as String,
+      id: json['id'],
       createdAt: json['created_at'] != null
           ? DateTime.tryParse(json['created_at'])
           : null,
@@ -96,7 +96,7 @@ class UserModel extends Equatable {
       country: json['country'] != null
           ? (json['country'] as String).toCountry
           : null,
-      role: UserRole.fromQuery(json['role']),
+      role: json['role']==null ? UserRole.customer : UserRole.fromQuery(json['role']),
       email: json['email'],
       phone: json['phone_number'],
     );

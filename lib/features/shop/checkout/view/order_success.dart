@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
@@ -31,7 +32,7 @@ class OrderSuccessScreen extends StatelessWidget {
             CheckoutListProducts(showHeader: true, items: order.items??[],),
             OrderReceiptCard(hasTitle: true,summery: order.summery!,),
             AppButton(text: "Back to home", buttonSize: null,
-            onPressed: ()=> context.popUntil(),
+            onPressed: ()=> context.pushNamedAndRemoveUntil(Routes.mainLayout, predicate: (_)=>false),
           )
           ],
         ),

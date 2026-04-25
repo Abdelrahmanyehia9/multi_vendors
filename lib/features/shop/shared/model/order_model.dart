@@ -16,7 +16,7 @@ class OrderModel {
   final DateTime? estimatedDelivery;
   final String? couponUsed;
   final OrderStatus? status;
-
+ final int? trackId ;
   OrderModel({
     this.id,
     this.userId,
@@ -28,6 +28,7 @@ class OrderModel {
     this.address,
     this.couponUsed,
     this.status,
+    this.trackId
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -48,6 +49,7 @@ class OrderModel {
           .map((e) => CartModel.fromJson(e))
           .toList(),
       couponUsed: json['coupon_used'],
+      trackId: json['track_id'],
     );
   }
   factory OrderModel.fake() {
@@ -60,10 +62,12 @@ class OrderModel {
       address: AddressModel.fake(),
       estimatedDelivery: FakeData.fakeDateTime,
       items: List<CartModel>.generate(3, (index) => CartModel.fake()),
-      couponUsed: "NONE"
+      couponUsed: "NONE",
+      trackId: FakeData.fakeInt,
     );
   }
 
 
   String get orderIdDisplay =>id == null ? "" : "ORDER-#$id";
+  bool get canDelete => status != OrderStatus.pending;
 }

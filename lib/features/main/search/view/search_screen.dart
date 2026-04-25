@@ -25,10 +25,12 @@ class SearchScreen extends StatefulWidget {
 
 
 class _SearchScreenState extends State<SearchScreen> {
+
+  SearchProductsCubit get searchCubit => context.read<SearchProductsCubit>();
+  SearchProductHistoryCubit get historyCubit => context.read<SearchProductHistoryCubit>();
+
   @override
   Widget build(BuildContext context) {
-    final historyCubit = context.read<SearchProductHistoryCubit>();
-    final searchCubit = context.read<SearchProductsCubit>();
     return Column(
       spacing: 16.h,
       children: [

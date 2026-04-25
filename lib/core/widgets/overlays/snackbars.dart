@@ -18,6 +18,7 @@ class SnackBars {
     bool hasTitle = true,
     TextStyle ? titleStyle ,
     TextStyle ? messageStyle ,
+    required BuildContext context ,
     Duration duration = const Duration(milliseconds: 1200),
   })
   {
@@ -71,9 +72,12 @@ class SnackBars {
     );
   }
 
-  static void success({required String message, String title = "تمت العمليه ينجاح"}) {
+  static void success({
+    required BuildContext context,
+    required String message, String title = "تمت العمليه ينجاح"}) {
     custom(
       message,
+      context: context,
       titleStyle: TextStyles.labelSmall.copyWith(
         color: Colors.white
       ),
@@ -85,9 +89,12 @@ class SnackBars {
       icon: Icons.check,
     );
   }
-  static void error({required String message, String title = "حدث خطأ"}) {
+  static void error({
+    required BuildContext  context,
+    required String message, String title = "حدث خطأ"}) {
     custom(
       message,
+      context: context,
       backgroundColor: AppColors.error,
       title: title,
       titleStyle: TextStyles.labelSmall.copyWith(
@@ -99,9 +106,12 @@ class SnackBars {
       icon: Icons.error,
     );
   }
-  static void warning({required String message, String title = "تحذير"}) {
+  static void warning({
+    required BuildContext context,
+    required String message, String title = "تحذير"}) {
     custom(
       message,
+      context: context,
       backgroundColor: AppColors.warning,
       title: title,
       titleStyle: TextStyles.labelSmall.copyWith(

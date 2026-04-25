@@ -2,7 +2,6 @@ class HomeQueries {
   const HomeQueries._();
 
   /// home
-  static const String homeCategories = "id,name";
   static const String homeVendors = "id,name,image";
   static const String productByCategory =
       "id,name,price,thumbnail,vendor(id,name,image),rating,tags, in_stock";

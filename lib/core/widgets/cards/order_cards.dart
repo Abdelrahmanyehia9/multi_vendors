@@ -29,7 +29,7 @@ final OrderModel order;
       items: [
         ("Order Number", order.orderIdDisplay),
         ("Purchase date", order.createdAt?.formattedDate),
-        ("Payment", order.payment?.option.title),
+        ("Payment", "${order.payment?.option.title??""} (${order.payment?.status.title??""})"),
         ("Estimated Delivery", order.estimatedDelivery?.formattedDate),
       ],
       bottom: hasAction

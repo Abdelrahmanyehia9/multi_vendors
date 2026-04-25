@@ -29,7 +29,6 @@ class VendorDetailsScreen extends StatefulWidget {
 class _VendorDetailsScreenState extends State<VendorDetailsScreen>
     with ScrollTitleVisibilityMixin {
 
-
     Future<void> _fetchProducts(VendorDetailsModel? v) async {
     final filters = ProductsFiltersModel(
       vendors: [VendorModel(id: v!.id, name: v.name, image: v.image)],

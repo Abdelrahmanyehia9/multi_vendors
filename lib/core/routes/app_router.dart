@@ -4,7 +4,9 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
-import 'package:multi_vendor/features/main/layout.dart';
+import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
+import 'package:multi_vendor/core/cubit/shop_categories_cubit.dart';
+import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
@@ -43,7 +45,10 @@ import '../../features/shop/checkout/logic/checkout_summery_cubit.dart';
 import '../../features/shop/checkout/view/checkout_screen.dart';
 import '../../features/shop/checkout/view/order_success.dart';
 import '../../features/shop/history/data/repository/order_history_repository.dart';
+import '../../features/shop/history/logic/order_cancel_cubit.dart';
+import '../../features/shop/history/logic/order_delete_cubit.dart';
 import '../../features/shop/history/logic/order_details_cubit.dart';
+import '../../features/shop/history/logic/order_tracking_cubit.dart';
 import '../../features/shop/history/view/order_details_screen.dart';
 import '../../features/shop/history/view/order_tracking_screen.dart';
 import '../../features/shop/history/view/rate_order_screen.dart';
@@ -57,15 +62,16 @@ import '../../features/shop/product/view/all_products_screen.dart';
 import '../../features/shop/shared/model/order_model.dart';
 import '../../features/vendors/data/repository/vendor_repository.dart';
 import '../../features/vendors/logic/vendor_details_cubit.dart';
+import '../../features/vendors/logic/vendors_by_category_cubit.dart';
 import '../../features/vendors/view/all_vendors_screen.dart';
 import '../../features/shop/product/view/product_details_screen.dart';
 import '../../features/vendors/view/vendor_details_screen.dart';
 import '../cubit/search_cubit.dart';
 import '../models/news_model.dart';
+import '../widgets/success_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
-    // final arguments = settings.arguments;
     switch (settings.name) {
       case Routes.splash:
         return _page(const SplashScreen(), name: Routes.splash);
@@ -133,7 +139,7 @@ class AppRouter {
         final int? initialIndex = settings.arguments as int?;
         return _page(
           BlocProvider(
-            create: (context) => SearchCubit(),
+            create: (context) => SearchCubit(autoFocus: false),
             child: MainLayout(initialIndex: initialIndex ?? 0),
           ),
           name: Routes.mainLayout,
@@ -145,8 +151,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) =>
-                    ProductsByFiltersCubit(getIt.get<ProductRepository>())
-                      ..getProductsInFilter(filters: args?.initialFilters),
+                    ProductsByFiltersCubit(getIt.get<ProductRepository>()),
               ),
               BlocProvider(
                 create: (context) =>
@@ -198,7 +203,13 @@ class AppRouter {
         final NewsModel news = settings.arguments as NewsModel;
         return _page(NewsItemDetails(news: news), name: Routes.newsDetails);
       case Routes.vendors:
-        return _page(const AllVendorsScreen(), name: Routes.vendors);
+        return _page(MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context)=> HomeCategoriesCubit(getIt.get<HomeRepository>())..getCategories()
+              ),
+              BlocProvider(create: (context)=> VendorsByCategoryCubit(getIt.get<VendorRepository>()))
+            ],
+            child: const AllVendorsScreen()), name: Routes.vendors);
       case Routes.vendor:
         final int vendorId = settings.arguments as int;
         return _page(
@@ -277,31 +288,73 @@ class AppRouter {
         );
       case Routes.checkout:
         CheckoutScreenArgs args = settings.arguments as CheckoutScreenArgs;
-        return _page(MultiBlocProvider(
+        return _page(
+          MultiBlocProvider(
             providers: [
               BlocProvider(
                 create: (context) =>
                     PaymentCubit(getIt.get<PaymentRepository>()),
               ),
-              BlocProvider(create: (context)=> CheckoutCubit(getIt.get<CheckoutRepository>()))
+              BlocProvider(
+                create: (context) =>
+                    CheckoutCubit(getIt.get<CheckoutRepository>()),
+              ),
             ],
-            child: CheckoutScreen(args: args)), name: Routes.checkout);
+            child: CheckoutScreen(args: args),
+          ),
+          name: Routes.checkout,
+        );
       case Routes.orderSuccess:
         final OrderModel order = settings.arguments as OrderModel;
-        return _page( OrderSuccessScreen(
-          order: order,
-        ), name: Routes.orderSuccess);
+        return _page(
+          OrderSuccessScreen(order: order),
+          name: Routes.orderSuccess,
+        );
       case Routes.orderDetails:
         final int orderId = settings.arguments as int;
-        return _page(BlocProvider(
-            create: (context)=> OrderDetailsCubit(getIt.get<OrderHistoryRepository>())..getXOrderDetails(orderId),
-            child: const OrderDetailsScreen()), name: Routes.orderDetails);
-        case Routes.orderTracking:
-          return _page(const OrderTrackingScreen(), name: Routes.orderTracking);
+        return _page(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    OrderDetailsCubit(getIt.get<OrderHistoryRepository>())
+                      ..getXOrderDetails(orderId),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    OrderDeleteCubit(getIt.get<OrderHistoryRepository>()),
+              ),
+            ],
+            child:  OrderDetailsScreen(orderId : orderId),
+          ),
+          name: Routes.orderDetails,
+        );
+      case Routes.orderTracking:
+        final int trackId = settings.arguments as int;
+        return _page(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    CancelOrderCubit(getIt.get<OrderHistoryRepository>()),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    OrderTrackingCubit(getIt.get<OrderHistoryRepository>())
+                      ..orderTracking(trackId),
+              ),
+            ],
+            child: OrderTrackingScreen(trackId: trackId),
+          ),
+          name: Routes.orderTracking,
+        );
       case Routes.rateOrder:
         return _page(const RateOrderScreen(), name: Routes.rateOrder);
       case Routes.rateProduct:
         return _page(const RateProductScreen(), name: Routes.rateProduct);
+      case Routes.result:
+        final ResultScreenArgs args = settings.arguments as ResultScreenArgs;
+        return _page(ResultScreen(args: args), name: Routes.result);
       default:
         return null;
     }

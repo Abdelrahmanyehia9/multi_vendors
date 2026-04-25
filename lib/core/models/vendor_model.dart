@@ -11,7 +11,6 @@ class VendorModel extends Equatable implements FavoriteItem{
   final int? count ;
 
   const VendorModel({required this.id,this.count ,required this.name, required this.image});
-
   factory VendorModel.fromJson(Map<String ,dynamic>json)=>VendorModel(
       id: json['id'],
       name: json['name'],

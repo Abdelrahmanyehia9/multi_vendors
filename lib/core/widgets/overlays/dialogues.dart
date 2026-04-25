@@ -1,7 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import '../../theme/app_colors.dart';
+import '../../theme/text_styles.dart';
+import '../buttons/app_button.dart';
+import '../gap.dart';
 
 
 class AppDialogues {
@@ -70,4 +74,38 @@ class AppDialogues {
       },
     );
   }
+  static Future<void> showWarning(
+    BuildContext context, {
+    IconData icon = Icons.warning_rounded,
+    String title = "Are you sure ? ",
+    String message = "Are you sure you want to do this action (you can't undo it) ? ",
+    void Function()? onConfirm,
+  }) async{
+    final result = await showDialogue(context,
+        showCloseButton: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 4.h,
+          children: [
+            Icon(icon, size: 64.sp, color: AppColors.primary,),
+            Gap.small(),
+            Text(title , textAlign: TextAlign.center, style: TextStyles.labelLarge,),
+            Text(message, textAlign: TextAlign.center, style: TextStyles.captionMedium,),
+            Gap.small(),
+            AppButton(text: "submit", buttonSize: null, onPressed: (){
+              context.pop(true) ;
+            },),
+            AppButton.outlined(text: "Cancel", onPressed: (){
+              context.pop(false) ;
+            })
+          ],
+
+        ) );
+    if(!context.mounted) return ;
+    if(result == true){
+      onConfirm?.call();
+      return ;
+    }
+  }
+
 }

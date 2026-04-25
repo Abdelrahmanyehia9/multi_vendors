@@ -20,8 +20,11 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
   }
 
   Future<void> get _update async {
-    if(_cart.isEmpty) return safeEmit(const BaseState.empty());
-    safeEmit(BaseState.success(List.of(_cart)));
+    if(_cart.isEmpty) {
+      safeEmit(const BaseState.empty());
+    } else {
+      safeEmit(BaseState.success(List.of(_cart)));
+    }
    await  _repository.updateCart(_cart);
   }
 
