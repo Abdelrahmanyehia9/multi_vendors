@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 
-import '../../../../core/cubit/base_state.dart';
-import '../data/repository/home_repository.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 
 class HomeBannerCubit extends Cubit<BaseState<List<HomeBannerModel>>> {
   final HomeRepository _repository;

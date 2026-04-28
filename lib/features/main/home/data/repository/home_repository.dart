@@ -2,9 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
-import 'package:multi_vendor/core/models/category_model.dart';
-import 'package:multi_vendor/core/models/news_model.dart';
-import 'package:multi_vendor/core/models/product_model.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
@@ -12,7 +9,10 @@ import 'package:multi_vendor/features/main/home/data/models/home_vendor_model.da
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../core/queries/home_queries.dart';
+import 'package:multi_vendor/core/queries/home_queries.dart';
+import 'package:multi_vendor/shared/data/models/category_model.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class HomeRepository {
   final DatabaseService _databaseService;
@@ -40,7 +40,8 @@ class HomeRepository {
   Future<Either<AppException, List<CategoryModel>>> getCategories() =>
      _getList(
       table: RemoteDatabaseConstants.category_table,
-      fromJson: CategoryModel.fromJson,
+       filter: (e) => e.isFilter("parent", null).order("count", ascending: false),
+       fromJson: CategoryModel.fromJson,
     );
   Future<Either<AppException, List<HomeVendorModel>>> getVendors() =>
      _getList(

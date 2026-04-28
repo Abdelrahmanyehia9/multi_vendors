@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class ListProductsToRateList extends StatelessWidget {
   final bool shrinkWrap;

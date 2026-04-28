@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../models/range_model.dart';
-import '../utils/date_time_strings.dart';
+import 'package:multi_vendor/shared/data/models/range_model.dart';
+import 'package:multi_vendor/core/utils/date_time_strings.dart';
 
 extension DateTimeX on DateTime {
   String get timeAgo {

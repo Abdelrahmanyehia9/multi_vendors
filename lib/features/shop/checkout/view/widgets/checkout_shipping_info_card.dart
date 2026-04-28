@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/widgets/cards/info_box.dart';
-import '../../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/info_box.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class OrderShippingInfoCard extends StatelessWidget {
   final bool hasAction;

@@ -1,7 +1,7 @@
-import '../../../../../../core/models/product_model.dart';
-import '../../../../../../core/models/vendor_model.dart';
-import '../favorite_item.dart';
-import '../favorite_model.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/main/favorite/data/model/favorite_item.dart';
+import 'package:multi_vendor/features/main/favorite/data/model/favorite_model.dart';
 
 extension FavoriteModelX on FavoriteModel {
   FavoriteModel toggle(FavoriteItem item) {

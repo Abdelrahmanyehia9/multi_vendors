@@ -7,15 +7,16 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/decorations.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/app_constants.dart';
-import '../../../../core/utils/helper/app_validation.dart';
-import '../../../../core/widgets/app_click.dart';
-import '../../../../core/widgets/app_text_field.dart';
-import '../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/helper/app_validation.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/app_text_field.dart';
+
 
 class PasswordField extends StatefulWidget {
   final String hint;

@@ -8,8 +8,8 @@ import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/shop/history/data/model/order_tracking_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../../core/service/database_service.dart';
-import '../../../shared/model/order_model.dart';
+import 'package:multi_vendor/core/service/database_service.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 
 class OrderHistoryRepository {
   final DatabaseService _db;

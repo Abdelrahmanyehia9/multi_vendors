@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
-import '../../../../core/enum/login_providers.dart';
-import '../../../../core/utils/app_constants.dart';
-import '../../../../core/widgets/forget_password_button.dart';
+import 'package:multi_vendor/core/enum/login_providers.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/forget_password_button.dart';
 
 class LoginForm extends StatelessWidget {
   final TextEditingController emailController ;

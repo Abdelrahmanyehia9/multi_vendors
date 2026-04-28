@@ -3,17 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/models/product_model.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/cards/product_card.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/core/widgets/search_builder.dart';
-import 'package:multi_vendor/core/widgets/slogan_text.dart';
-import 'package:multi_vendor/core/widgets/app_search_bar.dart';
+
+
 import 'package:multi_vendor/features/main/search/logic/search_products_cubit.dart';
 import 'package:multi_vendor/features/main/search/view/widget/search_history.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/view/widgets/app_search_bar.dart';
+import 'package:multi_vendor/shared/view/widgets/search_builder.dart';
+import 'package:multi_vendor/shared/view/widgets/slogan_text.dart';
 
-import '../logic/search_product_history_cubit.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/features/main/search/logic/search_product_history_cubit.dart';
 
 
 class SearchScreen extends StatefulWidget {
@@ -41,7 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
           title:  const SloganText(),
         ),
         SearchBuilder(
-          builder: BaseBlocConsumer<SearchProductHistoryCubit, List<String>>(
+          builder:(_, __)=> BaseBlocConsumer<SearchProductHistoryCubit, List<String>>(
             successBuilder: (items) => SearchHistory(
               searchHistory:items,
               onRemoveItem: historyCubit.onRemoveItem,

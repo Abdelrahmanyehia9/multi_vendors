@@ -5,14 +5,14 @@ import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
-import '../../../../core/routes/routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/decorations.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/widgets/app_cached_network_image.dart';
-import '../../../../core/widgets/app_click.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class CheckoutListProducts extends StatelessWidget {
   final bool showHeader ;

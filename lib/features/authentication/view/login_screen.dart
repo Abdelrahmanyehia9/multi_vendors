@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -13,8 +14,8 @@ import 'package:multi_vendor/features/authentication/view/widgets/auth_header.da
 import 'package:multi_vendor/features/authentication/view/widgets/login_form.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/toggle_singup_and_login.dart';
 
-import '../../../core/routes/routes.dart';
-import '../logic/login_cubit.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/features/authentication/logic/login_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -76,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             if (AppConstants.authFormType == AuthFormType.emailAndPassword)
               const ToggleSignupAndLogin(),
+            AppButton.text(text: "Continue as Guest", onPressed: userCubit.loginAsGuest,),
           ],
         ),
       ),

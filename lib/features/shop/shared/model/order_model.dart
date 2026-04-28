@@ -1,9 +1,10 @@
 import 'package:multi_vendor/core/enum/order_status.dart';
-import 'package:multi_vendor/core/models/address_model.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/payments/data/model/payment_response.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
+
+import 'package:multi_vendor/shared/data/models/address_model.dart';
 
 class OrderModel {
   final int? id ;

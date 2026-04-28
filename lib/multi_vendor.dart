@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'core/routes/app_router.dart';
-import 'core/routes/routes.dart';
-import 'core/service/navigation_service.dart';
-import 'core/theme/app_theme.dart';
-import 'core/utils/helper/app_scroll_behavior.dart';
-import 'core/widgets/user_session_builder.dart';
+import 'package:multi_vendor/shared/view/widgets/user_session_builder.dart';
+import 'package:multi_vendor/core/routes/app_router.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/service/navigation_service.dart';
+import 'package:multi_vendor/core/theme/app_theme.dart';
+import 'package:multi_vendor/core/utils/helper/app_scroll_behavior.dart';
 
 class MultiVendors extends StatelessWidget {
   final AppRouter router;

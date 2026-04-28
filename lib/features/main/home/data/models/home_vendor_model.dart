@@ -1,4 +1,5 @@
-import '../../../../../core/models/vendor_model.dart';
+
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class HomeVendorModel extends VendorModel{
  const  HomeVendorModel({super.id, required super.name, required super.image});

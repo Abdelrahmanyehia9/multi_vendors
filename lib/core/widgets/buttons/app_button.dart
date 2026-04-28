@@ -4,9 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/text_styles.dart';
-import '../app_click.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
 
 enum ButtonSize {
   small,

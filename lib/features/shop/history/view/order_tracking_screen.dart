@@ -14,8 +14,8 @@ import 'package:multi_vendor/features/shop/history/logic/order_tracking_cubit.da
 import 'package:multi_vendor/features/shop/history/view/widgets/order_captain_card.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/order_tracking_timeline.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
-import '../logic/helper/order_history_helper.dart';
-import '../logic/order_cancel_cubit.dart';
+import 'package:multi_vendor/features/shop/history/logic/helper/order_history_helper.dart';
+import 'package:multi_vendor/features/shop/history/logic/order_cancel_cubit.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
   final int trackId;

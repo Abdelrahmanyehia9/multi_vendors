@@ -14,13 +14,13 @@ import 'package:multi_vendor/features/shop/checkout/logic/checkout_summery_cubit
 import 'package:multi_vendor/features/shop/checkout/view/checkout_screen.dart';
 import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_summery.dart';
-import '../../../../core/DI/setup_get_it.dart';
-import '../../../../core/routes/routes.dart';
-import '../../../../core/widgets/cards/cart_card.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../../../core/widgets/scaffold/base_scaffold.dart';
-import '../logic/cart_cubit.dart';
-import '../logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/cart_card.dart';
+import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

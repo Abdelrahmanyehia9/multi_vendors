@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../../../../core/DI/setup_get_it.dart';
-import '../../../../../core/utils/app_constants.dart';
-import '../../logic/edit_profile_cubit.dart';
-import '../edit_profile_screen.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/features/main/profile/logic/edit_profile_cubit.dart';
+import 'package:multi_vendor/features/main/profile/view/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 mixin EditProfileMixin on State<EditProfileScreen> {
 

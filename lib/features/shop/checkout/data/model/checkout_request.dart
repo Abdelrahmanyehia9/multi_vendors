@@ -1,8 +1,8 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
 
-import '../../../../../core/models/address_model.dart';
-import '../../../cart/data/models/cart_model.dart';
-import '../../../shared/model/checkout_model.dart';
+import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 
 class CheckoutRequest {
   final AddressModel? address ;

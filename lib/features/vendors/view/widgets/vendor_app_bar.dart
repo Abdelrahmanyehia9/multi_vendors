@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/feature_flags.dart';
-import '../../../../core/widgets/app_chip.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../../../core/widgets/photo_overlay.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
+import 'package:multi_vendor/shared/view/widgets/photo_overlay.dart';
 
 class VendorAppBar extends StatelessWidget {
   final ValueNotifier<bool> collapsed ;

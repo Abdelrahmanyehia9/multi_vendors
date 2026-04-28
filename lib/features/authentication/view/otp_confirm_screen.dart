@@ -11,8 +11,8 @@ import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/otp_cold_down.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../core/theme/text_styles.dart';
-import '../logic/otp_confirm_cubit.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/features/authentication/logic/otp_confirm_cubit.dart';
 
 class OtpConfirmScreen extends StatefulWidget {
   final String phoneNumber;

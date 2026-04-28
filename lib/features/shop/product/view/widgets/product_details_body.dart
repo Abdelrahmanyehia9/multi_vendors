@@ -5,18 +5,19 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/widgets/buttons/add_to_cart_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
-import '../../../../../core/routes/routes.dart';
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/utils/feature_flags.dart';
-import '../../../../../core/widgets/app_cached_network_image.dart';
-import '../../../../../core/widgets/app_chip.dart';
-import '../../../../../core/widgets/app_click.dart';
-import '../../../../../core/widgets/app_slider.dart';
-import '../../../../../core/widgets/cards/product_card.dart';
-import '../../../../../core/widgets/circular_box.dart';
-import '../../../../../core/widgets/gap.dart';
-import '../../../../../core/widgets/rating_stars.dart';
-import '../../data/model/product_details_model.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
+import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
+import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
+import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
 class ProductDetailsBody extends StatelessWidget {
   final ProductDetailsModel model;

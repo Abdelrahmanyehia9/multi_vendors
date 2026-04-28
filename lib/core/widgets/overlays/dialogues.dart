@@ -2,10 +2,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/text_styles.dart';
-import '../buttons/app_button.dart';
-import '../gap.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 
 class AppDialogues {

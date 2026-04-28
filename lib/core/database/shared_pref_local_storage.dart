@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'local_storage.dart';
+import 'package:multi_vendor/core/database/local_storage.dart';
 
 class SharedPrefLocalStorage implements LocalStorage {
   final SharedPreferences _prefs;

@@ -1,14 +1,17 @@
-import 'package:multi_vendor/core/models/category_model.dart';
-import 'package:multi_vendor/core/models/rating_model.dart';
-import 'package:multi_vendor/core/models/vendor_model.dart';
+
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_delivery_option.dart';
+
+import 'package:multi_vendor/shared/data/models/category_model.dart';
+import 'package:multi_vendor/shared/data/models/rating_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class VendorDetailsModel extends VendorModel {
   final List<CategoryModel>? categories;
   final RatingModel? vendorRating;
   final VendorDeliveryOptionModel? deliveryOption;
   final bool isVerified;
+  final String? bio;
 
   const VendorDetailsModel({
     this.categories,
@@ -16,6 +19,7 @@ class VendorDetailsModel extends VendorModel {
     this.deliveryOption,
     this.isVerified =false,
     super.id,
+    this.bio,
     required super.name,
     required super.image,
   });
@@ -25,6 +29,7 @@ class VendorDetailsModel extends VendorModel {
         id: json['id'],
         name: json['name'],
         image: json['image'],
+        bio: json['bio'],
         isVerified: json['is_verified'] ?? false,
         categories: json['categories'] != null
             ? List<CategoryModel>.from(json['categories'].map((x) => CategoryModel.fromJson(x)))
@@ -41,6 +46,7 @@ class VendorDetailsModel extends VendorModel {
       VendorDetailsModel(
         name: "",
         image: FakeData.fakeImg,
+        bio: FakeData.fakeStringDesc,
         categories:  List<CategoryModel>.generate(10, (index) => CategoryModel.fake()),
         isVerified: FakeData.fakeBoolean,
         vendorRating:RatingModel.fake(),

@@ -4,10 +4,10 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/models/address_model.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_profile_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/edit_address_screen.dart';
-import '../../../../../core/service/geo_locator.dart';
+import 'package:multi_vendor/core/service/geo_locator.dart';
+import 'package:multi_vendor/shared/data/models/address_model.dart';
 
 mixin EditAddressMixin on State<EditAddressScreen> {
 
@@ -42,13 +42,14 @@ mixin EditAddressMixin on State<EditAddressScreen> {
   ];
   EditProfileCubit get profileCubit => context.read<EditProfileCubit>();
   AddressModel? address ;
+  final GeolocatorService geoLocator = getIt.get<GeolocatorService>();
   Future<void> _initLocation() async {
     if(userCubit.user?.address != null) return;
     Position? location;
-    final bool locationEnabled = await GeolocatorService.instance
+    final bool locationEnabled = await geoLocator
         .checkPermission();
     if (locationEnabled) {
-      location = await GeolocatorService.instance.getCurrentLocation();
+      location = await geoLocator.getCurrentLocation();
       if (location != null) {
         final placeMarks = await placemarkFromCoordinates(
           location.latitude,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
-import '../../../../../core/routes/routes.dart';
-import '../../../../../core/widgets/cards/product_tag_tile.dart';
-import '../../data/models/product_tag_model.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/product_tag_tile.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
+import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 
 class ShopByProductTags extends StatelessWidget {
   const ShopByProductTags({super.key});

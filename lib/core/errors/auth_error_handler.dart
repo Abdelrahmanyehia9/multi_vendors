@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'error_messages.dart';
-import 'exceptions.dart';
+import 'package:multi_vendor/core/errors/error_messages.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 
 ///auth
 class AuthErrorCodes {

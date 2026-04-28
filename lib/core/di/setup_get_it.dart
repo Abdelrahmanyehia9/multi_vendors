@@ -1,34 +1,36 @@
 import 'package:get_it/get_it.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
+import 'package:multi_vendor/core/service/image_picker_service.dart';
+import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show SupabaseClient, Supabase;
 
 // import '../database/hive_local_storage.dart';
-import '../../features/authentication/data/repository/auth_repository.dart';
-import '../../features/authentication/data/repository/otp_repository.dart';
-import '../../features/authentication/data/repository/reset_password_repository.dart';
-import '../../features/main/favorite/data/repository/favorite_repository.dart';
-import '../../features/main/favorite/logic/favorite_cubit.dart';
-import '../../features/main/home/data/repository/home_repository.dart';
-import '../../features/main/search/data/repository/search_repository.dart';
-import '../../features/news/data/repository/news_repository.dart';
-import '../../features/payments/data/repository/payment_repository.dart';
-import '../../features/shop/cart/data/repository/cart_repository.dart';
-import '../../features/shop/cart/data/repository/promo_code_repository.dart';
-import '../../features/shop/cart/logic/cart_cubit.dart';
-import '../../features/shop/checkout/data/repository/checkout_repository.dart';
-import '../../features/shop/product/data/repository/product_repository.dart';
-import '../../features/vendors/data/repository/vendor_repository.dart';
-import '../cubit/user_cubit.dart';
-import '../database/hive_local_storage.dart';
-import '../database/local_storage.dart';
-import '../database/shared_pref_local_storage.dart';
-import '../service/database_service.dart';
-import '../service/real_time_service.dart';
-import '../utils/helper/user_session_helper.dart';
+import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
+import 'package:multi_vendor/features/authentication/data/repository/otp_repository.dart';
+import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
+import 'package:multi_vendor/features/main/favorite/data/repository/favorite_repository.dart';
+import 'package:multi_vendor/features/main/favorite/logic/favorite_cubit.dart';
+import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
+import 'package:multi_vendor/features/main/search/data/repository/search_repository.dart';
+import 'package:multi_vendor/features/news/data/repository/news_repository.dart';
+import 'package:multi_vendor/features/payments/data/repository/payment_repository.dart';
+import 'package:multi_vendor/features/shop/cart/data/repository/cart_repository.dart';
+import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
+import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
+import 'package:multi_vendor/features/shop/checkout/data/repository/checkout_repository.dart';
+import 'package:multi_vendor/features/shop/product/data/repository/product_repository.dart';
+import 'package:multi_vendor/features/vendors/data/repository/vendor_repository.dart';
+import 'package:multi_vendor/shared/logic/user_cubit.dart';
+import 'package:multi_vendor/core/database/local_storage.dart';
+import 'package:multi_vendor/core/database/shared_pref_local_storage.dart';
+import 'package:multi_vendor/core/service/database_service.dart';
+import 'package:multi_vendor/core/service/geo_locator.dart';
+import 'package:multi_vendor/core/service/real_time_service.dart';
+import 'package:multi_vendor/core/utils/helper/user_session_helper.dart';
 
 GetIt getIt = GetIt.instance;
 UserCubit userCubit = getIt.get<UserCubit>();
@@ -44,7 +46,7 @@ static const String _favoriteCache = 'favoriteCache';
 static const String _settings = 'settings';
 static const String _searchHistoryCache = 'searchHistoryCache';
 static Future<void> setupGetIt() async {
-   await _setupLocalStorage();
+ await _setupLocalStorage();
     getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
     getIt.registerLazySingleton(
           () => AuthenticationService(getIt.get<SupabaseClient>()),
@@ -55,6 +57,15 @@ static Future<void> setupGetIt() async {
     getIt.registerLazySingleton(
           () => RealtimeService(getIt.get<SupabaseClient>()),
     );
+
+ getIt.registerLazySingleton<GeolocatorService>(
+       () => const GeolocatorService(),
+ );
+ getIt.registerLazySingleton<ImagePickerService>(
+       () => const ImagePickerService(),
+ );
+
+
     getIt.registerLazySingleton(
           () =>
           UserSessionHelper(
@@ -64,6 +75,9 @@ static Future<void> setupGetIt() async {
             getIt.get<LocalStorage>(instanceName: _userCache),
           ),
     );
+
+
+
     getIt.registerLazySingleton(() => UserCubit(getIt.get<UserSessionHelper>()));
     getIt.registerLazySingleton(() => CartCubit(getIt.get<CartRepository>()));
     getIt.registerLazySingleton(() => FavoriteCubit(getIt.get<FavoriteRepository>()));
@@ -85,39 +99,30 @@ static Future<void> setupGetIt() async {
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
     getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));
   }
-static Future<void>_setupLocalStorage()async{
-    await HiveLocalStorage.init();
-    await HiveLocalStorage.openBox(HiveBoxes.userBox) ;
-    await HiveLocalStorage.openBox(HiveBoxes.cartBox) ;
-    await HiveLocalStorage.openBox(HiveBoxes.favoriteBox) ;
-    await HiveLocalStorage.openBox(HiveBoxes.searchHistoryBox) ;
+static Future<void> _setupLocalStorage() async {
+  await HiveHelper.init();
 
-    getIt.registerSingleton<LocalStorage>(
-      await SharedPrefLocalStorage.create(),
-      instanceName: _settings,
-    );
-    getIt.registerLazySingleton<LocalStorage>(
-          () => HiveLocalStorage(HiveBoxes.userBox),
-      instanceName: _userCache,
-    );
-    getIt.registerLazySingleton<LocalStorage>(
-          () => HiveLocalStorage(HiveBoxes.cartBox),
-      instanceName: _cartCache,
-    );
-    getIt.registerLazySingleton<LocalStorage>(
-          () => HiveLocalStorage(HiveBoxes.favoriteBox),
-      instanceName: _favoriteCache,
-    );
-    getIt.registerLazySingleton<LocalStorage>(
-          () => HiveLocalStorage(HiveBoxes.searchHistoryBox),
-      instanceName: _searchHistoryCache,
-    );
-
-  }
-
-
-
-
+  getIt.registerSingleton<LocalStorage>(
+    await SharedPrefLocalStorage.create(),
+    instanceName: _settings,
+  );
+  getIt.registerLazySingleton<LocalStorage>(
+        () => HiveHelper.user,
+    instanceName: _userCache,
+  );
+  getIt.registerLazySingleton<LocalStorage>(
+        () => HiveHelper.cart,
+    instanceName: _cartCache,
+  );
+  getIt.registerLazySingleton<LocalStorage>(
+        () => HiveHelper.favorite,
+    instanceName: _favoriteCache,
+  );
+  getIt.registerLazySingleton<LocalStorage>(
+        () => HiveHelper.searchHistory,
+    instanceName: _searchHistoryCache,
+  );
+}
 }
 
 

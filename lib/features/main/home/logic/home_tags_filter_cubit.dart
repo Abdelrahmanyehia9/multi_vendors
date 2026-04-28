@@ -9,7 +9,7 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 
-import '../data/models/product_tag_model.dart';
+import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 
 class HomeTagsFilterCubit extends Cubit<BaseState<List<ProductTagModel>>> {
   final HomeRepository _repository;

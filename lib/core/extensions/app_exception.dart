@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../errors/error_handler.dart';
-import '../errors/exceptions.dart';
+import 'package:multi_vendor/core/errors/error_handler.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 
 extension ErrorExtension on Object {
   AppException get toAppException {

@@ -3,7 +3,7 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 
-import '../data/repository/search_repository.dart';
+import 'package:multi_vendor/features/main/search/data/repository/search_repository.dart';
 
 class SearchProductHistoryCubit extends Cubit<BaseState<List<String>>> {
   final SearchRepository _repository;

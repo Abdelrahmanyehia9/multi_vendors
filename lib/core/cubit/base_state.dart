@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../errors/exceptions.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 
 enum StateStatus { initial, loading, success, failure, empty }
 

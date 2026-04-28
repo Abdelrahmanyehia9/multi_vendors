@@ -6,8 +6,8 @@ import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_pic.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/edit_profile_form.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
-import 'mixin/edit_profile_mixin.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/features/main/profile/view/mixin/edit_profile_mixin.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});

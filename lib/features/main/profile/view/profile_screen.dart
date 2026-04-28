@@ -9,11 +9,11 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
-import 'package:multi_vendor/core/widgets/login_required.dart';
-import 'package:multi_vendor/core/widgets/user_avatar.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
-import '../../../../core/enum/login_providers.dart';
-import '../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/enum/login_providers.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/login_required.dart';
+import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

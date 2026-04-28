@@ -4,10 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
-import '../models/action_model.dart';
-import '../theme/app_colors.dart';
-import '../theme/text_styles.dart';
-import 'buttons/app_button.dart';
+import 'package:multi_vendor/shared/data/models/action_model.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 
 enum States {
   error,

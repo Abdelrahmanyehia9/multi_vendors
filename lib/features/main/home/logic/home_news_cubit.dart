@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
-import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
 
 
 class HomeNewsCubit extends Cubit<BaseState<List<NewsModel>>> {

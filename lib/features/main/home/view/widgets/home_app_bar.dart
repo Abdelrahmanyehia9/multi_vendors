@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/cubit/user_cubit.dart';
-import 'package:multi_vendor/core/cubit/user_states.dart';
-import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_cart_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import '../../../../../core/DI/setup_get_it.dart';
-import '../../../../../core/widgets/user_avatar.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/shared/logic/user_cubit.dart';
+import 'package:multi_vendor/shared/logic/user_states.dart';
+import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
+import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final layoutCubit = context.read<MainLayoutCubit>();
     return BlocBuilder<UserCubit, UserStates>(
       builder: (_, _) => Row(
         children: [
           Expanded(
             child: AppClick(
-              onTap: () => context.pushNamedAndRemoveUntil(
-                  Routes.mainLayout, predicate: (_) => false, arguments: 4),
+              onTap: ()=>layoutCubit.changePage(4),
               child: Row(
                 children: [
                   const UserAvatar(size: 48),

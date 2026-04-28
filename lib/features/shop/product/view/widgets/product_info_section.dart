@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import '../../../../../../core/theme/text_styles.dart';
-import '../../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class ProductInfoSection extends StatelessWidget {
   final String header;

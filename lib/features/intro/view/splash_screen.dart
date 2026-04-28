@@ -3,7 +3,7 @@ import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
-import '../logic/splash_logic.dart';
+import 'package:multi_vendor/features/intro/logic/splash_logic.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

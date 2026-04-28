@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multi_vendor/core/models/category_model.dart';
-
-import '../logic/vendors_by_category_cubit.dart';
-import 'all_vendors_screen.dart';
+import 'package:multi_vendor/shared/data/models/category_model.dart';
+import 'package:multi_vendor/features/vendors/logic/vendors_by_category_cubit.dart';
+import 'package:multi_vendor/features/vendors/view/all_vendors_screen.dart';
 import 'package:flutter/material.dart';
 
 mixin AllVendorsScreenMixin on State<AllVendorsScreen> {

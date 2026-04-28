@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import '../../../../core/cubit/base_bloc_consumer.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/widgets/buttons/app_button.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../logic/forget_password_send_email_cubit.dart';
-import '../../logic/forget_password_stepper_cubit.dart';
-import 'auth_fields.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/features/authentication/logic/forget_password_send_email_cubit.dart';
+import 'package:multi_vendor/features/authentication/logic/forget_password_stepper_cubit.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 
 class ForgetStepSendEmail extends StatefulWidget {
   const ForgetStepSendEmail({super.key});

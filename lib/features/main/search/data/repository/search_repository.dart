@@ -5,8 +5,7 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
-
-import '../../../../../core/models/product_model.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class SearchRepository {
   final DatabaseService _db;

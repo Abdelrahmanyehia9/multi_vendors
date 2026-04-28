@@ -1,7 +1,7 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
-import '../../../../../core/models/price_model.dart';
-import '../../../product/data/model/product_details_model.dart';
+import 'package:multi_vendor/shared/data/models/price_model.dart';
+import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
 class CartModel {
   final CartProductModel product;

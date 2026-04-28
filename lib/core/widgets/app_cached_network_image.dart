@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-
-import '../theme/decorations.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
 
 class AppCachedNetworkImage extends StatelessWidget {
   final String? imageUrl;

@@ -6,8 +6,8 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_password_cubit.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
-import '../../../authentication/view/widgets/forget_password_form.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/forget_password_form.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

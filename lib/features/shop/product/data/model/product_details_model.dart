@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/stock_availability.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import 'package:multi_vendor/core/models/rating_model.dart';
-import 'package:multi_vendor/core/models/stock_availabilty_model.dart';
-import 'package:multi_vendor/core/models/vendor_model.dart';
-import '../../../../../core/enum/product_tags.dart';
-import '../../../../../core/models/category_model.dart';
-import '../../../../../core/models/price_model.dart';
-import '../../../../../core/utils/helper/fake_data.dart';
+import 'package:multi_vendor/core/enum/product_tags.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
+import 'package:multi_vendor/shared/data/models/category_model.dart';
+import 'package:multi_vendor/shared/data/models/price_model.dart';
+import 'package:multi_vendor/shared/data/models/rating_model.dart';
+import 'package:multi_vendor/shared/data/models/stock_availabilty_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class ProductDetailsModel extends Equatable {
   final int? id ;

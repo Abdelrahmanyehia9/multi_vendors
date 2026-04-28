@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
-import '../../service/navigation_service.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/text_styles.dart';
-import '../gap.dart';
+import 'package:multi_vendor/core/service/navigation_service.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class SnackBars {
   const SnackBars._();

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
-import 'package:multi_vendor/core/cubit/search_cubit.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_navbar.dart';
 import 'package:multi_vendor/features/main/favorite/view/favorite_screen.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
-import 'package:multi_vendor/core/cubit/shop_categories_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_product_by_category_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
 import 'package:multi_vendor/features/main/home/view/home_screen.dart';
+import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/profile_screen.dart';
 import 'package:multi_vendor/features/main/search/data/repository/search_repository.dart';
 import 'package:multi_vendor/features/main/search/logic/search_product_history_cubit.dart';
@@ -24,9 +23,11 @@ import 'package:multi_vendor/features/shop/history/data/repository/order_history
 import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/order_history_screen.dart';
 
-mixin MainLayoutMixin on State<MainLayout> {
-  final ValueNotifier<int> selectedPage = ValueNotifier(0);
+import 'package:multi_vendor/shared/logic/search_cubit.dart';
+import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
 
+mixin MainLayoutMixin on State<MainLayout> {
+  MainLayoutCubit get cubit => context.read<MainLayoutCubit>()  ;
   late final List<NavbarItem> items;
   late final List<Widget?> _loadedPages;
 
@@ -35,7 +36,6 @@ mixin MainLayoutMixin on State<MainLayout> {
     super.initState();
     items = _buildItems();
     _loadedPages = List.generate(items.length, (_) => null);
-    selectedPage.value = widget.initialIndex;
     _loadedPages[widget.initialIndex] = items[widget.initialIndex]
         .pageBuilder();
   }
@@ -78,7 +78,7 @@ mixin MainLayoutMixin on State<MainLayout> {
           ],
           child: HomeScreen(
             onSearch: () {
-              changePage(1);
+              cubit.changePage(1);
             },
           ),
         ),
@@ -124,8 +124,7 @@ mixin MainLayoutMixin on State<MainLayout> {
       ),
     ];
   }
-  void changePage(int index) {
-    selectedPage.value = index;
+  void onChange(int index) {
     _loadedPages[index] ??= items[index].pageBuilder();
     if (index == 1) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -133,27 +132,14 @@ mixin MainLayoutMixin on State<MainLayout> {
         });
     }
   }
-
-  bool get canPop => selectedPage.value == 0;
-
-  void onBackPressed(bool didPop) {
-    if (!didPop) {
-      changePage(0);
-    }
-  }
-
+  bool get canPop => cubit.canPop;
 
   void onRefresh() {
 
   }
 
-  List<Widget> get pages =>
-      _loadedPages.map((page) => page ?? const SizedBox()).toList();
+  List<Widget> get pages => _loadedPages.map((page) => page ?? const SizedBox()).toList();
 
-  @override
-  void dispose() {
-    selectedPage.dispose();
-    super.dispose();
-  }
+
 
 }

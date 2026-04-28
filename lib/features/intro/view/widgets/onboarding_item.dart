@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-import '../../../../core/theme/decorations.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/types/type_def.dart';
-import '../../../../core/widgets/app_cached_network_image.dart';
-import '../../../../core/widgets/app_slider.dart';
-import '../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/types/type_def.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 
 class OnboardingItem extends StatelessWidget {
   final OnBoardingItemData item;

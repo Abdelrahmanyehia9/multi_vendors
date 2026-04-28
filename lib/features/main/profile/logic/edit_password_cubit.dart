@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 
-import '../../../../core/cubit/base_state.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
 
 class EditPasswordCubit extends Cubit<BaseState<Unit>>{
   final ProfileRepository _repository ;

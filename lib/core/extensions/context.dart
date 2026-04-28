@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/overlays/snackbars.dart';
+import 'package:multi_vendor/core/widgets/overlays/snackbars.dart';
 
 extension SizeExt on BuildContext{
    Size get rSize => MediaQuery.sizeOf(this) ;

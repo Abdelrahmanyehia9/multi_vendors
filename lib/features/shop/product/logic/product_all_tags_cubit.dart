@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/product/data/repository/product_repository.dart';
-import '../../../../core/mixin/cubit_search.dart';
-import '../../../main/home/data/models/product_tag_model.dart';
+import 'package:multi_vendor/shared/view/mixin/cubit_search.dart';
+import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 
 class ProductAllTagsCubit extends Cubit<BaseState<List<ProductTagModel>>> with LocalCubitSearch<ProductTagModel> {
   final ProductRepository _repository ;

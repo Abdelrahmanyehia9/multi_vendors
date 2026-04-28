@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/widgets/app_steps_header.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_stepper_cubit.dart';
@@ -11,7 +10,8 @@ import 'package:multi_vendor/features/authentication/view/widgets/forget_step_re
 import 'package:multi_vendor/features/authentication/view/widgets/forget_step_send_email.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/forget_step_verify_email.dart';
 
-import '../../../core/widgets/buttons/app_back_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
+import 'package:multi_vendor/shared/view/widgets/app_steps_header.dart';
 
 class ForgetPasswordArgs{
   final String? email  ;

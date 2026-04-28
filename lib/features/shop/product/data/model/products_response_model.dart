@@ -1,6 +1,5 @@
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
-
-import '../../../../../core/models/product_model.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class ProductResponseModel {
   final List<ProductModel> products;

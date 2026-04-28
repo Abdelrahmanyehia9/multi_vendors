@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 
-import '../../../core/cubit/base_state.dart';
-import '../data/repository/reset_password_repository.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
 
 class ForgetPasswordChangePasswordCubit extends Cubit<BaseState<Unit>>{
   final ResetPasswordRepository _repository ;

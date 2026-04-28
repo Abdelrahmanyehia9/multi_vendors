@@ -6,11 +6,11 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-import 'package:multi_vendor/core/widgets/circular_box.dart';
-import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_vendor_model.dart';
 import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
-import '../../../../../core/routes/routes.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class HomeVendorsSection extends StatelessWidget {
   const HomeVendorsSection({super.key});

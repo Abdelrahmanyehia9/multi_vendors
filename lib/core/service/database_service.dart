@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../utils/remote_database_constants.dart';
+import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 
 class DatabaseService {
   final SupabaseClient _supabase;

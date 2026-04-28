@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/app_text_field.dart';
+
+import 'package:multi_vendor/core/widgets/app_text_field.dart';
+
 
 class Decorations {
   const Decorations._();

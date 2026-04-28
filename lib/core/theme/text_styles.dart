@@ -45,15 +45,15 @@ class TextStyles {
   );
   static final TextStyle captionLarge = TextStyle(
     fontSize: 18.sp * _largerFactor,
-    fontWeight: FontWeightHelper.light,
+    fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle captionMedium = TextStyle(
     fontSize: 14.sp * _largerFactor,
-    fontWeight: FontWeightHelper.light,
+    fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle captionSmall = TextStyle(
     fontSize: 10.sp * _largerFactor,
-    fontWeight: FontWeightHelper.light,
+    fontWeight: FontWeightHelper.medium,
   );
 }
 

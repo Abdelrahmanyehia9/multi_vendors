@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/extension/checkout_summery_model_extension.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/types/type_def.dart';
-import '../../../../core/widgets/section_header.dart';
-import '../model/checkout_model.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/types/type_def.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 
 class OrderReceiptCard extends StatelessWidget {
   final bool hasTitle;

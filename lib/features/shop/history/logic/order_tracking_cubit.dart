@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/history/data/model/order_tracking_model.dart';
 
-import '../data/repository/order_history_repository.dart';
+import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 
 class OrderTrackingCubit extends Cubit<BaseState<OrderTrackingModel>> {
   final OrderHistoryRepository _repository;

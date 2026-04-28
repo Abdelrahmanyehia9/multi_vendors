@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/utils/rpc_functions.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 
-import '../../../../core/queries/shop_queries.dart';
+import 'package:multi_vendor/core/queries/shop_queries.dart';
 
 
 class VendorRepository {

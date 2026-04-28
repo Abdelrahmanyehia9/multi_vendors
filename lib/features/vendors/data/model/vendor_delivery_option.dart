@@ -1,6 +1,5 @@
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
-
-import '../../../../core/models/range_model.dart';
+import 'package:multi_vendor/shared/data/models/range_model.dart';
 
 class VendorDeliveryOptionModel {
   final RangeModel estimatedDeliveryTime;

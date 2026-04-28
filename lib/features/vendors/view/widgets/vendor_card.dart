@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/models/vendor_model.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
-import 'package:multi_vendor/core/widgets/photo_overlay.dart';
-import '../../../../core/models/rating_model.dart';
-import '../../../../core/routes/routes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/decorations.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/feature_flags.dart';
-import '../../../../core/widgets/app_cached_network_image.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../../../core/widgets/rating_stars.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/data/models/rating_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/shared/view/widgets/photo_overlay.dart';
+import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
 class VendorsCardList extends StatelessWidget {
   final bool shrinkWrap;

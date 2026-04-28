@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../mixin/scroll_visibility.dart';
+
+import 'package:multi_vendor/shared/view/mixin/scroll_visibility.dart';
 
 class StickyBottomLayout extends StatefulWidget {
   final Widget sticky;

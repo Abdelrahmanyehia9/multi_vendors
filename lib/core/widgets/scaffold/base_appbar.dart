@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 
-import '../buttons/app_back_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
 
 class BaseAppBar extends AppBar {
   BaseAppBar({

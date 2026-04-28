@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/helper/app_validation.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 
 class _PasswordValidationHints extends StatelessWidget {
   final bool hasLowerCase;

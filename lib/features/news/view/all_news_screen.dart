@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
-import 'package:multi_vendor/core/models/news_model.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/cards/news_card.dart';
+import 'package:multi_vendor/core/widgets/overlays/widget_overlay.dart';
 import 'package:multi_vendor/features/news/logic/news_cubit.dart';
-import '../../../core/widgets/app_search_bar.dart';
-import '../../../core/widgets/scaffold/base_appbar.dart';
-import '../../../core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/shared/view/widgets/app_search_bar.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/news_card.dart';
+import 'package:multi_vendor/shared/view/widgets/search_builder.dart';
 
 class AllNewsScreen extends StatelessWidget {
   const AllNewsScreen({super.key});
@@ -17,6 +20,7 @@ class AllNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<NewsCubit>();
     return BaseScaffold(
+      paddingHr: 0,
       appBar: BaseAppBar(title:"News"),
       body: Column(
         spacing: 16.h,
@@ -27,20 +31,25 @@ class AllNewsScreen extends StatelessWidget {
             builder: (s) {
               if(s.isSuccess || s.isLoading) {
                 return AppSearchbar(
-              onQueryChanged: cubit.searchNews,
+                onQueryChanged: cubit.searchNews,
             );
               }
               return const SizedBox.shrink();
             },
-          ),
+          ).appPaddingHr,
           Expanded(
-          child: BaseBlocConsumer<NewsCubit, List<NewsModel>>(
-            successBuilder:  _builder,
-            loadingBuilder: ()=>_builder(List.generate(10, (i)=>NewsModel.fake())),
-            emptyBuilder: AppStates.empty,
-            failureBuilder: AppStates.error,
-          ),
-        )
+            child: SearchBuilder(
+              builder:(_,hasFocus)=> WidgetOverlay(
+                showOverlay: hasFocus,
+                child: BaseBlocConsumer<NewsCubit, List<NewsModel>>(
+                    successBuilder:  _builder,
+                    loadingBuilder: ()=>_builder(List.generate(10, (i)=>NewsModel.fake())),
+                    emptyBuilder: AppStates.empty,
+                    failureBuilder: AppStates.error,
+                  ).appPaddingHr,
+                  )
+              ),
+            )
         ],
       ),
     );

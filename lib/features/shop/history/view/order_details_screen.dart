@@ -7,14 +7,14 @@ import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_delete_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/order_details_actions.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
-import '../../../../core/widgets/cards/order_cards.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
-import '../../../../core/widgets/scaffold/base_scaffold.dart';
-import '../../shared/model/order_model.dart';
-import '../../shared/widgets/order_address_info_card.dart';
-import '../../shared/widgets/order_recipt_card.dart';
-import '../logic/helper/order_history_helper.dart';
-import '../logic/order_details_cubit.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/order_cards.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/order_address_info_card.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/order_recipt_card.dart';
+import 'package:multi_vendor/features/shop/history/logic/helper/order_history_helper.dart';
+import 'package:multi_vendor/features/shop/history/logic/order_details_cubit.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   final int orderId ;

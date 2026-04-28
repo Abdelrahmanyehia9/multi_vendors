@@ -1,6 +1,5 @@
-import 'package:multi_vendor/core/models/vendor_model.dart';
-
-import '../../../../../core/models/product_model.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class FavoriteModel {
   final List<ProductModel> favoriteProducts;

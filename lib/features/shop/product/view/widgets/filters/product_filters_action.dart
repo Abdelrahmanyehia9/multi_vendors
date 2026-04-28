@@ -7,11 +7,11 @@ import 'package:multi_vendor/features/shop/product/data/model/products_filters_m
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/filters/product_filters_sheet.dart';
 
-import '../../../../../../core/mixin/show_menu_mixin.dart';
-import '../../../../../../core/widgets/buttons/app_icon_button.dart';
-import '../../../../../../core/widgets/gap.dart';
-import '../../../data/model/product_sort_by.dart';
-import '../../../logic/products_by_filters_cubit.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/mixin/show_menu_mixin.dart';
+import 'package:multi_vendor/features/shop/product/data/model/product_sort_by.dart';
+import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
 
 class ProductFiltersAction extends StatefulWidget {
   final double gap;

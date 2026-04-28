@@ -6,15 +6,15 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
-import 'package:multi_vendor/core/widgets/message_alert.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../../../core/cubit/base_state.dart';
-import '../../../../core/widgets/gap.dart';
-import '../../../../core/widgets/scaffold/base_scaffold.dart';
-import '../logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 class ApplyPromoVoucher extends StatefulWidget {
   const ApplyPromoVoucher({super.key});
 

@@ -1,5 +1,5 @@
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
-import 'local_storage.dart';
+import 'package:multi_vendor/core/database/local_storage.dart';
 
 class HiveLocalStorage implements LocalStorage {
   final String boxName;

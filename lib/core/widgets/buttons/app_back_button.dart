@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 
-import '../../routes/routes.dart';
-import 'app_icon_button.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
 
 class AppBackButton extends StatelessWidget {
   final Color? iconColor;

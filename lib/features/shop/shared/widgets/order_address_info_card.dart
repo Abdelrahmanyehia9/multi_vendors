@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/models/address_model.dart';
-import '../../../../core/widgets/buttons/app_button.dart';
-import '../../../../core/widgets/cards/info_box.dart';
-import '../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/info_box.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class OrderAddressInfoCard extends StatelessWidget {
   final bool hasAction;

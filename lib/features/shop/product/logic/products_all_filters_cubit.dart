@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_vendor/core/models/extension/products_filters.dart';
-import '../data/model/products_filters_model.dart';
-import '../data/repository/product_repository.dart';
+import 'package:multi_vendor/shared/data/models/extension/products_filters.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import 'package:multi_vendor/features/shop/product/data/repository/product_repository.dart';
 
 enum ProductsFilters{
   price,

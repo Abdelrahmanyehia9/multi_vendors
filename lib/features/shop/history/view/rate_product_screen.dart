@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/rate_product_body.dart';
-import '../../../../core/widgets/buttons/app_back_button.dart';
-import '../../../../core/widgets/buttons/app_forward_button.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_forward_button.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
 class RateProductScreen extends StatefulWidget {
   const RateProductScreen({super.key});

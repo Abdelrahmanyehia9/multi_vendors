@@ -12,8 +12,8 @@ import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
-import '../../../../../../core/widgets/gap.dart';
-import 'mixin/edit_address_mixin.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/features/main/profile/view/mixin/edit_address_mixin.dart';
 
 class EditAddressScreen extends StatefulWidget {
 

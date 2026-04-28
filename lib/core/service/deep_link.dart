@@ -1,8 +1,8 @@
 import 'package:app_links/app_links.dart';
 
-import '../../features/authentication/view/forget_password_screen.dart';
-import '../routes/routes.dart';
-import 'navigation_service.dart';
+import 'package:multi_vendor/features/authentication/view/forget_password_screen.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/service/navigation_service.dart';
 
 typedef _Args = (String, Object);
 

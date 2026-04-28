@@ -3,8 +3,8 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/checkout/data/repository/checkout_repository.dart';
 
-import '../../cart/data/models/cart_model.dart';
-import '../../shared/model/checkout_model.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 
 class CheckoutSummeryCubit extends Cubit<BaseState<CheckoutSummeryModel>> {
   final CheckoutRepository _repository ;

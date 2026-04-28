@@ -1,4 +1,4 @@
-import 'error_messages.dart';
+import 'package:multi_vendor/core/errors/error_messages.dart';
 
 abstract class AppException {
   final String message;

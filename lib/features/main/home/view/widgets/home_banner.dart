@@ -10,12 +10,12 @@ import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
-import 'package:multi_vendor/core/widgets/app_slider.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
-import '../../../../../core/utils/testing.dart';
-import '../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/utils/testing.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 
 class HomeBanner extends StatelessWidget {
   const HomeBanner({super.key});

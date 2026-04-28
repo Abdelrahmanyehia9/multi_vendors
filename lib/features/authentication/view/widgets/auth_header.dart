@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/utils/testing.dart';
-import '../../../../core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/testing.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 
 class AuthHeader extends StatelessWidget {
   const AuthHeader({super.key});

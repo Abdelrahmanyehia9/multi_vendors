@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/cards/order_cards.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
-import '../../../../core/widgets/scaffold/base_appbar.dart';
-import '../../shared/model/order_model.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/order_cards.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});

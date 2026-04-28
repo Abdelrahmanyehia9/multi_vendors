@@ -7,9 +7,9 @@ import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/product_details_cubit.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_details_body.dart';
-import '../../../../../core/widgets/scaffold/base_appbar.dart';
-import '../../../../core/models/product_model.dart';
-import '../../../../core/widgets/buttons/share_button.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});

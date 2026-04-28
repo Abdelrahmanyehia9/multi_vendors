@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 
-import '../../../../../core/routes/routes.dart';
-import '../../../../../core/theme/text_styles.dart';
-import '../../logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 
 class AddVoucherTile extends StatelessWidget {
   const AddVoucherTile({super.key});

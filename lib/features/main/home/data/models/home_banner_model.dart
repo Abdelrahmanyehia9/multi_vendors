@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import '../../../../../core/enum/banner_type.dart';
+import 'package:multi_vendor/core/enum/banner_type.dart';
 
 class HomeBannerModel {
   final int? id;

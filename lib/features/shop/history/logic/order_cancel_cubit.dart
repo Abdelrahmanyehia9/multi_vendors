@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 
-import '../../../../core/cubit/base_state.dart';
-import '../../shared/model/order_model.dart';
-import '../data/repository/order_history_repository.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
+import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 
 class CancelOrderCubit extends Cubit<BaseState<OrderModel>> {
   final OrderHistoryRepository _repository;

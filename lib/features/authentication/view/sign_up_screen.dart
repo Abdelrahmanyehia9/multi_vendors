@@ -6,14 +6,14 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import 'package:multi_vendor/core/models/user_model.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/logic/sign_up_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/signup_form.dart';
-import '../../../core/theme/text_styles.dart';
-import '../../../core/utils/app_constants.dart';
-import '../../../core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/shared/data/models/user_model.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

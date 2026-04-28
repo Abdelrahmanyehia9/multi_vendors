@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../cubit/base_state.dart';
-import '../errors/exceptions.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
 
 class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
     extends StatelessWidget {

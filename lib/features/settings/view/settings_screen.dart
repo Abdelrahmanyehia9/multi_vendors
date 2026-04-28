@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
-import '../../main/profile/view/widgets/profile_list_tile.dart';
+import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

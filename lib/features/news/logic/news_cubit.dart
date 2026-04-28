@@ -9,7 +9,8 @@ import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/news/data/repository/news_repository.dart';
 
-import '../../../core/models/news_model.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
+
 
 class NewsCubit extends Cubit<BaseState<List<NewsModel>>> {
   final NewsRepository _repository ;
@@ -28,8 +29,8 @@ class NewsCubit extends Cubit<BaseState<List<NewsModel>>> {
   }
   Future<void> searchNews([String? search])async{
     if(state.isSuccess && search.isNullOrEmpty)return ;
-    safeEmit(const BaseState.loading());
     EasyDebounce.debounce('search', const Duration(milliseconds: 500), () async{
+      safeEmit(const BaseState.loading());
       final result = await _repository.getNews(query: search);
       result.fold(
             (l) => safeEmit(BaseState.failure(l)),

@@ -1,5 +1,5 @@
-import 'error_messages.dart';
-import 'exceptions.dart';
+import 'package:multi_vendor/core/errors/error_messages.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 
 class DatabaseErrorCode {
   const DatabaseErrorCode._();

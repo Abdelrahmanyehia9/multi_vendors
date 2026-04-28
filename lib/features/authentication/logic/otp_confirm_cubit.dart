@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/authentication/data/repository/otp_repository.dart';
 
-import '../../../core/cubit/base_state.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
 
 class OtpConfirmCubit extends Cubit<BaseState<Unit>>{
   final OtpRepository _repository ;

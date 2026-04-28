@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/widgets/message_alert.dart';
 
-import '../../../../../core/routes/routes.dart';
-import '../../../../../core/widgets/buttons/app_button.dart';
-import '../../../../../core/widgets/success_screen.dart';
-import '../../../shared/model/order_model.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
+import 'package:multi_vendor/shared/view/widgets/success_screen.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 
 class OrderHistoryHelper {
     const OrderHistoryHelper._();

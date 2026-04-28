@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/colors.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/mixin/scroll_visibility.dart';
-import 'package:multi_vendor/core/models/vendor_model.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
@@ -12,12 +14,15 @@ import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.da
 import 'package:multi_vendor/features/vendors/logic/vendor_details_cubit.dart';
 import 'package:multi_vendor/features/vendors/view/widgets/vendor_app_bar.dart';
 import 'package:multi_vendor/features/vendors/view/widgets/vendor_info_card.dart';
-import '../../../core/theme/text_styles.dart';
-import '../../../core/widgets/cards/product_card.dart';
-import '../../../core/widgets/gap.dart';
-import '../../shop/product/data/model/products_filters_model.dart';
-import '../../shop/product/view/widgets/filters/product_filters_action.dart';
-import '../../shop/product/view/widgets/filters/products_filters_chips.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/mixin/scroll_visibility.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/shared/view/widgets/read_more_text.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/filters/product_filters_action.dart';
+import 'package:multi_vendor/features/shop/product/view/widgets/filters/products_filters_chips.dart';
 
 class VendorDetailsScreen extends StatefulWidget {
   const VendorDetailsScreen({super.key});
@@ -60,6 +65,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
           vendor: vendor,
           expandedHeight: titleThreshold,
         ),
+       if(vendor.bio!=null)SliverToBoxAdapter(child: _buildBio(vendor.bio!),),
         SliverToBoxAdapter(child: VendorInfoCard(vendor: vendor)),
         _productsHeader(),
         SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),
@@ -109,6 +115,31 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
         emptyBuilder: AppStates.empty,
       ).appPaddingHr,
     );
+  }
+  Widget _buildBio(String bio){
+      return Container(
+        padding: EdgeInsets.all(16.r),
+        margin: EdgeInsets.all(8.r),
+        decoration: BoxDecoration(
+          color: context.scaffoldBackground,
+          boxShadow: [
+            BoxShadow(
+              color: context.colors.surfaceContainerLowest.withAppOpacity(0.4),
+              blurRadius: Decorations.borderRadius24.r,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
+          border: Border.all(color: context.colors.surfaceContainerLowest),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("BIO", style: TextStyles.labelMedium,),
+            ReadMoreText(text:bio , maxLength: 60,style: TextStyles.captionMedium,)
+          ],
+        ),
+      );
   }
 
   @override

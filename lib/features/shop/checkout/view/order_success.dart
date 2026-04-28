@@ -5,11 +5,11 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
-import '../../../../core/widgets/cards/order_cards.dart';
-import '../../../../core/widgets/message_alert.dart';
-import '../../shared/model/order_model.dart';
-import '../../shared/widgets/order_address_info_card.dart';
-import '../../shared/widgets/order_recipt_card.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/order_cards.dart';
+import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/order_address_info_card.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/order_recipt_card.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   final OrderModel order;

@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import 'package:multi_vendor/core/widgets/app_slider.dart';
-import '../../../core/mixin/scroll_visibility.dart';
-import '../../../core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/shared/view/mixin/scroll_visibility.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 
 class NewsItemDetails extends StatefulWidget {
   final NewsModel news;

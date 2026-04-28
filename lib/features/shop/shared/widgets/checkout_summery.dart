@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import '../../../../core/cubit/base_bloc_consumer.dart';
-import '../../../../core/cubit/base_state.dart';
-import '../../cart/data/models/cart_model.dart';
-import '../../cart/data/models/promo_code_model.dart';
-import '../../cart/logic/cart_cubit.dart';
-import '../../cart/logic/validate_promo_cubit.dart';
-import '../../checkout/logic/checkout_summery_cubit.dart';
-import '../mixin/checkout_summery_mixin.dart';
-import '../model/checkout_model.dart';
-import 'order_recipt_card.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
+import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/features/shop/checkout/logic/checkout_summery_cubit.dart';
+import 'package:multi_vendor/features/shop/shared/mixin/checkout_summery_mixin.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
+import 'package:multi_vendor/features/shop/shared/widgets/order_recipt_card.dart';
 
 class CheckoutSummery extends StatefulWidget {
   const CheckoutSummery({super.key});

@@ -3,8 +3,8 @@ import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 
-import '../../../../core/cubit/base_state.dart';
-import '../../../../core/models/product_model.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class HomeFeaturedItemCubit extends Cubit<BaseState<ProductModel>> {
   final HomeRepository _repository  ;

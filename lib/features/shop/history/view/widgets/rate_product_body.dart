@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../../../../core/models/rating_model.dart';
-import '../../../../../core/widgets/buttons/app_button.dart';
-import '../../../../../core/widgets/app_text_field.dart';
-import '../../../../../core/widgets/rating_stars.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/widgets/app_text_field.dart';
+import 'package:multi_vendor/shared/data/models/rating_model.dart';
+import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
 class RateProductBody extends StatelessWidget {
   final bool isLastPage ;

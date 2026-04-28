@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/decorations.dart';
-import '../app_click.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
 
 class BottomSheets {
   const BottomSheets._();
@@ -38,35 +38,37 @@ class BottomSheets {
                 child: const SizedBox.expand(),
               ),
             ),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                boxShadow: shadow,
-                color: backgroundColor ?? context.scaffoldBackground,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(borderRadius.r),
+            Padding(
+              padding:  EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  boxShadow: shadow,
+                  color: backgroundColor ?? context.scaffoldBackground,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(borderRadius.r),
+                  ),
                 ),
-              ),
-                child: Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    child,
-                    if (showCloseButton)
-                      AppClick(
-                        onTap: context.pop,
-                        child: CircleAvatar(
-                          radius: 20.r,
-                          backgroundColor: AppColors.primary,
-                          child: Icon(
-                            Icons.close,
-                            size: 22.sp,
-                            color: Colors.white,
-                          ),
-                        ).appPaddingHr.paddingVr(8),
-                      ),
-                  ],
+                  child: Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    children: [
+                      child,
+                      if (showCloseButton)
+                        AppClick(
+                          onTap: context.pop,
+                          child: CircleAvatar(
+                            radius: 20.r,
+                            backgroundColor: AppColors.primary,
+                            child: Icon(
+                              Icons.close,
+                              size: 22.sp,
+                              color: Colors.white,
+                            ),
+                          ).appPaddingHr.paddingVr(8),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-
+            ),
           ],
         );
       },

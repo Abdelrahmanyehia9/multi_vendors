@@ -6,10 +6,10 @@ import 'package:multi_vendor/core/utils/rpc_functions.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 
-import '../../../../../core/queries/shop_queries.dart';
-import '../../../../../core/service/database_service.dart';
-import '../model/products_filters_model.dart';
-import '../model/products_response_model.dart';
+import 'package:multi_vendor/core/queries/shop_queries.dart';
+import 'package:multi_vendor/core/service/database_service.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
 
 class ProductRepository {
   final DatabaseService _databaseService;

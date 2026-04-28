@@ -2,7 +2,7 @@ import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 
-import '../../../../../core/database/local_storage.dart';
+import 'package:multi_vendor/core/database/local_storage.dart';
 
 class CartRepository {
   final LocalStorage _localStorage;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/decorations.dart';
-import '../../theme/text_styles.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
 
 class BaseTabBar extends StatelessWidget implements PreferredSizeWidget {
   final TabController controller;

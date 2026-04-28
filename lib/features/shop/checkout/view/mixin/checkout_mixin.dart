@@ -7,12 +7,12 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/shop/checkout/view/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/enum/payment_option.dart';
-import '../../../../../core/utils/helper/payment_helper.dart';
-import '../../../../payments/logic/payment_cubit.dart';
-import '../../../shared/model/order_model.dart';
-import '../../data/model/checkout_request.dart';
-import '../../logic/checkout_cubit.dart';
+import 'package:multi_vendor/core/enum/payment_option.dart';
+import 'package:multi_vendor/core/utils/helper/payment_helper.dart';
+import 'package:multi_vendor/features/payments/logic/payment_cubit.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
+import 'package:multi_vendor/features/shop/checkout/data/model/checkout_request.dart';
+import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
 
 mixin CheckoutMixin on State<CheckoutScreen> {
   final formKey = GlobalKey<FormState>();

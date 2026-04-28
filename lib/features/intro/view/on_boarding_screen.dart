@@ -7,8 +7,8 @@ import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/intro/view/widgets/onboarding_item.dart';
-import '../../../core/routes/routes.dart';
-import '../../../core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -35,7 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
   void _onFinish() {
     userCubit.finishIntro() ;
-    context.pushReplacementNamed(Routes.mainLayout);
+    context.pushNamedAndRemoveUntil(Routes.loginScreen, predicate: (_)=>false);
   }
   @override
   Widget build(BuildContext context) {

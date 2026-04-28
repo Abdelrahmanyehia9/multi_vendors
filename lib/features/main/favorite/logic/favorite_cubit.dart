@@ -42,5 +42,8 @@ class FavoriteCubit extends Cubit<BaseState<FavoriteModel>> {
   FavoriteModel _toggleLocal(FavoriteItem item) => favoriteModel.toggle(item,);
   // ---------------- CHECK ----------------
   bool isInFavorite(FavoriteItem item) => favoriteModel.containsItem(item,);
-
+  void clearFavorite() {
+    favoriteModel =  FavoriteModel(favoriteProducts: [], favoriteVendors: []);
+_update(favoriteModel);
+  }
 }

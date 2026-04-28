@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/widgets/app_text_field.dart';
-import '../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/app_text_field.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class BirthDateField extends StatefulWidget {
   final DateTime? initialDate ;

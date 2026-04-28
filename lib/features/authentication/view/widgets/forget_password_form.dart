@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/password_validations_hint.dart';
 
-import 'auth_fields.dart' show PasswordField;
+import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart' show PasswordField;
 
 class ChangePasswordForm extends StatelessWidget {
   final TextEditingController passwordController ;

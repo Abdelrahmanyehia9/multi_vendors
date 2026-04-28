@@ -1,7 +1,7 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
 
-import '../../../cart/data/models/promo_code_model.dart';
-import '../checkout_model.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 
 extension CheckoutSummeryModelExtension on CheckoutSummeryModel {
   String get subTotalDisplay => subtotal.usdPrice ;

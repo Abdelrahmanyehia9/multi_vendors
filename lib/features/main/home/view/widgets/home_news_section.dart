@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/models/news_model.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
-import '../../../../../core/widgets/cards/news_card.dart';
+import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/news_card.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class HomeNewsSection extends StatelessWidget {
   const HomeNewsSection({super.key});

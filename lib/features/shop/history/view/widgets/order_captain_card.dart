@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
-import 'package:multi_vendor/core/widgets/circular_box.dart';
-
-import '../../../../../core/models/user_model.dart';
-import '../../../../../core/theme/decorations.dart';
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/widgets/buttons/app_icon_button.dart';
-import '../../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
+import 'package:multi_vendor/shared/data/models/user_model.dart';
+import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class OrderCaptainCard extends StatelessWidget {
   final UserModel captain ;

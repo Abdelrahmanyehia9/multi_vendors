@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/widgets/app_expansion_tile.dart';
-import '../../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/shared/view/widgets/app_expansion_tile.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class CheckoutExpansionTile extends StatelessWidget {
   final String title;

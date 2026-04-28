@@ -3,7 +3,7 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 
-import '../../shared/model/order_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 
 class OrderHistoryCubit extends Cubit<BaseState<List<OrderModel>>> {
   final OrderHistoryRepository _repository;

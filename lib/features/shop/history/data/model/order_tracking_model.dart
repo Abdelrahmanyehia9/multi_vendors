@@ -1,7 +1,7 @@
 import 'package:multi_vendor/core/enum/order_status.dart';
-import 'package:multi_vendor/core/models/user_model.dart';
 
-import '../../../../../core/utils/helper/fake_data.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
+import 'package:multi_vendor/shared/data/models/user_model.dart';
 
 class OrderTrackingModel {
   final int? id;

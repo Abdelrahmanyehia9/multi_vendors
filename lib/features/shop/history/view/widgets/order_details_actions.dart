@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/enum/order_status.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import '../../../../../core/routes/routes.dart';
-import '../../../../../core/utils/feature_flags.dart';
-import '../../../../../core/widgets/buttons/app_button.dart';
-import '../../../shared/model/order_model.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 
 class OrderDetailsActions extends StatelessWidget {
   final OrderModel order ;

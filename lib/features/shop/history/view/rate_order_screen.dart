@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/list_products_to_rate_list.dart';
-import '../../../../core/widgets/section_header.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class RateOrderScreen extends StatelessWidget {
   const RateOrderScreen({super.key});

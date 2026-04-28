@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 
-import '../../../../core/cubit/base_state.dart';
-import '../data/model/products_filters_model.dart';
-import '../data/model/products_response_model.dart';
-import '../data/repository/product_repository.dart';
+import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
+import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
+import 'package:multi_vendor/features/shop/product/data/repository/product_repository.dart';
 
 class ProductsByFiltersCubit extends Cubit<BaseState<ProductResponseModel>> {
   final ProductRepository _productRepository;

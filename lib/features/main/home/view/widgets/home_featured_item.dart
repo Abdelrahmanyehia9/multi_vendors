@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
-import 'package:multi_vendor/core/widgets/cards/product_card.dart';
-import 'package:multi_vendor/core/widgets/section_header.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
-import '../../../../../core/models/product_model.dart';
-import '../../../../../core/routes/routes.dart';
+import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class HomeFeaturedItem extends StatelessWidget {
   const HomeFeaturedItem({super.key});

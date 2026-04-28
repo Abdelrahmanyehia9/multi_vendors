@@ -3,8 +3,8 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/features/payments/logic/strategy/payment_strategy.dart';
 
-import '../../../../core/service/database_service.dart';
-import '../../../../core/utils/remote_database_constants.dart';
+import 'package:multi_vendor/core/service/database_service.dart';
+import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 
 class PaymentRepository{
   final DatabaseService _db ;

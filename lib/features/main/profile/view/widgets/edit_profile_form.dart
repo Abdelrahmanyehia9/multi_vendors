@@ -8,10 +8,10 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_text_fields.dart';
-import '../../../../../core/enum/login_providers.dart';
-import '../../../../../core/models/address_model.dart';
-import '../../../../../core/widgets/app_text_field.dart';
-import '../../logic/edit_profile_cubit.dart';
+import 'package:multi_vendor/core/enum/login_providers.dart';
+import 'package:multi_vendor/core/widgets/app_text_field.dart';
+import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/logic/edit_profile_cubit.dart';
 
 class EditProfileForm extends StatelessWidget {
   final TextEditingController usernameController;

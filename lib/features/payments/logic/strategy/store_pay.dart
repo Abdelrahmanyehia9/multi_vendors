@@ -1,7 +1,7 @@
 import 'package:multi_vendor/features/payments/logic/strategy/payment_strategy.dart';
 
-import '../../../../core/enum/payment_option.dart';
-import '../../data/model/payment_response.dart';
+import 'package:multi_vendor/core/enum/payment_option.dart';
+import 'package:multi_vendor/features/payments/data/model/payment_response.dart';
 
 class StorePayment implements PaymentStrategy{
   @override

@@ -4,11 +4,11 @@ import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/decorations.dart';
-import '../../../../core/theme/text_styles.dart';
-import '../../../../core/widgets/app_chip.dart';
-import '../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 
 class VendorInfoCard extends StatelessWidget {
   final VendorDetailsModel vendor;

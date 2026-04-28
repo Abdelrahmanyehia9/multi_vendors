@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_summery.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/DI/setup_get_it.dart';
-import '../../cart/logic/validate_promo_cubit.dart';
-import '../../checkout/logic/checkout_summery_cubit.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
+import 'package:multi_vendor/features/shop/checkout/logic/checkout_summery_cubit.dart';
 
 
 mixin CheckoutSummeryMixin on State<CheckoutSummery> {

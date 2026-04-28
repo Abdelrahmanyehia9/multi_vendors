@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/enum/order_status.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
-import 'package:multi_vendor/core/widgets/section_header.dart';
-
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/text_styles.dart';
-import '../../../../../core/widgets/gap.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class OrderTrackingTimeLine extends StatelessWidget {
   final TrackStatus status;

@@ -1,7 +1,7 @@
 
 class FeatureFlags {
  const FeatureFlags._();
-static const bool multiVendor = false;
+static const bool multiVendor = true;
 static const bool shopByTags = true;
 static const bool hasNews = true;
 static const bool enableProductVariants = true;
