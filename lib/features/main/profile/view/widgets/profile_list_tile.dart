@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 
 class ProfileListTile extends StatelessWidget {
   final String title ;
@@ -19,7 +20,7 @@ class ProfileListTile extends StatelessWidget {
           backgroundColor: AppColors.primary,
           child:  Icon(icon, color: AppColors.white, size: 20.sp,)),
       title:  Text(title, style: TextStyles.bodyMedium,),
-      trailing:  Icon(Icons.arrow_forward_ios, size: 18.sp, color: AppColors.grey,),
+      trailing:  Icon(MvIcons.arrowForwardIos, size: 18.sp, color: AppColors.grey,),
     );
   }
 }

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_cart_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
-import 'package:multi_vendor/shared/logic/user_cubit.dart';
-import 'package:multi_vendor/shared/logic/user_states.dart';
 import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
 import 'package:multi_vendor/features/main/main_layout_cubit.dart';
+import 'package:multi_vendor/shared/view/widgets/user_builder.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -18,17 +17,17 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final layoutCubit = context.read<MainLayoutCubit>();
-    return BlocBuilder<UserCubit, UserStates>(
-      builder: (_, _) => Row(
+    return UserBuilder(
+      builder: (u)=> Row(
         children: [
           Expanded(
             child: AppClick(
               onTap: ()=>layoutCubit.changePage(4),
               child: Row(
                 children: [
-                  const UserAvatar(size: 48),
-                  Gap.small(),
-                  Expanded(child: _nameWithLocation()),
+                   UserAvatar(profile: u?.profilePic,),
+                  Gap.extraSmall(),
+                  Expanded(child: _nameWithLocation(context)),
                 ],
               ),
             ),
@@ -37,33 +36,21 @@ class HomeAppBar extends StatelessWidget {
           const AppCartButton()
         ],
       ),
-    );
+    ).appPaddingVr;
   }
 
-  Widget _nameWithLocation() {
-    final address = userCubit.user?.address;
+  Widget _nameWithLocation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text("Welcome back", style: TextStyles.labelSmall.copyWith(
+          color: context.colors.surfaceContainerLow,
+        ),),
         Text(
-          userCubit.userName,
+          userCubit.userName.toUpperCase(),
           maxLines: 1,
-          style: TextStyles.bodyMedium,
+          style: TextStyles.labelMedium,
           overflow: TextOverflow.ellipsis,
-        ),
-        Row(
-          spacing: 4.w,
-          children: [
-            Icon(Icons.my_location, color: AppColors.primary, size: 14.sp),
-            Expanded(
-              child: Text(
-                address?.addressDisplay ?? "Not defined",
-                style: TextStyles.captionMedium.copyWith(color: AppColors.primary),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
         ),
       ],
     );

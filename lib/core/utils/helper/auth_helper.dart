@@ -10,8 +10,9 @@ import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 
 
-final class AuthHelper{
-  static Future<void> checkAuth(GestureTapCallback whenAuth,BuildContext context)async{
+ class AuthHelper {
+   const AuthHelper._();
+ static  Future<void> checkAuth(GestureTapCallback whenAuth,BuildContext context)async{
     if(!userCubit.isGuest){
       return whenAuth.call();
     }

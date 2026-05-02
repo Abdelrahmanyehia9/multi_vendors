@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_vendor/core/errors/error_messages.dart';
+import 'package:multi_vendor/core/errors/exceptions.dart';
 
 enum ImagePickerSource{
   camera ,
@@ -44,7 +46,7 @@ final class ImagePickerService {
     File newFile = await file.rename(newPath);
     return newFile;
   }catch(e){
-    return null;
+      throw ImagePickerError(message: ImagePickerErrorMessage.errorPick);
   }
 
    }

@@ -4,6 +4,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
@@ -76,7 +77,7 @@ class AppRadioButton<T> extends StatelessWidget {
             ),
             child: _isSelected
                 ? Center(
-              child: Icon(Icons.check, color: Colors.white, size: size.sp),
+              child: Icon(MvIcons.checked, color: Colors.white, size: size.sp),
             )
                 : null,
           ),

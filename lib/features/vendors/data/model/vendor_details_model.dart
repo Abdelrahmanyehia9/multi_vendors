@@ -10,14 +10,13 @@ class VendorDetailsModel extends VendorModel {
   final List<CategoryModel>? categories;
   final RatingModel? vendorRating;
   final VendorDeliveryOptionModel? deliveryOption;
-  final bool isVerified;
   final String? bio;
 
   const VendorDetailsModel({
     this.categories,
     this.vendorRating,
     this.deliveryOption,
-    this.isVerified =false,
+    super.isVerified ,
     super.id,
     this.bio,
     required super.name,

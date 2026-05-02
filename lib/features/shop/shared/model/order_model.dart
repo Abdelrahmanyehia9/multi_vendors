@@ -69,6 +69,6 @@ class OrderModel {
   }
 
 
-  String get orderIdDisplay =>id == null ? "" : "ORDER-#$id";
+  String get orderIdDisplay =>id == null ? "" : "#ORDER-$id";
   bool get canDelete => status != OrderStatus.pending;
 }

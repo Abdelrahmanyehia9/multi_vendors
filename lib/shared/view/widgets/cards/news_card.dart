@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -54,13 +55,15 @@ class NewsCard extends StatelessWidget {
               children: [
                 Text(
                   news.title??"",
-                  style: TextStyles.bodySmall,
+                  style: TextStyles.labelSmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
                   news.description,
-                  style: TextStyles.captionSmall,
+                  style: TextStyles.bodySmall.copyWith(
+                    color: context.colors.surfaceContainerLow
+                  ),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),

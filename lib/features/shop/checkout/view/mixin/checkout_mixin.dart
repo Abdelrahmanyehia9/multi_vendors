@@ -44,14 +44,15 @@ mixin CheckoutMixin on State<CheckoutScreen> {
       )
     );
   }
-  void onOrderFailure(AppException e){
-    context.errorBar(message: e.message) ;
-    paymentCubit.deletePayment(paymentId: payId!);
-  }
+
   void onOrderSuccess(OrderModel? model){
     if(model ==null ) return ;
     cartCubit.clearCart() ;
     context.pushReplacementNamed(Routes.orderSuccess , arguments: model) ;
+  }
+   void onOrderFailed(AppException e){
+    context.errorBar(message: e.message);
+    paymentCubit.deletePayment(paymentId: payId!);
   }
 
 

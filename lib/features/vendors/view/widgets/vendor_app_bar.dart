@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -46,7 +47,7 @@ class VendorAppBar extends StatelessWidget {
         children: [
           Text(vendor.name, style: TextStyles.labelMedium),
           if(vendor.isVerified)
-          const Icon(Icons.verified , color: AppColors.success,),
+          const Icon(MvIcons.verified , color: AppColors.success,),
         ],
       ),
     ),
@@ -75,7 +76,7 @@ class _VendorProfileCover extends StatelessWidget {
             children: [
               Text(
                 vendor.name,
-                style: TextStyles.headline3.copyWith(
+                style: TextStyles.labelLarge.copyWith(
                   color: Colors.white,
                   shadows: const [
                     Shadow(blurRadius: 8, color: Colors.black54)
@@ -84,12 +85,11 @@ class _VendorProfileCover extends StatelessWidget {
               ),
               Gap.small(),
               if(vendor.isVerified)
-              Icon(Icons.verified,size: 24.sp,color: AppColors.success,),
+              Icon(MvIcons.verified,size: 24.sp,color: AppColors.success,),
               if(FeatureFlags.enableMultiShipping)...[
                 const Spacer(),
                 if(vendor.deliveryOption?.deliveryByStore??false)
                 const AppChip(text: "Deliver By Store", padding: EdgeInsets.zero,
-                  elevation: 12,
                   labelColor: AppColors.black,
                   unSelectedBorderColor: Colors.transparent,
                 )

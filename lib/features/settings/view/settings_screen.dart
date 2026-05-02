@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
@@ -10,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
   static final List<ListTileData> _list = [
     if (FeatureFlags.enableMultiLanguage)
-      ("Languange", Icons.language, null),
+      ("Languange", MvIcons.translation, null),
   ];
   @override
   Widget build(BuildContext context) {

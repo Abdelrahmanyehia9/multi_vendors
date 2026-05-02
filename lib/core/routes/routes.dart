@@ -29,6 +29,7 @@ static const String orderTracking = '/orderTracking';
 static const String  rateOrder = '/rateOrder';
 static const String  rateProduct = '/rateProduct';
 static const String  result = '/result';
+static const String productReviews = '/productReviews';
 
 
 }

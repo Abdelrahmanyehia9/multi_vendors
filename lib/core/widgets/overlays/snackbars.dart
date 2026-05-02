@@ -3,6 +3,7 @@ import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/service/navigation_service.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
 class SnackBars {
@@ -86,7 +87,7 @@ class SnackBars {
       ),
       backgroundColor: AppColors.success600,
       title: title,
-      icon: Icons.check,
+      icon: MvIcons.checked,
     );
   }
   static void error({
@@ -103,7 +104,7 @@ class SnackBars {
       messageStyle: TextStyles.captionLarge.copyWith(
           color: Colors.white
       ),
-      icon: Icons.error,
+      icon: MvIcons.error,
     );
   }
   static void warning({
@@ -120,7 +121,7 @@ class SnackBars {
       messageStyle: TextStyles.captionLarge.copyWith(
           color: Colors.white
       ),
-      icon: Icons. warning,
+      icon: MvIcons. warning,
     );
   }
 }

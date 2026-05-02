@@ -13,6 +13,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
@@ -24,7 +25,7 @@ import 'package:multi_vendor/shared/data/models/category_model.dart';
 import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/app_expansion_tile.dart';
-import 'package:multi_vendor/shared/view/widgets/app_radion_button.dart';
+import 'package:multi_vendor/core/widgets/app_radion_button.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
 import 'package:multi_vendor/shared/view/widgets/range_input.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
@@ -83,7 +84,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               /// Header
               SectionHeader(
                 title: "Filters",
-                headerStyle: TextStyles.headline3,
+                headerStyle: TextStyles.labelLarge,
                 action: "Reset",
                 hasAction: true,
                 actionStyle: TextStyles.labelLarge,

@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
@@ -78,7 +79,7 @@ class CartCard extends StatelessWidget {
             ),
             AppClick(
               onTap: () => cartCubit.removeItem(cartItem.product),
-              child: Icon(Icons.close, size: 18.sp),
+              child: Icon(MvIcons.close, size: 18.sp),
             ),
           ],
         ),

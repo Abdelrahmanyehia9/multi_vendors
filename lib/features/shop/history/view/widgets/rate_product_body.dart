@@ -6,36 +6,48 @@ import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
-class RateProductBody extends StatelessWidget {
-  final bool isLastPage ;
-  final GestureTapCallback? onActionPressed ;
-  const RateProductBody({super.key,this.onActionPressed ,this.isLastPage = false});
+class RateProductBody extends StatefulWidget {
+  final ValueChanged<double>ratingChanged ;
+  final ValueChanged<String?>commentChanged ;
+  const RateProductBody({super.key,
+    required this.ratingChanged,
+    required this.commentChanged,
+  });
 
   @override
+  State<RateProductBody> createState() => _RateProductBodyState();
+}
+class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAliveClientMixin{
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       spacing: 12.h,
       children: [
-        // const CheckoutProductCard(height: 60),
         RatingStars(
           readOnly: false,
+          showCount: false,
           title: "Overall rating",
-          rating: RatingModel.fake(),
-          onRatingChanged: (rate) {},
-          size: 30,
+          rating: const RatingModel(
+            rating: 0,
+            count: 0
+          ),
+          onRatingChanged: widget.ratingChanged,
+          size: 24,
         ),
-        const AppTextField(
+         AppTextField(
           headerText: "Product Reviews",
           maxLines: 2,
           maxLength: 150,
           hintText: "Write your review here...",
+          onChange: widget.commentChanged,
         ),
-        AppButton(
-          text: isLastPage ? "Submit your review" : "Next",
-          buttonSize: null,
-          onPressed: onActionPressed,
-        ),
+
       ],
-    ).appPaddingHr;
+    );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive =>true;
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class CategoryModel extends Equatable {
   final int? id;
@@ -30,7 +31,12 @@ class CategoryModel extends Equatable {
 
 
   factory CategoryModel.fake()=>const CategoryModel(
-    name: "Category",
+    name: "Unknown",
+    id: FakeData.fakeInt,
+    img: FakeData.fakeImg,
+    count: FakeData.fakeInt,
+    description: FakeData.fakeStringDesc,
+    parent: FakeData.fakeInt,
   ) ;
 
 

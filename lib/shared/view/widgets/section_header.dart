@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -20,23 +22,28 @@ class SectionHeader extends StatelessWidget {
     return Row(
       mainAxisSize: axisSize,
       children: [
-        Text(title, style:headerStyle?? TextStyles.bodyMedium,),
+        Text(title, style:headerStyle?? TextStyles.labelMedium,),
         if (hasAction)
 ...[
   const Spacer(),
-  _buildAction(),
+  _buildAction(context),
 ]
 
       ],
     ).paddingVr(verticalSpace);
   }
 
-  Widget _buildAction(){
+  Widget _buildAction(BuildContext context){
     late final Widget widget ;
     if(customAction!=null) {
       widget = customAction!;
     }else{
-      widget =AppButton.text(text: action??"View all",style:actionStyle?? TextStyles.bodySmall,
+      widget =AppButton.text(
+          color: context.colors.surfaceContainer,
+          text: action??"View all",style:actionStyle?? TextStyles.bodySmall.copyWith(
+        fontSize: 14.sp,
+
+      ),
           onPressed:  onActionTap);
     }
     return widget;

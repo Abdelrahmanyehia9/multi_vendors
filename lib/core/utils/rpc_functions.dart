@@ -7,6 +7,7 @@ class RpcFunctions {
 static const String calculatePromoRPC = "validate_promo_code";
 static const String calculateOrderSummeryRPC = "calculate_order_summary";
 static const String getVendorDetailsRPC = "get_vendor_details";
+static const String placeAnOrderRPC = "create_order";
 
 
 }

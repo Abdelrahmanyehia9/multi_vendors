@@ -32,7 +32,7 @@ class CheckoutScreen extends StatefulWidget {
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
-class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin{
+class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -44,7 +44,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin{
           bloc: paymentCubit,
           onSuccess:placeOrder,
           builder:(payStates)=>BaseBlocConsumer(
-            onFailure: onOrderFailure,
+            onFailure: onOrderFailed,
             bloc: checkoutCubit,
             onSuccess: onOrderSuccess,
             builder:(orderState)=> ValueListenableBuilder(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 
 
 class AppStepsHeader extends StatelessWidget {
@@ -35,7 +35,7 @@ class AppStepsHeader extends StatelessWidget {
             top: -24.h,
             right: isRTL ? activeStepWidth +16.w : null,
             left: isRTL ? null : activeStepWidth -16.w,
-            child: const Icon(Icons.check_circle, color: AppColors.primary),
+            child: const Icon(MvIcons.checkedOutlined, color: AppColors.primary),
           ),
         ],
       ),

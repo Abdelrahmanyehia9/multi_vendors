@@ -28,10 +28,7 @@ class ForgetPasswordScreen extends StatefulWidget {
   @override
   State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
-
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
-
-
   List<Widget> steps = [
     const ForgetStepSendEmail(),
     const ForgetStepVerifyEmail(),

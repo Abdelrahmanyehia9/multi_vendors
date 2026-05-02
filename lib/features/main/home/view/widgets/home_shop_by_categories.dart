@@ -50,7 +50,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
           successBuilder: (categories) => _Categories(selectedItem: _selectedItem, categories: categories),
           loadingBuilder: () => _Categories(
             selectedItem: ValueNotifier(-1),
-            categories: List.generate(10, (_) => const CategoryModel(name: '')),
+            categories: List.generate(10, (_) => CategoryModel.fake()),
           ),
         ),
         Gap.medium(),

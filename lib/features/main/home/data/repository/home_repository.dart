@@ -5,10 +5,9 @@ import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
-import 'package:multi_vendor/features/main/home/data/models/home_vendor_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:multi_vendor/core/queries/home_queries.dart';
 import 'package:multi_vendor/shared/data/models/category_model.dart';
 import 'package:multi_vendor/shared/data/models/news_model.dart';
@@ -43,11 +42,11 @@ class HomeRepository {
        filter: (e) => e.isFilter("parent", null).order("count", ascending: false),
        fromJson: CategoryModel.fromJson,
     );
-  Future<Either<AppException, List<HomeVendorModel>>> getVendors() =>
+  Future<Either<AppException, List<VendorModel>>> getVendors() =>
      _getList(
       table: RemoteDatabaseConstants.vendor_table,
       select: HomeQueries.homeVendors,
-      fromJson: HomeVendorModel.fromJson,
+      fromJson: VendorModel.fromJson,
     );
   Future<Either<AppException, List<ProductModel>>> getProductByCategory({
     required int catId,
@@ -71,7 +70,7 @@ class HomeRepository {
   Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() =>
     _getList(
       table: RemoteDatabaseConstants.tags_table,
-      filter: (e)=>e.limit(4),
+      filter: (e)=>e.gt('count', 0).order('count', ascending: false).limit(4),
       fromJson: ProductTagModel.fromJson,
     );
   Future<Either<AppException, List<NewsModel>>> getNews() => _getList(

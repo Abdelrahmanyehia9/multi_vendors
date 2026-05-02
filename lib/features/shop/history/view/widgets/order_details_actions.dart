@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/enum/order_status.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
@@ -13,16 +14,19 @@ class OrderDetailsActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasUnratedItems = order.items?.any((item) => item.isRated == false)??false;
     final status = order.status;
     return Column(
       spacing: 8.h,
       children: [
         if(status == OrderStatus.delivered)...[
-          if(FeatureFlags.enableRating)
-            AppButton.outlined(text: "Rate order",onPressed: ()=>context.pushNamed(Routes.rateOrder),),
+          if(FeatureFlags.enableRating && hasUnratedItems)
+            AppButton.outlined(text: "Rate order",onPressed:order.items.isNullOrEmpty? null: ()=>context.pushNamed(Routes.rateOrder, arguments: order.items),),
         ],
         if(status == OrderStatus.pending ||order.trackId!=null)
-        AppButton(text: "Track Order",buttonSize: null, onPressed: ()=>context.pushNamed(Routes.orderTracking, arguments: order.trackId)),
+        AppButton(text: "Track Order",buttonSize: null, onPressed: () {
+          context.pushNamed(Routes.orderTracking, arguments: order.trackId);
+        }),
       ],
     );
   }

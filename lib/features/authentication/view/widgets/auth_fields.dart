@@ -7,6 +7,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -66,7 +67,7 @@ class _PasswordFieldState extends State<PasswordField> {
           obscureText: value,
           suffix: AppClick(
             onTap: () => _isObscured.value = !value,
-            child: Icon(!value ? Icons.visibility : Icons.visibility_off),
+            child: Icon(!value ? MvIcons.visibility : MvIcons.visibilityOff),
           ),
           headerText: widget.header,
         );
@@ -98,7 +99,7 @@ class EmailField extends StatelessWidget {
       headerText: "Email Address",
       validator:(v)=> AppValidation.validateEmail(v, nullable),
       keyboardType: TextInputType.emailAddress,
-      suffix: const Icon(Icons.email),
+      suffix:  const Icon(MvIcons.email),
       borderType: AppBorderType.filled,
     );
   }

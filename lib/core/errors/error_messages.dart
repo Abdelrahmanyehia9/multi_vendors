@@ -1,6 +1,5 @@
 class AppErrorMessages {
   const AppErrorMessages._();
-
   static const unexpectedError = 'An unexpected error occurred, please try again';
   static const networkError = 'Internet connection error, check your network and try again';
   static const timeoutError = 'Request timed out, please try again';
@@ -16,15 +15,12 @@ class DatabaseErrorMessages {
   static const foreignKey = 'Cannot delete or add due to related data';
   static const notNullViolation = 'All required fields must be filled';
   static const checkViolation = 'The entered value is not allowed';
-
   static const insufficientPrivilege = 'You do not have permission to perform this action';
   static const undefinedTable = 'The requested data was not found';
   static const undefinedColumn = 'A data structure error occurred';
   static const undefinedFunction = 'Operation is not currently supported';
-
   static const invalidInputSyntax = 'The entered data is invalid';
   static const readOnlyTransaction = 'Modification is not allowed at this time';
-
   static const connectionFailure = 'Failed to connect to the database';
   static const internalError = 'An internal server error occurred';
 
@@ -60,12 +56,10 @@ class AuthErrorMessages {
   static const emailNotConfirmed = 'Please confirm your email before logging in';
   static const emailProviderDisabled = 'Email registration is currently unavailable';
   static const emailConflictIdentityNotDeletable = 'There is an email conflict and the identity cannot be deleted';
-
   static const invalidCredentials = 'Invalid login credentials';
   static const userNotFound = 'This user does not exist';
   static const userAlreadyExists = 'This user is already registered';
   static const userBanned = 'This account has been temporarily banned';
-
   static const weakPassword = 'The password is too weak';
   static const samePassword = 'The new password must be different from the current one';
   static const reauthenticationNeeded = 'You must log in again to perform this action';
@@ -148,4 +142,12 @@ class StorageErrorMessage {
   static const missingPart = 'A part of the file is missing';
   static const slowDown = 'Too many requests, please try again later';
   static const unknown = 'An unexpected error occurred';
+}
+
+class ImagePickerErrorMessage {
+  const ImagePickerErrorMessage._();
+  static const unknown = 'An unexpected error occurred';
+  static const sizeExceeded = 'File size is too large';
+  static const errorCropping = 'Failed to crop image';
+  static const errorPick = 'Failed to pick image';
 }

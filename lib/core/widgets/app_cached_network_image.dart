@@ -4,8 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/app_photo_view.dart';
+import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 
-class AppCachedNetworkImage extends StatelessWidget {
+class AppCachedNetworkImage extends StatelessWidget{
   final String? imageUrl;
   final double? width;
   final double? height;
@@ -40,24 +44,31 @@ class AppCachedNetworkImage extends StatelessWidget {
     if (imageUrl.isNullOrEmpty) {
       return _buildErrorWidget();
     }
-
-    final image = Opacity(
-      opacity: opacity ?? 1,
-      child: CachedNetworkImage(
-        imageUrl: imageUrl!,
-        width: width?.w,
-        height: height?.h,
-        fit: fit,
-        color: color,
-        alignment: alignment ?? Alignment.center,
-        colorBlendMode: colorBlendMode,
-        memCacheWidth: 600,
-        placeholder: (context, url) =>
-            _buildPlaceholder(context),
-        errorWidget: (context, url, error) => errorWidget ?? _buildErrorWidget(),
+    final image = AppClick(
+      enabled: !imageUrl.isNullOrEmpty,
+      onDoubleTap: ()=>BottomSheets.show(
+          showCloseButton: true,
+          context, child: SizedBox(
+            height: context.height * 0.9,
+            child: AppPhotoView(imgUrl: imageUrl!),
+          ),),
+      child: Opacity(
+        opacity: opacity ?? 1,
+        child: CachedNetworkImage(
+          imageUrl: imageUrl!,
+          width: width?.w,
+          height: height?.h,
+          fit: fit,
+          color: color,
+          alignment: alignment ?? Alignment.center,
+          colorBlendMode: colorBlendMode,
+          memCacheWidth: 600,
+          placeholder: (context, url) =>
+              _buildPlaceholder(context),
+          errorWidget: (context, url, error) => errorWidget ?? _buildErrorWidget(),
+        ),
       ),
     );
-
     if (borderRadius != null || radius != null ) {
       return ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(radius!.r),
@@ -84,14 +95,13 @@ class AppCachedNetworkImage extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildErrorWidget() {
     return Container(
       width: width?.w,
       height: height?.h,
       color: Colors.grey.shade200,
       alignment: Alignment.center,
-      child: const Icon(Icons.broken_image, color: Colors.grey, size: 32),
+      child: const Icon(MvIcons.brokenImage, color: Colors.grey, size: 32),
     );
   }
 }

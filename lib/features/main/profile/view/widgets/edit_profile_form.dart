@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
@@ -11,7 +10,6 @@ import 'package:multi_vendor/features/main/profile/view/widgets/profile_text_fie
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/shared/data/models/address_model.dart';
-import 'package:multi_vendor/features/main/profile/logic/edit_profile_cubit.dart';
 
 class EditProfileForm extends StatelessWidget {
   final TextEditingController usernameController;
@@ -21,6 +19,7 @@ class EditProfileForm extends StatelessWidget {
   final ValueNotifier<bool> isMaleNotifier;
   final ValueChanged<DateTime> onBirthDateSelected;
   final ValueChanged<Country> onCountryChanged;
+
   const EditProfileForm({
     super.key,
     required this.usernameController,
@@ -34,7 +33,8 @@ class EditProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isEmailProvided = AppConstants.authFormType == AuthFormType.emailAndPassword;
+    final bool isEmailProvided =
+        AppConstants.authFormType == AuthFormType.emailAndPassword;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 16.h,
@@ -60,14 +60,13 @@ class EditProfileForm extends StatelessWidget {
           maxLines: 2,
           controller: addressController,
           readOnly: true,
-          onTap: () async{
-       final AddressModel? address = await context.pushNamed(
+          onTap: () async {
+            final AddressModel? address = await context.pushNamed(
               Routes.address,
-              arguments: context.read<EditProfileCubit>(),
             );
-       if(address != null) {
-         addressController.text = address.addressDisplay;
-       }
+            if (address != null) {
+              addressController.text = address.addressDisplay;
+            }
           },
         ),
       ],
@@ -79,7 +78,7 @@ class EditProfileForm extends StatelessWidget {
     int? maxLines,
     TextEditingController? controller,
     int? maxLength,
-    String? initialValue ,
+    String? initialValue,
     bool readOnly = false,
     void Function()? onTap,
   }) => AppTextField(

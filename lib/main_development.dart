@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
+import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:multi_vendor/core/routes/app_router.dart';
 import 'package:multi_vendor/multi_vendor.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,10 +17,12 @@ void main() async {
     debug: true,
   );
   await Future.wait([
-  DI.setupGetIt(),
-  AppConstants.setupPhoneSystem(),
+    DI.setupGetIt(),
+    EasyLocalization.ensureInitialized(),
+    AppConstants.setupPhoneSystem(),
     ScreenUtil.ensureScreenSize(),
   ]);
+
   final AppRouter router = AppRouter();
   runApp(
     MultiBlocProvider(
@@ -27,7 +31,12 @@ void main() async {
         BlocProvider.value(value: cartCubit),
         BlocProvider.value(value: favoriteCubit),
       ],
-      child: MultiVendors(router: router),
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        path: AppAssets.languagesPack,
+        fallbackLocale: const Locale('en'),
+        child: MultiVendors(router: router),
+      ),
     ),
   );
 }

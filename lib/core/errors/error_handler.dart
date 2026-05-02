@@ -31,6 +31,9 @@ class ErrorHandler {
     if (error is FormatException){
       return AppFormatException(message: AppErrorMessages.formatException);
     }
+    if(error is ImagePickerError){
+      return ImagePickerError(message: error.message,stackTrace: error.stackTrace) ;
+    }
     return const UnExpectedException();
   }
 }

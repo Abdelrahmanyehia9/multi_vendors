@@ -114,7 +114,6 @@ class UserModel extends Equatable {
       'email': email,
       'is_male': isMale,
       'birth_date': birthDate?.toIso8601String(),
-      'address': address?.toJson(),
       'phone_number': phone,
     }.withoutNulls;
   }

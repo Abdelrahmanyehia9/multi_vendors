@@ -25,7 +25,6 @@ class ProductInfoSection extends StatelessWidget {
           header,
           style:
           TextStyles.labelMedium.copyWith(
-            fontWeight: FontWeightHelper.black,
             fontSize: 14.sp,
           ),
         ),

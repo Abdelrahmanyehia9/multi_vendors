@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 
 enum PaymentOption {
  store, cod ;
@@ -16,8 +17,8 @@ enum PaymentOption {
    cod=>"Cash on Delivery",
  };
  IconData get icon => switch(this){
-   store=> Icons.store,
-   cod=> Icons.payments,
+   store=> MvIcons.store,
+   cod=>   MvIcons.payments,
  };
 
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
@@ -10,13 +11,13 @@ import 'package:multi_vendor/core/database/local_storage.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 
-final class UserSessionHelper {
+final class UserSessionRepository {
   final AuthenticationService _authService;
   final DatabaseService _databaseService;
   final LocalStorage _settingsStorage;
   final LocalStorage _cacheStorage;
 
-  const UserSessionHelper(
+  const UserSessionRepository(
       this._authService,
       this._databaseService,
       this._settingsStorage,
@@ -30,35 +31,40 @@ final class UserSessionHelper {
     required void Function() onSignOut,
     required void Function() onFirstTimeJoin,
     required void Function(UserModel) onUpdateUser,
-  }) {
-    final bool firstTime = _settingsStorage.read(
-      LocalStorageConstants.firstTime,
-      defaultValue: true,
-    );
+    required void Function(AppException) onError,
+  }) async{
 
-    if (firstTime) onFirstTimeJoin.call();
     _authService.setupAuthListener(
+      /// onSignIn
           (id) async {
         final result = await _getUserRemote(id);
-        result.fold((l) => null, (r) => onSignIn.call());
+        result.fold((l) => onError.call(l), (_) => onSignIn.call());
       },
+      /// onSignOut
           () async{
-            await HiveHelper.clearAll();
-            onSignOut.call();
+        await HiveHelper.clearAll();
+        onSignOut.call();
       },
+      /// onUpdateUser
           (id) async {
-        final result = await _getUserRemote(id);
+            final result = await _getUserRemote(id);
         result.fold((l) => null, onUpdateUser.call);
       },
-    );
+      /// onInitialSession
+        ()async{
+          final bool firstTime = await _settingsStorage.read(
+            LocalStorageConstants.firstTime,
+            defaultValue: true,
+          );
+          if (firstTime) return onFirstTimeJoin.call();
+          if(_authService.isAuthenticated) {
+            onSignIn.call();
+          } else {
+            onSignOut.call();
+          }
 
-    if (_authService.isAuthenticated) {
-      _getUserRemote(_authService.currentUser!.id).then(
-            (result) => result.fold((l) => null, (r) => onSignIn.call()),
-      );
-    } else if (!firstTime) {
-      onSignOut.call();
-    }
+        }
+    );
   }
 
   Future<void> logout() async {
@@ -67,6 +73,7 @@ final class UserSessionHelper {
     await _authService.logout();
 
   }
+
   Future<void> finishIntro() async=> await _settingsStorage.write(LocalStorageConstants.firstTime, false);
   UserModel? get cachedUser => _getLocalUser();
 
@@ -81,19 +88,24 @@ try{
   final UserModel user = UserModel.fromJson(response);
   await _cacheUser(user);
   return right(user);
-
-
 }catch(e){
   return left(e.toAppException);
 }
 
   }
 
-  Future<void> _cacheUser(UserModel user) async => _cacheStorage.write(LocalStorageConstants.user, user.toJson());
+  Future<void> _cacheUser(UserModel user) async =>
+      _cacheStorage.write(
+        LocalStorageConstants.user,
+        {
+          ...user.toJson(),
+          'address': user.address?.toJson(),
+        },
+      );
 
   UserModel? _getLocalUser() {
-    final userJson = _cacheStorage.read(LocalStorageConstants.user);
-    return userJson != null ? UserModel.fromJson(userJson) : null;
+    final userJson = _cacheStorage.read(LocalStorageConstants.user)as Map?;
+    return userJson != null ? UserModel.fromJson(userJson.deepCast) : null;
   }
 
 }

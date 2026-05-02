@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
@@ -34,7 +35,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
         actions: [AppDeleteButton(onTap: resetAddress)],
       ),
       body: BaseBlocConsumer(
-        bloc: profileCubit,
+        bloc: addressCubit,
         onSuccess: (s)=>context.pop(address),
         builder:(state)=> SingleChildScrollView(
           child: Form(
@@ -42,6 +43,10 @@ class _EditAddressScreenState extends State<EditAddressScreen>
             child: Column(
               spacing: 12.h,
               children: [
+                CircleAvatar(
+                    backgroundColor: AppColors.primary,
+                    radius: 60.r,
+                    child: Icon(MvIcons.locationCity, color: AppColors.white, size: 80.sp,)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 8.w,
@@ -149,10 +154,11 @@ class _EditAddressScreenState extends State<EditAddressScreen>
       maxLines: maxLines ?? 1,
       borderType: AppBorderType.filled,
       autoValidateMode: AutovalidateMode.disabled,
-      hintText: "Enter $label ${isOptional ? "(optional)" : ""}",
+      hintText: "Enter $label",
       controller: controller,
       customHeader: header,
-      hintStyle: TextStyles.captionSmall,
+      padding: EdgeInsets.zero,
+      hintStyle: TextStyles.captionMedium,
       maxLength: maxLength,
       validator: isOptional ? null : (v) => AppValidation.validateRequired(v),
       keyboardType: isNumeric ? TextInputType.number : null,

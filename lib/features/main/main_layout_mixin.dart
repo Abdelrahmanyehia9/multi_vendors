@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_navbar.dart';
 import 'package:multi_vendor/features/main/favorite/view/favorite_screen.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
@@ -43,7 +44,7 @@ mixin MainLayoutMixin on State<MainLayout> {
   List<NavbarItem> _buildItems() {
     return [
       NavbarItem(
-        icon: Icons.home,
+        icon: MvIcons.home,
         label: "Home",
         pageBuilder: () => MultiBlocProvider(
           providers: [
@@ -84,7 +85,7 @@ mixin MainLayoutMixin on State<MainLayout> {
         ),
       ),
       NavbarItem(
-        icon: Icons.search,
+        icon: MvIcons.search,
         label: "Search",
         pageBuilder: () => MultiBlocProvider(
           providers: [
@@ -102,12 +103,12 @@ mixin MainLayoutMixin on State<MainLayout> {
       ),
       if (FeatureFlags.enableFavorite)
         NavbarItem(
-          icon: Icons.favorite,
+          icon: MvIcons.favoriteOutlined,
           label: "favorite",
           pageBuilder: () => const FavoriteScreen(),
         ),
       NavbarItem(
-        icon: Icons.history,
+        icon: MvIcons.history,
         label: "History",
         toolTip: "Order History",
         pageBuilder: () => BlocProvider(
@@ -118,7 +119,7 @@ mixin MainLayoutMixin on State<MainLayout> {
         ),
       ),
       NavbarItem(
-        icon: Icons.person,
+        icon: MvIcons.user,
         label: "profile",
         pageBuilder: () => const ProfileScreen(),
       ),

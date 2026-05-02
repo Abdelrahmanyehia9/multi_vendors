@@ -3,7 +3,6 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 
 class StorageErrorCode {
   const StorageErrorCode._();
-
   static const noSuchBucket = 'NoSuchBucket';
   static const noSuchKey = 'NoSuchKey';
   static const noSuchUpload = 'NoSuchUpload';

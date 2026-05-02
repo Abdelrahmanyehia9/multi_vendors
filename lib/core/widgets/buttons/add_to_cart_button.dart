@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
@@ -32,8 +33,8 @@ class AddToCartButton extends StatelessWidget {
           padding: EdgeInsets.zero,
           enabled: enabled,
           onPressed: () => cartCubit.addToCart(product),
-          style: TextStyles.bodySmall,
-          icon: Icon(Icons.shopping_bag, size: 18.sp),
+          style: TextStyles.bodyMedium,
+          icon: Icon(MvIcons.shopping, size: 18.sp),
           buttonSize: null,
         );
       },

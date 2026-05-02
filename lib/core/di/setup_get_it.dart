@@ -1,10 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
+import 'package:multi_vendor/core/service/image_crop_service.dart';
 import 'package:multi_vendor/core/service/image_picker_service.dart';
+import 'package:multi_vendor/core/service/real_time_service.dart';
+import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
+import 'package:multi_vendor/shared/data/repository/image_handler.dart';
+import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show SupabaseClient, Supabase;
 
@@ -29,8 +34,6 @@ import 'package:multi_vendor/core/database/local_storage.dart';
 import 'package:multi_vendor/core/database/shared_pref_local_storage.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/service/geo_locator.dart';
-import 'package:multi_vendor/core/service/real_time_service.dart';
-import 'package:multi_vendor/core/utils/helper/user_session_helper.dart';
 
 GetIt getIt = GetIt.instance;
 UserCubit userCubit = getIt.get<UserCubit>();
@@ -57,6 +60,9 @@ static Future<void> setupGetIt() async {
     getIt.registerLazySingleton(
           () => RealtimeService(getIt.get<SupabaseClient>()),
     );
+    getIt.registerLazySingleton(
+          () => StorageService(getIt.get<SupabaseClient>()),
+    );
 
  getIt.registerLazySingleton<GeolocatorService>(
        () => const GeolocatorService(),
@@ -64,11 +70,17 @@ static Future<void> setupGetIt() async {
  getIt.registerLazySingleton<ImagePickerService>(
        () => const ImagePickerService(),
  );
+ getIt.registerLazySingleton<ImageCropService>(
+       () => const ImageCropService(),
+ );
+ getIt.registerLazySingleton<ImageHandler>(
+       () =>  ImageHandler(getIt.get<ImagePickerService>(), getIt.get<ImageCropService>()),
+ );
 
 
     getIt.registerLazySingleton(
           () =>
-          UserSessionHelper(
+          UserSessionRepository(
             getIt.get<AuthenticationService>(),
             getIt.get<DatabaseService>(),
             getIt.get<LocalStorage>(instanceName: LocalStorageConstants.settings),
@@ -78,7 +90,7 @@ static Future<void> setupGetIt() async {
 
 
 
-    getIt.registerLazySingleton(() => UserCubit(getIt.get<UserSessionHelper>()));
+    getIt.registerLazySingleton(() => UserCubit(getIt.get<UserSessionRepository>()));
     getIt.registerLazySingleton(() => CartCubit(getIt.get<CartRepository>()));
     getIt.registerLazySingleton(() => FavoriteCubit(getIt.get<FavoriteRepository>()));
     getIt.registerFactory(() =>
@@ -86,7 +98,7 @@ static Future<void> setupGetIt() async {
             getIt.get<AuthenticationService>() ));
     getIt.registerFactory(()=>OtpRepository(getIt.get<AuthenticationService>())) ;
     getIt.registerFactory(()=>ResetPasswordRepository(getIt.get<AuthenticationService>())) ;
-    getIt.registerFactory(()=>ProfileRepository(getIt.get<AuthenticationService>(), getIt.get<DatabaseService>())) ;
+    getIt.registerFactory(()=>ProfileRepository(getIt.get<AuthenticationService>(), getIt.get<DatabaseService>(), getIt.get<StorageService>())) ;
     getIt.registerFactory(()=>HomeRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>ProductRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>VendorRepository(getIt.get<DatabaseService>()));
@@ -101,7 +113,6 @@ static Future<void> setupGetIt() async {
   }
 static Future<void> _setupLocalStorage() async {
   await HiveHelper.init();
-
   getIt.registerSingleton<LocalStorage>(
     await SharedPrefLocalStorage.create(),
     instanceName: _settings,

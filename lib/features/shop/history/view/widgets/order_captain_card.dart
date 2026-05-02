@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -42,7 +43,7 @@ class OrderCaptainCard extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              AppIconButton(icon: Icons.call,
+              AppIconButton(icon: MvIcons.call,
               backGroundColor: lowest,
                 iconColor: highest,
               )

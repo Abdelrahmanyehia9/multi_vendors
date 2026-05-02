@@ -26,7 +26,6 @@ class _MainLayoutState extends State<MainLayout> with MainLayoutMixin {
           paddingHr: 0,
           paddingVr: 0,
           bottomNavigationBar: BaseNavbar(
-            showLabel: true,
             items: items,
             initialIndex: value,
             onSelect: cubit.changePage,

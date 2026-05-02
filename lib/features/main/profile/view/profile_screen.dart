@@ -8,12 +8,14 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/view/widgets/login_required.dart';
 import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
+import 'package:multi_vendor/shared/view/widgets/user_builder.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -21,21 +23,21 @@ class ProfileScreen extends StatelessWidget {
   static final List<ListTileData> _items = [
     (
       "Edit Profile",
-      Icons.edit,
+      MvIcons.edit,
       (context) => context.pushNamed(Routes.editProfile),
     ),
-    if(AppConstants.authFormType == AuthFormType.emailAndPassword)
-    (
-      "Change Password",
-      Icons.lock,
-      (context) => context.pushNamed(Routes.changePassword),
-    ),
+    if (AppConstants.authFormType == AuthFormType.emailAndPassword)
+      (
+        "Change Password",
+        MvIcons.lock,
+        (context) => context.pushNamed(Routes.changePassword),
+      ),
     (
       "Settings",
-      Icons.settings,
+      MvIcons.settings,
       (context) => context.pushNamed(Routes.settings),
     ),
-    ("Rate us", Icons.star, (_) {}),
+    ("Rate us", MvIcons.star, (_) {}),
   ];
 
   @override
@@ -45,16 +47,25 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             Text("Profile", style: TextStyles.labelLarge).appPaddingVr,
-             Center(child: Column(
-              children: [
-                const UserAvatar(size: 100),
-                Gap.small(),
-                Text(userCubit.userName, style: TextStyles.labelMedium,),
-                Text(userCubit.user?.email??userCubit.user?.phone??"", style: TextStyles.bodyMedium.copyWith(
-                  color: context.colors.surfaceContainerLow
-                ),),
-              ],
-            )).appPaddingVr,
+            UserBuilder(
+              builder: (u)=> Center(
+                child: Column(
+                  children: [
+                     UserAvatar(
+
+                       size: 100, profile: u?.profilePic,),
+                    Gap.small(),
+                    Text(userCubit.userName, style: TextStyles.labelMedium),
+                    Text(
+                      userCubit.user?.email ?? userCubit.user?.phone ?? "",
+                      style: TextStyles.bodyMedium.copyWith(
+                        color: context.colors.surfaceContainerLow,
+                      ),
+                    ),
+                  ],
+                ),
+              ).appPaddingVr,
+            ),
             Gap.extraLarge(),
             ..._items.expand(
               (e) => [

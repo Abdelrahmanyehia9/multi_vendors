@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/widgets/buttons/add_to_cart_button.dart';
@@ -90,7 +91,10 @@ class ProductDetailsBody extends StatelessWidget {
                 spacing: 4.w,
                 runSpacing: 4.h,
                 children: model.productTags!
-                    .map((e) => AppChip(text: e.toText, selected: true))
+                    .map((e) => AppChip(
+                    selectedBorderColor: Colors.transparent,
+                    selectedColor: context.colors.surfaceContainerHighest,
+                    text: e.toText, selected: true))
                     .toList(),
               ),
             ),

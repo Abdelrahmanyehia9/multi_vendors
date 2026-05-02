@@ -42,12 +42,13 @@ class CheckoutProductCard extends StatelessWidget {
   final double height ;
   final Widget? customAction;
   final CartModel item ;
-  const CheckoutProductCard({super.key,required this.item ,this.customAction,this.height = 70});
+  final GestureTapCallback? onTap  ;
+  const CheckoutProductCard({super.key, this.onTap,required this.item ,this.customAction,this.height = 70});
 
   @override
   Widget build(BuildContext context) {
     return AppClick(
-      onTap: ()=>context.pushNamed(Routes.product, arguments: item.product.id),
+      onTap: onTap ?? ()=> context.pushNamed(Routes.product, arguments: item.product.id),
         child: Row(
           children: [
             AppCachedNetworkImage(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
@@ -33,7 +34,7 @@ class _BirthDateFieldState extends State<BirthDateField> {
       borderWidth: 1.2,
       readOnly: true,
       controller: _controller,
-      suffix: const Icon(Icons.calendar_today),
+      suffix:  Icon(MvIcons.calender),
       onTap: ()  async{
         final DateTime now = DateTime.now();
         DateTime? date = await  showDatePicker(

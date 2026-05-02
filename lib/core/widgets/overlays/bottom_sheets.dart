@@ -6,11 +6,11 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 class BottomSheets {
   const BottomSheets._();
-
   static Future<T?> show<T>(
     BuildContext context, {
     required Widget child,
@@ -59,7 +59,7 @@ class BottomSheets {
                             radius: 20.r,
                             backgroundColor: AppColors.primary,
                             child: Icon(
-                              Icons.close,
+                              MvIcons.close,
                               size: 22.sp,
                               color: Colors.white,
                             ),

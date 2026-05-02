@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
@@ -8,11 +7,10 @@ import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/features/authentication/view/mixin/otp_confirm_screen_mixin.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/otp_cold_down.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/features/authentication/logic/otp_confirm_cubit.dart';
 
 class OtpConfirmScreen extends StatefulWidget {
   final String phoneNumber;
@@ -23,17 +21,8 @@ class OtpConfirmScreen extends StatefulWidget {
   State<OtpConfirmScreen> createState() => _OtpConfirmScreenState();
 }
 
-class _OtpConfirmScreenState extends State<OtpConfirmScreen> {
-  final PinInputController _controller = PinInputController();
-  OtpConfirmCubit get _cubit => context.read<OtpConfirmCubit>();
-
-
-
-  Future<void> _onConfirm() async{
-    _cubit.confirmOtp(otp: _controller.text, provider: widget.phoneNumber);
-  }
-
-
+class _OtpConfirmScreenState extends State<OtpConfirmScreen>
+    with OtpConfirmScreenMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -60,27 +49,22 @@ class _OtpConfirmScreenState extends State<OtpConfirmScreen> {
               ),
             ),
             Gap.small(),
-            PinCode(controller: _controller, onComplete: (_)=>_onConfirm(),),
+            PinCode(controller: controller, onComplete: (_) => onConfirm()),
             const OtpColdDown(),
             Gap.small(),
             BaseBlocConsumer(
-              bloc: _cubit,
-              onFailure: (e)=>context.errorBar(message : e.message),
-              builder: (s) =>
-                   AppButton(text: "Confirm otp",
-                      isLoading: s.isLoading,
-                      buttonSize: null,
-                     onPressed: _onConfirm,
-                   ),
+              bloc: cubit,
+              onFailure: onConfirmFailure,
+              builder: (s) => AppButton(
+                text: "Confirm otp",
+                isLoading: s.isLoading,
+                buttonSize: null,
+                onPressed: onConfirm,
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

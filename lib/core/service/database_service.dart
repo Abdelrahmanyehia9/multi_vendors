@@ -19,6 +19,11 @@ class DatabaseService {
     return response;
   }
 
+  Future<List<Map<String, dynamic>>> UPSERT_MANY({required String table , required List<Map<String, dynamic>> data, String? select})async{
+    final List<Map<String, dynamic>> response  =await _supabase.from(table).upsert(data).select(select??"*") ;
+    return response;
+  }
+
   Future<List<Map<String, dynamic>>> GET({
     required String table,
     String? select,
@@ -44,9 +49,10 @@ class DatabaseService {
     required String table,
     required dynamic id,
      PostgrestFilterBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
-    required Map<String, dynamic> data,
+    required Map<String, dynamic>? data,
     String idColumn = 'id',
   }) async {
+    if(data==null )return {};
     return await _supabase.from(table).update(data).eq(idColumn, id).select().single();
   }
 
@@ -56,7 +62,8 @@ class DatabaseService {
     PostgrestTransformBuilder<PostgrestList> Function(
         PostgrestTransformBuilder<PostgrestList>,
         )? filter,
-  }) async {
+  }) async
+  {
     var query = _supabase.from(table).upsert(data).select();
     final result = filter != null ? filter(query) : query;
     final response = await result.maybeSingle();
@@ -94,7 +101,8 @@ class DatabaseService {
     required String table,
     required dynamic id,
     String idColumn = RemoteDatabaseConstants.id_column,
-  }) async {
+  }) async
+  {
     await _supabase.from(table).delete().eq(idColumn, id);
   }
 

@@ -5,16 +5,17 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
-import 'package:multi_vendor/shared/view/widgets/success_screen.dart';
+import 'package:multi_vendor/shared/view/success_screen.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
+
+
+
 
 class OrderHistoryHelper {
     const OrderHistoryHelper._();
-
-
-    static void onSuccess(BuildContext context, {required OrderModel order, bool isDelete = false}){
+    static void onOrderActionSuccess(BuildContext context, {required OrderModel order, bool isDelete = false}){
       final type = isDelete ? MessagesAlertType.orderDeleted : MessagesAlertType.orderCancelled ;
-      final message = "Your order #${order.orderIdDisplay} has been ${isDelete ? "deleted" : "cancelled"} successfully.\nIf you have any questions or need assistance, please contact our support team.";
+      final message = "Your order ${order.orderIdDisplay} has been ${isDelete ? "deleted" : "cancelled"} successfully.\nIf you have any questions or need assistance, please contact our support team.";
       final args = ResultScreenArgs(
         type: type,
         customMessage: message,
@@ -46,5 +47,31 @@ class OrderHistoryHelper {
         arguments: args,
       );
     }
+    static void onRatingSuccess(BuildContext context){
+      final args = ResultScreenArgs(
+        type: MessagesAlertType.reviewSubmitted,
+        action: (c) => Column(
+          spacing: 8.h,
+          children: [
+            AppButton(
+              text: "Back to Home",
+              buttonSize: null,
+              onPressed: () => c.pushNamedAndRemoveUntil(
+                Routes.mainLayout,
+                predicate: (_) => false,
+              ),
+            ),
+            AppButton.outlined(
+              text: "back",
+              onPressed: () => c.pop(),
+            ),
+          ],
+        ),
+      );
+      context.pushNamed(
+        Routes.result,
+        arguments: args,
+      );
 
+    }
 }

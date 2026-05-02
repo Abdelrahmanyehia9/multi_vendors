@@ -13,6 +13,7 @@ class OrderTrackingCubit extends Cubit<BaseState<OrderTrackingModel>> {
   Future<void> orderTracking(int trackID)async{
     safeEmit(const BaseState.loading());
     final result = await _repository.getOrderTrackingDetails(trackID);
+
     result.fold(
       (l) => safeEmit(BaseState.failure(l)),
       (r) {

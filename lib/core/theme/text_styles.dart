@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
 
-  static const String fontFamily = "Manrope" ;
+  static const String fontFamily = "Montserrat" ;
   static const double _largerFactor = 1;
 
   const TextStyles._();
@@ -13,53 +13,54 @@ class TextStyles {
   );
   static final TextStyle headline2 = TextStyle(
     fontSize: 34.sp * _largerFactor,
-    fontWeight: FontWeightHelper.black,
+    fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle headline3 = TextStyle(
     fontSize: 22.sp * _largerFactor,
-    fontWeight: FontWeightHelper.black,
+    fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle bodyLarge = TextStyle(
     fontSize: 20.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle bodyMedium = TextStyle(
     fontSize: 16.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle bodySmall = TextStyle(
     fontSize: 12.sp * _largerFactor,
-    fontWeight: FontWeightHelper.bold,
+    fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle labelLarge = TextStyle(
     fontSize: 20.sp * _largerFactor,
-    fontWeight: FontWeightHelper.black,
+    fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle labelMedium = TextStyle(
     fontSize: 16.sp * _largerFactor,
-    fontWeight: FontWeightHelper.black,
+    fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle labelSmall = TextStyle(
     fontSize: 12.sp * _largerFactor,
-    fontWeight: FontWeightHelper.black,
+    fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle captionLarge = TextStyle(
     fontSize: 18.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.light,
   );
   static final TextStyle captionMedium = TextStyle(
     fontSize: 14.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.light,
   );
   static final TextStyle captionSmall = TextStyle(
     fontSize: 10.sp * _largerFactor,
-    fontWeight: FontWeightHelper.medium,
+    fontWeight: FontWeightHelper.light,
   );
 }
 
 class FontWeightHelper {
   const FontWeightHelper._();
   static const FontWeight extraLight = FontWeight.w200;
+  static const FontWeight thin = FontWeight.w100;
   static const FontWeight light = FontWeight.w300;
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;

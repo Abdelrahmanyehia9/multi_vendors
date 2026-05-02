@@ -46,7 +46,7 @@ class _ForgetStepResetPasswordState extends State<ForgetStepResetPassword> {
           bloc: _changePasswordCubit,
           onFailure: (e) => context.errorBar(message: e.message),
           onSuccess: (_) async {
-           await AppDialogues.showDialogue(
+           await Popups.show(
               context,
               showCloseButton: false,
               child: Column(

@@ -70,6 +70,7 @@ class ProductDetailsModel extends Equatable {
       );
   factory ProductDetailsModel.fake()=>ProductDetailsModel(
       images: const [],
+      id: FakeData.fakeInt,
       description: FakeData.fakeStringDesc,
       name: FakeData.fakeStringTitle,
       vendor: VendorModel.fake(),

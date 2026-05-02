@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
@@ -37,7 +38,7 @@ class OrderTrackingScreen extends StatelessWidget {
       appBar: BaseAppBar(
         title: "Order Tracking",
         actions: [
-          AppIconButton(icon: Icons.refresh, onTap: () => onRefresh(context)),
+          AppIconButton(icon: MvIcons.refresh, onTap: () => onRefresh(context)),
         ],
       ),
       body: BaseBlocConsumer<OrderTrackingCubit, OrderTrackingModel>(
@@ -77,15 +78,16 @@ class _CancelOrderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseBlocConsumer<CancelOrderCubit, OrderModel>(
-      onFailure: (e) => context.errorBar(message: e.message),
-      onSuccess: (order) => OrderHistoryHelper.onSuccess(context, order: order!),
+      onFailure: (e) => context.errorBar(
+          message: e.message),
+      onSuccess: (order) => OrderHistoryHelper.onOrderActionSuccess(context, order: order!),
       builder: (s) => AppButton(
         text: "Cancel order",
         buttonSize: null,
         isLoading: s.isLoading,
         enabled: canCancel,
         onPressed: () async {
-          await AppDialogues.showWarning(
+          await Popups.showWarning(
             context,
             title: "Cancel Order",
             onConfirm: onCancel,

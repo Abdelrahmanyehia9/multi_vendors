@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/shared/data/models/action_model.dart';
@@ -86,7 +87,7 @@ class AppStates extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildImage(),
+          _buildImage(context),
           Text(
             message ?? state.message,
             style: TextStyles.headline3.copyWith(
@@ -111,13 +112,13 @@ class AppStates extends StatelessWidget {
     );
   }
 
-  Widget _buildImage() {
+  Widget _buildImage(BuildContext context) {
     if (customIcon != null) {
       return Opacity(
         opacity: 0.8,
         child: Icon(
           customIcon,
-          color: AppColors.primary,
+          color: context.colors.surfaceContainerLow,
           size: size * 4.7,
         ).appPaddingVr,
       );

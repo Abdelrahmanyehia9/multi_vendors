@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_delete_cubit.dart';
@@ -31,7 +32,8 @@ class OrderDetailsScreen extends StatelessWidget {
         title: "Order Details",
         actions: [
           BaseBlocConsumer<OrderDeleteCubit, OrderModel>(
-            onSuccess: (order) => OrderHistoryHelper.onSuccess(context, order: order!,isDelete: true),
+            onSuccess: (order) => OrderHistoryHelper.onOrderActionSuccess(context, order: order!,isDelete: true),
+            onFailure: (e) => context.errorBar(message:  e.message),
             builder: (_) => _buildDeleteOrder(context, () => onDeleteOrder(context)),
           ),
         ],
@@ -72,7 +74,7 @@ class OrderDetailsScreen extends StatelessWidget {
     successBuilder: (order) => order.canDelete
         ? AppDeleteButton(
             onTap: () {
-              AppDialogues.showWarning(
+              Popups.showWarning(
                 context,
                 title: "Delete Order",
                 onConfirm: onDelete,

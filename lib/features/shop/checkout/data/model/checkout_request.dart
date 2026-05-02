@@ -22,12 +22,12 @@ class CheckoutRequest {
   });
 
   Map<String, dynamic> toJson()=> {
-    "pay_id": paymentId,
-    "receipt":  summery.toJson(),
-    "address" : address?.toJson(),
-    "estimated_delivery": estimatedDelivery.toIso8601String(),
-    "items": items.map((e)=>e.toJson()).toList(),
-    "coupon_used": coupon,
+    "p_pay_id": paymentId,
+    "p_receipt":  summery.toJson(),
+    "p_address" : address?.toJson(),
+    "p_estimated_delivery": estimatedDelivery.toIso8601String(),
+    "p_items": items.map((e)=>e.toJson()).toList(),
+    "p_coupon_used": coupon,
   }.withoutNulls;
 
 }

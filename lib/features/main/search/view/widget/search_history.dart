@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
@@ -21,7 +22,7 @@ class SearchHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     if (searchHistory.isEmpty) {
       return  Expanded(child: AppStates.empty(
-      customIcon: Icons.search,
+      customIcon: MvIcons.search,
       message: "No search history",
     ));
     }
@@ -54,7 +55,7 @@ class SearchHistory extends StatelessWidget {
       Text(item, style: TextStyles.captionLarge),
       AppClick(
           onTap: () => onRemoveItem?.call(index),
-          child: Icon(Icons.close, size: 16.sp)),
+          child: Icon(MvIcons.close, size: 16.sp)),
     ],
   );
 }

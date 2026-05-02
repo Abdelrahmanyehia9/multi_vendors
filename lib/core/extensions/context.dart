@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:multi_vendor/core/widgets/overlays/snackbars.dart';
 
 extension SizeExt on BuildContext{

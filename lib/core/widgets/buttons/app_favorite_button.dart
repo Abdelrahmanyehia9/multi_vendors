@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_item.dart';
 
@@ -31,8 +32,8 @@ class AppFavoriteButton extends StatelessWidget {
           onTap:()=>_toggleFavorite(isFavorite: isFavorite , context: context),
           child: Icon(
             size: size.sp,
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite ? AppColors.primary : AppColors.grey,
+            isFavorite ? MvIcons.favorite : MvIcons.favoriteOutlined,
+            color: isFavorite ? AppColors.error : AppColors.grey,
           ).paddingAll(padding),
         );
       },

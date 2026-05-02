@@ -10,9 +10,24 @@ class ShopQueries {
 """;
 
 
- static const String orderDetails = ''' 
- *, payments(*)
- ''' ;
+ static const String orderDetails = '''
+  *,
+  payments(*),
+  items:order_items(
+    quantity,
+    is_rated,
+    order_item_id:id, 
+    product(
+      id,
+      name,
+      image:thumbnail,
+      in_stock,
+      price,
+      price_before_discount,
+      sale_interval
+    )
+  )
+''';
  static const String orderHistory = ''' 
  created_at, id, payments(*), estimated_delivery,status
  ''' ;

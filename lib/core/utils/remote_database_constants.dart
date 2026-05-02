@@ -8,6 +8,7 @@ class RemoteDatabaseConstants {
   static const String vendor_table = 'vendor';
   static const String payment_table = 'payments';
   static const String orders_table = 'orders';
+  static const String reviews_table = 'reviews';
   static const String order_tracking_table = 'order_tracking';
   static const String product_table = 'product';
   static const String news_table = 'news';

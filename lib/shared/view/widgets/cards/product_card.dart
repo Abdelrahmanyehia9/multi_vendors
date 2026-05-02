@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -100,67 +101,69 @@ class ProductCard extends StatelessWidget {
 
     return AppClick(
       onTap: () => context.pushNamed(Routes.product, arguments: product.id),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-        child: SizedBox(
-          width: w,
-          height: h,
-          child: Column(
-            children: [
-              SizedBox(
-                height: h * .575,
-                child: Stack(
-                  alignment: AlignmentDirectional.topEnd,
-                  children: [
-                    Positioned.fill(
-                      child: AppCachedNetworkImage(
-                        product.thumbnail,
-                        alignment: Alignment.topCenter,
-                      ),
+      child: Container(
+        width: w,
+        height: h,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
+          border: Border.all(color: context.colors.surfaceContainerLowest, width: 0.3),
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: h * .575,
+              child: Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Positioned.fill(
+                    child: AppCachedNetworkImage(
+                      product.thumbnail,
+                      alignment: Alignment.topCenter,
                     ),
-                    if(product.id!=null)
-                    _favorite(),
-                    if(!product.productTags.isNullOrEmpty)
-                    _ribbon(product.productTags!.first.toText, context
-                    , color: product.productTags!.first.color,
-                    ),
-                  ],
-                ),
+                  ),
+                  if(product.id!=null)
+                  _favorite(),
+                  if(!product.productTags.isNullOrEmpty)
+                  _ribbon(product.productTags!.first.toText, context
+                  , color: product.productTags!.first.color,
+                  ),
+                ],
               ),
-              Gap.small(),
-              if (product.rating != null)
-                RatingStars(
-                  rating: product.rating,
-                  size: isBig ? 18 : 14,
-                ),
-              ProductNameWithPrice(
-                isBig: isBig,
-                price: product.price,
-                name: product.name!,
+            ),
+            Gap.small(),
+            if (product.rating != null)
+              RatingStars(
+                rating: product.rating,
+                size: isBig ? 18 : 14,
+              ).paddingHr(isBig ? 16 : 12),
+            ProductNameWithPrice(
+              isBig: isBig,
+              price: product.price,
+              name: product.name!,
+            ).paddingHr(isBig ? 16 : 12),
+            if (FeatureFlags.multiVendor && product.vendor != null) ...[
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    product.vendor!.name.toUpperCase(),
+                    style: TextStyles.bodySmall.copyWith(
+                      fontSize: isBig ? 14.sp : 10.sp,
+                      color: context.colors.surfaceContainer,
+                    ),
+                  ),
+                  Gap.extraSmall(),
+                  CircularBox(
+                    radius: isBig ? 24 : 20,
+                    child: AppCachedNetworkImage(product.vendor!.image),
+                  ),
+                ],
               ),
-              if (FeatureFlags.multiVendor && product.vendor != null) ...[
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "BY / ${product.vendor!.name}",
-                      style: TextStyles.bodySmall.copyWith(
-                        fontSize: isBig ? 14 : 9.sp,
-                        color: context.colors.surfaceContainer,
-                      ),
-                    ),
-                    Gap.extraSmall(),
-                    CircularBox(
-                      radius: isBig ? 24 : 20,
-                      child: AppCachedNetworkImage(product.vendor!.image),
-                    ),
-                  ],
-                ),
-                const Spacer(),
-              ],
+              const Spacer(),
             ],
-          ),
+          ],
         ),
       ),
     );
@@ -222,7 +225,7 @@ class ProductNameWithPrice extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Flexible(
+        Expanded(
           child: Text(
             name,
             maxLines: 2,
@@ -231,41 +234,39 @@ class ProductNameWithPrice extends StatelessWidget {
           ),
         ),
         if (price != null)
-          Flexible(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (price!.salePrice != null) ...[
-                  Flexible(
-                    child: Text(
-                      price!.totalPrice.usdPrice,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.captionSmall.copyWith(
-                        color: context.colors.surfaceContainer,
-                        fontSize: isBig ? 12.sp : 10.sp,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: context.colors.surfaceContainer,
-                        decorationThickness: 4,
-                      ),
-                    ),
-                  ),
-                  Gap(isBig ? 8 : 4),
-                ],
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (price!.salePrice != null) ...[
                 Flexible(
-                  flex: 2,
                   child: Text(
                     price!.totalPrice.usdPrice,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyles.labelMedium.copyWith(
-                      color: AppColors.primary,
-                      fontSize: isBig ? 14.sp : 11.sp,
+                    style: TextStyles.captionSmall.copyWith(
+                      color: context.colors.surfaceContainer,
+                      fontSize: isBig ? 12.sp : 10.sp,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor: context.colors.surfaceContainer,
+                      decorationThickness: 4,
                     ),
                   ),
                 ),
+                Gap(isBig ? 8 : 4),
               ],
-            ),
+              Flexible(
+                flex: 2,
+                child: Text(
+                  price!.totalPrice.usdPrice,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.labelMedium.copyWith(
+                    color: AppColors.primary,
+                    fontSize: isBig ? 14.sp : 11.sp,
+                  ),
+                ),
+              ),
+            ],
           ),
       ],
     );

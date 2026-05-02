@@ -8,19 +8,24 @@ final class StorageService {
   const StorageService(this._supabase);
 
   Future<String> uploadAndGetUrl(
-    File file, {
-    required String bucketName,
-    required String folderName,
-    bool upsert = true,
-  }) async {
-    final fileName = file.path.split('/').last;
+      File file, {
+        required String bucketName,
+        required String folderName,
+        String prefix = "IMG",
+        bool upsert = true,
+      }) async
+  {
+    final fileName = "$prefix${DateTime.now().millisecondsSinceEpoch}";
     final filePath = '$folderName/$fileName';
+
     await _supabase.storage
         .from(bucketName)
         .upload(filePath, file, fileOptions: FileOptions(upsert: upsert));
-    final url =await _supabase.storage
+
+    final url = _supabase.storage
         .from(bucketName)
-        .createSignedUploadUrl(filePath);
-    return url.signedUrl;
+        .getPublicUrl(filePath);
+
+    return url;
   }
 }

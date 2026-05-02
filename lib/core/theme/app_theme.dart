@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 
 class AppTheme {
   const AppTheme._();
-  static final Color _lightBackgroundColor = const Color(0xffFCFCFC);
+  static final Color _lightBackgroundColor = const Color(0xfffefafa);
   static final Color _darkBackgroundColor = const Color.fromRGBO(11, 15, 20, 1);
   static final TooltipThemeData _tooltipThemeData = const TooltipThemeData(
     verticalOffset: 2,

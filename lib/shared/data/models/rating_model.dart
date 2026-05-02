@@ -3,9 +3,9 @@ import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class RatingModel{
   final num rating;
-  final int count;
+  final int? count;
   final RatingDistribution? distribution;
-  const  RatingModel({required this.rating, required this.count , this.distribution});
+  const  RatingModel({required this.rating,  this.count , this.distribution});
 
   factory RatingModel.fromJson(Map<String ,dynamic>json)=>RatingModel(
       rating: json['value'],

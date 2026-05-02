@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/shared/logic/user_states.dart';
-import 'package:multi_vendor/core/utils/helper/user_session_helper.dart';
+import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
 import 'package:multi_vendor/shared/data/models/user_model.dart';
 
 class UserCubit extends Cubit<UserStates> {
-  final UserSessionHelper _sessionHelper ;
+  final UserSessionRepository _sessionHelper ;
   UserCubit(this._sessionHelper) : super(const UserInitial());
   Future<void>init()async{
     _sessionHelper.setupListener(
@@ -13,6 +13,7 @@ class UserCubit extends Cubit<UserStates> {
    onFirstTimeJoin: () => safeEmit(UserFirstTimeJoin()),
    onSignOut: () => safeEmit(UserSignOut()),
     onUpdateUser:  (user) => safeEmit(UserUpdated(user)),
+      onError: (_){}
     );
   }
   Future<void>logout()async{

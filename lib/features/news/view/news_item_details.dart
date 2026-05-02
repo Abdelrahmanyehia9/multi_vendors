@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -41,7 +40,7 @@ class _NewsItemDetailsState extends State<NewsItemDetails>
             Text(widget.news.title ?? "", style: TextStyles.labelLarge),
             Text(
               widget.news.description,
-              style: TextStyles.captionMedium.copyWith(color: AppColors.grey),
+              style: TextStyles.bodyMedium.copyWith(color: context.colors.surfaceContainer),
             ),
           ],
         ),

@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/widgets/gap.dart';
 
 class BaseNavbar extends StatefulWidget {
   final List<BoxShadow>? shadow;
@@ -37,6 +35,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
     _selectedIndex = widget.initialIndex;
     super.initState();
   }
+
   @override
   void didUpdateWidget(covariant BaseNavbar oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -53,7 +52,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
       right: false,
       left: false,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
           color: context.scaffoldBackground,
           boxShadow: widget.shadow,
@@ -77,6 +76,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
       ),
     );
   }
+
   Widget _buildItem({required NavbarItem item, bool isSelected = false}) {
     final label = item.label;
     final icon = item.icon;
@@ -84,46 +84,48 @@ class _BaseNavbarState extends State<BaseNavbar> {
     return Tooltip(
       message: tooltip,
       child: AnimatedContainer(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
+          color: isSelected  ?  AppColors.primary : Colors.transparent
+        ),
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 16.w : 12.w,
-          vertical: 8.h,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
-          borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
-        ),
-        child: item.child?? Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 22.r,
-              color: isSelected
-                  ? AppColors.white
-                  : context.colors.surfaceContainer,
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+        child:
+            item.child ??
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  icon,
+                  size: isSelected ? 26.sp : 23.sp,
+                  color: isSelected
+                      ? AppColors.white
+                      : context.colors.surfaceContainer,
+                ),
+                if (isSelected && widget.showLabel) ...[
+                  Text(
+                    label,
+                    style: TextStyles.labelMedium.copyWith(
+                      color: AppColors.primary,
+                      letterSpacing: 0,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ],
             ),
-            if (isSelected && widget.showLabel) ...[
-              const Gap(6),
-              Text(
-                label,
-                style: TextStyles.bodySmall.copyWith(color: AppColors.white),
-              ),
-            ],
-          ],
-        ),
       ),
     );
   }
 }
 
-
 class NavbarItem {
   final IconData icon;
   final String label;
   final String? toolTip;
-  final Widget? child ;
+  final Widget? child;
+
   final Widget Function() pageBuilder;
 
   const NavbarItem({
@@ -131,6 +133,6 @@ class NavbarItem {
     required this.label,
     required this.pageBuilder,
     this.toolTip,
-    this.child
+    this.child,
   });
 }

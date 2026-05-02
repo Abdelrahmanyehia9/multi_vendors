@@ -1,68 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
+import 'package:multi_vendor/features/shop/history/logic/helper/order_history_helper.dart';
+import 'package:multi_vendor/features/shop/history/view/mixin/rate_product_screen_mixin.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/rate_product_body.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_forward_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
+final class RateProductScreensArgs {
+  final List<CartModel> items;
+  final int initialItem;
+  const RateProductScreensArgs({required this.items,  this.initialItem =0 });
+}
+
 class RateProductScreen extends StatefulWidget {
-  const RateProductScreen({super.key});
+ final RateProductScreensArgs args ;
+  const RateProductScreen({
+    super.key,
+    required this.args
+  });
 
   @override
   State<RateProductScreen> createState() => _RateProductScreenState();
 }
 
-class _RateProductScreenState extends State<RateProductScreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
-  final int _totalPages = 3;
-
-  void _nextPage() => _pageController.nextPage(
-    duration: const Duration(milliseconds: 300),
-    curve: Curves.easeInOut,
-  );
-  void _prevPage() => _pageController.previousPage(
-    duration: const Duration(milliseconds: 300),
-    curve: Curves.easeInOut,
-  );
-  bool get isLastPage => _currentPage == _totalPages - 1;
+class _RateProductScreenState extends State<RateProductScreen> with RateProductScreenMixin{
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
-      paddingHr: 0,
-      appBar: BaseAppBar(
-        title: "Rate Product ${_currentPage + 1}/$_totalPages",
-        leading: _buildLeading(),
-        actions: [
-          if (!isLastPage)
-          AppForwardButton(onTap: _nextPage, backGroundColor: Colors.transparent,),
-        ],
-      ),
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: _totalPages,
-        onPageChanged: (i) {
-          setState(() => _currentPage = i);
-        },
-        itemBuilder: (_, i) {
-          return RateProductBody(
-            isLastPage: isLastPage,
-            onActionPressed: isLastPage ? null : _nextPage,
-          );
-        },
-      ),
+    return ValueListenableBuilder(
+      valueListenable: currentPage,
+      builder: (context, value, child) {
+        return BaseScaffold(
+          paddingHr: 0,
+          appBar: BaseAppBar(
+            title: "Rate Product ${value + 1}/$totalPages",
+            leading: _buildLeading(),
+            actions: [
+              if (!isLastPage)
+                AppForwardButton(
+                  onTap: nextPage,
+                  backGroundColor: Colors.transparent,
+                ),
+            ],
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: pageController,
+                  itemCount: totalPages,
+                  onPageChanged: onPageChanged,
+                  itemBuilder: (_, i) {
+                    return RateProductBody(
+                      ratingChanged: (rate)=>reviews[i] = reviews[i].copyWith(rate: rate),
+                      commentChanged: (comment)=>reviews[i] = reviews[i].copyWith(comment: comment),
+                    ).appPaddingHr;
+                  },
+                ),
+              ),
+              BaseBlocConsumer(
+                bloc: cubit,
+                onFailure: (e)=>context.errorBar(message: e.message),
+                onSuccess: (_)=>OrderHistoryHelper.onRatingSuccess(context),
+                builder:(s)=> AppButton(
+                  isLoading: s.isLoading,
+                  text: isLastPage ? "Submit your review" : "Next",
+                  buttonSize: null,
+                  onPressed: isLastPage ? submitReviews : nextPage,
+                ).appPaddingHr,
+              ),
+            ],
+          ),
+        );
+      }
     );
   }
 
-  Widget _buildLeading() => _currentPage > 0
-      ? Padding(
-          padding: EdgeInsetsDirectional.only(start: 16.w, top: 16.h),
-          child: AppBackButton(
-            backgroundColor: Colors.transparent,
-            onBack: _prevPage,
-          ),
-        )
+  Widget _buildLeading() => currentPage.value > 0
+      ? AppBackButton(backgroundColor: Colors.transparent, onBack: prevPage)
       : const AppBackButton();
 }

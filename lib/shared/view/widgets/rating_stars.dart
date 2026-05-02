@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -16,6 +17,7 @@ class RatingStars extends StatefulWidget {
   final double size;
   final bool readOnly;
   final String? title;
+  final bool showCount;
   final ValueChanged<double>? onRatingChanged;
 
   const RatingStars({
@@ -24,6 +26,7 @@ class RatingStars extends StatefulWidget {
     this.size = 16,
     this.readOnly = true,
     this.title,
+    this.showCount = true,
     this.onRatingChanged,
   }) : assert(
   readOnly || onRatingChanged != null,
@@ -100,7 +103,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
             return Row(
               children: [
                 ...List.generate(5, (i) => _buildStar(i, currentRating, context)),
-                if (widget.rating?.count != null) ...[
+                if (widget.rating?.count != null && widget.showCount) ...[
                   Gap.extraSmall(),
                   Text(
                     "(${widget.rating!.count})",
@@ -125,7 +128,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
     final half = !full && i < currentRating && (currentRating - currentRating.floor()) >= 0.5;
 
     final icon = Icon(
-      full ? Icons.star : half ? Icons.star_half : Icons.star_border,
+      full ? MvIcons.star : half ? MvIcons.starHalf : MvIcons.starOutlined,
       size: widget.size.sp,
       color: full || half ? AppColors.warning500 : context.colors.surfaceContainer,
     );

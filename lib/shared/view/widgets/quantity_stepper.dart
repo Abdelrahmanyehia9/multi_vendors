@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -44,6 +45,7 @@ class QuantityStepper extends StatelessWidget {
   Widget build(BuildContext context) {
         final int inCart = cartCubit.inCart(product);
         final remining = product.inStock - inCart ;
+        final bool isNarrow = style == QuantityStepperStyle.narrow;
         final args = _AddOrMinusArgs(
           quantity: inCart,
           addEnabled: remining > 0,
@@ -51,9 +53,20 @@ class QuantityStepper extends StatelessWidget {
           onAdd: () => cartCubit.updateQuantity(true, item: product),
           onMinus: () => cartCubit.updateQuantity(false, item: product),
         );
-        return style == QuantityStepperStyle.narrow
-            ? _NarrowAddOrMinus(args)
-            : _WideAddOrMinus(args);
+        return Column(
+          spacing: isNarrow? 4.sp : 8.sp,
+          children: [
+            style == QuantityStepperStyle.narrow
+                ? _NarrowAddOrMinus(args)
+                : _WideAddOrMinus(args),
+
+            if (remining > 0)
+            Text('$remining items left',style: TextStyles.labelMedium.copyWith(
+              color: AppColors.primary,
+              fontSize: isNarrow? 12.sp : 14.sp
+            ),)
+          ],
+        );
   }
 }
 
@@ -72,9 +85,9 @@ class _NarrowAddOrMinus extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CircleButton(icon: Icons.remove, onTap: _args.onMinus, enabled: _args.minusEnabled),
+          _CircleButton(icon: MvIcons.remove, onTap: _args.onMinus, enabled: _args.minusEnabled),
           Text(_args.quantity.toString(), style: TextStyles.labelSmall).appPaddingHr,
-          _CircleButton(icon: Icons.add, onTap: _args.onAdd, enabled: _args.addEnabled),
+          _CircleButton(icon: MvIcons.add, onTap: _args.onAdd, enabled: _args.addEnabled),
         ],
       ),
     );
@@ -92,13 +105,13 @@ class _WideAddOrMinus extends StatelessWidget {
       children: [
         AppIconButton(
           enabled: _args.minusEnabled,
-          icon: Icons.remove,
+          icon: MvIcons.remove,
           onTap: _args.onMinus,
         ),
         Text(_args.quantity.toString(), style: TextStyles.labelLarge),
         AppIconButton(
           enabled: _args.addEnabled,
-          icon: Icons.add,
+          icon: MvIcons.add,
           onTap: _args.onAdd,
         ),
       ],

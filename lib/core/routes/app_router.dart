@@ -7,9 +7,13 @@ import 'package:multi_vendor/features/authentication/data/repository/reset_passw
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/main/main_layout_cubit.dart';
+import 'package:multi_vendor/features/main/profile/logic/edit_address_cubit.dart';
+import 'package:multi_vendor/features/main/profile/logic/edit_profile_pic_cubit.dart';
+import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
+import 'package:multi_vendor/features/shop/history/logic/order_submit_review_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/authentication/data/repository/otp_repository.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_change_password_cubit.dart';
@@ -59,6 +63,7 @@ import 'package:multi_vendor/features/shop/product/logic/product_details_cubit.d
 import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/view/all_product_tags_screen.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
+import 'package:multi_vendor/features/shop/product/view/product_reviews_screen.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 import 'package:multi_vendor/features/vendors/data/repository/vendor_repository.dart';
 import 'package:multi_vendor/features/vendors/logic/vendor_details_cubit.dart';
@@ -66,11 +71,12 @@ import 'package:multi_vendor/features/vendors/logic/vendors_by_category_cubit.da
 import 'package:multi_vendor/features/vendors/view/all_vendors_screen.dart';
 import 'package:multi_vendor/features/shop/product/view/product_details_screen.dart';
 import 'package:multi_vendor/features/vendors/view/vendor_details_screen.dart';
-import 'package:multi_vendor/shared/logic/image_picker_cubit.dart';
+import 'package:multi_vendor/shared/data/repository/image_handler.dart';
+import 'package:multi_vendor/shared/logic/image_handle_cubit.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
 import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
 import 'package:multi_vendor/shared/data/models/news_model.dart';
-import 'package:multi_vendor/shared/view/widgets/success_screen.dart';
+import 'package:multi_vendor/shared/view/success_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
@@ -267,7 +273,16 @@ class AppRouter {
                 create: (context) =>
                     EditProfileCubit(getIt.get<ProfileRepository>()),
               ),
-              BlocProvider(create: (context) => ImageCubit()),
+              BlocProvider(
+                create: (context) =>
+                    EditProfilePicCubit(getIt.get<ProfileRepository>()),
+              ),
+              BlocProvider(
+                create: (context) => ImageHandleCubit(
+                  getIt.get<ImageHandler>(),
+                  maxSizeInMb: 2.3,
+                ),
+              ),
             ],
             child: const EditProfileScreen(),
           ),
@@ -275,9 +290,12 @@ class AppRouter {
           name: Routes.editProfile,
         );
       case Routes.address:
-        final EditProfileCubit cubit = settings.arguments as EditProfileCubit;
         return _page(
-          BlocProvider.value(value: cubit, child: const EditAddressScreen()),
+          BlocProvider(
+            create: (context) =>
+                EditAddressCubit(getIt.get<ProfileRepository>()),
+            child: const EditAddressScreen(),
+          ),
           name: Routes.address,
         );
       case Routes.changePassword:
@@ -378,9 +396,24 @@ class AppRouter {
           name: Routes.orderTracking,
         );
       case Routes.rateOrder:
-        return _page(const RateOrderScreen(), name: Routes.rateOrder);
+        final List<CartModel> items = settings.arguments as List<CartModel>;
+        return _page(
+          RateOrderScreen(orderItems: items),
+          name: Routes.rateOrder,
+        );
       case Routes.rateProduct:
-        return _page(const RateProductScreen(), name: Routes.rateProduct);
+        final RateProductScreensArgs args =
+            settings.arguments as RateProductScreensArgs;
+        return _page(
+          BlocProvider(
+            create: (context) =>
+                OrderSubmitReviewCubit(getIt.get<OrderHistoryRepository>()),
+            child: RateProductScreen(key: UniqueKey(), args: args),
+          ),
+          name: Routes.rateProduct,
+        );
+        case Routes.productReviews:
+          return _page(const ProductReviewsScreen(), name: Routes.productReviews);
       case Routes.result:
         final ResultScreenArgs args = settings.arguments as ResultScreenArgs;
         return _page(ResultScreen(args: args), name: Routes.result);

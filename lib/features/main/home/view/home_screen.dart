@@ -21,26 +21,31 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const HomeAppBar().appPaddingHr,
-          Gap.small(),
-          AppSearchbar(
-              title: const SloganText(),
-              onTap: onSearch).appPaddingHr,
-          const HomeBanner(),
-          Gap.small(),
-          if (FeatureFlags.multiVendor)...[
-            const HomeVendorsSection().appPaddingHr,
-          ],
-          const HomeShopByCategories().appPaddingAll,
-          const HomeFeaturedItem().appPaddingHr,
-          if (FeatureFlags.shopByTags) const ShopByProductTags().appPaddingAll,
-          if (FeatureFlags.hasNews) const HomeNewsSection().appPaddingHr,
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const HomeAppBar().appPaddingHr,
+        Gap.tiny(),
+        Expanded(
+          child: ListView(
+            children: [
+              AppSearchbar(
+                  title: const SloganText(),
+                  onTap: onSearch).appPaddingHr,
+              const HomeBanner(),
+              Gap.small(),
+              if (FeatureFlags.multiVendor)...[
+                const HomeVendorsSection().appPaddingHr,
+              ],
+              const HomeShopByCategories().appPaddingAll,
+              const HomeFeaturedItem().appPaddingHr,
+              if (FeatureFlags.shopByTags) const HomeShopByProductTags().appPaddingAll,
+              if (FeatureFlags.hasNews) const HomeNewsSection().appPaddingHr,
+            ],
+          ),
+        )
+
+      ],
     );
   }
 }

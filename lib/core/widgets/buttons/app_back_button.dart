@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
 
 class AppBackButton extends StatelessWidget {
@@ -22,7 +23,7 @@ class AppBackButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 16.w, top: 16.h),
       child: AppIconButton(
-        icon: Icons.arrow_back,
+        icon: MvIcons.arrowBack,
         size: 24,
         iconColor: iconColor,
         backGroundColor: backgroundColor,

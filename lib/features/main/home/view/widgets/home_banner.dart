@@ -63,7 +63,7 @@ class _Slide extends StatelessWidget {
                 height: height - 16.h,
                 constraints: BoxConstraints(minHeight: height - 20.h),
                 decoration: BoxDecoration(
-                  color: AppColors.grey700,
+                  color: AppColors.grey800,
                   borderRadius: BorderRadius.circular(
                     Decorations.borderRadius16,
                   ),
@@ -92,6 +92,7 @@ class _Slide extends StatelessWidget {
                           Gap.small(),
                           AppButton(
                             text: banner.buttonText ?? "",
+                            color: AppColors.secondary,
                             style: TextStyles.bodySmall,
                             onPressed: () {
                               if (banner.redirect != null) {

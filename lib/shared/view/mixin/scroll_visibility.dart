@@ -60,7 +60,8 @@ mixin ScrollTitleVisibilityMixin<T extends StatefulWidget> on State<T> {
           title ?? "",
           key: const ValueKey('title'),
           style: TextStyles.bodyMedium,
-          maxLines: 1,
+          textAlign: TextAlign.center,
+          maxLines: 2,
           overflow: TextOverflow.ellipsis,
         )
             : const SizedBox.shrink(),

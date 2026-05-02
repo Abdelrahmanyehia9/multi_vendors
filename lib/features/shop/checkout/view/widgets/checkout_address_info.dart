@@ -14,7 +14,7 @@ class CheckoutAddressInfo extends StatelessWidget {
   const CheckoutAddressInfo({super.key});
 
   void _onAddressChange(BuildContext context) {
-    context.pushNamed(Routes.editProfile);
+    context.pushNamed(Routes.address);
   }
 
   @override

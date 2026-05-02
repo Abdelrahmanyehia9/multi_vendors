@@ -5,21 +5,18 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 final class AuthenticationService {
   final SupabaseClient _client;
-
   const AuthenticationService(this._client);
 
   Future<void> signIn({
     required String email,
     required String password,
-  }) async =>
-      await _client.auth.signInWithPassword(password: password, email: email);
+  }) async => await _client.auth.signInWithPassword(password: password, email: email);
 
   Future<AuthResponse> signUp({
     required String email,
     required String password,
     Map<String, dynamic>? data,
-  }) async =>
-      await _client.auth.signUp(password: password, email: email, data: data);
+  }) async => await _client.auth.signUp(password: password, email: email, data: data);
 
   Future<void> sendForgetPasswordEmail({required String email}) async =>
       await _client.auth.resetPasswordForEmail(
@@ -31,7 +28,8 @@ final class AuthenticationService {
     String? password,
     String? email,
     Object? data,
-  }) async {
+  }) async
+  {
     await _client.auth.updateUser(
       UserAttributes(password: password, email: email, data: data),
     );
@@ -52,7 +50,6 @@ final class AuthenticationService {
       shouldCreateUser: createUser,
     );
   }
-
   Future<AuthResponse> verifyOtp({
     required String phone,
     required String otp,
@@ -88,18 +85,16 @@ final class AuthenticationService {
       Function(String id) onSignedIn,
       Function() onSignedOut,
       Function(String id) onUserUpdated,
+      Function ()onInitialSession,
       ) => _client.auth.onAuthStateChange.listen(
         (data) async {
       final event = data.event;
       switch (event) {
         case AuthChangeEvent.signedIn:
-        case AuthChangeEvent.tokenRefreshed:
+          onSignedIn.call(data.session!.user.id);
+          break;
         case AuthChangeEvent.initialSession:
-          if (data.session != null) {
-            onSignedIn.call(data.session!.user.id);
-          } else {
-            onSignedOut.call();
-          }
+          onInitialSession.call();
           break;
         case AuthChangeEvent.signedOut:
           onSignedOut.call();

@@ -5,7 +5,6 @@ import 'package:multi_vendor/core/database/local_storage_constants.dart';
 
 class HiveHelper {
   HiveHelper._();
-
   static late final LocalStorage user;
   static late final LocalStorage cart;
   static late final LocalStorage favorite;

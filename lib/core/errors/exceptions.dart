@@ -41,3 +41,6 @@ class AppTimeoutException extends AppException{
 class AppFormatException extends AppException{
   AppFormatException({required super.message});
 }
+class ImagePickerError extends AppException{
+  ImagePickerError({required super.message, super.code,  super.stackTrace});
+}

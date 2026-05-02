@@ -21,7 +21,7 @@ class BaseAppBar extends AppBar {
             : Padding(
           padding: EdgeInsets.only(top: 6.h),
           child: title is String
-              ? Text(title, style: TextStyles.bodyMedium)  // ✅ String زي الأول
+              ? Text(title,textAlign: TextAlign.center ,style: TextStyles.bodyMedium)  // ✅ String زي الأول
               : title as Widget,                            // ✅ Widget للحالات الخاصة
         ),
         leading: showLeading ? leading ?? _buildLeading() : const SizedBox(),

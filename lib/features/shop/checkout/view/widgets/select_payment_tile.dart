@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -72,7 +73,7 @@ class _SelectPaymentTile extends StatelessWidget {
             )),
             const Spacer(),
             if(isSelected)
-             Icon(Icons.check_circle,size: 24.sp, color: AppColors.primary),
+             Icon(MvIcons.checkedOutlined,size: 24.sp, color: AppColors.primary),
           ],
         ).appPaddingHr,
       ),

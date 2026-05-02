@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
@@ -43,7 +44,8 @@ class VendorInfoCard extends StatelessWidget {
               children: tags
                   .map(
                     (e) => AppChip(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.all(4.w),
+                  textStyle: TextStyles.bodySmall.copyWith(color: AppColors.white),
                   text: e.name,
                   selected: true,
                 ),
@@ -55,7 +57,7 @@ class VendorInfoCard extends StatelessWidget {
             children: [
               if (rating != null)
                 _stat(
-                  Icons.star_rounded,
+                  MvIcons.star,
                   AppColors.warning,
                   '${rating.rating} (${rating.count})',
                   'Rating',
@@ -63,7 +65,7 @@ class VendorInfoCard extends StatelessWidget {
                 ),
               if (delivery != null) ...[
                 _stat(
-                  Icons.delivery_dining_rounded,
+                  MvIcons.delivery,
                   AppColors.secondaryDark,
                   '${delivery.estimatedDeliveryTime.min}-${delivery.estimatedDeliveryTime.max} Min',
                   'Delivery Time',
@@ -71,7 +73,7 @@ class VendorInfoCard extends StatelessWidget {
                 ),
                 if (delivery.deliveryFees != null)
                   _stat(
-                    Icons.local_shipping_outlined,
+                    MvIcons.shipping,
                     AppColors.success,
                     delivery.deliveryFees!.usdPrice,
                     'Delivery Fees',

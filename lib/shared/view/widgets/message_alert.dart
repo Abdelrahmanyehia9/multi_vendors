@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
 
@@ -13,6 +14,7 @@ enum MessagesAlertType {
   promoSuccess,
   promoFailed,
   orderCancelled,
+  reviewSubmitted,
   orderDeleted;
 
   String get title => switch (this) {
@@ -23,6 +25,7 @@ enum MessagesAlertType {
     resetPasswordSuccess => "Password Reset Successful",
     promoSuccess => "Promo Code Applied Successfully",
     promoFailed => "Promo Code Failed",
+    reviewSubmitted => "Review Submitted Successfully",
   };
 
   String get message => switch (this) {
@@ -36,12 +39,12 @@ enum MessagesAlertType {
     promoSuccess => "Promo Code Applied Successfully",
     promoFailed => "Promo Code Failed",
     orderDeleted => "Your order has been deleted successfully.",
-  };
+    reviewSubmitted => "Your review has been submitted successfully and will help others make better decisions. Thank you for sharing your feedback!"  };
 
   IconData get icon => switch (this) {
-    loginRequired => Icons.login,
-    promoFailed => Icons.error,
-    _ => Icons.verified,
+    loginRequired => MvIcons.login,
+    promoFailed => MvIcons.error,
+    _ => MvIcons.verified,
   };
 
   Color get color => switch (this) {
@@ -69,7 +72,7 @@ class MessageAlert extends StatelessWidget {
     this.messageStyle,
     this.customTitle,
     this.customMessage,
-    this.iconSize = 80,
+    this.iconSize = 105,
   });
 
   @override
@@ -79,17 +82,18 @@ class MessageAlert extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Icon(type.icon, color: type.color, size: iconSize.sp),
+        Gap.medium(),
         Text(
           customTitle ?? type.title,
           textAlign: TextAlign.center,
           style: titleStyle ?? TextStyles.labelMedium,
         ),
-        Gap.tiny(),
         Text(
           customMessage ?? type.message,
           textAlign: TextAlign.center,
           style: messageStyle ?? TextStyles.captionMedium,
         ),
+        Gap.medium()
       ],
     );
   }

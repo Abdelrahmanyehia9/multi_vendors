@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
@@ -47,9 +49,9 @@ class ProductTagTile extends StatelessWidget {
         tag.thumbnail,
         radius: Decorations.borderRadius8,
       ),
-      title: Text(tag.name),
-      subtitle: Text("$itemsCount items"),
-      trailing: const Icon(Icons.arrow_forward, color: AppColors.primary),
+      title: Text(tag.name, style: TextStyles.bodyMedium,),
+      subtitle: Text("$itemsCount items", style: TextStyles.captionMedium,),
+      trailing: const Icon(MvIcons.arrowForward, color: AppColors.primary),
     );
   }
 }

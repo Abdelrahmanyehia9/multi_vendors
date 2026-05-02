@@ -21,9 +21,9 @@ class _CategoryCheckbox extends StatelessWidget {
         color: checked ? color : partial ? color.withAppOpacity(0.15) : Colors.transparent,
       ),
       child: checked
-          ? Icon(Icons.check, color: Colors.white, size: 12.sp)
+          ? Icon(MvIcons.checked, color: Colors.white, size: 12.sp)
           : partial
-          ? Icon(Icons.remove, color: color, size: 12.sp)
+          ? Icon(MvIcons.remove, color: color, size: 12.sp)
           : null,
     );
   }

@@ -4,14 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
 
-class AppDialogues {
-  const AppDialogues._();
-
-  static Future<T?> showDialogue<T>(
+class  Popups {
+ static  Future<T?> show<T>(
     BuildContext context, {
     bool showCloseButton = true,
     final Color? patternColor,
@@ -60,7 +59,7 @@ class AppDialogues {
                             child: const CircleAvatar(
                               radius: 20,
                               backgroundColor: AppColors.primary,
-                              child: Icon(Icons.close, color: Colors.white),
+                              child: Icon(MvIcons.close, color: Colors.white),
                             ),
                           ),
                       ],
@@ -74,24 +73,24 @@ class AppDialogues {
       },
     );
   }
-  static Future<void> showWarning(
+ static  Future<void> showWarning(
     BuildContext context, {
-    IconData icon = Icons.warning_rounded,
+    IconData icon = MvIcons.warning,
     String title = "Are you sure ? ",
     String message = "Are you sure you want to do this action (you can't undo it) ? ",
     void Function()? onConfirm,
   }) async{
-    final result = await showDialogue(context,
+    final result = await Popups.show(context,
         showCloseButton: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           spacing: 4.h,
           children: [
-            Icon(icon, size: 64.sp, color: AppColors.primary,),
+            Icon(icon, size: 80.sp, color: AppColors.primary,),
             Gap.small(),
-            Text(title , textAlign: TextAlign.center, style: TextStyles.labelLarge,),
+            Text(title , textAlign: TextAlign.center, style: TextStyles.bodyLarge,),
             Text(message, textAlign: TextAlign.center, style: TextStyles.captionMedium,),
-            Gap.small(),
+            Gap.medium(),
             AppButton(text: "submit", buttonSize: null, onPressed: (){
               context.pop(true) ;
             },),

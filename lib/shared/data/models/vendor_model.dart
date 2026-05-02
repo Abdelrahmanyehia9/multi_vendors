@@ -9,13 +9,15 @@ class VendorModel extends Equatable implements FavoriteItem{
   final String name;
   final String image ;
   final int? count ;
+  final bool isVerified;
 
-  const VendorModel({required this.id,this.count ,required this.name, required this.image});
+  const VendorModel({required this.id,this.isVerified = false ,this.count ,required this.name, required this.image});
   factory VendorModel.fromJson(Map<String ,dynamic>json)=>VendorModel(
       id: json['id'],
       name: json['name'],
       image: json['image'],
       count: json['count'],
+      isVerified: json['is_verified']??false,
   );
 
   factory VendorModel.fake()=> const VendorModel(
@@ -30,6 +32,7 @@ class VendorModel extends Equatable implements FavoriteItem{
     "name": name,
     "image": image,
     "count": count,
+    "is_verified": isVerified,
   }.withoutNulls;
   @override
   // TODO: implement props

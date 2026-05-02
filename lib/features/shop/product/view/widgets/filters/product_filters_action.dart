@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
@@ -53,13 +54,13 @@ class _ProductFiltersActionState extends State<ProductFiltersAction>
         return Row(
         children: [
           AppIconButton(
-            icon: Icons.filter_alt,
+            icon: MvIcons.filter,
             onTap: _openFiltersSheet,
           ),
           Gap(widget.gap),
           AppIconButton(
             key: _sortKey,
-            icon: Icons.sort,
+            icon: MvIcons.sort,
             onTap: _openSortMenu,
           ),
         ],

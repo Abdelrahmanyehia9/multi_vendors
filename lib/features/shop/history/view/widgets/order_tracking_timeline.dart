@@ -4,6 +4,7 @@ import 'package:multi_vendor/core/enum/order_status.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
@@ -51,7 +52,7 @@ class OrderTrackingTimeLine extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                step.isCompleted || (step.isActive && isLast) ? Icons.check : Icons.circle,
+                step.isCompleted || (step.isActive && isLast) ? MvIcons.checked : MvIcons.circle,
                 color: step.isActive ? Colors.white : Colors.grey,
                 size: 16.sp,
               ),

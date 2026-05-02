@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
@@ -63,8 +64,8 @@ class VendorCard extends StatelessWidget {
                     Row(
                       spacing: 8.w,
                       children: [
-                        _iconText(Icons.delivery_dining, "40 EGP"),
-                        _iconText(Icons.timelapse, "20-50 min"),
+                        _iconText(MvIcons.delivery, "40 EGP"),
+                        _iconText(MvIcons.timelapse, "20-50 min"),
                       ],
                     ),
                     if (FeatureFlags.enableMultiShipping) ...[
@@ -80,7 +81,7 @@ class VendorCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(Icons.arrow_forward),
+              const Icon(MvIcons.arrowForward),
             ],
           ),
         ));

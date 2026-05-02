@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -8,6 +9,7 @@ import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_p
 import 'package:multi_vendor/features/main/profile/view/widgets/edit_profile_form.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/features/main/profile/view/mixin/edit_profile_mixin.dart';
+import 'package:multi_vendor/shared/logic/image_handle_cubit.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -16,7 +18,8 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen>  with EditProfileMixin{
+class _EditProfileScreenState extends State<EditProfileScreen>
+    with EditProfileMixin  {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -41,8 +44,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with EditProfile
             ),
             BaseBlocConsumer(
               bloc: profileCubit,
-              onSuccess: (_) => context.successBar(message: "User updated successfully"),
-              onEmpty: () => context.warningBar(message: "No changes"),
+              onSuccess: (_) {
+                context.successBar(message: "User updated successfully");
+                context.read<ImageHandleCubit>().reset();
+              },
+              onEmpty: () =>context.warningBar(message: "No changes"),
               onFailure: (e) => context.errorBar(message: e.message),
               builder: (state) => AppButton(
                 text: "Save",
@@ -57,6 +63,3 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with EditProfile
     );
   }
 }
-
-
-
