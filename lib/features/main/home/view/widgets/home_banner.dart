@@ -51,7 +51,6 @@ class _Slide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final img = Testing.girlPhoto;
     final height = 164.h;
     final width = context.width;
     return banner.bannerType == BannerType.v1
@@ -114,7 +113,7 @@ class _Slide extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 child: AppCachedNetworkImage(
-                  img,
+                  banner.image,
                   width: width * .45,
                   height: height,
                 ),

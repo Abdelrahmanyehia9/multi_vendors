@@ -6,8 +6,8 @@ import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/history/logic/helper/order_history_helper.dart';
-import 'package:multi_vendor/features/shop/history/view/mixin/rate_product_screen_mixin.dart';
-import 'package:multi_vendor/features/shop/history/view/widgets/rate_product_body.dart';
+import 'package:multi_vendor/features/shop/rating/view/mixin/rate_product_screen_mixin.dart';
+import 'package:multi_vendor/features/shop/rating/view/widgets/rate_product_body.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_forward_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
@@ -58,7 +58,7 @@ class _RateProductScreenState extends State<RateProductScreen> with RateProductS
                   onPageChanged: onPageChanged,
                   itemBuilder: (_, i) {
                     return RateProductBody(
-                      ratingChanged: (rate)=>reviews[i] = reviews[i].copyWith(rate: rate),
+                      ratingChanged: (rate)=>reviews[i] = reviews[i].copyWith(rate: rate.floor()),
                       commentChanged: (comment)=>reviews[i] = reviews[i].copyWith(comment: comment),
                     ).appPaddingHr;
                   },

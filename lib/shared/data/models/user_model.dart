@@ -3,6 +3,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/enum/user_roles.dart';
+import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/shared/data/models/address_model.dart';
 
 class UserModel extends Equatable {
@@ -131,4 +132,10 @@ class UserModel extends Equatable {
     phone,
     address,
   ];
+
+
+  factory UserModel.fake()=>const UserModel(
+    profilePic: FakeData.fakeImg,
+    fullName: FakeData.fakeStringTitle,
+  );
 }

@@ -10,13 +10,13 @@ import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
 class ProductReviewDistributionCard extends StatelessWidget {
-  final RatingModel rating ;
-  const ProductReviewDistributionCard({super.key, required this.rating});
+  final RatingModel? rating ;
+  const ProductReviewDistributionCard({super.key,  this.rating});
 
   @override
   Widget build(BuildContext context) {
-    final List<int>distribution = [rating.distribution?.one ?? 0, rating.distribution?.two ?? 0, rating.distribution?.three ?? 0, rating.distribution?.four ?? 0, rating.distribution?.five ?? 0];
-    final int count = rating.count ?? 0;
+    final List<int>distribution = [rating?.distribution?.one ?? 0, rating?.distribution?.two ?? 0, rating?.distribution?.three ?? 0, rating?.distribution?.four ?? 0, rating?.distribution?.five ?? 0];
+    final int count = rating?.count ?? 0;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,7 +25,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                rating.rating.toString(),
+                (rating?.rating??0).toString(),
                 style: TextStyles.headline1.copyWith(
                     fontWeight: FontWeightHelper.bold
                 ),
@@ -36,7 +36,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
                 rating: rating,
               ),
                Text(
-                '${rating.count} reviews',
+                '${rating?.count??0} reviews',
                 textAlign: TextAlign.center,
                 style: TextStyles.bodySmall.copyWith(
                   color: context.colors.surfaceContainer,

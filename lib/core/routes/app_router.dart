@@ -13,7 +13,9 @@ import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
-import 'package:multi_vendor/features/shop/history/logic/order_submit_review_cubit.dart';
+import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
+import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
+import 'package:multi_vendor/features/shop/rating/logic/order_submit_review_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/authentication/data/repository/otp_repository.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_change_password_cubit.dart';
@@ -55,15 +57,16 @@ import 'package:multi_vendor/features/shop/history/logic/order_details_cubit.dar
 import 'package:multi_vendor/features/shop/history/logic/order_tracking_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/order_details_screen.dart';
 import 'package:multi_vendor/features/shop/history/view/order_tracking_screen.dart';
-import 'package:multi_vendor/features/shop/history/view/rate_order_screen.dart';
-import 'package:multi_vendor/features/shop/history/view/rate_product_screen.dart';
+import 'package:multi_vendor/features/shop/rating/logic/user_reviews_cubit.dart';
+import 'package:multi_vendor/features/shop/rating/view/rate_order_screen.dart';
+import 'package:multi_vendor/features/shop/rating/view/rate_product_screen.dart';
 import 'package:multi_vendor/features/shop/product/data/repository/product_repository.dart';
 import 'package:multi_vendor/features/shop/product/logic/product_all_tags_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/product_details_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/view/all_product_tags_screen.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
-import 'package:multi_vendor/features/shop/product/view/product_reviews_screen.dart';
+import 'package:multi_vendor/features/shop/rating/view/reviews_screen.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 import 'package:multi_vendor/features/vendors/data/repository/vendor_repository.dart';
 import 'package:multi_vendor/features/vendors/logic/vendor_details_cubit.dart';
@@ -407,13 +410,21 @@ class AppRouter {
         return _page(
           BlocProvider(
             create: (context) =>
-                OrderSubmitReviewCubit(getIt.get<OrderHistoryRepository>()),
+                OrderSubmitReviewCubit(getIt.get<RatingRepository>()),
             child: RateProductScreen(key: UniqueKey(), args: args),
           ),
           name: Routes.rateProduct,
         );
-        case Routes.productReviews:
-          return _page(const ProductReviewsScreen(), name: Routes.productReviews);
+        case Routes.reviewsScreen:
+          final ProductDetailsModel model = settings.arguments as ProductDetailsModel;
+          return _page(MultiBlocProvider(
+              providers:  [
+                BlocProvider(
+                  create: (context) =>
+                      UserReviewsCubit(getIt.get<RatingRepository>(), model.id!)..getUserReviews(),
+                ),
+              ],
+              child: ReviewsScreen(model: model)), name: Routes.reviewsScreen);
       case Routes.result:
         final ResultScreenArgs args = settings.arguments as ResultScreenArgs;
         return _page(ResultScreen(args: args), name: Routes.result);

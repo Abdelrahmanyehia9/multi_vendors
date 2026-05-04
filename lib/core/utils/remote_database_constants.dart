@@ -16,6 +16,7 @@ class RemoteDatabaseConstants {
   static const String tags_table = 'product_tags_info';
   static const String id_column = 'id';
   static const String category_id_column = 'category_id';
+  static const String product_id_column = 'product_id';
   static const String is_active_column   = 'is_active';
   static const String vendor_id_column = 'vendor_id';
   static const String created_at_column = "created_at";

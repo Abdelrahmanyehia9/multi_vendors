@@ -6,7 +6,6 @@ import 'package:multi_vendor/core/queries/shop_queries.dart';
 import 'package:multi_vendor/core/service/real_time_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/shop/history/data/model/order_tracking_model.dart';
-import 'package:multi_vendor/features/shop/history/data/model/review_request_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:multi_vendor/core/service/database_service.dart';
@@ -78,17 +77,6 @@ class OrderHistoryRepository {
       return left(e.toAppException);
     }
   }
-  Future<Either<AppException, Unit>> rateAnOrder({required List<ReviewRequestModel> reviews }) async {
-    try {
-       await _db.UPSERT_MANY(
-          table: RemoteDatabaseConstants.reviews_table,
-          data: reviews.map((e) => e.toJson()).toList(),
-          );
-         return right(unit) ;
-    } catch (e) {
-      return left(e.toAppException);
-    }
-  }
   Future<Either<AppException, OrderModel>> deleteOrder(int orderId) async {
     try {
       final response = await _db.UPDATE(
@@ -107,7 +95,8 @@ class OrderHistoryRepository {
     required int trackId,
     required void Function(OrderTrackingModel tracking) onUpdate,
     void Function(AppException error)? onError,
-  }) {
+  })
+  {
     _channels.add('order_tracking_$trackId');
     _realtime.subscribeToTable(
       channelName: 'order_tracking_$trackId',

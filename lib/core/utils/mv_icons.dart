@@ -1,7 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MvIcons {
  const  MvIcons._();
@@ -62,4 +61,5 @@ class MvIcons {
   static const IconData login = Icons.login ;
   static const IconData logout = Icons.logout ;
   static const IconData starHalf = Icons.star_half ;
+  static const IconData support = Icons.support_agent ;
 }

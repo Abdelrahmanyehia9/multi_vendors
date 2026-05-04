@@ -33,7 +33,6 @@ class HomeScreen extends StatelessWidget {
                   title: const SloganText(),
                   onTap: onSearch).appPaddingHr,
               const HomeBanner(),
-              Gap.small(),
               if (FeatureFlags.multiVendor)...[
                 const HomeVendorsSection().appPaddingHr,
               ],

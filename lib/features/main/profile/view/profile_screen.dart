@@ -37,7 +37,10 @@ class ProfileScreen extends StatelessWidget {
       MvIcons.settings,
       (context) => context.pushNamed(Routes.settings),
     ),
-    ("Rate us", MvIcons.star, (_) {}),
+    ("Rate us", MvIcons.star, (_) {}
+    ),
+    ("Contact us", MvIcons.support, (_) {}
+    ),
   ];
 
   @override

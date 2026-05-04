@@ -8,6 +8,7 @@ import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
+import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
 import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
@@ -110,6 +111,7 @@ static Future<void> setupGetIt() async {
     getIt.registerFactory(()=>PaymentRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
     getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));
+    getIt.registerFactory(()=>RatingRepository(getIt.get<DatabaseService>()));
   }
 static Future<void> _setupLocalStorage() async {
   await HiveHelper.init();

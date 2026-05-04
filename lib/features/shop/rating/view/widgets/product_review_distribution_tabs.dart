@@ -4,14 +4,11 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 
 class ProductReviewDistributionTabs extends StatelessWidget {
-  final RatingDistribution distribution;
-
+  final List<int> distribution;
   final ValueNotifier<int?> selected;
-
   const ProductReviewDistributionTabs({
     super.key,
     required this.selected,
@@ -20,13 +17,7 @@ class ProductReviewDistributionTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<int> distributionList = [
-      distribution.one,
-      distribution.two,
-      distribution.three,
-      distribution.four,
-      distribution.five,
-    ];
+
     return ValueListenableBuilder(
       valueListenable: selected,
       builder: (context, value, child) {
@@ -42,7 +33,7 @@ class ProductReviewDistributionTabs extends StatelessWidget {
                 selected.value = null;
               }),
               ...List.generate(
-                distributionList.length,
+                distribution.length,
                 (i) => _chip(
                   context: context,
                     onTap: (){

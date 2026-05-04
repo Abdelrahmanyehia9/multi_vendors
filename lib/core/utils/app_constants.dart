@@ -4,6 +4,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/enum/payment_option.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
+import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
@@ -22,20 +23,20 @@ class AppConstants {
   static const List<OnBoardingItemData> items = [
     (
     title: "Collection of Your Favorite \nBest",
-    description: "Arancia provides the best and most contemporary outfits to meet your fashion needs",
-    imagePath: Testing.menShirt,
+    description: "Step into a world of fashion made just for you. Explore curated looks, trending outfits, and timeless pieces that match your personality and elevate your everyday style.",
+    imagePath: AppAssets.onBoarding1,
     titleHighlighter: "Fashion",
     ),
     (
-    title: "second title",
-    description: "second desctiption",
-    imagePath: Testing.girlModel,
-    titleHighlighter: null
+    title: "Choose Your",
+    description: "Tell us who you're shopping for so we can tailor every recommendation to your taste. Whether it's for men, women, or kids — we’ve got something perfect waiting for you.",
+    imagePath: AppAssets.onBoarding2,
+    titleHighlighter: 'Brand'
     ),
     (
-    title: "third title",
-    description: "third desctiption",
-    imagePath: Testing.menShirt,
+    title: "Shop the Latest Trends",
+    description: "Stay ahead with the newest collections from top brands. From casual essentials to standout pieces, discover everything you need to build your perfect wardrobe.",
+    imagePath: AppAssets.onBoarding3,
     titleHighlighter: null
     ),
   ];

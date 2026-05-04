@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
-import 'package:multi_vendor/features/shop/history/view/rate_product_screen.dart';
+import 'package:multi_vendor/features/shop/rating/view/rate_product_screen.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
 
 class ListProductsToRateList extends StatelessWidget {

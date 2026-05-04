@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 
@@ -11,18 +14,18 @@ class AuthHeader extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Center(
-          child: AppCachedNetworkImage(Testing.logo, width: 120, height: 120),
+         Center(
+          child: SvgPicture.asset(AppAssets.appLogo, width: 50.w, height: 50.h),
         ),
         Text(
           "Welcome Back",
           textAlign: TextAlign.center,
-          style: TextStyles.headline3,
+          style: TextStyles.labelLarge,
         ),
         Text(
           "Please fill form below to Login",
           textAlign: TextAlign.center,
-          style: TextStyles.captionLarge,
+          style: TextStyles.captionMedium,
         ),
       ],
     );

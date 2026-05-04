@@ -34,7 +34,7 @@ class _BirthDateFieldState extends State<BirthDateField> {
       borderWidth: 1.2,
       readOnly: true,
       controller: _controller,
-      suffix:  Icon(MvIcons.calender),
+      suffix:  const Icon(MvIcons.calender),
       onTap: ()  async{
         final DateTime now = DateTime.now();
         DateTime? date = await  showDatePicker(

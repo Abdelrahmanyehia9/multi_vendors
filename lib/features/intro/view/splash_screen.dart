@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -21,11 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return const BaseScaffold(
+    return  BaseScaffold(
       body: Center(
-        child: AppCachedNetworkImage(Testing.logo,
-        width: 160,
-        height: 160,
+        child: SvgPicture.asset(
+          AppAssets.appLogo,
+        width: 80.w,
+        height: 60.h,
         ),
       ),
     );

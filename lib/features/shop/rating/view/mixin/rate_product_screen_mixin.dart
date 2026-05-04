@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multi_vendor/features/shop/history/data/model/review_request_model.dart';
-import 'package:multi_vendor/features/shop/history/logic/order_submit_review_cubit.dart';
-import 'package:multi_vendor/features/shop/history/view/rate_product_screen.dart';
+import 'package:multi_vendor/features/shop/rating/data/models/review_model.dart';
+import 'package:multi_vendor/features/shop/rating/logic/order_submit_review_cubit.dart';
+import 'package:multi_vendor/features/shop/rating/view/rate_product_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -9,7 +9,7 @@ mixin RateProductScreenMixin on State<RateProductScreen> {
   late final PageController pageController;
   late final ValueNotifier<int> currentPage;
   late final int totalPages;
-  late final List<ReviewRequestModel> reviews;
+  late final List<ReviewModel> reviews;
   OrderSubmitReviewCubit get cubit => context.read<OrderSubmitReviewCubit>();
 
   @override
@@ -19,7 +19,7 @@ mixin RateProductScreenMixin on State<RateProductScreen> {
     totalPages = widget.args.items.length;
     pageController = PageController(initialPage: currentPage.value,);
     reviews = List.generate(totalPages, (i) =>
-        ReviewRequestModel(
+        ReviewModel(
           itemId: widget.args.items[i].orderItemId!,
           productId: widget.args.items[i].product.id,
         ));

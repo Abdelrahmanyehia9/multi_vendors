@@ -9,6 +9,13 @@ extension StringExtension on String? {
 extension ListExtension<T> on List<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 }
+extension IterableX<T> on Iterable<T?> {
+  Iterable<T> whereNotNull() sync* {
+    for (final e in this) {
+      if (e != null) yield e;
+    }
+  }
+}
 
 extension RemoveNulls on Map<String, dynamic> {
   Map<String, dynamic> get withoutNulls {

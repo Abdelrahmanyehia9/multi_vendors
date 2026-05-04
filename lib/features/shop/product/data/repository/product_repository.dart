@@ -13,9 +13,7 @@ import 'package:multi_vendor/features/shop/product/data/model/products_response_
 
 class ProductRepository {
   final DatabaseService _databaseService;
-
   const ProductRepository(this._databaseService);
-
   Future<Either<AppException, List<ProductTagModel>>> getAllTags() async {
     try {
       final response = await _databaseService.GET(
@@ -27,7 +25,6 @@ class ProductRepository {
       return left(e.toAppException);
     }
   }
-
   Future<Either<AppException, ProductDetailsModel>> getSingleProduct({
     required int pId,
   }) async {
@@ -43,11 +40,9 @@ class ProductRepository {
       return left(e.toAppException);
     }
   }
-
   Future<Either<AppException, ProductsFiltersModel>> getProductFilters({
     ProductsFiltersModel? selectedFilters,
-  })
-  async {
+  }) async {
 try{
 
 
@@ -64,8 +59,7 @@ try{
   }
   Future<Either<AppException, ProductResponseModel>> getProductInFilters({
     ProductsFiltersModel? selectedFilters,
-  })
-  async {
+  }) async {
    try{
      final response = await _databaseService.RPC(
        function: RpcFunctions.getProductsInFiltersRPC,

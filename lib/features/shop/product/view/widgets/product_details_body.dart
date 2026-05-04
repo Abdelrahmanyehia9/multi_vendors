@@ -13,6 +13,7 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/features/shop/rating/view/reviews_screen.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
@@ -42,7 +43,12 @@ class ProductDetailsBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (model.rating != null)
-                RatingStars(rating: model.rating!, size: 22),
+                AppClick(
+                    onTap: () {
+                      if(model.id== null) return ;
+                      context.pushNamed(Routes.reviewsScreen, arguments: model);
+                    },
+                    child: RatingStars(rating: model.rating!, size: 22)),
               Text(
                 model.category?.name ?? "",
                 style: TextStyles.captionMedium,

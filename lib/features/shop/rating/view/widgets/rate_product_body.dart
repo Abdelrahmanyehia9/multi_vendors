@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
-import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
@@ -30,7 +28,7 @@ class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAli
           title: "Overall rating",
           rating: const RatingModel(
             rating: 0,
-            count: 0
+            count: 0,
           ),
           onRatingChanged: widget.ratingChanged,
           size: 24,
@@ -48,6 +46,5 @@ class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAli
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive =>true;
 }

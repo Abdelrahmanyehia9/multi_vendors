@@ -38,6 +38,13 @@ class ShopQueries {
 static const String vendorsByCategory = '''
  id, name, image, is_verified , delivery_option, rating
 ''';
+static const String productRating = '''
+ rating
+''';
 
+static const String userReviews = '''
+*,
+user:public_profiles(id, full_name, profile_pic)
+''';
 
 }
