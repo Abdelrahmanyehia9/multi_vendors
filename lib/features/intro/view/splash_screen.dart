@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
-import 'package:multi_vendor/core/utils/testing.dart';
-import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
 import 'package:multi_vendor/features/intro/logic/splash_logic.dart';

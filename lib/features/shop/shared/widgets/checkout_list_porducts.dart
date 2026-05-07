@@ -52,7 +52,7 @@ class CheckoutProductCard extends StatelessWidget {
         child: Row(
           children: [
             AppCachedNetworkImage(
-              item.product.image,
+              item.product.thumbnail,
               height: height,
               width: context.width*.25,
               radius: Decorations.borderRadius8,

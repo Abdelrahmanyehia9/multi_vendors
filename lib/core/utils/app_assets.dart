@@ -10,8 +10,16 @@ class AppAssets{
   static const String otpIllustration = "assets/svg/Enter OTP-pana.svg";
   static const String emptyIllustration = "assets/svg/Empty-pana.svg";
   static const String errorIllustration = "assets/svg/500 Internal Server Error-pana.svg";
+  static const String contactUsIllustration = "assets/svg/Contact us-cuate.svg";
   static const String languagesPack = 'assets/languages';
 
+
+  static const String facebookIcon = "assets/icons/facebook.svg" ;
+  static const String instagramIcon ="assets/icons/instagram.svg" ;
+  static const String whatsappIcon = "assets/icons/whatsapp.svg" ;
+  static const String tikTokIcon = "assets/icons/tiktok.svg" ;
+  static const String gBFlag = "assets/icons/gb.svg";
+  static const String sAFlag = "assets/icons/sa.svg";
 
 
 

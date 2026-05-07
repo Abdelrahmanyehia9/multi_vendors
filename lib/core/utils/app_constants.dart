@@ -5,7 +5,6 @@ import 'package:multi_vendor/core/enum/payment_option.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
-import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 /*
@@ -44,6 +43,13 @@ class AppConstants {
   static const  String supabaseUrl ="https://rjhzydonszurlkfrnhdc.supabase.co";
   static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
   static final List<PaymentOption> payments = [PaymentOption.store, PaymentOption.cod];
+  static const String supportPhoneNumber = "0111111111";
+  static const String supportEmail = "support@multi-vendor.com";
+  static const String supportFacebook = "multiVendor";
+  static const String supportWhatsApp = "multiVendor";
+  static const String supportInstagram = "multiVendor";
+  static const String supportTikTok = "multiVendor";
+  static const String? appStoreId = null;
 
 
   static Future<void> setupPhoneSystem() async {

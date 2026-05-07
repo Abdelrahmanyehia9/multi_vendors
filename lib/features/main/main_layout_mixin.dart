@@ -9,7 +9,7 @@ import 'package:multi_vendor/features/main/home/data/repository/home_repository.
 import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
-import 'package:multi_vendor/features/main/home/logic/home_product_by_category_cubit.dart';
+import 'package:multi_vendor/features/main/home/logic/home_product_by_sub_category_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
 import 'package:multi_vendor/features/main/home/view/home_screen.dart';
@@ -23,20 +23,22 @@ import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/order_history_screen.dart';
-
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
-import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
+import 'package:multi_vendor/shared/logic/sub_categories_cubit.dart';
 
 mixin MainLayoutMixin on State<MainLayout> {
   MainLayoutCubit get cubit => context.read<MainLayoutCubit>()  ;
   late final List<NavbarItem> items;
   late final List<Widget?> _loadedPages;
+  late final List<int> _refreshKeys;
+
 
   @override
   void initState() {
     super.initState();
     items = _buildItems();
     _loadedPages = List.generate(items.length, (_) => null);
+    _refreshKeys = List.generate(items.length, (_) => 0);
     _loadedPages[widget.initialIndex] = items[widget.initialIndex]
         .pageBuilder();
   }
@@ -50,31 +52,31 @@ mixin MainLayoutMixin on State<MainLayout> {
           providers: [
             BlocProvider(
               create: (_) =>
-                  HomeCategoriesCubit(getIt<HomeRepository>())..getCategories(),
+              SubCategoriesCubit(getIt<HomeRepository>())..getSubCategories(),
             ),
             BlocProvider(
               create: (_) =>
-                  HomeVendorsCubit(getIt<HomeRepository>())..getAllVendors(),
+              HomeVendorsCubit(getIt<HomeRepository>())..getAllVendors(),
             ),
             BlocProvider(
               create: (_) =>
-                  HomeProductByCategoryCubit(getIt<HomeRepository>()),
+                  HomeProductBySubCategoryCubit(getIt<HomeRepository>()),
             ),
             BlocProvider(
               create: (_) =>
-                  HomeFeaturedItemCubit(getIt<HomeRepository>())
-                    ..getFeaturedItem(),
+              HomeFeaturedItemCubit(getIt<HomeRepository>())
+                ..getFeaturedItem(),
             ),
             BlocProvider(
               create: (_) =>
-                  HomeTagsFilterCubit(getIt<HomeRepository>())..getTags(),
+              HomeTagsFilterCubit(getIt<HomeRepository>())..getTags(),
             ),
             BlocProvider(
               create: (_) => HomeNewsCubit(getIt<HomeRepository>())..getNews(),
             ),
             BlocProvider(
               create: (_) =>
-                  HomeBannerCubit(getIt<HomeRepository>())..getBanners(),
+              HomeBannerCubit(getIt<HomeRepository>())..getBanners(),
             ),
           ],
           child: HomeScreen(
@@ -89,10 +91,11 @@ mixin MainLayoutMixin on State<MainLayout> {
         label: "Search",
         pageBuilder: () => MultiBlocProvider(
           providers: [
+            BlocProvider(create: (context) => SearchCubit()),
             BlocProvider(
               create: (_) =>
-                  SearchProductHistoryCubit(getIt<SearchRepository>())
-                    ..getHistory(),
+              SearchProductHistoryCubit(getIt<SearchRepository>())
+                ..getHistory(),
             ),
             BlocProvider(
               create: (_) => SearchProductsCubit(getIt<SearchRepository>()),
@@ -113,8 +116,8 @@ mixin MainLayoutMixin on State<MainLayout> {
         toolTip: "Order History",
         pageBuilder: () => BlocProvider(
           create: (_) =>
-              OrderHistoryCubit(getIt<OrderHistoryRepository>())
-                ..getOrdersHistory(),
+          OrderHistoryCubit(getIt<OrderHistoryRepository>())
+            ..getOrdersHistory(),
           child: const OrderHistoryScreen(),
         ),
       ),
@@ -127,20 +130,25 @@ mixin MainLayoutMixin on State<MainLayout> {
   }
   void onChange(int index) {
     _loadedPages[index] ??= items[index].pageBuilder();
-    if (index == 1) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.read<SearchCubit>().focusNode.requestFocus();
-        });
-    }
   }
   bool get canPop => cubit.canPop;
 
   void onRefresh() {
+    final currentIndex = cubit.state;
 
+    setState(() {
+      _refreshKeys[currentIndex]++;
+      _loadedPages[currentIndex] = items[currentIndex].pageBuilder();
+    });
   }
-
-  List<Widget> get pages => _loadedPages.map((page) => page ?? const SizedBox()).toList();
-
+  List<Widget> get pages => _loadedPages.asMap().entries.map((entry) {
+    final index = entry.key;
+    final page = entry.value ?? const SizedBox();
+    return KeyedSubtree(
+      key: ValueKey(_refreshKeys[index]),
+      child: page,
+    );
+  }).toList();
 
 
 }

@@ -9,6 +9,7 @@ import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_address_cubit.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_profile_pic_cubit.dart';
+import 'package:multi_vendor/features/main/profile/view/contact_us_screen.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
@@ -77,7 +78,7 @@ import 'package:multi_vendor/features/vendors/view/vendor_details_screen.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
 import 'package:multi_vendor/shared/logic/image_handle_cubit.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
-import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
+import 'package:multi_vendor/shared/logic/main_categories_cubit.dart';
 import 'package:multi_vendor/shared/data/models/news_model.dart';
 import 'package:multi_vendor/shared/view/success_screen.dart';
 
@@ -151,7 +152,6 @@ class AppRouter {
         return _page(
           MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => SearchCubit(autoFocus: false)),
               BlocProvider(
                 create: (context) => MainLayoutCubit()..init(initialIndex),
               ),
@@ -230,7 +230,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) =>
-                    HomeCategoriesCubit(getIt.get<HomeRepository>())
+                    MainCategoriesCubit(getIt.get<HomeRepository>())
                       ..getCategories(),
               ),
               BlocProvider(
@@ -428,6 +428,10 @@ class AppRouter {
       case Routes.result:
         final ResultScreenArgs args = settings.arguments as ResultScreenArgs;
         return _page(ResultScreen(args: args), name: Routes.result);
+
+       case Routes.contactUs:
+        return _page(const ContactUsScreen(), name: Routes.contactUs);
+
       default:
         return null;
     }

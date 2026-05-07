@@ -10,7 +10,6 @@ import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
-import 'package:multi_vendor/shared/view/widgets/login_required.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_model.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -34,48 +33,46 @@ class _FavoriteScreenState extends State<FavoriteScreen>
 
   @override
   Widget build(BuildContext context) {
-    return LoginRequired(
-      child: BaseBlocConsumer<FavoriteCubit, FavoriteModel>(
-        successBuilder: (favorites) {
-          final products = _emptyOrWidget(
-            favorites.favoriteProducts.isEmpty,
-            ProductGrid(products: favorites.favoriteProducts),
-          );
+    return BaseBlocConsumer<FavoriteCubit, FavoriteModel>(
+      successBuilder: (favorites) {
+        final products = _emptyOrWidget(
+          favorites.favoriteProducts.isEmpty,
+          ProductGrid(products: favorites.favoriteProducts),
+        );
 
-          final vendors = _emptyOrWidget(
-            favorites.favoriteVendors.isEmpty,
-            VendorCardGrid(vendors: favorites.favoriteVendors),
-          );
+        final vendors = _emptyOrWidget(
+          favorites.favoriteVendors.isEmpty,
+          VendorCardGrid(vendors: favorites.favoriteVendors),
+        );
 
-          return Column(
-            children: [
-              SizedBox(
-                height: 70.h,
-                child:  BaseAppBar(
-                  title: "Favorite",
-                  showLeading: false,
+        return Column(
+          children: [
+            SizedBox(
+              height: 70.h,
+              child:  BaseAppBar(
+                title: "Favorite",
+                showLeading: false,
+              ),
+            ),
+            if (!FeatureFlags.multiVendor)
+              Expanded(child: products)
+            else ...[
+              BaseTabBar(
+                alignment: TabAlignment.center,
+                controller: controller,
+                tabs: const ['Products', 'Vendors'],
+              ),
+              Gap.large(),
+              Expanded(
+                child: TabBarView(
+                  controller: controller,
+                  children: [products, vendors],
                 ),
               ),
-              if (!FeatureFlags.multiVendor)
-                Expanded(child: products)
-              else ...[
-                BaseTabBar(
-                  alignment: TabAlignment.center,
-                  controller: controller,
-                  tabs: const ['Products', 'Vendors'],
-                ),
-                Gap.large(),
-                Expanded(
-                  child: TabBarView(
-                    controller: controller,
-                    children: [products, vendors],
-                  ),
-                ),
-              ],
             ],
-          );
-        },
-      ),
+          ],
+        );
+      },
     );
   }
 }

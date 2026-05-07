@@ -4,6 +4,7 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/cart_repository.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class CartCubit extends Cubit<BaseState<List<CartModel>>> {
   final CartRepository _repository;
@@ -28,7 +29,7 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
    await  _repository.updateCart(_cart);
   }
 
-  int inCart(CartProductModel item) {
+  int inCart(ProductModel item) {
     return _cart
         .firstWhereOrNull(
           (e) => e.product.uniqueId == item.uniqueId,
@@ -37,7 +38,7 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
         0;
   }
 
-  void addToCart(CartProductModel item) {
+  void addToCart(ProductModel item) {
     final index =
     _cart.indexWhere((e) => e.product.uniqueId == item.uniqueId);
 
@@ -51,7 +52,7 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
     _update;
   }
 
-  void updateQuantity(bool increased, {required CartProductModel item}) {
+  void updateQuantity(bool increased, {required ProductModel item}) {
     final index =
     _cart.indexWhere((e) => e.product.uniqueId == item.uniqueId);
     if (index == -1) {
@@ -72,7 +73,7 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
     _update;
   }
 
-  void removeItem(CartProductModel item) {
+  void removeItem(ProductModel item) {
     _cart.removeWhere((e) => e.product.uniqueId == item.uniqueId);
     _update;
   }

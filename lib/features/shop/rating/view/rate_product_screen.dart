@@ -58,6 +58,7 @@ class _RateProductScreenState extends State<RateProductScreen> with RateProductS
                   onPageChanged: onPageChanged,
                   itemBuilder: (_, i) {
                     return RateProductBody(
+                      item: widget.args.items[i],
                       ratingChanged: (rate)=>reviews[i] = reviews[i].copyWith(rate: rate.floor()),
                       commentChanged: (comment)=>reviews[i] = reviews[i].copyWith(comment: comment),
                     ).appPaddingHr;

@@ -11,11 +11,12 @@ final class StorageService {
       File file, {
         required String bucketName,
         required String folderName,
+        String? imageName,
         String prefix = "IMG",
         bool upsert = true,
       }) async
   {
-    final fileName = "$prefix${DateTime.now().millisecondsSinceEpoch}";
+    final fileName = imageName??"$prefix${DateTime.now().millisecondsSinceEpoch}";
     final filePath = '$folderName/$fileName';
 
     await _supabase.storage

@@ -116,6 +116,13 @@ final class AuthenticationService {
   );
   bool get isAuthenticated => _client.auth.currentUser != null;
 
+  Future<bool> signInWithOAuth(OAuthProvider provider)async{
+    return await _client.auth.signInWithOAuth(
+      provider,
+    );
+  }
+
+
   Future<void> logout() async => await _client.auth.signOut();
   Future<void>reAuth()async=>await _client.auth.reauthenticate() ;
   User? get currentUser => _client.auth.currentUser;

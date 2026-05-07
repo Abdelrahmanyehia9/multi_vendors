@@ -3,7 +3,6 @@ import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/shop/rating/data/models/user_review_model.dart';
 import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
-import 'package:multi_vendor/features/shop/rating/view/reviews_screen.dart';
 
 class UserReviewsCubit extends Cubit<BaseState<List<UserReviewModel>>> {
   final RatingRepository _repository;

@@ -9,13 +9,13 @@ import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
 import 'package:multi_vendor/shared/data/models/category_model.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/logic/sub_categories_cubit.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
-import 'package:multi_vendor/features/main/home/logic/home_product_by_category_cubit.dart';
+import 'package:multi_vendor/features/main/home/logic/home_product_by_sub_category_cubit.dart';
 
 class HomeShopByCategories extends StatefulWidget {
   const HomeShopByCategories({super.key});
@@ -31,11 +31,11 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
   void _onCategoriesGetSuccess(List<CategoryModel>? i){
     if(i == null) return;
     _selectedItem.value = 0;
-    context.read<HomeProductByCategoryCubit>().getProductByCategory(
+    context.read<HomeProductBySubCategoryCubit>().getProductByCategory(
       i[_selectedItem.value].id!,
     );
     _selectedItem.addListener(() {
-      context.read<HomeProductByCategoryCubit>().getProductByCategory(
+      context.read<HomeProductBySubCategoryCubit>().getProductByCategory(
         i[_selectedItem.value].id!,
       );
     });
@@ -45,7 +45,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BaseBlocConsumer<HomeCategoriesCubit, List<CategoryModel>>(
+        BaseBlocConsumer<SubCategoriesCubit, List<CategoryModel>>(
           onSuccess: _onCategoriesGetSuccess,
           successBuilder: (categories) => _Categories(selectedItem: _selectedItem, categories: categories),
           loadingBuilder: () => _Categories(
@@ -54,7 +54,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
           ),
         ),
         Gap.medium(),
-        BaseBlocConsumer<HomeProductByCategoryCubit, List<ProductModel>>(
+        BaseBlocConsumer<HomeProductBySubCategoryCubit, List<ProductModel>>(
           successBuilder: (p) => ProductGrid(shrinkWrap: true, products: p),
           loadingBuilder: () => ProductGrid(
             shrinkWrap: true,

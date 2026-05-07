@@ -57,7 +57,7 @@ class CartCard extends StatelessWidget {
                   width: width*.25,
                   height: height,
                   radius: Decorations.borderRadius16,
-                  cartItem.product.image),
+                  cartItem.product.thumbnail),
             ),
             Gap.small(),
             Expanded(

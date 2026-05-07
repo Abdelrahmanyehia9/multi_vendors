@@ -94,7 +94,7 @@ class  Popups {
             AppButton(text: "submit", buttonSize: null, onPressed: (){
               context.pop(true) ;
             },),
-            AppButton.outlined(text: "Cancel", onPressed: (){
+            AppButton.text(text: "Cancel", onPressed: (){
               context.pop(false) ;
             })
           ],

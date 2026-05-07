@@ -22,10 +22,9 @@ final class SearchState {
   }
 }
 
-
 class SearchCubit extends Cubit<SearchState> {
-  late final TextEditingController controller;
-  late final FocusNode focusNode;
+  late TextEditingController controller;
+  late FocusNode focusNode;
 
   final bool autoFocus;
 
@@ -37,15 +36,12 @@ class SearchCubit extends Cubit<SearchState> {
   void init() {
     focusNode = FocusNode();
     controller = TextEditingController();
-
     if (autoFocus) {
       focusNode.requestFocus();
     }
-
     focusNode.addListener(() {
       onFocusChanged(focusNode.hasFocus);
     });
-
     controller.addListener(() {
       final text = controller.text;
       if (text != state.query) {
@@ -61,6 +57,7 @@ class SearchCubit extends Cubit<SearchState> {
   void onQueryChanged(String query) {
     safeEmit(state.copyWith(query: query));
   }
+
 
   @override
   Future<void> close() {

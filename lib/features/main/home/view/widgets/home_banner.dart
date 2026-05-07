@@ -13,7 +13,6 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
-import 'package:multi_vendor/core/utils/testing.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 

@@ -157,7 +157,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
       hintText: "Enter $label",
       controller: controller,
       customHeader: header,
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
       hintStyle: TextStyles.captionMedium,
       maxLength: maxLength,
       validator: isOptional ? null : (v) => AppValidation.validateRequired(v),

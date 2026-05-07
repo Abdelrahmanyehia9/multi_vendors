@@ -49,7 +49,7 @@ class MvIcons {
   static const  IconData email = CupertinoIcons.mail_solid;
   static const  IconData call = CupertinoIcons.phone_fill;
   static const  IconData calender = CupertinoIcons.calendar;
-  static const  IconData locationCity = CupertinoIcons.location_fill;
+  static const  IconData locationCity = CupertinoIcons.house_alt_fill;
   static const  IconData remove = CupertinoIcons.minus;
   static const  IconData add = CupertinoIcons.add;
   static const  IconData gallery = CupertinoIcons.photo_fill_on_rectangle_fill;
@@ -62,4 +62,5 @@ class MvIcons {
   static const IconData logout = Icons.logout ;
   static const IconData starHalf = Icons.star_half ;
   static const IconData support = Icons.support_agent ;
+  static const IconData checkedCircle = Icons.check_circle_sharp ;
 }

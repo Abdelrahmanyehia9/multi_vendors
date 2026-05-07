@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/shared/data/models/action_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -101,7 +102,10 @@ class AppStates extends StatelessWidget {
             AppButton(
               text: actionModel!.text,
               onPressed: () => actionModel?.action?.call(context),
-              fixedSize: Size(size * 7, size * 1.4),
+              buttonSize: null,
+              borderRadius: Decorations.borderRadius4,
+              fixedSize: Size(size * 7, size * 1.5),
+              padding: EdgeInsets.zero,
               style: TextStyles.bodyMedium.copyWith(
                 color: Colors.white,
                 fontSize: size * .586.sp,

@@ -17,6 +17,7 @@ mixin ChangePasswordMixin on State<ChangePasswordScreen>{
   void onChangePasswordError(AppException e) {
     context.errorBar(message: e.message);
   }
+
   void onChangePasswordSuccess() {
     context.successBar(message: "Password changed successfully");
   }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/rating/view/widgets/list_products_to_rate_list.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class RateOrderScreen extends StatelessWidget {

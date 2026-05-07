@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 import 'package:multi_vendor/shared/view/widgets/quantity_stepper.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 
@@ -17,7 +18,7 @@ class AddToCartButton extends StatelessWidget {
     this.enabled = true,
   });
 
-  final CartProductModel product;
+  final ProductModel product;
   final bool enabled;
 
   @override

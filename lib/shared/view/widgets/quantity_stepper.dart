@@ -8,8 +8,8 @@ import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
-import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 
 enum QuantityStepperStyle {wide, narrow}
@@ -31,13 +31,13 @@ class _AddOrMinusArgs {
 }
 class QuantityStepper extends StatelessWidget {
   final QuantityStepperStyle style;
-  final CartProductModel product;
+  final ProductModel product;
   const QuantityStepper._({required this.style, required this.product});
 
-  factory QuantityStepper.wide({required CartProductModel item}) =>
+  factory QuantityStepper.wide({required ProductModel item}) =>
       QuantityStepper._(style: QuantityStepperStyle.wide, product: item);
 
-  factory QuantityStepper.narrow({required CartProductModel item}) =>
+  factory QuantityStepper.narrow({required ProductModel item}) =>
       QuantityStepper._(style: QuantityStepperStyle.narrow, product: item);
 
 

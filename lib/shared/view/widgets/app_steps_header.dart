@@ -33,9 +33,9 @@ class AppStepsHeader extends StatelessWidget {
           ),
           Positioned(
             top: -24.h,
-            right: isRTL ? activeStepWidth +16.w : null,
-            left: isRTL ? null : activeStepWidth -16.w,
-            child: const Icon(MvIcons.checkedOutlined, color: AppColors.primary),
+            right: isRTL ? activeStepWidth +12.w : null,
+            left: isRTL ? null : activeStepWidth -12.w,
+            child: const Icon(MvIcons.checkedCircle, color: AppColors.primary),
           ),
         ],
       ),

@@ -10,7 +10,7 @@ import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-import 'package:multi_vendor/shared/logic/shop_categories_cubit.dart';
+import 'package:multi_vendor/shared/logic/main_categories_cubit.dart';
 import 'package:multi_vendor/shared/data/models/category_model.dart';
 import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
@@ -35,7 +35,7 @@ class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScr
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BaseBlocConsumer<HomeCategoriesCubit, List<CategoryModel>>(
+          BaseBlocConsumer<MainCategoriesCubit, List<CategoryModel>>(
             onSuccess:(cat)=> onCategoriesSuccess(cat!),
             successBuilder: (categories) => _Categories(selectedTagIndex, categories),
             loadingBuilder: () => _Categories(

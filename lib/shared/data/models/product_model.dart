@@ -77,8 +77,11 @@ class ProductModel extends Equatable implements FavoriteItem{
  );
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, rating, price, productTags, name, thumbnail, vendor];
+
+  int get uniqueId => id!;
+  int get inStock=>stockAvailability?.quantity ?? 0;
+
 
   @override
   int get favoriteId => id!;

@@ -27,7 +27,7 @@ class ImageHandler {
     }
   }
 
-  Future<Either<AppException, String?>> cropImage(
+  Future<Either<AppException, String>> cropImage(
     String path, {
     ImageCropType? type,
     String? title,
@@ -38,7 +38,7 @@ class ImageHandler {
       if (maxSizeInMb != null) {
         await _validateImage(path: cropped?.path, maxSizeInMb: maxSizeInMb);
       }
-      return right(cropped?.path);
+      return right(cropped?.path??path);
     } catch (e) {
       return left(e.toAppException);
     }

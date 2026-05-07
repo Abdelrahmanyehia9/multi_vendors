@@ -21,7 +21,7 @@ mixin RateProductScreenMixin on State<RateProductScreen> {
     reviews = List.generate(totalPages, (i) =>
         ReviewModel(
           itemId: widget.args.items[i].orderItemId!,
-          productId: widget.args.items[i].product.id,
+          productId: widget.args.items[i].product.id!,
         ));
   }
 

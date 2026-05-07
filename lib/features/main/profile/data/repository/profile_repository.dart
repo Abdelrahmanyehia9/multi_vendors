@@ -68,7 +68,9 @@ class ProfileRepository {
     }
   }
   Future<String> _uploadProfilePic(String path)async{
-    final url = await _storageService.uploadAndGetUrl(File(path),
+    final url = await _storageService.uploadAndGetUrl(
+      File(path),
+        imageName: "profile_pic",
         bucketName: "Users",
         folderName: _service.currentUser?.id ?? "unknown",) ;
     return url;

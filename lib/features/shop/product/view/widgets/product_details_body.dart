@@ -4,7 +4,6 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/widgets/buttons/add_to_cart_button.dart';
-import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -13,7 +12,7 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/features/shop/rating/view/reviews_screen.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
@@ -31,7 +30,7 @@ class ProductDetailsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        spacing: 12.h,
+        spacing: 18.h,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppSlider(
@@ -90,20 +89,20 @@ class ProductDetailsBody extends StatelessWidget {
             header: "Description",
             body: model.description,
           ),
-          if (model.productTags != null)
-            ProductInfoSection(
-              header: "Product Tags",
-              customBody: Wrap(
-                spacing: 4.w,
-                runSpacing: 4.h,
-                children: model.productTags!
-                    .map((e) => AppChip(
-                    selectedBorderColor: Colors.transparent,
-                    selectedColor: context.colors.surfaceContainerHighest,
-                    text: e.toText, selected: true))
-                    .toList(),
-              ),
-            ),
+       if (model.productTags != null )
+         ProductInfoSection(
+           header: "Product Tags",
+           customBody: Wrap(
+             spacing: 4.w,
+             runSpacing: 4.h,
+             children: model.productTags!
+                 .map((e) => AppChip(
+                 selectedBorderColor: Colors.transparent,
+                 selectedColor: context.colors.surfaceContainerHighest,
+                 text: e.toText, selected: true))
+                 .toList(),
+           ),
+         ),
 
           if (!model.isInStock)
             Center(
@@ -114,7 +113,7 @@ class ProductDetailsBody extends StatelessWidget {
             )
           else
             AddToCartButton(
-              product: CartProductModel.fromProductModel(model),
+              product: ProductModel.fromProductDetails(model),
             ),
         ],
       ),

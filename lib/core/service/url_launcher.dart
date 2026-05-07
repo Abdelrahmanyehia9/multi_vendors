@@ -153,7 +153,9 @@ enum SocialMediaPlatform {
   linkedin,
   tiktok,
   discord,
+  whatsapp,
   youtube;
+
 
   String getProfileUrl(String username) {
     switch (this) {
@@ -171,6 +173,8 @@ enum SocialMediaPlatform {
         return 'https://www.discord.com/$username';
       case SocialMediaPlatform.youtube:
         return 'https://www.youtube.com/$username';
+      case SocialMediaPlatform.whatsapp:
+        return 'https://wa.me/$username';
     }
   }
 }

@@ -30,6 +30,7 @@ static const String  rateOrder = '/rateOrder';
 static const String  rateProduct = '/rateProduct';
 static const String  result = '/result';
 static const String reviewsScreen = '/reviewsScreen';
+static const String contactUs = '/contactUs';
 
 
 }

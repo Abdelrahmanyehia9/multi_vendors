@@ -36,11 +36,19 @@ class HomeRepository {
       return left(e.toAppException);
     }
   }
-  Future<Either<AppException, List<CategoryModel>>> getCategories() =>
+  Future<Either<AppException, List<CategoryModel>>> getSubCategories() =>
      _getList(
       table: RemoteDatabaseConstants.category_table,
-       filter: (e) => e.isFilter("parent", null).order("count", ascending: false),
-       fromJson: CategoryModel.fromJson,
+       filter: (e) => e
+           .not("parent", "is", null)
+           .order("count", ascending: false),       fromJson: CategoryModel.fromJson,
+    );
+  Future<Either<AppException, List<CategoryModel>>> getMainCategories() =>
+     _getList(
+      table: RemoteDatabaseConstants.category_table,
+       filter: (e) => e
+           .isFilter("parent", null)
+           .order("count", ascending: false),       fromJson: CategoryModel.fromJson,
     );
   Future<Either<AppException, List<VendorModel>>> getVendors() =>
      _getList(
@@ -48,7 +56,7 @@ class HomeRepository {
       select: HomeQueries.homeVendors,
       fromJson: VendorModel.fromJson,
     );
-  Future<Either<AppException, List<ProductModel>>> getProductByCategory({
+  Future<Either<AppException, List<ProductModel>>> getProductBySubCategory({
     required int catId,
   }) =>
       _getList(

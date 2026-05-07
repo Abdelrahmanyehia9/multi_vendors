@@ -49,8 +49,9 @@ class ProductReviewDistributionCard extends StatelessWidget {
           flex: 3,
           child: Column(
             children: List.generate(
-              5,
-                  (i) => Row(
+              5, (i) {
+                final double  percentage= distribution[i] / (count==0?1:count) ;
+                return Row(
                 spacing: 4.w,
                 children: [
                   Icon(
@@ -66,12 +67,13 @@ class ProductReviewDistributionCard extends StatelessWidget {
                     child: LinearProgressIndicator(
                       borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
                       minHeight: 6.h,
-                      value: distribution[i] / count,
+                      value: percentage,
                     ),
                   ),
-                  Text("${(distribution[i] / count * 100).toStringAsFixed(1)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))
+                  Text("${(percentage * 100).toStringAsFixed(1)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))
                 ],
-              ).paddingVr(2),
+              ).paddingVr(2);
+              },
             ),
           ),
         ),

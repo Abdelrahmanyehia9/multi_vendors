@@ -20,7 +20,6 @@ Future<void>picker(ImagePickerSource source)async{
 Future<void>crop(String path , {String? title, ImageCropType? type })async{
   final result  = await _handler.cropImage(path,maxSizeInMb: maxSizeInMb ,type: type, title: title??"Crop Image") ;
   result.fold((l) => safeEmit(ImageHandleError(l)), (r) {
-    if(r==null) return;
     safeEmit(ImageCroppedSuccess(r));
   }) ;
 }

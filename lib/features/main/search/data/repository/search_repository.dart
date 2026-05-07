@@ -16,8 +16,9 @@ class SearchRepository {
     String query,
   ) async {
     try {
+      final encoded= Uri.encodeComponent(query);
       final response  = await _db.GET(table: RemoteDatabaseConstants.product_table, 
-      filter: (e)=> e.or('name.ilike.%$query%,description.ilike.%$query%').order(RemoteDatabaseConstants.created_at_column).limit(10)
+      filter: (e)=> e.or('name.ilike.%$encoded%,description.ilike.%$encoded%').order(RemoteDatabaseConstants.created_at_column).limit(10)
       );
       final products = response.map((e) => ProductModel.fromJson(e)).toList();
       return right(products);
