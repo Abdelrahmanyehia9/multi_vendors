@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_send_email_cubit.dart';
@@ -37,9 +39,9 @@ class _ForgetStepSendEmailState extends State<ForgetStepSendEmail> {
         spacing: 8.h,
         children: [
           Gap.small(),
-          Text("Reset Your Password", style: TextStyles.labelLarge),
+          Text(AppStrings.resetYourPassword.tr(), style: TextStyles.labelLarge),
           Text(
-            "To reset your password, please enter your registered email",
+            AppStrings.toResetYourPasswordPleaseEnterYourRegisteredEmail.tr(),
             style: TextStyles.captionMedium,
           ),
           Gap.medium(),
@@ -49,7 +51,7 @@ class _ForgetStepSendEmailState extends State<ForgetStepSendEmail> {
             onFailure: (e) => context.errorBar(message: e.message),
             onSuccess: (_) => stepper.nextStep(),
             builder: (s) => AppButton(
-              text: "send confirmation",
+              text: AppStrings.sendConfirmation.tr(),
               buttonSize: null,
               isLoading: s.isLoading,
               onPressed: _sendConfirmation,

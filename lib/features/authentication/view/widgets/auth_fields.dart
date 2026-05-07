@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -30,8 +32,8 @@ class PasswordField extends StatefulWidget {
   const PasswordField({
     super.key,
     this.readOnly = false,
-    this.hint = "Enter Your Password",
-    this.header = "Password",
+    this.hint = AppStrings.password,
+    this.header = AppStrings.password,
     this.controller,
     this.validator = AppValidation.validatePassword,
   });
@@ -40,8 +42,8 @@ class PasswordField extends StatefulWidget {
     required String password,
     required TextEditingController controller,
   }) => PasswordField(
-    hint: "Enter Confirm Password",
-    header: "Confirm Password",
+    hint: AppStrings.confirmPassword,
+    header: AppStrings.confirmPassword,
     controller: controller,
     validator: (v) => AppValidation.validatePasswordConfirmation(password, v),
   );
@@ -49,7 +51,6 @@ class PasswordField extends StatefulWidget {
   @override
   State<PasswordField> createState() => _PasswordFieldState();
 }
-
 class _PasswordFieldState extends State<PasswordField> {
   final ValueNotifier<bool> _isObscured = ValueNotifier<bool>(true);
 
@@ -59,7 +60,7 @@ class _PasswordFieldState extends State<PasswordField> {
       valueListenable: _isObscured,
       builder: (context, value, child) {
         return AppTextField(
-          hintText: widget.hint,
+          hintText: "${AppStrings.enter.tr()} ${widget.hint.tr()}",
           controller: widget.controller,
           autoValidateMode: AutovalidateMode.disabled,
           borderType: AppBorderType.filled,
@@ -69,7 +70,7 @@ class _PasswordFieldState extends State<PasswordField> {
             onTap: () => _isObscured.value = !value,
             child: Icon(!value ? MvIcons.visibility : MvIcons.visibilityOff),
           ),
-          headerText: widget.header,
+          headerText: widget.header.tr(),
         );
       },
     );
@@ -94,9 +95,9 @@ class EmailField extends StatelessWidget {
     return AppTextField(
       readOnly: readOnly,
       enabled: !readOnly,
-      hintText: "Enter Your Email",
+      hintText: "${AppStrings.enter.tr()} ${AppStrings.emailAddress.tr()}",
       controller: controller,
-      headerText: "Email Address",
+      headerText: AppStrings.emailAddress.tr(),
       validator:(v)=> AppValidation.validateEmail(v, nullable),
       keyboardType: TextInputType.emailAddress,
       suffix:  const Icon(MvIcons.email),
@@ -125,7 +126,7 @@ class PhoneField extends StatelessWidget {
       spacing: 4.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Phone Number", style: TextStyles.labelSmall),
+        Text(AppStrings.phoneNumber.tr(), style: TextStyles.labelSmall),
         IntlPhoneField(
           readOnly: readOnly,
           enabled: !readOnly,
@@ -137,13 +138,13 @@ class PhoneField extends StatelessWidget {
             backgroundColor: context.scaffoldBackground,
             searchFieldInputDecoration: decoration(
               context,
-              hintText: "search ....",
+              hintText: "${AppStrings.search.tr()} ....",
             ),
           ),
           flagsButtonMargin: EdgeInsets.symmetric(horizontal: 16.w),
           onCountryChanged: onCountryChanged,
           showDropdownIcon: false,
-          decoration: decoration(context, hintText: "Enter  Phone Number"),
+          decoration: decoration(context, hintText: "${AppStrings.enter.tr()} ${AppStrings.phoneNumber.tr()}"),
         ),
       ],
     );

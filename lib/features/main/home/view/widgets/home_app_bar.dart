@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -25,15 +26,17 @@ class HomeAppBar extends StatelessWidget {
               onTap: ()=>layoutCubit.changePage(4),
               child: Row(
                 children: [
-                   UserAvatar(profile: u?.profilePic,),
-                  Gap.extraSmall(),
+                   UserAvatar(
+                     size: 48,
+                     profile: u?.profilePic,),
+                  Gap.small(),
                   Expanded(child: _nameWithLocation(context)),
                 ],
               ),
             ),
           ),
           Gap.small(),
-          const AppCartButton()
+          const AppCartButton(),
         ],
       ),
     ).appPaddingVr;
@@ -45,11 +48,14 @@ class HomeAppBar extends StatelessWidget {
       children: [
         Text("Welcome back", style: TextStyles.labelSmall.copyWith(
           color: context.colors.surfaceContainerLow,
+          fontSize: 10.sp
         ),),
         Text(
           userCubit.userName.toUpperCase(),
           maxLines: 1,
-          style: TextStyles.labelMedium,
+          style: TextStyles.labelSmall.copyWith(
+            fontWeight: FontWeightHelper.medium
+          ),
           overflow: TextOverflow.ellipsis,
         ),
       ],

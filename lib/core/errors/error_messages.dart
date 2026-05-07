@@ -1,153 +1,145 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
+
 class AppErrorMessages {
   const AppErrorMessages._();
-  static const unexpectedError = 'An unexpected error occurred, please try again';
-  static const networkError = 'Internet connection error, check your network and try again';
-  static const timeoutError = 'Request timed out, please try again';
-  static const unauthorized = 'You are not authorized to perform this action';
-  static const formatException = 'A data format error occurred';
+  static final String unexpectedError = AppStrings.unexpectedError.tr();
+  static final String networkError = AppStrings.networkError.tr();
+  static final String timeoutError = AppStrings.timeoutError.tr();
+  static final String unauthorized = AppStrings.unauthorizedError.tr();
+  static final String formatException = AppStrings.formatExceptionError.tr();
 }
 
 class DatabaseErrorMessages {
   const DatabaseErrorMessages._();
 
   /// DATABASE
-  static const duplicate = 'Data already exists';
-  static const foreignKey = 'Cannot delete or add due to related data';
-  static const notNullViolation = 'All required fields must be filled';
-  static const checkViolation = 'The entered value is not allowed';
-  static const insufficientPrivilege = 'You do not have permission to perform this action';
-  static const undefinedTable = 'The requested data was not found';
-  static const undefinedColumn = 'A data structure error occurred';
-  static const undefinedFunction = 'Operation is not currently supported';
-  static const invalidInputSyntax = 'The entered data is invalid';
-  static const readOnlyTransaction = 'Modification is not allowed at this time';
-  static const connectionFailure = 'Failed to connect to the database';
-  static const internalError = 'An internal server error occurred';
+  static final String duplicate = AppStrings.duplicateError.tr();
+  static final String foreignKey = AppStrings.foreignKeyError.tr();
+  static final String notNullViolation = AppStrings.notNullViolationError.tr();
+  static final String checkViolation = AppStrings.checkViolationError.tr();
+  static final String insufficientPrivilege = AppStrings.insufficientPrivilegeError.tr();
+  static final String undefinedTable = AppStrings.undefinedTableError.tr();
+  static final String undefinedColumn = AppStrings.undefinedColumnError.tr();
+    static final String undefinedFunction = AppStrings.undefinedFunctionError.tr() ;
+  static final String invalidInputSyntax = AppStrings.invalidInputSyntaxError.tr();
+  static final String readOnlyTransaction = AppStrings.readOnlyTransactionError.tr();
+  static final String connectionFailure = AppStrings.connectionFailureError.tr();
+  static final String internalError = AppStrings.dbInternalError.tr();
 
   /// POSTGREST
-  static const noRows = 'No data found';
-  static const parseError = 'Request format error';
-  static const invalidBody = 'The sent data is invalid';
-  static const invalidRange = 'The requested range is invalid';
-  static const invalidPath = 'The path is invalid';
-  static const invalidMethod = 'This operation is not allowed';
+  static final String noRows = AppStrings.noRowsError.tr();
+  static final String parseError = AppStrings.parseError.tr() ;
+  static final String invalidBody = AppStrings.invalidBodyError.tr();
+  static final String invalidRange = AppStrings.invalidRangeError.tr();
+  static final String invalidPath = AppStrings.invalidPathError.tr();
+  static final String invalidMethod = AppStrings.invalidMethodError.tr();
 
-  static const connectionError = 'Unable to connect to the server';
-  static const timeout = 'Connection timed out';
+  static final String connectionError = AppStrings.connectionError.tr();
+  static final String timeout = AppStrings.dbTimeoutError.tr();
 
-  static const staleRelation = 'Data is out of sync, please try again';
-  static const ambiguousRelation = 'The request is ambiguous';
-  static const staleFunction = 'Function not found';
-  static const columnNotFound = 'Column not found';
-  static const tableNotFound = 'Table not found';
+  static final String staleRelation = AppStrings.staleRelationError.tr();
+  static final String ambiguousRelation = AppStrings.ambiguousRelationError.tr();
+  static final String staleFunction = AppStrings.staleFunctionError.tr();
+  static final String columnNotFound = AppStrings.columnNotFoundError.tr();
+  static final String tableNotFound = AppStrings.tableNotFoundError.tr();
 
-  static const jwtInvalid = 'Session is invalid';
-  static const jwtMissing = 'You must log in first';
-  static const jwtClaimsInvalid = 'Session has expired';
-
-  static const unknown = 'An unexpected error occurred';
+  static final String jwtInvalid = AppStrings.jwtInvalidError.tr();
+  static final String jwtMissing = AppStrings.jwtMissingError.tr();
+  static final String jwtClaimsInvalid = AppStrings.jwtClaimsInvalidError.tr();
+  static final String unknown = AppStrings.unknownError.tr();
 }
 
 class AuthErrorMessages {
   const AuthErrorMessages._();
 
-  static const invalidEmail = 'The email address is invalid';
-  static const emailExists = 'This email is already in use';
-  static const emailNotConfirmed = 'Please confirm your email before logging in';
-  static const emailProviderDisabled = 'Email registration is currently unavailable';
-  static const emailConflictIdentityNotDeletable = 'There is an email conflict and the identity cannot be deleted';
-  static const invalidCredentials = 'Invalid login credentials';
-  static const userNotFound = 'This user does not exist';
-  static const userAlreadyExists = 'This user is already registered';
-  static const userBanned = 'This account has been temporarily banned';
-  static const weakPassword = 'The password is too weak';
-  static const samePassword = 'The new password must be different from the current one';
-  static const reauthenticationNeeded = 'You must log in again to perform this action';
-  static const reauthenticationNotValid = 'Re-authentication credentials are invalid';
-
-  static const otpExpired = 'The verification code has expired, please request a new one';
-  static const otpDisabled = 'OTP login is not available for this number, try creating a new account';
-  static const mfaVerificationFailed = 'Two-factor verification failed';
-  static const mfaChallengeExpired = 'Two-factor verification expired, please try again';
-  static const tooManyEnrolledMfaFactors = 'Too many verification methods enrolled, please remove one';
-
-  static const sessionExpired = 'Session expired, please log in again';
-  static const refreshTokenNotFound = 'Session has expired, please log in again';
-  static const refreshTokenAlreadyUsed = 'Session was already used, please log in again';
-  static const noAuthorization = 'You are not authorized to access this data';
-
-  static const oauthProviderNotSupported = 'This login method is not supported';
-  static const providerDisabled = 'This login method is currently unavailable';
-  static const providerEmailNeedsVerification = 'Email must be verified first';
-  static const userSsoManaged = 'This account is managed by an external login system and some data cannot be modified';
-
-  static const overRequestRateLimit = 'Too many attempts, please try again later';
-  static const overEmailSendRateLimit = 'Too many messages sent, please try again later';
-  static const overSmsSendRateLimit = 'Too many verification messages sent, please wait a moment';
-
-  static const phoneExists = 'This phone number is already in use';
-  static const phoneNotConfirmed = 'Phone number is not activated';
-  static const phoneProviderDisabled = 'Phone number registration is currently unavailable';
-  static const smsSendFailed = 'Failed to send verification message, please try again';
-
-  static const flowStateExpired = 'Registration process expired, please try again';
-  static const flowStateNotFound = 'An error occurred in the registration process, please try again';
-
-  static const unexpectedFailure = 'An unexpected error occurred, please try again';
-
-  static const String signInCanceled = 'Sign in was canceled by the user.';
-  static const String interrupted = 'Sign in was interrupted. Please try again.';
-  static const String accountExistsWithDifferentCredential = 'This account exists with a different sign-in method. Please use the same method as before.';
-
-  static const String userConfigError = 'There is an error in the login settings. Please try again later.';
-  static const String providerConfigurationError = 'Login provider configuration error. Please try again later.';
-  static const String uiUnavailable = 'The login interface is not available on this device.';
-
-  static const String unknown = 'An unexpected error occurred during sign in. Please try again.';
+  static final String invalidEmail = AppStrings.invalidEmailError.tr();
+  static final String emailExists = AppStrings.emailExistsError.tr();
+  static final String emailNotConfirmed = AppStrings.emailNotConfirmedError.tr();
+  static final String emailProviderDisabled = AppStrings.emailProviderDisabledError.tr();
+  static final String emailConflictIdentityNotDeletable = AppStrings.emailConflictIdentityNotDeletableError.tr();
+  static final String invalidCredentials = AppStrings.invalidCredentialsError.tr();
+  static final String userNotFound = AppStrings.userNotFoundError.tr();
+  static final String userAlreadyExists = AppStrings.userAlreadyExistsError.tr();
+  static final String userBanned = AppStrings.userBannedError.tr();
+  static final String weakPassword = AppStrings.weakPasswordError.tr();
+  static final String samePassword = AppStrings.samePasswordError.tr();
+  static final String reauthenticationNeeded = AppStrings.reauthenticationNeededError.tr();
+  static final String reauthenticationNotValid = AppStrings.reauthenticationNotValidError.tr();
+  static final String otpExpired = AppStrings.otpExpiredError.tr();
+  static final String otpDisabled = AppStrings.otpDisabledError.tr();
+  static final String mfaVerificationFailed = AppStrings.mfaVerificationFailedError.tr();
+  static final String mfaChallengeExpired = AppStrings.mfaChallengeExpiredError.tr();
+  static final String tooManyEnrolledMfaFactors = AppStrings.tooManyEnrolledMfaFactorsError.tr();
+  static final String sessionExpired = AppStrings.sessionExpiredError.tr();
+  static final String refreshTokenNotFound = AppStrings.refreshTokenNotFoundError.tr();
+  static final String refreshTokenAlreadyUsed = AppStrings.refreshTokenAlreadyUsedError.tr();
+  static final String noAuthorization =   AppStrings.unauthorizedError.tr();
+  static final String oauthProviderNotSupported = AppStrings.oauthProviderNotSupportedError.tr();
+  static final String providerDisabled = AppStrings.providerDisabledError.tr();
+  static final String providerEmailNeedsVerification = AppStrings.providerEmailNeedsVerificationError.tr();
+  static final String userSsoManaged = AppStrings.userSsoManagedError.tr();
+  static final String overRequestRateLimit = AppStrings.overRequestRateLimitError.tr();
+  static final String overEmailSendRateLimit =  AppStrings.overEmailSendRateLimitError.tr();
+  static final String overSmsSendRateLimit = AppStrings.overSmsSendRateLimitError.tr();
+  static final String phoneExists = AppStrings.phoneExistsError.tr();
+  static final String phoneNotConfirmed = AppStrings.phoneNotConfirmedError.tr();
+  static final String phoneProviderDisabled = AppStrings.phoneProviderDisabledError.tr();
+  static final String smsSendFailed = AppStrings.smsSendFailedError.tr();
+  static final String flowStateExpired = AppStrings.flowStateExpiredError.tr();
+  static final String flowStateNotFound = AppStrings.flowStateNotFoundError.tr();
+  static final String unexpectedFailure = AppStrings.unexpectedError.tr();
+  static final String signInCanceled = AppStrings.signInCanceledError.tr();
+  static final String interrupted = AppStrings.interruptedError.tr();
+  static final String accountExistsWithDifferentCredential = AppStrings.accountExistsWithDifferentCredentialError.tr();
+  static final String userConfigError = AppStrings.userConfigError.tr();
+  static final String providerConfigurationError = AppStrings.providerConfigurationError.tr();
+  static final String uiUnavailable = AppStrings.uiUnavailableError.tr();
+  static final String unknown = AppStrings.unknownError.tr();
 }
 
 class StorageErrorMessage {
   const StorageErrorMessage._();
 
-  static const noSuchBucket = 'Bucket not found';
-  static const noSuchKey = 'File not found';
-  static const noSuchUpload = 'Upload operation not found';
-  static const invalidJWT = 'Session is invalid';
-  static const invalidRequest = 'The request is invalid';
-  static const tenantNotFound = 'A storage configuration error occurred';
-  static const entityTooLarge = 'File size is too large';
-  static const internalError = 'An internal server error occurred';
-  static const resourceAlreadyExists = 'File already exists';
-  static const invalidBucketName = 'Bucket name is invalid';
-  static const invalidKey = 'File name is invalid';
-  static const invalidRange = 'The requested range is invalid';
-  static const invalidMimeType = 'File type is not supported';
-  static const invalidUploadId = 'Upload ID is invalid';
-  static const keyAlreadyExists = 'File name is already in use';
-  static const bucketAlreadyExists = 'Bucket already exists';
-  static const databaseTimeout = 'Server timed out';
-  static const invalidSignature = 'Invalid signature';
-  static const signatureDoesNotMatch = 'Signature verification failed';
-  static const accessDenied = 'You do not have access permission';
-  static const resourceLocked = 'File is currently locked';
-  static const databaseError = 'Database error';
-  static const missingContentLength = 'File data is incomplete';
-  static const missingParameter = 'Some data is missing';
-  static const invalidUploadSignature = 'Upload signature is invalid';
-  static const lockTimeout = 'Lock timed out';
-  static const s3Error = 'Storage service error';
-  static const s3InvalidAccessKeyId = 'Access key is incorrect';
-  static const s3MaximumCredentialsLimit = 'Maximum number of keys reached';
-  static const invalidChecksum = 'File is corrupted or incomplete';
-  static const missingPart = 'A part of the file is missing';
-  static const slowDown = 'Too many requests, please try again later';
-  static const unknown = 'An unexpected error occurred';
+  static final String noSuchBucket = AppStrings.noSuchBucketError.tr();
+  static final String noSuchKey = AppStrings.noSuchKeyError.tr();
+  static final String noSuchUpload = AppStrings.noSuchUploadError.tr();
+  static final String invalidJWT = AppStrings.storageInvalidJwtError.tr();
+  static final String invalidRequest = AppStrings.storageInvalidRequestError.tr();
+  static final String tenantNotFound = AppStrings.tenantNotFoundError.tr();
+  static final String entityTooLarge = AppStrings.entityTooLargeError.tr();
+  static final String internalError = AppStrings.storageInternalError.tr();
+  static final String resourceAlreadyExists = AppStrings.resourceAlreadyExistsError.tr();
+  static final String invalidBucketName = AppStrings.invalidBucketNameError.tr();
+  static final String invalidKey =  AppStrings.invalidKeyError.tr();
+  static final String invalidRange = AppStrings.invalidRangeError.tr();
+  static final String invalidMimeType = AppStrings.invalidMimeTypeError.tr();
+  static final String invalidUploadId = AppStrings.invalidUploadIdError.tr();
+  static final String keyAlreadyExists = AppStrings.keyAlreadyExistsError.tr();
+  static final String bucketAlreadyExists = AppStrings.bucketAlreadyExistsError.tr();
+  static final String databaseTimeout = AppStrings.storageDatabaseError.tr();
+  static final String invalidSignature = AppStrings.invalidSignatureError.tr();
+  static final String signatureDoesNotMatch = AppStrings.signatureDoesNotMatchError.tr();
+  static final String accessDenied = AppStrings.accessDeniedError.tr();
+  static final String resourceLocked = AppStrings.resourceLockedError.tr();
+  static final String databaseError = AppStrings.storageDatabaseError.tr();
+  static final String missingContentLength = AppStrings.missingContentLengthError.tr();
+  static final String missingParameter = AppStrings.missingParameterError.tr();
+  static final String invalidUploadSignature = AppStrings.invalidUploadSignatureError.tr();
+  static final String lockTimeout = AppStrings.lockTimeoutError.tr();
+  static final String s3Error = AppStrings.s3Error.tr();
+  static final String s3InvalidAccessKeyId =  AppStrings.s3InvalidAccessKeyIdError.tr()  ;
+  static final String s3MaximumCredentialsLimit = AppStrings.s3MaximumCredentialsLimitError.tr();
+  static final String invalidChecksum = AppStrings.invalidChecksumError.tr();
+  static final String missingPart = AppStrings.missingPartError.tr();
+  static final String slowDown = AppStrings.slowDownError.tr();
+  static final String unknown = AppStrings.unexpectedError.tr();
 }
 
 class ImagePickerErrorMessage {
   const ImagePickerErrorMessage._();
-  static const unknown = 'An unexpected error occurred';
-  static const sizeExceeded = 'File size is too large';
-  static const errorCropping = 'Failed to crop image';
-  static const errorPick = 'Failed to pick image';
+  static final String unknown = AppStrings.imagePickerUnknownError.tr();
+  static final String sizeExceeded = AppStrings.imageSizeExceededError.tr();
+  static final String errorCropping = AppStrings.errorCroppingError.tr();
+  static final String errorPick = AppStrings.errorPickError.tr();
 }

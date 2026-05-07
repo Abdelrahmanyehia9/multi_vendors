@@ -28,13 +28,14 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider.value(value: userCubit),
-        BlocProvider.value(value: cartCubit),
-        BlocProvider.value(value: favoriteCubit),
+        BlocProvider.value(value: cartCubit..init()),
+        BlocProvider.value(value: favoriteCubit..init()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: AppAssets.languagesPack,
         fallbackLocale: const Locale('en'),
+        startLocale: const Locale("en"),
         child: MultiVendors(router: router),
       ),
     ),

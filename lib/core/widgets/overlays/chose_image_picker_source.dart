@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:multi_vendor/core/service/image_picker_service.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
@@ -34,12 +36,12 @@ class _ChooseImageSourceState extends State<ChooseImageSource> {
           ),
         ),
         Text(
-          "Choose Source",
+          AppStrings.chooseSource.tr(),
           textAlign: TextAlign.center,
           style: TextStyles.bodyLarge,
         ),
         Text(
-          "Choose image source camera or gallery",
+          AppStrings.chooseImageSourceCameraOrGallery.tr(),
           textAlign: TextAlign.center,
           style: TextStyles.bodyMedium.copyWith(
             color: context.colors.surfaceContainer,

@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 /*
 
 
@@ -21,20 +22,20 @@ class AppConstants {
   static const AuthFormType authFormType = AuthFormType.mobile;
   static const List<OnBoardingItemData> items = [
     (
-    title: "Collection of Your Favorite \nBest",
-    description: "Step into a world of fashion made just for you. Explore curated looks, trending outfits, and timeless pieces that match your personality and elevate your everyday style.",
+    title: AppStrings.onBoarding1Title,
+    description: AppStrings.onBoarding1description,
     imagePath: AppAssets.onBoarding1,
-    titleHighlighter: "Fashion",
+    titleHighlighter: AppStrings.onBoarding1HighLight,
     ),
     (
-    title: "Choose Your",
-    description: "Tell us who you're shopping for so we can tailor every recommendation to your taste. Whether it's for men, women, or kids — we’ve got something perfect waiting for you.",
+    title: AppStrings.onBoarding2Title,
+    description: AppStrings.onBoarding2description,
     imagePath: AppAssets.onBoarding2,
-    titleHighlighter: 'Brand'
+    titleHighlighter: AppStrings.onBoarding2HighLight,
     ),
     (
-    title: "Shop the Latest Trends",
-    description: "Stay ahead with the newest collections from top brands. From casual essentials to standout pieces, discover everything you need to build your perfect wardrobe.",
+    title: AppStrings.onBoarding3Title,
+    description: AppStrings.onBoarding3description,
     imagePath: AppAssets.onBoarding3,
     titleHighlighter: null
     ),

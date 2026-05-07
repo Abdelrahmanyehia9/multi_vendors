@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 
@@ -32,11 +34,11 @@ enum ProductTags {
         healthy     => q.contains('tags', ['healthy']),
       };
   String get toText => switch(this){
-    ProductTags.bestSelling => 'Best Selling',
-    ProductTags.featured    => 'Featured',
-    ProductTags.summerOffer => 'Summer Offer',
-    ProductTags.newArrivals => 'New Arrivals',
-    ProductTags.healthy     => 'Healthy Choice',
+    ProductTags.bestSelling => AppStrings.bestSelling.tr(),
+    ProductTags.featured    => AppStrings.featured.tr(),
+    ProductTags.summerOffer => AppStrings.summerOffer.tr(),
+    ProductTags.newArrivals => AppStrings.newArrivals.tr(),
+    ProductTags.healthy     => AppStrings.healthyChoice.tr(),
   };
   Color get color => switch(this){
  bestSelling => AppColors.error600,

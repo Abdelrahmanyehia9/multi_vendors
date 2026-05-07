@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -28,7 +29,7 @@ class AppIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.icon(
       onPressed: onTap,
-      toolTip: tooltip,
+      toolTip: tooltip?.tr(),
       enabled: enabled,
       fixedSize: Size(size * 2, size * 2),
       color: backGroundColor ?? context.colors.surfaceContainerLowest,

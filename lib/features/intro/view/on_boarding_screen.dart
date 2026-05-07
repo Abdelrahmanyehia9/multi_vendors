@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
@@ -5,6 +6,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/intro/view/widgets/onboarding_item.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
@@ -71,11 +73,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     spacing: 8.h,
     children: [
       AppButton(
-        text: isLast ? "Get Started" : "Next",
+        text: isLast ? AppStrings.getStarted.tr() : AppStrings.next.tr(),
         buttonSize: null,
         onPressed: () => _next(isLast),
       ),
-      if (!isLast) AppButton.outlined(text: "Skip", onPressed: _onFinish),
+      if (!isLast) AppButton.outlined(text: AppStrings.skip.tr(), onPressed: _onFinish),
     ],
   ).appPaddingHr;
 

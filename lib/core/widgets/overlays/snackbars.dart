@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/service/navigation_service.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
@@ -49,8 +51,8 @@ class SnackBars {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if(hasTitle)
-                  Text(title, style:titleStyle?? TextStyles.labelSmall),
-                  Text(message,maxLines: 2 ,style: messageStyle?? TextStyles.captionLarge),
+                  Text(title.tr(), style:titleStyle?? TextStyles.labelSmall),
+                  Text(message.tr(),maxLines: 2 ,style: messageStyle?? TextStyles.captionLarge),
                 ],
               ),
             ),
@@ -75,7 +77,7 @@ class SnackBars {
 
   static void success({
     required BuildContext context,
-    required String message, String title = "تمت العمليه ينجاح"}) {
+    required String message, String title = AppStrings.operationDidSuccessfully}) {
     custom(
       message,
       context: context,
@@ -92,7 +94,7 @@ class SnackBars {
   }
   static void error({
     required BuildContext  context,
-    required String message, String title = "حدث خطأ"}) {
+    required String message, String title = AppStrings.errorOccurred}) {
     custom(
       message,
       context: context,
@@ -109,7 +111,7 @@ class SnackBars {
   }
   static void warning({
     required BuildContext context,
-    required String message, String title = "تحذير"}) {
+    required String message, String title = AppStrings.warning}) {
     custom(
       message,
       context: context,

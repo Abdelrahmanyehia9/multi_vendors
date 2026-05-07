@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/mixin/signup_screen_mixin.dart';
@@ -19,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> with SignUpScreenMixin{
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Sign Up"),
+    appBar: BaseAppBar(title: AppStrings.signUp.tr()),
       body: SingleChildScrollView(
         child: Column(
           spacing: 16.h,
@@ -43,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> with SignUpScreenMixin{
               builder: (state) =>
                   AppButton(
                     isLoading: state.isLoading,
-                    text: "Sign Up",
+                    text: AppStrings.signUp.tr(),
                     buttonSize: null,
                     onPressed: onSignUp,
                   ),
@@ -62,9 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> with SignUpScreenMixin{
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.h,
         children: [
-          Text("Join us", style: TextStyles.labelLarge),
+          Text(AppStrings.joinUs.tr(), style: TextStyles.labelLarge),
           Text(
-            "Recommendations for your fashion collection to support your activities",
+            AppStrings.exploreRecommendationsMadeForYourActivity.tr(),
             style: TextStyles.captionMedium,
           ),
         ],

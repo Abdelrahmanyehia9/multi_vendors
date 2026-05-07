@@ -7,10 +7,7 @@ class SplashLogic {
   const SplashLogic._();
 
   static Future<void> init(BuildContext context) async {
-    cartCubit.init();
-    favoriteCubit.init();
     userCubit.init();
     DeepLinkService.instance.initDeepLink();
-
   }
 }

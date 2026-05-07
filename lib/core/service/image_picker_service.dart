@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_vendor/core/errors/error_messages.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 
 enum ImagePickerSource{
   camera ,
@@ -12,8 +14,8 @@ enum ImagePickerSource{
     return ImageSource.gallery ;
   }
   String get text{
-    if(this == camera) return "Camera"  ;
-    return "Gallery" ;
+    if(this == camera) return AppStrings.camera.tr()  ;
+    return AppStrings.gallery.tr() ;
   }
   IconData get icon{
     if(this == camera) return CupertinoIcons.photo_camera_solid ;

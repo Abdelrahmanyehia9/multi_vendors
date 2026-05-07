@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/shared/data/models/action_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -27,9 +29,9 @@ enum States {
   String get message {
     switch (this) {
       case error:
-        return "there was an error while loading data";
+        return AppStrings.thereWasAnErrorWhileLoadingData.tr();
       case empty:
-        return "no data available";
+      return AppStrings.noDataAvailable.tr();
     }
   }
 }

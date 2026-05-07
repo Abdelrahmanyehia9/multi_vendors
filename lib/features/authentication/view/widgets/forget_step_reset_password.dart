@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
@@ -54,7 +56,7 @@ class _ForgetStepResetPasswordState extends State<ForgetStepResetPassword> {
                 children: [
                   const MessageAlert(MessagesAlertType.resetPasswordSuccess),
                   Gap.medium(),
-                  AppButton(text: "Confirm", buttonSize: null, onPressed: context.pop,)
+                  AppButton(text: AppStrings.confirm.tr(), buttonSize: null, onPressed: context.pop,)
                 ],
               ),
             ).whenComplete(() {
@@ -67,7 +69,7 @@ class _ForgetStepResetPasswordState extends State<ForgetStepResetPassword> {
             });
           },
           builder: (s) => AppButton(
-            text: "Reset Password",
+            text: AppStrings.resetPassword.tr(),
             isLoading: s.isLoading,
             buttonSize: null,
             onPressed: () => _changePasswordCubit.changePassword(

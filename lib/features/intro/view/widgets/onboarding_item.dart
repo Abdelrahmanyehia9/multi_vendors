@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -47,7 +48,7 @@ class OnboardingItem extends StatelessWidget {
         _buildTitle(item),
         /// description
         Text(
-          item.description,
+          item.description.tr(),
           style: TextStyles.captionMedium.copyWith(
             color: context.colors.surfaceContainer
           ),
@@ -62,11 +63,11 @@ class OnboardingItem extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: item.title,
+            text: item.title.tr(),
           ),
           if (item.titleHighlighter != null)
             TextSpan(
-              text: " ${item.titleHighlighter!}",
+              text: " ${item.titleHighlighter!.tr()}",
               style: TextStyles.labelLarge.copyWith(
                 color: AppColors.primary,
               ),

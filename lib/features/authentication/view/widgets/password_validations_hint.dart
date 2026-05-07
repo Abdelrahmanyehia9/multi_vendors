@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 
 class _PasswordValidationHints extends StatelessWidget {
@@ -27,24 +29,24 @@ class _PasswordValidationHints extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Recommended",
+          AppStrings.recommended.tr(),
           style: TextStyles.labelSmall,
         ),
         buildValidationRow(
-          "at least one lower case",
+          AppStrings.atLeastOneLowerCase.tr(),
           hasLowerCase,context
         ),
         buildValidationRow(
-          "at least one upper case",
+          AppStrings.atLeastOneUpperCase.tr(),
           hasUpperCase,context
         ),
         buildValidationRow(
-          "at least one special character" ,
+         AppStrings.atLeastOneSpecialCharacter.tr() ,
           hasSpecialCharacters,context
         ),
-        buildValidationRow("at least one number", hasNumber,context ),
+        buildValidationRow(AppStrings.atLeastOneNumber.tr(), hasNumber,context ),
         buildValidationRow(
-          "at least 8 characters",
+          AppStrings.atLeast8Length.tr(),
           hasMinLength,context
         ),
       ],

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor/core/errors/storage_error_handler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:multi_vendor/core/errors/auth_error_handler.dart';
@@ -34,6 +35,8 @@ class ErrorHandler {
     if(error is ImagePickerError){
       return ImagePickerError(message: error.message,stackTrace: error.stackTrace) ;
     }
-    return const UnExpectedException();
+    return  UnExpectedException(
+      message: AppErrorMessages.unexpectedError.tr(),
+    );
   }
 }

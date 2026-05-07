@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_stepper_cubit.dart';
@@ -39,7 +41,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return BaseBlocConsumer<ForgetPasswordStepperCubit, int>(
       successBuilder: (step) =>
           BaseScaffold(
-            appBar: BaseAppBar(title: "Forget Password", leading: _buildLeading(step != 0)),
+            appBar: BaseAppBar(title: AppStrings.forgetPassword.tr(), leading: _buildLeading(step != 0)),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

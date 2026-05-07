@@ -1,4 +1,3 @@
-import 'package:multi_vendor/core/errors/error_messages.dart';
 
 abstract class AppException {
   final String message;
@@ -23,8 +22,8 @@ class AppSocketException extends AppException{
   AppSocketException({required super.message});
 }
 class UnExpectedException extends AppException {
-  const UnExpectedException({
-    super.message = AppErrorMessages.unexpectedError,
+   UnExpectedException({
+    required super.message ,
     super.code,
     super.stackTrace,
   });

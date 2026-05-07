@@ -1,30 +1,30 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
+
 class DateTimeStrings {
   const DateTimeStrings._();
 
-  static const String justNow   = 'Just now';
-  static const String yesterday = 'Yesterday';
-  static const String tomorrow  = 'Tomorrow';
-  static const String unknown   = 'Unknown';
-  static const String ago = 'ago';
-  static const String inPrefix = 'In';
-  static const String minuteSingular = 'minute';
-  static const String minutePlural   = 'minutes';
-  static const String hourSingular   = 'hour';
-  static const String hourPlural     = 'hours';
-  static const String daySingular    = 'day';
-  static const String dayPlural      = 'days';
-  static const String weekSingular   = 'week';
-  static const String weekPlural     = 'weeks';
-  static const String monthSingular  = 'month';
-  static const String monthPlural    = 'months';
-  static const String yearSingular   = 'year';
-  static const String yearPlural     = 'years';
+  static final String justNow   = AppStrings.justNow.tr();
+  static final String yesterday = AppStrings.yesterday.tr();
+  static final String tomorrow  = AppStrings.tomorrow.tr();
+  static final String unknown   = AppStrings.unknown.tr();
+  static final String ago = AppStrings.ago.tr();
+  static final String inPrefix = AppStrings.inPrefix.tr();
+  static final String minuteSingular = AppStrings.minuteSingular.tr();
+  static final String minutePlural   = AppStrings.minutePlural.tr();
+  static final String hourSingular   = AppStrings.hourSingular.tr();
+  static final String hourPlural     = AppStrings.hourPlural.tr();
+  static final String daySingular    = AppStrings.daySingular.tr();
+  static final String dayPlural      = AppStrings.dayPlural.tr();
+  static final String weekSingular   = AppStrings.weekSingular.tr();
+  static final String weekPlural     = AppStrings.weekPlural.tr();
+  static final String monthSingular  = AppStrings.monthSingular.tr();
+  static final String monthPlural    = AppStrings.monthPlural.tr();
+  static final String yearSingular   = AppStrings.yearSingular.tr();
+  static final String yearPlural     = AppStrings.yearPlural.tr();
 
-  static const String am = 'AM';
-  static const String pm = 'PM';
+  static final String am = AppStrings.am.tr();
+  static final String pm = AppStrings.pm.tr();
 
-  static const List<String> months = [
-    'January', 'February', 'March',     'April',   'May',      'June',
-    'July',    'August',   'September', 'October', 'November', 'December',
-  ];
+  static final List<String> months = AppStrings.months.map((e) => e.tr()).toList() ;
 }

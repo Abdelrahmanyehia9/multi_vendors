@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/mixin/login_screen_mixin.dart';
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin{
               onFailure: onLoginFailure,
               onSuccess:(_)=> onLoginSuccess(),
               builder: (state) => AppButton(
-                text: "Sign in",
+                text: AppStrings.signIn.tr(),
                 buttonSize: null,
                 isLoading: state.isLoading,
                 onPressed: onLogin,
@@ -48,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin{
             ),
             if (AppConstants.authFormType == AuthFormType.emailAndPassword)
               const ToggleSignupAndLogin(),
-            AppButton.text(text: "Continue as Guest", onPressed: userCubit.loginAsGuest,),
+            AppButton.text(text: AppStrings.continueAsGuest.tr(), onPressed: userCubit.loginAsGuest,),
           ],
         ),
       ),

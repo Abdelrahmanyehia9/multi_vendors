@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/password_validations_hint.dart';
 
@@ -29,8 +31,8 @@ class SignupForm extends StatelessWidget {
       spacing: 16.h,
       children:  [
          AppTextField(
-          hintText: "Enter your full name",
-          headerText: "Full name",
+          hintText: "${AppStrings.enter.tr()} ${AppStrings.fullName.tr()}",
+          headerText: AppStrings.fullName.tr(),
           borderType:  AppBorderType.filled,
           controller: fullNameController,
         ),
@@ -40,8 +42,8 @@ class SignupForm extends StatelessWidget {
          ),
          PasswordField(controller: passwordController,),
          PasswordField(
-          header: "Confirm password",
-          hint: "Enter your confirm password",
+          header: AppStrings.confirmPassword,
+          hint: AppStrings.confirmPassword,
            controller: confirmPasswordController,
            validator: (val)=>AppValidation.validatePasswordConfirmation(passwordController.text, val),
         ),

@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
     MvIcons.edit,
         (context) => context.pushNamed(Routes.editProfile),
     ),
-    if (AppConstants.authFormType == AuthFormType.emailAndPassword)
+    if (AppConstants.authFormType == AuthFormType.emailAndPassword && !userCubit.isGuest)
       (
       "Change Password",
       MvIcons.lock,

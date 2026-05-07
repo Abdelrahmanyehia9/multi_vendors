@@ -8,6 +8,7 @@ static AppReviewHelper instance = const AppReviewHelper._();
 
 Future<void>openStoreListener()async{
  await _appReview.openStoreListing(
+     // ignore: avoid_redundant_argument_values
      appStoreId: AppConstants.appStoreId);
  return ;
 }

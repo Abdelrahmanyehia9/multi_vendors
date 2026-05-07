@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
@@ -29,7 +31,7 @@ class AddToCartButton extends StatelessWidget {
           return QuantityStepper.wide(item: product);
         }
         return AppButton(
-          text: 'Add To Cart',
+          text: AppStrings.addToCart.tr(),
           fixedSize: Size(double.infinity, 41.h),
           padding: EdgeInsets.zero,
           enabled: enabled,
