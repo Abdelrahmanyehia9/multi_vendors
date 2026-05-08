@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/features/shop/rating/data/models/user_review_model.dart';
 import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
@@ -18,7 +20,7 @@ class ProductUserReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = model.user;
     final review = model.review;
-    final username = user.id == userCubit.user?.id ? "You" : user.fullName??"Unknown";
+    final username = user.id == userCubit.user?.id ? AppStrings.you.tr() : user.fullName??AppStrings.unknown.tr();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(

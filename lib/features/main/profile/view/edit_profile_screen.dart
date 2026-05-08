@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_pic.dart';
@@ -23,7 +25,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Edit Profile"),
+      appBar: BaseAppBar(title: AppStrings.editProfile.tr()),
       body: SingleChildScrollView(
         child: Column(
           spacing: 16.sp,
@@ -48,10 +50,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 context.successBar(message: "User updated successfully");
                 context.read<ImageHandleCubit>().reset();
               },
-              onEmpty: () =>context.warningBar(message: "No changes"),
+              onEmpty: () =>context.warningBar(message: AppStrings.noChanges.tr()),
               onFailure: (e) => context.errorBar(message: e.message),
               builder: (state) => AppButton(
-                text: "Save",
+                text: AppStrings.save.tr(),
                 isLoading: state.isLoading,
                 onPressed: onSave,
                 buttonSize: null,

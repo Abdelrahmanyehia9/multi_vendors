@@ -31,10 +31,8 @@ class _MainLayoutState extends State<MainLayout> with MainLayoutMixin {
             onSelect: cubit.changePage,
           ),
           body: RefreshIndicator(
-            elevation: 5,
-            onRefresh: ()async{
-              onRefresh();
-            },
+            elevation: 3,
+            onRefresh: onRefresh,
             child: IndexedStack(
               index: value,
               children: pages,

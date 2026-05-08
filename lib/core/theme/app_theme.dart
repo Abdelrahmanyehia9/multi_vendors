@@ -4,60 +4,69 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 
 class AppTheme {
   const AppTheme._();
+
   static final Color _lightBackgroundColor = const Color(0xfffefafa);
   static final Color _darkBackgroundColor = const Color.fromRGBO(11, 15, 20, 1);
+
   static final TooltipThemeData _tooltipThemeData = const TooltipThemeData(
     verticalOffset: 2,
     margin: EdgeInsets.zero,
     decoration: BoxDecoration(color: AppColors.secondary),
   );
- static final AppBarTheme _appBarTheme = const AppBarTheme(
+
+  static final AppBarTheme _appBarTheme = const AppBarTheme(
     backgroundColor: Colors.transparent,
-    elevation: 0 ,
+    elevation: 0,
     surfaceTintColor: Colors.transparent,
     centerTitle: true,
     leadingWidth: 60,
     toolbarHeight: 60,
-
     actionsPadding: EdgeInsets.symmetric(horizontal: 4),
-  ) ;
-  static ThemeData light = ThemeData(
+  );
+
+  static String _fontFamily(Locale locale) {
+    return switch (locale.languageCode) {
+      'ar' => TextStyles.arFontFamily,
+      _ => TextStyles.enFontFamily,
+    };
+  }
+
+  static ThemeData light(Locale locale) => ThemeData(
     scaffoldBackgroundColor: _lightBackgroundColor,
     canvasColor: _lightBackgroundColor,
     datePickerTheme: DatePickerThemeData(
-        backgroundColor: _lightBackgroundColor,
-        headerForegroundColor: Colors.white,
-        headerBackgroundColor: AppColors.primary
+      backgroundColor: _lightBackgroundColor,
+      headerForegroundColor: Colors.white,
+      headerBackgroundColor: AppColors.primary,
     ),
     colorScheme: _ColorScheme.light,
-    fontFamily: TextStyles.fontFamily,
+    fontFamily: _fontFamily(locale),
     appBarTheme: _appBarTheme,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
     dividerColor: Colors.transparent,
-
     dividerTheme: const DividerThemeData(
       color: AppColors.grey200,
       thickness: 1.5,
     ),
     useMaterial3: true,
   );
-  static ThemeData dark = ThemeData(
+
+  static ThemeData dark(Locale locale) => ThemeData(
     scaffoldBackgroundColor: _darkBackgroundColor,
     canvasColor: _darkBackgroundColor,
     colorScheme: _ColorScheme.dark,
     datePickerTheme: DatePickerThemeData(
-        backgroundColor: _darkBackgroundColor,
-        headerForegroundColor: Colors.white,
-        headerBackgroundColor: AppColors.primary
+      backgroundColor: _darkBackgroundColor,
+      headerForegroundColor: Colors.white,
+      headerBackgroundColor: AppColors.primary,
     ),
     splashColor: Colors.transparent,
     appBarTheme: _appBarTheme,
-    fontFamily: TextStyles.fontFamily,
+    fontFamily: _fontFamily(locale),
     highlightColor: Colors.transparent,
     tooltipTheme: _tooltipThemeData,
-
     dividerColor: Colors.transparent,
     dividerTheme: const DividerThemeData(
       color: AppColors.grey700,

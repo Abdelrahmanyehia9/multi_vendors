@@ -1,4 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 
 enum PromoCodeType {
   fixed,
@@ -70,5 +73,5 @@ class CouponInfo {
     'type': type.toDatabase,
   };
 
-  String get message => "promo $code is Applied To your Order with $discount ${type == PromoCodeType.fixed ? " USD" : "%"} Enjoy yor order" ;
+  String get message => "${AppStrings.promo.tr()} $code ${AppStrings.isAppliedToYourOrderWith.tr()} $discount ${type == PromoCodeType.fixed ? AppConstants.currency.name : "%"} ${AppStrings.enjoyYourOrder.tr()}" ;
 }

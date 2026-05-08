@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/sticky_bottom_layout.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
@@ -38,7 +40,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
     return BaseScaffold(
       paddingHr: 0,
       paddingVr: 0,
-      appBar: BaseAppBar(title: "Checkout"),
+      appBar: BaseAppBar(title: AppStrings.checkout.tr()),
       body: StickyBottomLayout(
         sticky: BaseBlocConsumer<PaymentCubit, int?>(
           bloc: paymentCubit,
@@ -51,7 +53,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
               valueListenable: selectedOption,
               builder: (context, value, child) {
                 return AppButton(
-                  text: "Place an Order",
+                  text: AppStrings.placeAnOrder.tr(),
                   isLoading: orderState.isLoading || payStates.isLoading,
                   buttonSize: null,
                   enabled: value != null,
@@ -73,7 +75,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
               _buildShippingDate(),
                _buildListProducts(),
                CheckoutExpansionTile(
-                   "Payment options",
+                   AppStrings.paymentOptions.tr(),
                     CheckoutPaymentOptionsList(selectedOption: selectedOption)),
               CheckoutTotalPaymentsSummery(summery: widget.args.summery ,coupon: widget.args.coupon),
             ],
@@ -85,11 +87,11 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
 
   Widget _buildShippingDate() {
     final String shipping = widget.args.summery.shippingDisplay(widget.args.coupon)??"UNKnown" ;
-    return CheckoutExpansionTile("Delivery date", OrderShippingInfoCard(shipping: shipping, estimatedDelivery: estimatedDelivery));
+    return CheckoutExpansionTile(AppStrings.deliveryDate.tr(), OrderShippingInfoCard(shipping: shipping, estimatedDelivery: estimatedDelivery));
   }
    Widget _buildListProducts() {
      return  CheckoutExpansionTile(
-     "Ordered Product (${cartCubit.cartItems.length})",
+     "${AppStrings.orderedProducts.tr()} (${cartCubit.cartItems.length})",
      CheckoutListProducts(items: cartCubit.cartItems),
      initiallyExpanded: false,
    );

@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -23,7 +25,7 @@ class CheckoutListProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if(showHeader) const SectionHeader(title: "Ordered Products"),
+        if(showHeader)  SectionHeader(title: AppStrings.orderedProducts.tr()),
         ListView.separated(
           itemCount: items.length,
           primary: false,
@@ -71,7 +73,7 @@ class CheckoutProductCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "total : ${item.total.usdPrice}",
+                    "${AppStrings.total.tr()} : ${item.total.usdPrice}",
                     maxLines: 1,
                     style: TextStyles.captionMedium.copyWith(
                       fontSize: (height*.185).sp

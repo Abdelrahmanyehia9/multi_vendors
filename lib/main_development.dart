@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
@@ -25,19 +24,11 @@ void main() async {
 
   final AppRouter router = AppRouter();
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: userCubit),
-        BlocProvider.value(value: cartCubit..init()),
-        BlocProvider.value(value: favoriteCubit..init()),
-      ],
-      child: EasyLocalization(
+    EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: AppAssets.languagesPack,
         fallbackLocale: const Locale('en'),
-        startLocale: const Locale("en"),
-        child: MultiVendors(router: router),
-      ),
-    ),
+        startLocale: const Locale("ar"),
+        child: MultiVendors(router: router)),
   );
 }

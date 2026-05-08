@@ -1,4 +1,6 @@
 
+import 'package:multi_vendor/core/utils/app_constants.dart';
+
 /// String ///
 extension StringExtension on String? {
   bool get isNullOrEmpty => this == null || this == "";
@@ -42,5 +44,5 @@ extension MapEXt on Map{
 
 
 extension PriceExtension on num{
-  String get usdPrice => "${toString()}\$";
+  String get usdPrice => "${toString()}${AppConstants.currency.char}";
 }

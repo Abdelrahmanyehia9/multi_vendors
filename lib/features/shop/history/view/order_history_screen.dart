@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
@@ -22,16 +24,16 @@ class OrderHistoryScreen extends StatelessWidget {
         children: [
           SizedBox(
             height: 70.h,
-            child: BaseAppBar(title: "Order History", showLeading: false),
+            child: BaseAppBar(title: AppStrings.orderHistory.tr(), showLeading: false),
           ),
           Expanded(
             child: BaseBlocConsumer<OrderHistoryCubit, List<OrderModel>>(
               successBuilder: (orders) => _buildOrderList(orders),
               failureBuilder: AppStates.error,
               emptyBuilder: () => AppStates.empty(
-                message: "No orders found",
+                message: AppStrings.noOrdersFound.tr(),
                 actionModel: ActionModel(
-                  text: "List product",
+                  text: AppStrings.listProducts.tr(),
                   action: (context) => context.pushNamed(Routes.products),
                 ),
               ),

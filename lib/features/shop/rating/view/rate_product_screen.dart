@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
@@ -39,7 +41,7 @@ class _RateProductScreenState extends State<RateProductScreen> with RateProductS
         return BaseScaffold(
           paddingHr: 0,
           appBar: BaseAppBar(
-            title: "Rate Product ${value + 1}/$totalPages",
+            title: "${AppStrings.rateProduct.tr()} ${value + 1}/$totalPages",
             leading: _buildLeading(),
             actions: [
               if (!isLastPage)
@@ -71,7 +73,7 @@ class _RateProductScreenState extends State<RateProductScreen> with RateProductS
                 onSuccess: (_)=>OrderHistoryHelper.onRatingSuccess(context),
                 builder:(s)=> AppButton(
                   isLoading: s.isLoading,
-                  text: isLastPage ? "Submit your review" : "Next",
+                  text: isLastPage ? AppStrings.submitYourReview.tr() : AppStrings.next.tr(),
                   buttonSize: null,
                   onPressed: isLastPage ? submitReviews : nextPage,
                 ).appPaddingHr,

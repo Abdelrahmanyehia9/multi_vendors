@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -5,6 +6,7 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
@@ -36,7 +38,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
                 rating: rating,
               ),
                Text(
-                '${rating?.count??0} reviews',
+                '${rating?.count??0} ${AppStrings.reviews.tr()}',
                 textAlign: TextAlign.center,
                 style: TextStyles.bodySmall.copyWith(
                   color: context.colors.surfaceContainer,

@@ -110,10 +110,11 @@ class _Slide extends StatelessWidget {
               ),
               Positioned(
                 bottom: 0,
-                right: 0,
+                right: context.isRTL ? null : 0,
+                left: context.isRTL ? 0 : null,
                 child: AppCachedNetworkImage(
                   banner.image,
-                  width: width * .45,
+                  width: width * .35,
                   height: height,
                 ),
               ),

@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
@@ -28,7 +30,7 @@ class AllProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: "Shop",
+        title: AppStrings.shop.tr(),
         actions:const [
           ProductFiltersAction(),
         ],
@@ -61,7 +63,7 @@ class AllProductsScreen extends StatelessWidget {
     spacing: 12.h,
     children: [
       if(model.pagination?.total!=null)
-      SectionHeader(title: "Total Products (${model.pagination!.total}) ", headerStyle: TextStyles.captionMedium,),
+      SectionHeader(title: "${AppStrings.totalProducts.tr()} (${model.pagination!.total}) ", headerStyle: TextStyles.captionMedium,),
       Expanded(
         child: ProductGrid(
           products: model.products,

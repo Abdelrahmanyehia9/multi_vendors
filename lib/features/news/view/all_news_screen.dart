@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/overlays/widget_overlay.dart';
 import 'package:multi_vendor/features/news/logic/news_cubit.dart';
@@ -21,7 +23,7 @@ class AllNewsScreen extends StatelessWidget {
     final cubit = context.read<NewsCubit>();
     return BaseScaffold(
       paddingHr: 0,
-      appBar: BaseAppBar(title:"News"),
+      appBar: BaseAppBar(title:AppStrings.news.tr()),
       body: Column(
         spacing: 16.h,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -110,7 +110,44 @@ flutter:
           weight: 800
         - asset: assets/font/motserrat/Montserrat-Black.ttf
           weight: 900
-  #       - asset: fonts/Schyler-Italic.ttf
+    - family: Tajawal
+      fonts:
+        - asset: assets/font/Tajawal/Tajawal-ExtraLight.ttf
+          weight: 100
+        - asset: assets/font/Tajawal/Tajawal-ExtraLight.ttf
+          weight: 200
+        - asset: assets/font/Tajawal/Tajawal-Light.ttf
+          weight: 300
+        - asset: assets/font/Tajawal/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/font/Tajawal/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/font/Tajawal/Tajawal-Bold.ttf
+          weight: 700
+        - asset: assets/font/Tajawal/Tajawal-ExtraBold.ttf
+          weight: 800
+        - asset: assets/font/Tajawal/Tajawal-Black.ttf
+          weight: 900
+    - family: Alexanderia
+      fonts:
+        - asset: assets/font/alexanderia/Alexandria-Thin.ttf
+          weight: 100
+        - asset: assets/font/alexanderia/Alexandria-Light.ttf
+          weight: 200
+        - asset: assets/font/alexanderia/Alexandria-Regular.ttf
+          weight: 300
+        - asset: assets/font/alexanderia/Alexandria-Medium.ttf
+          weight: 400
+        - asset: assets/font/alexanderia/Alexandria-SemiBold.ttf
+          weight: 500
+        - asset: assets/font/alexanderia/Alexandria-Bold.ttf
+          weight: 700
+        - asset: assets/font/alexanderia/Alexandria-ExtraBold.ttf
+          weight: 800
+        - asset: assets/font/alexanderia/Alexandria-Black.ttf
+          weight: 900
+
+  #     - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

@@ -1,5 +1,6 @@
 library;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -83,7 +85,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
 
               /// Header
               SectionHeader(
-                title: "Filters",
+                title: AppStrings.filters.tr(),
                 headerStyle: TextStyles.labelLarge,
                 action: "Reset",
                 hasAction: true,
@@ -101,7 +103,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
                         : value.map((e) => e.name).join(", ");
 
                     return _FilterItem(
-                      title: "Categories",
+                      title: AppStrings.categories.tr(),
                       subtitle: selectedText,
                       child: _CategoryFilter(
                         items: f.categories!,
@@ -114,7 +116,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               /// Price
               if (_isVisible(f.priceRange, ProductsFilters.price))
                 _FilterItem(
-                  title: "Price",
+                  title: AppStrings.price.tr(),
                   child: _PriceFilter(
                     priceRange: _priceRange,
                     availableRange: f.priceRange!.toRangeValues(),
@@ -124,7 +126,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               /// Rating
               if (_isVisible(f.ratingRange, ProductsFilters.rating))
                 _FilterItem(
-                  title: "Rating",
+                  title: AppStrings.rating.tr(),
                   child: _RatingFilter(
                     selectedRating: _selectedRating,
                     ratingRange: f.ratingRange!.toRangeValues(),
@@ -135,7 +137,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               if (_isVisible(f.vendors, ProductsFilters.vendor) &&
                   FeatureFlags.multiVendor)
                 _FilterItem(
-                  title: "Vendor",
+                  title: AppStrings.vendor.tr(),
                   child: _VendorFilters(
                     items: f.vendors!,
                     selected: _selectedVendors,
@@ -146,7 +148,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
               if (_isVisible(f.tags, ProductsFilters.tags) &&
                   FeatureFlags.shopByTags)
                 _FilterItem(
-                  title: "Tags",
+                  title: AppStrings.tags.tr(),
                   child: _TagsFilters(
                     tags: f.tags!,
                     selectedTags: _selectedTags,
@@ -168,7 +170,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
                 valueListenable: _cubit.totalProducts,
                 builder: (_, value, __) {
                   return AppButton(
-                    text: "See ${value ?? ""} product/s",
+                    text: "${AppStrings.see.tr()} ${value ?? ""} ${AppStrings.products.tr()}",
                     buttonSize: null,
                     onPressed: _onSubmit,
                   );

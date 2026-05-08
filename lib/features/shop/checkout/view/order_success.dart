@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/core/widgets/scaffold/sticky_bottom_layout.dart';
@@ -19,7 +21,7 @@ class OrderSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String successMsg = "We are happy to inform you that your Order ${order.orderIdDisplay} has been completed. Thank you for your trust in shopping at our store" ;
+    final String successMsg = "${AppStrings.weAreHappyToInformYouThatYourOrder.tr()} ${order.orderIdDisplay} ${AppStrings.hasBeenCompleted.tr()}. ${AppStrings.thankYouForYourTrustInShoppingAtOurStore.tr()}" ;
     return  BaseScaffold(
       paddingHr: 0,
       body: StickyBottomLayout(
@@ -34,16 +36,16 @@ class OrderSuccessScreen extends StatelessWidget {
         MessageAlert(MessagesAlertType.orderSuccess , customMessage: successMsg),
         OrderDetailsCard(
           order: order,
-          hasStatus: false, hasAction: false,title: "Order Details",),
+          hasStatus: false, hasAction: false,title: AppStrings.orderDetails.tr(),),
         if(order.address != null)
-          OrderAddressInfoCard(hasAction: false, title: "Shipping Address",address: order.address!,) ,
+          OrderAddressInfoCard(hasAction: false, title: AppStrings.shippingAddress.tr(),address: order.address!,) ,
         CheckoutListProducts(showHeader: true, items: order.items??[],),
         OrderReceiptCard(hasTitle: true,summery: order.summery ?? CheckoutSummeryModel.fake()),
 
       ],
     ),
   ) ;
-  Widget _buildSticky(BuildContext context)=>AppButton(text: "Back to home", buttonSize: null,
+  Widget _buildSticky(BuildContext context)=>AppButton(text: AppStrings.backToHome.tr(), buttonSize: null,
     onPressed: ()=> context.pushNamedAndRemoveUntil(Routes.mainLayout, predicate: (_)=>false),
   ) ;
 }

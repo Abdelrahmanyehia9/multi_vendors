@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
@@ -89,7 +91,7 @@ class _VendorProfileCover extends StatelessWidget {
               if(FeatureFlags.enableMultiShipping)...[
                 const Spacer(),
                 if(vendor.deliveryOption?.deliveryByStore??false)
-                const AppChip(text: "Deliver By Store", padding: EdgeInsets.zero,
+                 AppChip(text: AppStrings.deliverByStore.tr(), padding: EdgeInsets.zero,
                   labelColor: AppColors.black,
                   unSelectedBorderColor: Colors.transparent,
                 )

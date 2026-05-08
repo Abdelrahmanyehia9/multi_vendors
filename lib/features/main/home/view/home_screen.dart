@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
@@ -13,6 +14,7 @@ import 'package:multi_vendor/features/main/home/view/widgets/home_shop_by_produc
 import 'package:multi_vendor/features/main/home/view/widgets/home_vendors_section.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/shared/view/widgets/slogan_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatelessWidget {
   final GestureTapCallback onSearch;
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
       const SloganText(),
       AppTextField(
         onTap: onSearch,
-        hintText: 'Search ....',
+        hintText: '${AppStrings.search.tr()} ....',
         hintStyle: TextStyles.captionLarge,
         borderType: AppBorderType.filled,
         readOnly: true,

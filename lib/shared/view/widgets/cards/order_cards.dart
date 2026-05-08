@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -27,14 +29,14 @@ final OrderModel order;
       title: title == null ? null : SectionHeader(title: title!),
       header: hasStatus && order.status != null ? _buildHeader() : null,
       items: [
-        ("Order Number", order.orderIdDisplay),
-        ("Purchase date", order.createdAt?.formattedDate),
-        ("Payment", "${order.payment?.option.title??""} (${order.payment?.status.title??""})"),
-        ("Estimated Delivery", order.estimatedDelivery?.formattedDate),
+        (AppStrings.orderNumber.tr(), order.orderIdDisplay),
+        (AppStrings.purchaseDate.tr(), order.createdAt?.formattedDate),
+        (AppStrings.payment.tr(), "${order.payment?.option.title??""} (${order.payment?.status.title??""})"),
+        (AppStrings.estimatedDelivery.tr(), order.estimatedDelivery?.formattedDate),
       ],
       bottom: hasAction
           ? AppButton(
-              text: "Details",
+              text: AppStrings.details.tr(),
               buttonSize: null,
               onPressed: () {
                 if(order.id == null) return;
@@ -48,7 +50,7 @@ final OrderModel order;
   Widget _buildHeader() => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text("Order Status", style: TextStyles.captionMedium),
+      Text(AppStrings.orderStatus.tr(), style: TextStyles.captionMedium),
       Text(
         order.status!.title,
         style: TextStyles.labelSmall.copyWith(color: order.status?.color),

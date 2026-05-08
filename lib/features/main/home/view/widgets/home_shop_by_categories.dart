@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
@@ -88,7 +90,7 @@ class _Categories extends StatelessWidget {
     return Column(
       children: [
         SectionHeader(
-          title: "Categories",
+          title: AppStrings.categories.tr(),
           hasAction: true,
           onActionTap: () => context.pushNamed(
             Routes.products,

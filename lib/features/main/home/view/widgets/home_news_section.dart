@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
 import 'package:multi_vendor/shared/data/models/news_model.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/news_card.dart';
@@ -25,7 +27,7 @@ class HomeNewsSection extends StatelessWidget {
       Column(
         children: [
           SectionHeader(
-            title: "Featured News",
+            title: AppStrings.featuredNews.tr(),
             hasAction: true,
             onActionTap: () => context.pushNamed(Routes.news),
           ),

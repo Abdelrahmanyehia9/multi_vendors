@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -61,7 +63,7 @@ class VendorInfoCard extends StatelessWidget {
                   MvIcons.star,
                   AppColors.warning,
                   '${rating.rating} (${rating.count})',
-                  'Rating',
+                  AppStrings.rating.tr(),
                   showDivider: delivery != null,
                 ),
               if (delivery != null) ...[
@@ -69,7 +71,7 @@ class VendorInfoCard extends StatelessWidget {
                   MvIcons.delivery,
                   AppColors.secondaryDark,
                   '${delivery.estimatedDeliveryTime.min}-${delivery.estimatedDeliveryTime.max} Min',
-                  'Delivery Time',
+                  AppStrings.deliveryTime.tr(),
                   showDivider: delivery.deliveryFees != null,
                 ),
                 if (delivery.deliveryFees != null)
@@ -77,7 +79,7 @@ class VendorInfoCard extends StatelessWidget {
                     MvIcons.shipping,
                     AppColors.success,
                     delivery.deliveryFees!.usdPrice,
-                    'Delivery Fees',
+                    AppStrings.deliveryFees.tr(),
                     showDivider: false,
                   ),
               ],

@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/service/storage_service.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/shared/data/models/address_model.dart';
@@ -48,7 +50,7 @@ class ProfileRepository {
         table: RemoteDatabaseConstants.profile_table,
       );
       await _updateMetaData();
-      return right("Profile Picture Removed Successfully");
+      return right(AppStrings.profilePicRemovedSuccessfully.tr());
     } catch (e) {
       return left(e.toAppException);
     }
@@ -62,7 +64,7 @@ class ProfileRepository {
         table: RemoteDatabaseConstants.profile_table,
       );
       await _updateMetaData();
-      return right("Profile Picture Added Successfully");
+      return right(AppStrings.profilePicAddedSuccessfully.tr());
     } catch (e) {
       return left(e.toAppException);
     }

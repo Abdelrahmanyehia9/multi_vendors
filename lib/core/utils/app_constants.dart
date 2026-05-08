@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/countries.dart';
@@ -18,7 +19,7 @@ class AppConstants {
   static const String appName = 'Multi Vendor';
   ///filters by or tags Like (outwear, formal, casual)
   static const String tagsString = "Fashion Style" ;
-  static const ProductTags homeFeaturedItem = ProductTags.summerOffer ;
+  static final ProductTags homeFeaturedItem = ProductTags.summerOffer ;
   static const AuthFormType authFormType = AuthFormType.mobile;
   static const List<OnBoardingItemData> items = [
     (
@@ -51,6 +52,7 @@ class AppConstants {
   static const String supportInstagram = "multiVendor";
   static const String supportTikTok = "multiVendor";
   static const String? appStoreId = null;
+  static final AppCurrency currency = AppCurrency(name: AppStrings.usd.tr(), char: "\$");
 
 
   static Future<void> setupPhoneSystem() async {
@@ -66,4 +68,10 @@ class AppConstants {
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
+}
+
+class AppCurrency{
+  final String name  ;
+  final String char;
+  const AppCurrency({required this.name, required this.char});
 }

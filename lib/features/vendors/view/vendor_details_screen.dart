@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
@@ -89,7 +91,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
             children: [
               Row(
                 children: [
-                  Text('Products', style: TextStyles.bodyLarge),
+                  Text(AppStrings.products.tr(), style: TextStyles.bodyLarge),
                   if (total != null) ...[
                     const Gap(4),
                     Text("($total)", style: TextStyles.captionMedium),
@@ -135,7 +137,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("BIO", style: TextStyles.labelMedium,),
+            Text(AppStrings.bio.tr().toUpperCase(), style: TextStyles.labelMedium,),
             ReadMoreText(text:bio , maxLength: 60,style: TextStyles.captionMedium,)
           ],
         ),

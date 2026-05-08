@@ -11,6 +11,7 @@ import 'package:multi_vendor/features/shop/history/data/repository/order_history
 import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
 import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
+import 'package:multi_vendor/shared/logic/user_preferences_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show SupabaseClient, Supabase;
 
@@ -40,6 +41,7 @@ GetIt getIt = GetIt.instance;
 UserCubit userCubit = getIt.get<UserCubit>();
 CartCubit cartCubit = getIt.get<CartCubit>();
 FavoriteCubit favoriteCubit = getIt.get<FavoriteCubit>();
+UserPreferencesCubit userPreferencesCubit = getIt.get<UserPreferencesCubit>();
 
 
 class DI{
@@ -94,6 +96,7 @@ static Future<void> setupGetIt() async {
     getIt.registerLazySingleton(() => UserCubit(getIt.get<UserSessionRepository>()));
     getIt.registerLazySingleton(() => CartCubit(getIt.get<CartRepository>()));
     getIt.registerLazySingleton(() => FavoriteCubit(getIt.get<FavoriteRepository>()));
+    getIt.registerLazySingleton(() => UserPreferencesCubit(getIt.get<LocalStorage>(instanceName: _settings),));
     getIt.registerFactory(() =>
         AuthRepository(
             getIt.get<AuthenticationService>() ));

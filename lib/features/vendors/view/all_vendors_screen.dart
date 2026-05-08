@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
@@ -16,7 +18,7 @@ import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 import 'package:multi_vendor/features/vendors/logic/vendors_by_category_cubit.dart';
-import 'package:multi_vendor/features/vendors/view/all_vendors_screen_mixin.dart';
+import 'package:multi_vendor/features/vendors/view/mixin/all_vendors_screen_mixin.dart';
 import 'package:multi_vendor/features/vendors/view/widgets/vendor_card.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
@@ -31,7 +33,7 @@ class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScr
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Vendors"),
+      appBar: BaseAppBar(title: AppStrings.vendors.tr()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

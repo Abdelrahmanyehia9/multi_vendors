@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
@@ -35,7 +37,7 @@ class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAli
           RatingStars(
           readOnly: false,
           showCount: false,
-          title: "Overall rating",
+          title: AppStrings.overallRating.tr(),
           rating: const RatingModel(
             rating: 0,
             count: 0,
@@ -44,10 +46,10 @@ class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAli
           size: 24,
         ),
           AppTextField(
-          headerText: "Product Reviews",
+          headerText: AppStrings.productReview.tr(),
           maxLines: 2,
           maxLength: 150,
-          hintText: "Write your review here...",
+          hintText: "${AppStrings.writeYourReviewHere.tr()}...",
           onChange: widget.commentChanged,
         ),
 

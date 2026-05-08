@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/shared/data/models/address_model.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/info_box.dart';
@@ -17,18 +19,18 @@ class OrderAddressInfoCard extends StatelessWidget {
       title: title == null ? null : SectionHeader(title: title!),
       items:  [
         if(address.name!=null)
-        ("name", address.name),
-        ("Street", address.street),
-        ("Country/Region", address.country),
-        ("State/Provincie", address.city),
-        ("building / apartment / floor", "${address.buildNum} / ${address.aptNum} / ${address.floor??""}"),
+        (AppStrings.name.tr(), address.name),
+        (AppStrings.street.tr(), address.street),
+        ("${AppStrings.country.tr()}/${AppStrings.region.tr()}", address.country),
+        ("${AppStrings.state.tr()}/${AppStrings.province.tr()}", address.city),
+        ("${AppStrings.building.tr()} / ${AppStrings.apartment.tr()} / ${AppStrings.floor.tr()}", "${address.buildNum} / ${address.aptNum} / ${address.floor??""}"),
         if(address.postalCode!=null)
-        ("Postal Code", address.postalCode.toString()),
+        (AppStrings.postalCode.tr(), address.postalCode.toString()),
       ],
       bottom: hasAction
           ?  AppButton(
           onPressed: onActionTap,
-          text: "Change Address", buttonSize: null)
+          text: AppStrings.changeAddress.tr(), buttonSize: null)
           : null,
     );
   }

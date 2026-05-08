@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
@@ -18,28 +20,26 @@ enum MessagesAlertType {
   orderDeleted;
 
   String get title => switch (this) {
-    orderSuccess => "Order Successful",
-    orderCancelled => "Order Cancelled",
-    orderDeleted => "Order Deleted",
-    loginRequired => "Login Required",
-    resetPasswordSuccess => "Password Reset Successful",
-    promoSuccess => "Promo Code Applied Successfully",
-    promoFailed => "Promo Code Failed",
-    reviewSubmitted => "Review Submitted Successfully",
+    orderSuccess => AppStrings.orderSuccess.tr(),
+    orderCancelled => AppStrings.orderCancelled.tr(),
+    orderDeleted => AppStrings.orderDeleted.tr(),
+    loginRequired => AppStrings.loginRequired.tr(),
+    resetPasswordSuccess => AppStrings.resetPasswordSuccess.tr(),
+    promoSuccess => AppStrings.promoSuccess.tr(),
+    promoFailed => AppStrings.promoFailed.tr(),
+    reviewSubmitted => AppStrings.reviewSubmitted.tr(),
   };
 
   String get message => switch (this) {
-    orderCancelled => "Your order has been cancelled successfully.",
-    orderSuccess =>
-      "We are happy to inform you that your purchase has been completed. Thank you for your trust in shopping at our store",
-    loginRequired =>
-      "You're just one step away! Sign in to access your account and pick up right where you left off.",
-    resetPasswordSuccess =>
-      "Your password has been reset successfully. You can now sign in with your new password.",
-    promoSuccess => "Promo Code Applied Successfully",
-    promoFailed => "Promo Code Failed",
-    orderDeleted => "Your order has been deleted successfully.",
-    reviewSubmitted => "Your review has been submitted successfully and will help others make better decisions. Thank you for sharing your feedback!"  };
+    orderCancelled => AppStrings.orderCancelledDescription.tr(),
+    orderSuccess => AppStrings.orderSuccessDescription.tr(),
+    loginRequired => AppStrings.loginRequiredDescription.tr(),
+    resetPasswordSuccess => AppStrings.resetPasswordSuccessDescription.tr(),
+    promoSuccess => AppStrings.promoSuccessDescription.tr(),
+    promoFailed => AppStrings.promoFailedDescription.tr(),
+    orderDeleted => AppStrings.orderDeletedDescription.tr(),
+    reviewSubmitted => AppStrings.reviewSubmittedDescription.tr(),
+  };
 
   IconData get icon => switch (this) {
     loginRequired => MvIcons.login,

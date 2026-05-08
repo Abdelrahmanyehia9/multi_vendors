@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -61,7 +63,7 @@ class QuantityStepper extends StatelessWidget {
                 : _WideAddOrMinus(args),
 
             if (remining > 0)
-            Text('$remining items left',style: TextStyles.labelMedium.copyWith(
+            Text('$remining ${AppStrings.itemsLeft.tr()}',style: TextStyles.labelMedium.copyWith(
               color: AppColors.primary,
               fontSize: isNarrow? 12.sp : 14.sp
             ),)

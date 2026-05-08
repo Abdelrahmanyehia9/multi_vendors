@@ -93,7 +93,7 @@ class  Popups {
             Text(title.tr() , textAlign: TextAlign.center, style: TextStyles.bodyLarge,),
             Text(message.tr(), textAlign: TextAlign.center, style: TextStyles.captionMedium,),
             Gap.medium(),
-            AppButton(text: AppStrings.submit.tr(), buttonSize: null, onPressed: (){
+            AppButton(text: AppStrings.confirm.tr(), buttonSize: null, onPressed: (){
               context.pop(true) ;
             },),
             AppButton.text(text: AppStrings.cancel.tr(), onPressed: (){

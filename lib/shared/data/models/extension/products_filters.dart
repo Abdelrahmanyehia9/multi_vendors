@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 
@@ -36,11 +38,11 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
     final ex = exclude ?? [];
     return [
       if (priceRange != null && !ex.contains(ProductsFilters.price)) ...[
-        "From ${priceRange!.min.round().usdPrice}",
-        "To ${priceRange!.max.round().usdPrice}",
+        "${AppStrings.from.tr()} ${priceRange!.min.round().usdPrice}",
+        "${AppStrings.to.tr()} ${priceRange!.max.round().usdPrice}",
       ],
       if (ratingRange != null && !ex.contains(ProductsFilters.rating))
-        "Over ${ratingRange!.min} ⭐",
+        "${AppStrings.over.tr()} ${ratingRange!.min} ⭐",
       if (!categories.isNullOrEmpty &&
           !ex.contains(ProductsFilters.categories)) ...[
         for (var c in categories!) c.name,

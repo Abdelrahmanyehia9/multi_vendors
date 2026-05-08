@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/service/image_crop_service.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_profile_pic_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_pic.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,7 @@ mixin EditProfilePicMixin on State<ChangeProfilePic>{
     path = p;
     imageHandleCubit.crop(
       p,
-      title: "Set Profile Image",
+      title: AppStrings.setProfilePic.tr(),
       type: ImageCropType.circle,
     );
   }

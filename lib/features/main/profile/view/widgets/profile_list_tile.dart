@@ -9,7 +9,8 @@ class ProfileListTile extends StatelessWidget {
   final String title ;
   final IconData icon  ;
   final void Function(BuildContext)? onTap ;
-  const ProfileListTile({super.key, this.onTap , required this.icon , required this.title});
+  final Widget? trailing ;
+  const ProfileListTile({super.key, this.onTap , this.trailing, required this.icon , required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ProfileListTile extends StatelessWidget {
           backgroundColor: AppColors.primary,
           child:  Icon(icon, color: AppColors.white, size: 20.sp,)),
       title:  Text(title, style: TextStyles.bodyMedium,),
-      trailing:  Icon(MvIcons.arrowForwardIos, size: 18.sp, color: AppColors.grey,),
+      trailing: trailing ?? Icon(MvIcons.arrowForwardIos, size: 18.sp, color: AppColors.grey,),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
@@ -5,6 +6,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_text_fields.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
@@ -39,7 +41,7 @@ class EditProfileForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 16.h,
       children: [
-        _textField(label: "Full Name", controller: usernameController),
+        _textField(label: AppStrings.fullName.tr(), controller: usernameController),
         EmailField(
           readOnly: isEmailProvided,
           nullable: true,
@@ -56,7 +58,7 @@ class EditProfileForm extends StatelessWidget {
           onSelected: onBirthDateSelected,
         ),
         _textField(
-          label: "Address",
+          label: AppStrings.address.tr(),
           maxLines: 2,
           controller: addressController,
           readOnly: true,
@@ -85,7 +87,7 @@ class EditProfileForm extends StatelessWidget {
     borderWidth: 1.2,
     maxLines: maxLines ?? 1,
     borderType: AppBorderType.filled,
-    hintText: "Enter $label",
+    hintText: "${AppStrings.enter.tr()} $label",
     controller: controller,
     headerText: label,
     maxLength: maxLength,

@@ -63,4 +63,8 @@ class MvIcons {
   static const IconData starHalf = Icons.star_half ;
   static const IconData support = Icons.support_agent ;
   static const IconData checkedCircle = Icons.check_circle_sharp ;
+
+  static const IconData theme = Icons.nightlight_round;
+  static const IconData light = Icons.dark_mode;
+  static const IconData dark = Icons.sunny;
 }

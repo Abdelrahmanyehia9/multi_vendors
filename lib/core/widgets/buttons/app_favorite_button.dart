@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -42,7 +44,7 @@ class AppFavoriteButton extends StatelessWidget {
 
   }
   void _toggleFavorite({required bool isFavorite ,required BuildContext context})async{
-    final message = "${item.displayName} ${isFavorite?"removed" : "added"} Successfully ${isFavorite?"From" : "To"} Favorite" ;
+    final message = "${item.displayName} ${isFavorite?AppStrings.removed.tr() : AppStrings.added.tr()} ${AppStrings.successfully.tr()} ${isFavorite?AppStrings.from.tr() : AppStrings.to.tr()} ${AppStrings.favorites.tr()}" ;
     context.loaderOverlay.show() ;
     await favoriteCubit.toggleFavorite(item);
     if(context.mounted) {

@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
@@ -30,7 +32,7 @@ class CartScreen extends StatelessWidget {
     return BaseScaffold(
       paddingHr: 0,
       paddingVr: 0,
-      appBar: BaseAppBar(title: "My Cart", actions: [?_buildAction()]),
+      appBar: BaseAppBar(title: AppStrings.myCart.tr(), actions: [?_buildAction()]),
       body: BaseBlocConsumer<CartCubit, List<CartModel>>(
         successBuilder: (cartItems) => _builder(context, cartItems: cartItems),
         emptyBuilder: AppStates.empty,
@@ -53,7 +55,7 @@ class CartScreen extends StatelessWidget {
       sticky: BaseBlocConsumer(
         bloc: context.read<CheckoutSummeryCubit>(),
         builder:(s)=> AppButton(
-          text: "Checkout (${cartItems.length})",
+          text: "${AppStrings.checkout.tr()} (${cartItems.length})",
           buttonSize: null,
           enabled:  s.isSuccess && cartItems.isNotEmpty,
           onPressed: () => context.pushNamed(Routes.checkout, arguments: CheckoutScreenArgs(

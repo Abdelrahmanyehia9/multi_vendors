@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/add_to_cart_button.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/product_info_section.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
@@ -71,7 +73,7 @@ class ProductDetailsBody extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text("Store"),
+                       Text(AppStrings.store.tr()),
                       Gap.small(),
                       CircularBox(
                         child: AppCachedNetworkImage(
@@ -86,12 +88,12 @@ class ProductDetailsBody extends StatelessWidget {
           ),
           const Divider(height: 0),
           ProductInfoSection(
-            header: "Description",
+            header: AppStrings.description.tr(),
             body: model.description,
           ),
        if (model.productTags != null )
          ProductInfoSection(
-           header: "Product Tags",
+           header: AppStrings.productTags.tr(),
            customBody: Wrap(
              spacing: 4.w,
              runSpacing: 4.h,
@@ -107,7 +109,7 @@ class ProductDetailsBody extends StatelessWidget {
           if (!model.isInStock)
             Center(
               child: Text(
-                "Out of Stock",
+                AppStrings.outOfStock.tr(),
                 style: TextStyles.labelMedium.copyWith(color: AppColors.error),
               ),
             )

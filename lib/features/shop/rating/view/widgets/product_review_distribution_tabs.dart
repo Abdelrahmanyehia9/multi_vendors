@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
@@ -29,7 +31,7 @@ class ProductReviewDistributionTabs extends StatelessWidget {
             children: [
               _chip(
                   context: context,
-                  "All", selected: value == null, onTap: (){
+                  AppStrings.all.tr(), selected: value == null, onTap: (){
                 selected.value = null;
               }),
               ...List.generate(

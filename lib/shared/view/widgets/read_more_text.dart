@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 class ReadMoreText extends StatefulWidget {
@@ -15,8 +17,8 @@ class ReadMoreText extends StatefulWidget {
     required this.text,
     this.maxLength = 100,
     this.style,
-    this.readMoreText = "Read more",
-    this.readLessText = "Read less",
+    this.readMoreText =  AppStrings.readMore ,
+    this.readLessText = AppStrings.readLess,
   });
 
   @override
@@ -48,8 +50,8 @@ class _ReadMoreTextState extends State<ReadMoreText> {
               padding: EdgeInsets.only(top: 4.h),
               child: Text(
                 expanded
-                    ? widget.readLessText
-                    : widget.readMoreText,
+                    ? widget.readLessText.tr()
+                    : widget.readMoreText.tr(),
                 style: widget.style?.copyWith(
                   color: AppColors.primary,
                 ) ??

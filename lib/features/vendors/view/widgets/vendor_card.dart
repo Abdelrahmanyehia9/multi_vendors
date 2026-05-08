@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
@@ -64,8 +66,8 @@ class VendorCard extends StatelessWidget {
                     Row(
                       spacing: 8.w,
                       children: [
-                        _iconText(MvIcons.delivery, "40 EGP"),
-                        _iconText(MvIcons.timelapse, "20-50 min"),
+                        _iconText(MvIcons.delivery, "40 ${AppConstants.currency.name}"),
+                        _iconText(MvIcons.timelapse, "20-50 ${AppStrings.minutePlural}"),
                       ],
                     ),
                     if (FeatureFlags.enableMultiShipping) ...[
@@ -73,8 +75,8 @@ class VendorCard extends StatelessWidget {
                       Row(
                         spacing: 4.w,
                         children: [
-                          Text("Deliver by", style: TextStyles.bodySmall.copyWith(color: AppColors.primary)),
-                          Text("( Store )", style: TextStyles.bodySmall),
+                          Text(AppStrings.deliverBy, style: TextStyles.bodySmall.copyWith(color: AppColors.primary)),
+                          Text("( ${AppStrings.store} )", style: TextStyles.bodySmall),
                         ],
                       ),
                     ],

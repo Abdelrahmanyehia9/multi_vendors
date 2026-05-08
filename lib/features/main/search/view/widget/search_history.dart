@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
@@ -23,7 +25,7 @@ class SearchHistory extends StatelessWidget {
     if (searchHistory.isEmpty) {
       return  Expanded(child: AppStates.empty(
       customIcon: MvIcons.search,
-      message: "No search history",
+      message: AppStrings.noSearchHistory.tr(),
     ));
     }
     return Expanded(
@@ -32,7 +34,7 @@ class SearchHistory extends StatelessWidget {
         children: [
           if (searchHistory.isNotEmpty)
              SectionHeader(
-              title: "Search History",
+              title: AppStrings.searchHistory.tr(),
               hasAction: true,
               customAction:  AppDeleteButton(onTap: onRemoveAll)
             ),

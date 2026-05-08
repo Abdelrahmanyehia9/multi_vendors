@@ -1,8 +1,10 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
@@ -49,8 +51,8 @@ class _BirthDateFieldState extends State<BirthDateField> {
         }
       },
       borderType: AppBorderType.filled,
-      hintText: "Enter Birth Date",
-      headerText: "Birthdate",
+      hintText: "${AppStrings.enter.tr()} ${AppStrings.birthdate.tr()}",
+      headerText: AppStrings.birthdate.tr(),
     );
   }
 
@@ -75,16 +77,16 @@ class GenderSelector extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _ratioItem(value: true, title: "Men"),
+                  _ratioItem(value: true, title: AppStrings.men.tr()),
                   Gap.medium(),
-                  _ratioItem(value: false, title: "Women"),
+                  _ratioItem(value: false, title: AppStrings.women.tr()),
                 ],
               ),
             ),
           ],
         );
       },
-      child: Text("Gender", style: TextStyles.labelSmall),
+      child: Text(AppStrings.gender.tr(), style: TextStyles.labelSmall),
     );
   }
 

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/extension/checkout_summery_model_extension.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -27,29 +29,29 @@ class OrderReceiptCard extends StatelessWidget {
     return Column(
       spacing: 2.h,
       children: [
-        if (hasTitle) const SectionHeader(title: "Total Payment"),
-        _buildPriceRow(("Subtotal", summery.subTotalDisplay), context),
+        if (hasTitle)  SectionHeader(title: AppStrings.totalPayment.tr()),
+        _buildPriceRow((AppStrings.subtotal.tr(), summery.subTotalDisplay), context),
         if (summery.discountDisplay!=null)
           _buildPriceRow(
-            (promo?.code??"Discount", summery.discountDisplay),
+            (promo?.code??AppStrings.discount.tr(), summery.discountDisplay),
             context,
             titleColor: AppColors.success,
           ),
 
         if (shipping != null)
           _buildPriceRow(
-            ("Shipping", shipping, ),
+            (AppStrings.shipping.tr(), shipping, ),
             context,
 
           ),
 
         if (summery.taxDisplay != null)
-          _buildPriceRow(("TAX", summery.taxDisplay), context),
+          _buildPriceRow((AppStrings.tax.tr(), summery.taxDisplay), context),
 
         Divider(height: 20.h),
 
         _buildPriceRow(
-          ("Total", summery.totalDisplay),
+          (AppStrings.total.tr(), summery.totalDisplay),
           context,
           priceColor: AppColors.primary,
           titleColor: context.colors.surfaceContainerHighest,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/image_picker_helper.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -90,7 +92,7 @@ class _ChangeProfilePicState extends State<ChangeProfilePic> with EditProfilePic
   }
   Widget _action()=>UserBuilder(
     builder:(u)=> AppButton.text(
-      text: u?.profilePic==null? "Add":"Change",
+      text: u?.profilePic==null? AppStrings.add.tr():AppStrings.change.tr(),
       onPressed: () async {
         final source = await ImagePickerHelper.choseSource(context);
         if (source != null) imageHandleCubit.picker(source);

@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
@@ -31,7 +33,7 @@ class _ReviewsScreenState extends State<ReviewsScreen>
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar:  BaseAppBar(
-        title: "Reviews\n${widget.model.name}",
+        title: "${AppStrings.reviews.tr()}\n${widget.model.name}",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,7 +58,7 @@ class _ReviewsScreenState extends State<ReviewsScreen>
 
   Widget _builder(List<UserReviewModel> reviews)=>Column(
     children: [
-      const SectionHeader(title: "Comments").appPaddingVr,
+       SectionHeader(title: AppStrings.comments.tr()).appPaddingVr,
       ListView.separated(
           padding: EdgeInsets.zero,
           shrinkWrap: true,

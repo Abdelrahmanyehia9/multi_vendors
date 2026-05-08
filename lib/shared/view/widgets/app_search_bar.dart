@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
@@ -41,7 +43,7 @@ class AppSearchbar extends StatelessWidget {
               focusNode: cubit.focusNode,
               controller: cubit.controller,
               onTap: onTap,
-              hintText: 'Search ....',
+              hintText: '${AppStrings.search.tr()} ....',
               hintStyle: TextStyles.captionLarge,
               borderType: AppBorderType.filled,
               padding: !state.hasFocus

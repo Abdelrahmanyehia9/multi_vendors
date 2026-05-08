@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/shared/view/widgets/cards/product_tag_tile.dart';
@@ -31,7 +33,7 @@ class HomeShopByProductTags extends StatelessWidget {
     children: [
       SectionHeader(
         hasAction: true,
-        title: "Filter by Tags",
+        title: AppStrings.filterByTags.tr(),
         onActionTap: () => context.pushNamed(Routes.productTags),
       ),
       ProductTagTileList(shrinkWrap: true, tags: tags),

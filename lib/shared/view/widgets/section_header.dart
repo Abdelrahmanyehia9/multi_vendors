@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 
 class SectionHeader extends StatelessWidget {
@@ -40,7 +42,7 @@ class SectionHeader extends StatelessWidget {
     }else{
       widget =AppButton.text(
           color: context.colors.surfaceContainer,
-          text: action??"View all",style:actionStyle?? TextStyles.bodySmall.copyWith(
+          text: action??AppStrings.viewAll.tr(),style:actionStyle?? TextStyles.bodySmall.copyWith(
         fontSize: 14.sp,
 
       ),

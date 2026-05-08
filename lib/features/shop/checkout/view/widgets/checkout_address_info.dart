@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/shared/data/models/address_model.dart';
@@ -27,11 +29,11 @@ class CheckoutAddressInfo extends StatelessWidget {
           return  AppTextField(readOnly: true,
             onTap:()=> _onAddressChange(context),
             autoValidateMode: AutovalidateMode.disabled,
-            hintText: "Add Address",
-            validator:(v)=> AppValidation.validateRequired(v, fieldName: "Address"),
+            hintText: AppStrings.addAddress.tr(),
+            validator:(v)=> AppValidation.validateRequired(v, fieldName: AppStrings.address.tr()),
           );
         }
-        return  CheckoutExpansionTile("Shipping Address", OrderAddressInfoCard(address: address,
+        return  CheckoutExpansionTile(AppStrings.shippingAddress.tr(), OrderAddressInfoCard(address: address,
           onActionTap: ()=> _onAddressChange(context),
         )
         );

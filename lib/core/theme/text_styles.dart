@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
 
-  static const String fontFamily = "Montserrat" ;
+  static const String enFontFamily = "Montserrat" ;
+  static const String arFontFamily = "Tajawal" ;
   static const double _largerFactor = 1;
 
   const TextStyles._();

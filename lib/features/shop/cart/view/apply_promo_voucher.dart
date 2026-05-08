@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
@@ -37,7 +39,7 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
    @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Promo Voucher", actions: [_buildAction()],),
+      appBar: BaseAppBar(title: AppStrings.promoVoucher.tr(), actions: [_buildAction()],),
       body: BaseBlocConsumer<ValidatePromoCubit, PromoCardResponse>(
         builder: (state) {
           final data = state.data;
@@ -65,10 +67,10 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Promo Code Voucher", style: TextStyles.headline3),
+        Text(AppStrings.promoCodeVoucher.tr(), style: TextStyles.headline3),
         Gap.small(),
         Text(
-          "Enjoy a more special shopping experience with our exclusive vouchers!",
+          AppStrings.enjoyAMoreSpecialShoppingExperienceWithOurExclusiveVouchers.tr(),
           style: TextStyles.captionMedium,
         ),
         Gap.huge(),
@@ -79,15 +81,15 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
             return null ;
           },
           controller: _codeController,
-          headerText: "Voucher Code",
-          hintText: "Enter your voucher code",
+          headerText: AppStrings.promoVoucher.tr(),
+          hintText: "${AppStrings.enter.tr()} ${AppStrings.promoCodeVoucher.tr()}",
         ),
 
         Gap.medium(),
         Skeletonizer(
           enabled: s.isLoading,
           child: AppButton(
-            text: "Use this Voucher Code",
+            text: AppStrings.useThisVoucherCode.tr(),
             buttonSize: null,
             onPressed: onSubmit,
           ),

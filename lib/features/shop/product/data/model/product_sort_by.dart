@@ -1,5 +1,7 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 
 enum ProductSortByType{
   time,
@@ -14,19 +16,18 @@ enum ProductSortByType{
   };
   String toText(bool asc) => switch (this) {
     time =>
-    asc ? 'Oldest first' : 'Newest first',
-    price =>
-    asc ? 'Price: Low to High' : 'Price: High to Low',
+    asc ? AppStrings.oldestFirst.tr() : AppStrings.newestFirst.tr(),
+    price => '${AppStrings.price.tr()}: ${   asc ?AppStrings.lowToHigh.tr() :AppStrings.highToLow.tr()}',
     rating =>
-    asc ? 'Rating: Low to High' : 'Rating: High to Low',
+    '${AppStrings.rating.tr()}: ${   asc ?AppStrings.lowToHigh.tr() :AppStrings.highToLow.tr()}',
     name =>
-    asc ? 'Name: A to Z' : 'Name: Z to A',
+  '${AppStrings.name.tr()}: ${   asc ?AppStrings.aToZ.tr() :AppStrings.zToA.tr()}',
   };
   String get text => switch (this) {
-    time =>"Created at",
-    price =>'Price',
-    rating =>"ratings",
-    name => 'alphabetical',
+    time =>AppStrings.createdAt.tr(),
+    price =>AppStrings.price.tr(),
+    rating =>AppStrings.rating.tr(),
+    name => AppStrings.name.tr(),
   };
 }
 class ProductSortBy{

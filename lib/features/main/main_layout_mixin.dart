@@ -133,7 +133,7 @@ mixin MainLayoutMixin on State<MainLayout> {
   }
   bool get canPop => cubit.canPop;
 
-  void onRefresh() {
+  Future<void> onRefresh() async{
     final currentIndex = cubit.state;
 
     setState(() {

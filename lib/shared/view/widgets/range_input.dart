@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -100,8 +102,8 @@ class _RangeInputState extends State<RangeInput> {
         Row(
           spacing: 12.w,
           children: [
-            _field(hint: "From", controller: _fromController),
-            _field(hint: "To", controller: _toController),
+            _field(hint: AppStrings.from.tr(), controller: _fromController),
+            _field(hint: AppStrings.to.tr(), controller: _toController),
           ],
         ),
       ],

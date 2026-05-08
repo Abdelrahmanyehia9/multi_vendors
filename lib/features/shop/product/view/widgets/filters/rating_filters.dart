@@ -29,7 +29,7 @@ class _RatingFilter extends StatelessWidget {
                 value: rating,
                 groupValue: value?.start.round(),
                 onChanged: (_) => _onChange(rating, ratingRange.end, isSelected),
-                child: Text("$rating ⭐ And More"),
+                child: Text("$rating ⭐ ${AppStrings.andMore.tr()}"),
               );
             },
           ),

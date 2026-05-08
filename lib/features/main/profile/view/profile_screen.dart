@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -8,6 +9,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/types/type_def.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_review_helper.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -21,40 +23,41 @@ import 'package:multi_vendor/shared/view/widgets/user_builder.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  static final List<ListTileData> _items = [
-    if(!userCubit.isGuest)
-    (
-    "Edit Profile",
-    MvIcons.edit,
-        (context) => context.pushNamed(Routes.editProfile),
-    ),
-    if (AppConstants.authFormType == AuthFormType.emailAndPassword && !userCubit.isGuest)
-      (
-      "Change Password",
-      MvIcons.lock,
-          (context) => context.pushNamed(Routes.changePassword),
-      ),
-    (
-    "Settings",
-    MvIcons.settings,
-        (context) => context.pushNamed(Routes.settings),
-    ),
-    ("Rate us", MvIcons.star, (_) async{
-      await AppReviewHelper.instance.openStoreListener() ;
-    }
-    ),
-    ("Contact us", MvIcons.support, (context) {
-      context.pushNamed(Routes.contactUs) ;
-    }
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<ListTileData> items = [
+      if(!userCubit.isGuest)
+        (
+        AppStrings.editProfile.tr(),
+        MvIcons.edit,
+            (context) => context.pushNamed(Routes.editProfile),
+        ),
+      if (AppConstants.authFormType == AuthFormType.emailAndPassword && !userCubit.isGuest)
+        (
+        AppStrings.changePassword.tr(),
+        MvIcons.lock,
+            (context) => context.pushNamed(Routes.changePassword),
+        ),
+      (
+      AppStrings.settings.tr(),
+      MvIcons.settings,
+          (context) => context.pushNamed(Routes.settings),
+      ),
+      (AppStrings.rateUs.tr(), MvIcons.star, (_) async{
+        await AppReviewHelper.instance.openStoreListener() ;
+      }
+      ),
+      (AppStrings.contactUs.tr(), MvIcons.support, (context) {
+        context.pushNamed(Routes.contactUs) ;
+      }
+      ),
+    ];
+
     return SingleChildScrollView(
       child: Column(
         children: [
-          Text("Profile", style: TextStyles.labelLarge).appPaddingVr,
+          Text(AppStrings.profile.tr(), style: TextStyles.labelLarge).appPaddingVr,
           UserBuilder(
             builder: (u) =>
             Center(
@@ -75,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
             ).appPaddingVr,
           ),
           Gap.extraLarge(),
-          ..._items.expand(
+          ...items.expand(
                 (e) =>
             [
               ProfileListTile(title: e.$1, icon: e.$2!, onTap: e.$3),
@@ -84,12 +87,12 @@ class ProfileScreen extends StatelessWidget {
           ),
           Gap.large(),
           Text(
-            "version 1.1.2",
+            "${AppStrings.version.tr()} 1.1.2",
             style: TextStyles.captionMedium.copyWith(color: AppColors.grey),
           ),
           if(!userCubit.isGuest)
-          AppButton.text(text: "Logout", onPressed: ()=>_onLogout(context))else
-          AppButton.text(text: "Login", onPressed: (){
+          AppButton.text(text: AppStrings.logout.tr(), onPressed: ()=>_onLogout(context))else
+          AppButton.text(text: AppStrings.login.tr(), onPressed: (){
               context.pushNamed(Routes.loginScreen);
             })
 
@@ -100,8 +103,8 @@ class ProfileScreen extends StatelessWidget {
 
   Future<void> _onLogout(BuildContext context)async{
     await Popups.showWarning(context,
-    title: "Logout",
-    message: "Are you sure you want to logout?",
+    title: AppStrings.logout.tr(),
+    message: AppStrings.areYouSureToLogout.tr(),
     onConfirm: userCubit.logout,
     );
   }

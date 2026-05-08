@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
@@ -32,16 +34,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   void initState() {
     super.initState();
     _contactUsData = [
-      (title: "call us", color: AppColors.primary, icon: MvIcons.call, onTap: ()async{
+      (title: AppStrings.call.tr(), color: AppColors.primary, icon: MvIcons.call, onTap: ()async{
         await UrlLauncherService.instance.launchPhoneCall(AppConstants.supportPhoneNumber) ;
       }),
-      (title: "mail", color: AppColors.primary, icon: MvIcons.email, onTap: ()async{
+      (title: AppStrings.email.tr(), color: AppColors.primary, icon: MvIcons.email, onTap: ()async{
         await UrlLauncherService.instance.launchEmail(AppConstants.supportEmail) ;
       }),
     ];
     _socialMediaData =[
-      (title: "facebook", color: const Color(0xff0866FF), path: AppAssets.facebookIcon, platform: SocialMediaPlatform.facebook, userName: AppConstants.supportFacebook,gradient: null),
-      (title: "instagram", color: AppColors.primary, path: AppAssets.instagramIcon, platform: SocialMediaPlatform.instagram, userName: AppConstants.supportInstagram, gradient: const LinearGradient(
+      (title: AppStrings.facebook.tr(), color: const Color(0xff0866FF), path: AppAssets.facebookIcon, platform: SocialMediaPlatform.facebook, userName: AppConstants.supportFacebook,gradient: null),
+      (title: AppStrings.instagram.tr(), color: AppColors.primary, path: AppAssets.instagramIcon, platform: SocialMediaPlatform.instagram, userName: AppConstants.supportInstagram, gradient: const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -53,30 +55,29 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ],
         stops: [0.0, 0.25, 0.5, 0.75, 1.0],
       ),),
-      (title: "whatsapp", color: const Color(0xff3EE85D), path: AppAssets.whatsappIcon, platform: SocialMediaPlatform.whatsapp, userName: AppConstants.supportWhatsApp,gradient: null),
-      (title: "tiktok", color: AppColors.black, path: AppAssets.tikTokIcon, platform: SocialMediaPlatform.tiktok, userName: AppConstants.supportTikTok, gradient: null),
+      (title: AppStrings.whatsApp.tr(), color: const Color(0xff3EE85D), path: AppAssets.whatsappIcon, platform: SocialMediaPlatform.whatsapp, userName: AppConstants.supportWhatsApp,gradient: null),
+      (title: AppStrings.tikTok.tr(), color: AppColors.black, path: AppAssets.tikTokIcon, platform: SocialMediaPlatform.tiktok, userName: AppConstants.supportTikTok, gradient: null),
 
     ] ;
   }
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Contact Us",),
+      appBar: BaseAppBar(title: AppStrings.contactUs.tr(),),
       body: SingleChildScrollView(
         child: Column(
           spacing: 4.h,
           children: [
             SvgPicture.asset(AppAssets.contactUsIllustration, height: 180.h,),
-            Text("We’re always happy to help! If you have any questions or issues, feel free to contact us anytime. Our support team is available 24/7 to assist you and make sure you have the best experience possible.",
-
+            Text(AppStrings.contactUsDescription.tr(),
             style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer),),
-            const SectionHeader(title: "reach us "),
+             SectionHeader(title: AppStrings.reachUs.tr()),
            Row(
              spacing: 4.w,
              children: _contactUsData.map((e) => Expanded(child: _contactUsTile(e))).toList(),
            ),
             Gap.small(),
-            const SectionHeader(title: "Social Media"),
+             SectionHeader(title: AppStrings.socialMedia.tr()),
            ..._socialMediaData.where((e)=>e.userName!=null).toList().map((e)=>_socialMediaTile(e)),
 
 

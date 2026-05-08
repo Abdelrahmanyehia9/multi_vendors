@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
@@ -17,7 +19,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> with Change
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(title: "Change Password"),
+      appBar: BaseAppBar(title: AppStrings.changePassword.tr()),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -31,7 +33,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> with Change
                 onFailure:(e)=> onChangePasswordError(e),
                 onSuccess:(_)=> onChangePasswordSuccess(),
                 builder: (s) => AppButton(
-                  text: "Change Password",
+                  text: AppStrings.changePassword.tr(),
                   isLoading: s.isLoading,
                   buttonSize: null,
                   onPressed: onChangePassword,

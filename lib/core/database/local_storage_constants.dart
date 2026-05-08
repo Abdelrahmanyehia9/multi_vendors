@@ -8,6 +8,9 @@ class LocalStorageConstants{
   static const String favorite = 'favorite';
   static const String searchHistory = 'searchHistory';
 
+  static String locale = 'locale';
+  static String isDark = 'isDark';
+
 }
 
 

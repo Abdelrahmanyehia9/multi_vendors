@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
@@ -27,7 +29,7 @@ class HomeFeaturedItem extends StatelessWidget {
       SectionHeader(
         title: AppConstants.homeFeaturedItem.toText,
         hasAction: true,
-        action: "View details",
+        action: AppStrings.viewDetails.tr(),
         onActionTap: () => context.pushNamed(Routes.product, arguments: product!.id),
       ),
       ProductCard.big(
