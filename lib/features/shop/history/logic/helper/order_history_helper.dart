@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
 import 'package:multi_vendor/shared/view/success_screen.dart';
@@ -15,15 +17,13 @@ class OrderHistoryHelper {
     const OrderHistoryHelper._();
     static void onOrderActionSuccess(BuildContext context, {required OrderModel order, bool isDelete = false}){
       final type = isDelete ? MessagesAlertType.orderDeleted : MessagesAlertType.orderCancelled ;
-      final message = "Your order ${order.orderIdDisplay} has been ${isDelete ? "deleted" : "cancelled"} successfully.\nIf you have any questions or need assistance, please contact our support team.";
       final args = ResultScreenArgs(
         type: type,
-        customMessage: message,
         action: (c) => Column(
           spacing: 8.h,
           children: [
             AppButton(
-              text: "Back to Home",
+              text: AppStrings.backToHome.tr(),
               buttonSize: null,
               onPressed: () => c.pushNamedAndRemoveUntil(
                 Routes.mainLayout,
@@ -31,7 +31,7 @@ class OrderHistoryHelper {
               ),
             ),
             AppButton.outlined(
-              text: "to Orders",
+              text: AppStrings.toOrders.tr(),
               onPressed: () => c.pushNamedAndRemoveUntil(
                 Routes.mainLayout,
                 predicate: (_) => false,
@@ -54,7 +54,7 @@ class OrderHistoryHelper {
           spacing: 8.h,
           children: [
             AppButton(
-              text: "Back to Home",
+              text: AppStrings.backToHome.tr(),
               buttonSize: null,
               onPressed: () => c.pushNamedAndRemoveUntil(
                 Routes.mainLayout,
@@ -62,7 +62,7 @@ class OrderHistoryHelper {
               ),
             ),
             AppButton.outlined(
-              text: "back",
+              text: AppStrings.back.tr(),
               onPressed: () => c.pop(),
             ),
           ],

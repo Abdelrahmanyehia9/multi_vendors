@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -36,7 +38,7 @@ class OrderTrackingScreen extends StatelessWidget {
     return BaseScaffold(
       paddingHr: 0,
       appBar: BaseAppBar(
-        title: "Order Tracking",
+        title: AppStrings.orderTracking.tr(),
         actions: [
           AppIconButton(icon: MvIcons.refresh, onTap: () => onRefresh(context)),
         ],
@@ -82,16 +84,16 @@ class _CancelOrderButton extends StatelessWidget {
           message: e.message),
       onSuccess: (order) => OrderHistoryHelper.onOrderActionSuccess(context, order: order!),
       builder: (s) => AppButton(
-        text: "Cancel order",
+        text: AppStrings.cancelOrder.tr(),
         buttonSize: null,
         isLoading: s.isLoading,
         enabled: canCancel,
         onPressed: () async {
           await Popups.showWarning(
             context,
-            title: "Cancel Order",
+            title: AppStrings.cancelOrder.tr(),
             onConfirm: onCancel,
-            message: "Are you sure you want to cancel this order?",
+            message: AppStrings.cancelOrderMessage.tr(),
           );
         },
       ),

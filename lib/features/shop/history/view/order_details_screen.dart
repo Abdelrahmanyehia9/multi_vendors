@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_delete_cubit.dart';
@@ -29,7 +31,7 @@ class OrderDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: "Order Details",
+        title: AppStrings.orderDetails.tr(),
         actions: [
           BaseBlocConsumer<OrderDeleteCubit, OrderModel>(
             onSuccess: (order) => OrderHistoryHelper.onOrderActionSuccess(context, order: order!,isDelete: true),
@@ -51,13 +53,13 @@ class OrderDetailsScreen extends StatelessWidget {
       children: [
         OrderDetailsCard(
           hasAction: false,
-          title: "Order Details",
+          title: AppStrings.orderDetails.tr(),
           order: order,
         ),
         if (order.address != null)
           OrderAddressInfoCard(
             hasAction: false,
-            title: "Shipping Address",
+            title: AppStrings.shippingAddress.tr(),
             address: order.address!,
           ),
         CheckoutListProducts(showHeader: true, items: order.items!),
@@ -76,10 +78,9 @@ class OrderDetailsScreen extends StatelessWidget {
             onTap: () {
               Popups.showWarning(
                 context,
-                title: "Delete Order",
+                title: AppStrings.deleteOrder.tr(),
                 onConfirm: onDelete,
-                message:
-                    "Remove Order from Orders history (you cant undo this action) ? ",
+                message: AppStrings.deleteOrderMessage.tr(),
               );
             },
           )

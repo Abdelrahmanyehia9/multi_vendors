@@ -7,8 +7,10 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/service/navigation_service.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/shared/logic/user_preferences_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
   final LocalStorage localStorage;
@@ -17,12 +19,12 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   void init() {
     final bool isDark = localStorage.read(LocalStorageConstants.isDark) ?? false;
-    final String localeCode = localStorage.read(LocalStorageConstants.locale) ?? 'en';
-
+    AppConstants.locale = localStorage.read(LocalStorageConstants.locale);
     safeEmit(state.copyWith(
       isDark: isDark,
-      locale: Locale(localeCode),
+      locale: Locale(AppConstants.locale),
     ));
+
   }
 
   void toggleTheme() {

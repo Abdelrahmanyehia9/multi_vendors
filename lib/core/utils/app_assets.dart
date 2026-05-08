@@ -20,6 +20,9 @@ class AppAssets{
   static const String tikTokIcon = "assets/icons/tiktok.svg" ;
   static const String gBFlag = "assets/icons/gb.svg";
   static const String sAFlag = "assets/icons/sa.svg";
+  static const String fRFlag = "assets/icons/fr.svg";
+  static const String eSFlag = "assets/icons/es.svg";
+  static const String cNFlag = "assets/icons/cn.svg";
 
 
 

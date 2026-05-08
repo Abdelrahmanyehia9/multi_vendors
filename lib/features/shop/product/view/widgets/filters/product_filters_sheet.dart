@@ -100,7 +100,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
                   builder: (_, value, __) {
                     final selectedText = value.isNullOrEmpty
                         ? null
-                        : value.map((e) => e.name).join(", ");
+                        : value.map((e) => e.name.localized).join(", ");
 
                     return _FilterItem(
                       title: AppStrings.categories.tr(),

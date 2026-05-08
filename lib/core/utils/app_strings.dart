@@ -196,6 +196,8 @@ class AppStrings {
   static const String ago = 'ago';
   static const String inPrefix = 'in';
   static const String minuteSingular = 'minute';
+  static const String secondSingular = 'second';
+  static const String secondsPlural = 'seconds';
   static const String minutePlural = 'minutes';
   static const String hourSingular = 'hour';
   static const String hourPlural = 'hours';
@@ -604,6 +606,22 @@ class AppStrings {
   static const String passwordTooWeak ="password_too_weak";
   static const String passwordsDoNotMatch ="passwords_do_not_match";
   static const String enterInvalidEmail ="enter_invalid_email";
-
+  static const String enterInvalidPhone ="enter_invalid_phone";
   static const String theme = "theme";
+  static const String back = "back";
+  static const String specialMark ="special_mark";
+  static const String locationName ="location_name";
+  static const String city = "city";
+  static const String optional = "optional";
+  static const String deleteOrder = "delete_order";
+  static const String deleteOrderMessage = "delete_order_message";
+  static const String toOrders="to_orders";
+  static const String orderTracking ="order_tracking";
+  static const String cancelOrder ="cancel_order";
+  static const String cancelOrderMessage="cancel_order_message";
+  static const String orderTimeLine = "order_timeline";
+  static const String rateOrder ="rate_order";
+  static const String spanish ="spanish" ;
+  static const String french = "french" ;
+  static const String chinese = "chinese" ;
 }

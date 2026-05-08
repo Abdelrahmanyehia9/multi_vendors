@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
@@ -72,8 +73,8 @@ class _Categories extends StatelessWidget {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(
-          title: "Categories",
+         SectionHeader(
+          title: AppStrings.categories.tr(),
         ),
         ValueListenableBuilder<int>(
           valueListenable: selectedTag,
@@ -109,7 +110,7 @@ class _Categories extends StatelessWidget {
           SizedBox(
             width: (width - 20).w,
             child: Text(
-              category.name,
+              category.name.localized,
               textAlign: TextAlign.center,
               style: TextStyles.bodySmall.copyWith(
                 color: selected ? AppColors.primary : null,

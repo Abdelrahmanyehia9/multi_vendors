@@ -5,8 +5,8 @@ class CategoryModel extends Equatable {
   final int? id;
   final String? img;
   final int? count;
-  final String name;
-  final String? description;
+  final Map<String, dynamic> name;
+  final Map<String, dynamic>? description;
   final int? parent;
 
   const CategoryModel({
@@ -31,11 +31,11 @@ class CategoryModel extends Equatable {
 
 
   factory CategoryModel.fake()=>const CategoryModel(
-    name: "Unknown",
+    name: FakeData.fakeMapName,
     id: FakeData.fakeInt,
     img: FakeData.fakeImg,
     count: FakeData.fakeInt,
-    description: FakeData.fakeStringDesc,
+    description: FakeData.fakeMapDescription,
     parent: FakeData.fakeInt,
   ) ;
 

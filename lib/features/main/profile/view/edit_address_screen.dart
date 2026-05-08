@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -31,7 +33,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: "address",
+        title: AppStrings.address.tr(),
         actions: [AppDeleteButton(onTap: resetAddress)],
       ),
       body: BaseBlocConsumer(
@@ -53,38 +55,38 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                   children: [
                     Expanded(
                       child: _textField(
-                        label: "Country",
+                        label: AppStrings.country.tr(),
                         controller: countryController,
                       ),
                     ),
                     Expanded(
                       child: _textField(
-                        label: "City",
+                        label: AppStrings.city.tr(),
                         controller: cityController,
                       ),
                     ),
                   ],
                 ),
-                _textField(label: "Street", controller: streetController),
+                _textField(label: AppStrings.street.tr(), controller: streetController),
                 Row(
                   spacing: 4.h,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: _textField(
-                        label: "building",
+                        label: AppStrings.building.tr(),
                         controller: buildingController,
                       ),
                     ),
                     Expanded(
                       child: _textField(
-                        label: "apartment",
+                        label: AppStrings.apartment.tr(),
                         controller: apartmentController,
                       ),
                     ),
                     Expanded(
                       child: _textField(
-                        label: "floor",
+                        label: AppStrings.floor.tr(),
                         isNumeric: true,
                         isOptional: true,
                         controller: floorController,
@@ -100,7 +102,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                     Expanded(
                       flex: 3,
                       child: _textField(
-                        label: "Special Mark",
+                        label: AppStrings.specialMark.tr(),
                         controller: specialMarkController,
                         isOptional: true,
                       ),
@@ -108,7 +110,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                     Expanded(
                       flex: 2,
                       child: _textField(
-                        label: "Postal Code",
+                        label: AppStrings.postalCode.tr(),
                         controller: zipCodeController,
                         isOptional: true,
                         isNumeric: true,
@@ -117,9 +119,9 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                     ),
                   ],
                 ),
-                _textField(label: "Location name",isOptional: true, controller: locationNameController),
+                _textField(label: AppStrings.locationName.tr() ,isOptional: true, controller: locationNameController),
                 Gap.tiny(),
-                 AppButton(text: "Save",
+                 AppButton(text: AppStrings.save.tr(),
                      isLoading: state.isLoading,
                      buttonSize: null, onPressed: onSave),
               ],
@@ -154,11 +156,10 @@ class _EditAddressScreenState extends State<EditAddressScreen>
       maxLines: maxLines ?? 1,
       borderType: AppBorderType.filled,
       autoValidateMode: AutovalidateMode.disabled,
-      hintText: "Enter $label",
+      hintText: "${AppStrings.enter.tr()} $label ${isOptional ? AppStrings.optional.tr() : ""}",
       controller: controller,
       customHeader: header,
       padding: EdgeInsets.symmetric(horizontal: 8.w),
-      hintStyle: TextStyles.captionMedium,
       maxLength: maxLength,
       validator: isOptional ? null : (v) => AppValidation.validateRequired(v),
       keyboardType: isNumeric ? TextInputType.number : null,

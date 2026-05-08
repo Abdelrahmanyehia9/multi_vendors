@@ -6,7 +6,9 @@ extension StringExtension on String? {
   bool get isNullOrEmpty => this == null || this == "";
 }
 
-
+extension LocalizedJson on Map<String, dynamic> {
+  String get localized =>this[AppConstants.locale]??this['en']??"" ;
+}
 /// List ////
 extension ListExtension<T> on List<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/overlays/snackbars.dart';
 
 extension SizeExt on BuildContext{
@@ -22,17 +23,17 @@ extension SnackBarExt on BuildContext{
      context: this,
      message, title: title);
  }
- void successBar({required String message,String title ="all done" })  {
+ void successBar({required String message,String title = AppStrings.operationDidSuccessfully })  {
  return  SnackBars.success(
      context: this,
      message: message, title: title);
  }
- void errorBar({required String message,String title ="error" })  {
+ void errorBar({required String message,String title = AppStrings.errorOccurred })  {
  return  SnackBars.error(
      context: this,
      message: message, title: title);
  }
- void warningBar({required String message,String title ="warning" })  {
+ void warningBar({required String message,String title = AppStrings.warning })  {
  return  SnackBars.warning(
      context: this,
      message: message, title: title);

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
@@ -51,7 +52,7 @@ class ProductDetailsBody extends StatelessWidget {
                     },
                     child: RatingStars(rating: model.rating!, size: 22)),
               Text(
-                model.category?.name ?? "",
+                model.category?.name.localized ?? "",
                 style: TextStyles.captionMedium,
               ),
             ],
@@ -61,7 +62,7 @@ class ProductDetailsBody extends StatelessWidget {
             spacing: 4.h,
             children: [
               ProductNameWithPrice(
-                name: model.name ?? "",
+                name: model.name.localized,
                 price: model.price,
               ),
               if (FeatureFlags.multiVendor && model.vendor != null)
@@ -89,7 +90,7 @@ class ProductDetailsBody extends StatelessWidget {
           const Divider(height: 0),
           ProductInfoSection(
             header: AppStrings.description.tr(),
-            body: model.description,
+            body: model.description?.localized,
           ),
        if (model.productTags != null )
          ProductInfoSection(

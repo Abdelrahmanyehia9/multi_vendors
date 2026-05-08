@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
@@ -47,7 +48,7 @@ class VendorAppBar extends StatelessWidget {
       child: Row(
         spacing: 4.w,
         children: [
-          Text(vendor.name, style: TextStyles.labelMedium),
+          Text(vendor.name.localized, style: TextStyles.labelMedium),
           if(vendor.isVerified)
           const Icon(MvIcons.verified , color: AppColors.success,),
         ],
@@ -77,7 +78,7 @@ class _VendorProfileCover extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                vendor.name,
+                vendor.name.localized,
                 style: TextStyles.labelLarge.copyWith(
                   color: Colors.white,
                   shadows: const [
@@ -91,8 +92,12 @@ class _VendorProfileCover extends StatelessWidget {
               if(FeatureFlags.enableMultiShipping)...[
                 const Spacer(),
                 if(vendor.deliveryOption?.deliveryByStore??false)
-                 AppChip(text: AppStrings.deliverByStore.tr(), padding: EdgeInsets.zero,
-                  labelColor: AppColors.black,
+                 AppChip(
+                   selected: true,
+                   selectedColor: AppColors.grey100,
+                   text: AppStrings.deliverByStore.tr(),
+                   labelColor: AppColors.black,
+                  selectedBorderColor: Colors.transparent,
                   unSelectedBorderColor: Colors.transparent,
                 )
               ]

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -25,7 +26,7 @@ class _NewsItemDetailsState extends State<NewsItemDetails>
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(
-        title: title(widget.news.title),
+        title: title(widget.news.title?.localized),
         actions: const [
           AppShareButton(),
         ],
@@ -37,9 +38,9 @@ class _NewsItemDetailsState extends State<NewsItemDetails>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSlider(context),
-            Text(widget.news.title ?? "", style: TextStyles.labelLarge),
+            Text(widget.news.title?.localized ?? "", style: TextStyles.labelLarge),
             Text(
-              widget.news.description,
+              widget.news.description.localized,
               style: TextStyles.bodyMedium.copyWith(color: context.colors.surfaceContainer),
             ),
           ],

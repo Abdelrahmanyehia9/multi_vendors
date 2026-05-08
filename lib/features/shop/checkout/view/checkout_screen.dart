@@ -15,11 +15,11 @@ import 'package:multi_vendor/features/shop/checkout/view/widgets/select_payment_
 import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/extension/checkout_summery_model_extension.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
-import 'package:multi_vendor/core/utils/helper/auth_helper.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/payments/logic/payment_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/view/mixin/checkout_mixin.dart';
+import 'package:multi_vendor/shared/view/widgets/login_required.dart';
 
 class CheckoutScreenArgs{
   final CouponInfo? coupon;
@@ -57,7 +57,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
                   isLoading: orderState.isLoading || payStates.isLoading,
                   buttonSize: null,
                   enabled: value != null,
-                  onPressed: () => AuthHelper.checkAuth((){
+                  onPressed: () => LoginRequired.loginRequiredBottomSheets((){
                       pay(amount: widget.args.summery.total.toDouble());
                     }, context),
                 );

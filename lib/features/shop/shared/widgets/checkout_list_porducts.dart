@@ -65,7 +65,7 @@ class CheckoutProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.product.name ?? "",
+                    item.product.name.localized,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.labelMedium.copyWith(

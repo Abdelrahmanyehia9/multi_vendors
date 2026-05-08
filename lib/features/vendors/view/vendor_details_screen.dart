@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
@@ -67,7 +68,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
           vendor: vendor,
           expandedHeight: titleThreshold,
         ),
-       if(vendor.bio!=null)SliverToBoxAdapter(child: _buildBio(vendor.bio!),),
+       if(vendor.bio!=null)SliverToBoxAdapter(child: _buildBio(vendor.bio!.localized),),
         SliverToBoxAdapter(child: VendorInfoCard(vendor: vendor)),
         _productsHeader(),
         SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),

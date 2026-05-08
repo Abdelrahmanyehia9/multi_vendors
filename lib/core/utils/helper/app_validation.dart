@@ -6,10 +6,11 @@ class AppValidation {
   AppValidation._();
 
   static String? _checkNullOrEmpty(String? value, String fieldName) {
-    if (value == null || value.trim().isEmpty) {
+    if (value.isNullOrEmpty) {
       return '${fieldName.tr()} ${AppStrings.cannotBeEmpty.tr()}';
     }
     return null;
+
   }
   static String? validateRequired(String? value, {String fieldName = AppStrings.thisField}) {
     return _checkNullOrEmpty(value, fieldName);

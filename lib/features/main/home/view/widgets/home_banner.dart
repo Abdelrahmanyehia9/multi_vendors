@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/banner_type.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -24,7 +25,7 @@ class HomeBanner extends StatelessWidget {
     return BaseBlocConsumer<HomeBannerCubit, List<HomeBannerModel>>(
       successBuilder: (banners) {
         return AppSlider(
-          height: 164.h,
+          height: 175,
           slides: banners.map((e) => _Slide(e)).toList(),
         );
       },
@@ -34,7 +35,7 @@ class HomeBanner extends StatelessWidget {
           bannerType: BannerType.v2,
         );
         return AppSlider(
-          height: 164.h,
+          height: 175,
           slides: List.generate(5, (_) => _Slide(banner)),
         );
       },
@@ -50,16 +51,13 @@ class _Slide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = 164.h;
     final width = context.width;
     return banner.bannerType == BannerType.v1
         ? Stack(
             alignment: AlignmentDirectional.bottomCenter,
+            clipBehavior: Clip.none,
             children: [
               Container(
-                width: width - 20.w,
-                height: height - 16.h,
-                constraints: BoxConstraints(minHeight: height - 20.h),
                 decoration: BoxDecoration(
                   color: AppColors.grey800,
                   borderRadius: BorderRadius.circular(
@@ -74,13 +72,13 @@ class _Slide extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            banner.title ?? "",
+                            banner.title?.localized??"",
                             style: TextStyles.bodyMedium.copyWith(
                               color: banner.textColor,
                             ),
                           ),
                           Text(
-                            banner.description ?? "",
+                            banner.description?.localized ?? "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyles.captionMedium.copyWith(
@@ -89,7 +87,7 @@ class _Slide extends StatelessWidget {
                           ),
                           Gap.small(),
                           AppButton(
-                            text: banner.buttonText ?? "",
+                            text: banner.buttonText?.localized ?? "",
                             color: AppColors.secondary,
                             style: TextStyles.bodySmall,
                             onPressed: () {
@@ -97,33 +95,31 @@ class _Slide extends StatelessWidget {
                                 context.pushNamed(banner.redirect!);
                               }
                             },
-                            fixedSize: const Size(100, 30),
-                            padding: EdgeInsets.zero,
+                            fixedSize: const Size(180, 35),
+                            padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                             buttonSize: null,
                           ),
                         ],
                       ).appPaddingAll,
                     ),
-                    Gap(width * .3),
+                    Gap(width * .275),
                   ],
                 ),
               ),
               Positioned(
-                bottom: 0,
+                bottom: 0.h,
                 right: context.isRTL ? null : 0,
                 left: context.isRTL ? 0 : null,
                 child: AppCachedNetworkImage(
                   banner.image,
-                  width: width * .35,
-                  height: height,
+                  width: width * .365,
                 ),
               ),
             ],
-          )
+          ).appPaddingAll
         : AppCachedNetworkImage(
             banner.image,
             width: width - 20.w,
-            height: height,
           );
   }
 }

@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
     return BaseScaffold(
       paddingHr: 0,
       paddingVr: 0,
-      appBar: BaseAppBar(title: AppStrings.myCart.tr(), actions: [?_buildAction()]),
+      appBar: BaseAppBar(title: AppStrings.myCart.tr(), actions: [_buildAction()]),
       body: BaseBlocConsumer<CartCubit, List<CartModel>>(
         successBuilder: (cartItems) => _builder(context, cartItems: cartItems),
         emptyBuilder: AppStates.empty,
@@ -67,8 +67,12 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-  Widget? _buildAction() {
-    if(cartCubit.cartItems.isEmpty) return null;
-    return AppDeleteButton(onTap: cartCubit.clearCart,);
+  Widget _buildAction() {
+    return BaseBlocConsumer<CartCubit, List<CartModel>>(
+        builder:(s) {
+          if(s.isEmpty) return const SizedBox.shrink();
+          return AppDeleteButton(onTap: cartCubit.clearCart,);
+        }
+        );
   }
 }

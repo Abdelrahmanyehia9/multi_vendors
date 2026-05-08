@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -133,7 +134,9 @@ class AppTextField extends StatelessWidget {
       borderWidth: borderWidth,
       borderColor: borderColor,
       helperStyle: helperStyle,
-      hintStyle: hintStyle,
+      hintStyle: hintStyle??TextStyles.bodyMedium.copyWith(
+        color: context.colors.surfaceContainerLow
+      ),
       labelStyle: labelStyle,
       errorStyle: errorStyle,
       padding: padding,

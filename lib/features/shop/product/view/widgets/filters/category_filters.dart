@@ -27,7 +27,7 @@ class _CategoryFilter extends StatelessWidget with _CategoryFilterMixin {
                   partial: _isPartial(node, selectedValues),
                 ),
                 if (depth == 0) CircularBox(radius: 30, child: AppCachedNetworkImage(node.img)),
-                Expanded(child: Text(node.name, style: depth == 0 ? TextStyles.labelMedium : TextStyles.bodyMedium)),
+                Expanded(child: Text(node.name.localized, style: depth == 0 ? TextStyles.labelMedium : TextStyles.bodyMedium)),
                 if ((node.count ?? 0) > 0)
                   Text("(${node.count})", style: TextStyles.labelSmall.copyWith(color: context.colors.surfaceContainer)),
               ],

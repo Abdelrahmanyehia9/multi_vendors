@@ -68,7 +68,7 @@ class CartCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartItem.product.name ?? "",
+                    cartItem.product.name.localized,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.labelMedium,

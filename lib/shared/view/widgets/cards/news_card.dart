@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -50,17 +51,18 @@ class NewsCard extends StatelessWidget {
           Gap.small(),
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 4.h,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  news.title??"",
+                  news.title?.localized??"",
                   style: TextStyles.labelSmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
-                  news.description,
+                  news.description.localized,
                   style: TextStyles.bodySmall.copyWith(
                     color: context.colors.surfaceContainerLow
                   ),

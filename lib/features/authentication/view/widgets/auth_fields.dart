@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -109,8 +112,8 @@ class EmailField extends StatelessWidget {
 class PhoneField extends StatelessWidget {
   final TextEditingController? controller;
 
-  final bool readOnly;
-
+   final bool readOnly;
+    final FutureOr<String?> Function(PhoneNumber?)? validator ;
   final void Function(Country)? onCountryChanged;
 
   const PhoneField({
@@ -118,6 +121,7 @@ class PhoneField extends StatelessWidget {
     this.readOnly = false,
     this.controller,
     this.onCountryChanged,
+    this.validator ,
   });
 
   @override
@@ -127,24 +131,30 @@ class PhoneField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.phoneNumber.tr(), style: TextStyles.labelSmall),
-        IntlPhoneField(
-          readOnly: readOnly,
-          enabled: !readOnly,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          initialCountryCode: userCubit.user?.country?.code ?? AppConstants.initialCountry.code,
-          controller: controller,
-          pickerDialogStyle: PickerDialogStyle(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-            backgroundColor: context.scaffoldBackground,
-            searchFieldInputDecoration: decoration(
-              context,
-              hintText: "${AppStrings.search.tr()} ....",
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: IntlPhoneField(
+            readOnly: readOnly,
+            enabled: !readOnly,
+            validator :validator,
+            autovalidateMode: validator == null ? null : AutovalidateMode.always,
+            invalidNumberMessage: AppStrings.enterInvalidPhone.tr(),
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            initialCountryCode: userCubit.user?.country?.code ?? AppConstants.initialCountry.code,
+            controller: controller,
+            pickerDialogStyle: PickerDialogStyle(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              backgroundColor: context.scaffoldBackground,
+              searchFieldInputDecoration: decoration(
+                context,
+                hintText: "${AppStrings.search.tr()} ....",
+              ),
             ),
+            flagsButtonMargin: EdgeInsets.symmetric(horizontal: 16.w),
+            onCountryChanged: onCountryChanged,
+            showDropdownIcon: false,
+            decoration: decoration(context, hintText: "${AppStrings.enter.tr()} ${AppStrings.phoneNumber.tr()}"),
           ),
-          flagsButtonMargin: EdgeInsets.symmetric(horizontal: 16.w),
-          onCountryChanged: onCountryChanged,
-          showDropdownIcon: false,
-          decoration: decoration(context, hintText: "${AppStrings.enter.tr()} ${AppStrings.phoneNumber.tr()}"),
         ),
       ],
     );

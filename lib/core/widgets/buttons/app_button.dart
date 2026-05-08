@@ -282,6 +282,7 @@ class AppButton extends StatelessWidget {
               ),
             if (text.isNotEmpty)
               Text(
+                textAlign: TextAlign.center,
                 text,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,

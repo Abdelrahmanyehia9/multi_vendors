@@ -26,7 +26,7 @@ mixin LoginScreenMixin on State<LoginScreen> {
     onLoginWithMobile();
   }
   void onLoginWithMobile() {
-    cubit.loginWithMobile(country: selectedCountry, mobile: phone.text);
+     cubit.loginWithMobile(country: selectedCountry, mobile: phone.text);
   }
   void onLoginSuccess() {
     if (AppConstants.authFormType == AuthFormType.mobile) {

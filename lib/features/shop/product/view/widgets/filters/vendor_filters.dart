@@ -14,7 +14,7 @@ class _VendorFilters extends _BaseFilter<VendorModel> {
         spacing: 4.w,
         children: [
           AppCachedNetworkImage(vendor.image,width: 24,radius: Decorations.borderRadius8,),
-          Text(vendor.name, style: TextStyles.labelMedium),
+          Text(vendor.name.localized, style: TextStyles.labelMedium),
           if(vendor.count!=null && vendor.count!>0)
             Text("(${vendor.count})", style: TextStyles.labelMedium.copyWith(
               color: context.colors.surfaceContainer

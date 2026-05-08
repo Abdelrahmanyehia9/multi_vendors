@@ -3,12 +3,12 @@ import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class NewsModel {
   final int? id;
-  final String? title;
+  final Map<String, dynamic>? title;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? thumbnail;
   final List<String>? images;
-  final String description;
+  final Map<String, dynamic> description;
   const NewsModel({
      this.id,
      this.title,
@@ -16,16 +16,16 @@ class NewsModel {
      this.updatedAt,
      this.thumbnail,
      this.images,
-     this.description ="",
+     this.description =const{},
   });
   factory NewsModel.fromJson(Map<String, dynamic>json)=>NewsModel(
     id:  json['id'],
-    title: json['title'],
+    title: json["title"],
     createdAt: json['created_at']!=null ? DateTime.parse(json['created_at']) : null,
     updatedAt: json['updated_at']!=null ? DateTime.parse(json['updated_at']) : null,
     thumbnail: json['thumbnail'],
     images: json['images']!=null ? List<String>.from(json['images']) : null,
-    description: json['description'],
+    description: json["description"],
   );
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -38,12 +38,12 @@ class NewsModel {
   }.withoutNulls;
   NewsModel copyWith({
     int? id,
-    String? title,
+    Map<String , dynamic>? title,
     DateTime? createdAt,
     DateTime? updatedAt,
     String? thumbnail,
     List<String>? images,
-    String? description,
+    Map<String , dynamic>? description,
   }) => NewsModel(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -57,8 +57,8 @@ class NewsModel {
 
   factory NewsModel.fake()=>const NewsModel(
     id: FakeData.fakeInt,
-    title: FakeData.fakeStringTitle,
-    description: FakeData.fakeStringDesc,
+    title: FakeData.fakeMapName,
+    description: FakeData.fakeMapDescription,
     thumbnail: FakeData.fakeImg,
     images: [FakeData.fakeImg],
   );

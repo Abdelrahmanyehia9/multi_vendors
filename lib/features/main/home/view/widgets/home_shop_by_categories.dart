@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -62,7 +63,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
             shrinkWrap: true,
             products: List.generate(
               4,
-              (_) => const ProductModel(name: '', price: null),
+              (_) => const ProductModel(name: {}, price: null),
             ),
           ),
           emptyBuilder: AppStates.empty,
@@ -115,7 +116,7 @@ class _Categories extends StatelessWidget {
                     selectedItem.value = i;
                   },
                   child: AppChip(
-                    text: categories[i].name,
+                    text: categories[i].name.localized,
                     selected: value == i,
                   ),
                 ),

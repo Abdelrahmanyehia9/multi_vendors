@@ -12,9 +12,9 @@ import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 class ProductDetailsModel extends Equatable {
   final int? id ;
   final DateTime? createdAt ;
-  final String? name;
+  final Map<String, dynamic> name;
    final VendorModel? vendor;
-   final String? description;
+   final Map<String, dynamic>? description;
    final RatingModel? rating;
    final StockAvailabilityModel? inStock;
    final PriceModel price ;
@@ -26,7 +26,7 @@ class ProductDetailsModel extends Equatable {
   const ProductDetailsModel({
     this.id,
     this.createdAt,
-    this.name,
+   required this.name,
     this.vendor,
     this.description,
     this.rating,
@@ -71,8 +71,8 @@ class ProductDetailsModel extends Equatable {
   factory ProductDetailsModel.fake()=>ProductDetailsModel(
       images: const [],
       id: FakeData.fakeInt,
-      description: FakeData.fakeStringDesc,
-      name: FakeData.fakeStringTitle,
+      name: FakeData.fakeMapName,
+      description: FakeData.fakeMapDescription,
       vendor: VendorModel.fake(),
       category: CategoryModel.fake(),
       thumbnail: FakeData.fakeImg,
@@ -87,9 +87,9 @@ class ProductDetailsModel extends Equatable {
   ProductDetailsModel copyWith({
     int? id,
     DateTime? createdAt,
-    String? name,
+   Map<String, dynamic>? name,
     VendorModel? vendor,
-    String? description,
+     Map<String, dynamic> ? description,
     RatingModel? rating,
     PriceModel? price,
     StockAvailabilityModel? inStock,

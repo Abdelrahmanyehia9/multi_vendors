@@ -5,11 +5,10 @@
   "order_confirmed": "Confirmed",
   "order_processing": "Processing",
   "order_shipped": "Shipped",
-  "order_confirmed_description": "Your order has been confirmed.",
-  "order_processing_description": "Your order is being processed.",
-  "order_shipped_description": "Your order has been shipped.",
-  "order_delivered_description": "Your order has been delivered.",
-
+  "order_confirmed_description": "Your order has been confirmed successfully and is now being reviewed before shipment.",
+  "order_processing_description": "Our team is currently processing your order and preparing your items for shipment.",
+  "order_shipped_description": "Your order has been shipped successfully and is now on its way to your location.",
+  "order_delivered_description": "Your order has been delivered successfully. Thank you for choosing our services.",
   "store_payment": "Store Payment",
   "cash_on_delivery": "Cash on Delivery",
 
@@ -418,7 +417,25 @@
   "password_too_weak": "Password is too weak",
   "passwords_do_not_match": "Passwords do not match",
   "enter_invalid_email": "Enter a valid email",
-  "theme": "Theme"
+  "theme": "Theme",
+  "seconds": "Seconds",
+  "second": "Second",
+  "enter_invalid_phone" : "Enter a valid phone number",
+  "special_mark" : "Special Mark",
+ "location_name" : "Location name",
+  "city": "City",
+  "optional": "Optional",
+  "delete_order": "Delete order",
+  "to_orders": "to orders",
+   "delete_order_message" : "Remove Order from Orders history (you cant undo this action) ? ",
+  "order_tracking" : "Order Tracking",
+  "cancel_order" : "Cancel Order",
+  "cancel_order_message": "Are you sure you want to cancel this order?",
+  "order_timeline": "Order Timeline",
+  "rate_order": "Rate Order",
+  "spanish"  : "Spanish",
+  "french" : "French",
+   "chinese" : "Chinese"
 
 
 }

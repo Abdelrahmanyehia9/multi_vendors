@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
@@ -61,13 +63,13 @@ class VendorCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(vendor.name, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyles.bodyMedium),
+                    Text(vendor.name.localized, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyles.bodyMedium),
                     RatingStars(rating: RatingModel.fake(),),
                     Row(
                       spacing: 8.w,
                       children: [
                         _iconText(MvIcons.delivery, "40 ${AppConstants.currency.name}"),
-                        _iconText(MvIcons.timelapse, "20-50 ${AppStrings.minutePlural}"),
+                        _iconText(MvIcons.timelapse, "20-50 ${AppStrings.minutePlural.tr()}"),
                       ],
                     ),
                     if (FeatureFlags.enableMultiShipping) ...[
@@ -75,8 +77,8 @@ class VendorCard extends StatelessWidget {
                       Row(
                         spacing: 4.w,
                         children: [
-                          Text(AppStrings.deliverBy, style: TextStyles.bodySmall.copyWith(color: AppColors.primary)),
-                          Text("( ${AppStrings.store} )", style: TextStyles.bodySmall),
+                          Text(AppStrings.deliverBy.tr(), style: TextStyles.bodySmall.copyWith(color: AppColors.primary)),
+                          Text("( ${AppStrings.store.tr()} )", style: TextStyles.bodySmall),
                         ],
                       ),
                     ],
@@ -125,7 +127,7 @@ class VendorCardGrid extends StatelessWidget {
         child: PhotoOverlay(
           img: vendor.image,
           titlePadding: 8,
-          title: Text(vendor.name, style: TextStyles.bodySmall.copyWith(color: AppColors.white)),
+          title: Text(vendor.name.localized, style: TextStyles.bodySmall.copyWith(color: AppColors.white)),
         ),
       ),
       AppFavoriteButton(item: vendor),

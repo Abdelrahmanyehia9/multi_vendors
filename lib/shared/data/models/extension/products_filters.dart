@@ -45,11 +45,11 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
         "${AppStrings.over.tr()} ${ratingRange!.min} ⭐",
       if (!categories.isNullOrEmpty &&
           !ex.contains(ProductsFilters.categories)) ...[
-        for (var c in categories!) c.name,
+        for (var c in categories!) c.name.localized,
       ],
       if (!vendors.isNullOrEmpty &&
           !ex.contains(ProductsFilters.vendor)) ...[
-        for (var v in vendors!) v.name,
+        for (var v in vendors!) v.name.localized,
       ],
       if (!tags.isNullOrEmpty && !ex.contains(ProductsFilters.tags)) ...[
         for (var t in tags!) t.name,

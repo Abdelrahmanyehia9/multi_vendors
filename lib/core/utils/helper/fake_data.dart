@@ -10,5 +10,7 @@ class FakeData{
   static final DateTime fakeDateTime = DateTime(2024,);
   static const String fakeStringTitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." ;
   static const fakeImg = "https://via.placeholder.com/150";
+  static const Map<String, dynamic> fakeMapName = {"en": "unknown", "ar": "unknown"};
+  static const Map<String, dynamic> fakeMapDescription = {"en": fakeStringDesc, "ar": fakeStringDesc};
 
 }

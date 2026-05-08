@@ -1,4 +1,3 @@
-
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_delivery_option.dart';
 
@@ -10,7 +9,7 @@ class VendorDetailsModel extends VendorModel {
   final List<CategoryModel>? categories;
   final RatingModel? vendorRating;
   final VendorDeliveryOptionModel? deliveryOption;
-  final String? bio;
+  final Map<String, dynamic>? bio;
 
   const VendorDetailsModel({
     this.categories,
@@ -43,14 +42,13 @@ class VendorDetailsModel extends VendorModel {
       );
   factory VendorDetailsModel.fake() =>
       VendorDetailsModel(
-        name: "",
+        name: FakeData.fakeMapName,
         image: FakeData.fakeImg,
-        bio: FakeData.fakeStringDesc,
+        bio: FakeData.fakeMapDescription,
         categories:  List<CategoryModel>.generate(10, (index) => CategoryModel.fake()),
         isVerified: FakeData.fakeBoolean,
         vendorRating:RatingModel.fake(),
         deliveryOption: VendorDeliveryOptionModel.fake(),
-
       );
 
 

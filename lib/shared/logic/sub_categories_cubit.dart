@@ -9,7 +9,7 @@ class SubCategoriesCubit extends Cubit<BaseState<List<CategoryModel>>>{
   SubCategoriesCubit(this._repository) : super(const BaseState.initial());
   Future<void>getSubCategories()async{
     safeEmit(const BaseState.loading());
-    final result = await _repository.getSubCategories();
+    final result = await _repository.getMainCategories();
     result.fold(
           (l) => safeEmit(BaseState.failure(l)),
           (r) {

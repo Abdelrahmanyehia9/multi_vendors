@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/enum/order_status.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
@@ -27,7 +29,7 @@ class OrderTrackingTimeLine extends StatelessWidget {
       spacing: 18.h,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(title: "Order TimeLine"),
+           SectionHeader(title: AppStrings.orderTimeLine.tr()),
           ...steps.asMap().entries.map((entry) {
             final isLast = entry.key == steps.length - 1;
             return _buildTimelineItem(entry.value, isLast);

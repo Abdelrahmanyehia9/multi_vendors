@@ -25,10 +25,9 @@ void main() async {
   final AppRouter router = AppRouter();
   runApp(
     EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('ar')],
+        supportedLocales: const [Locale('en'), Locale('ar'), Locale("fr"), Locale("es"), Locale("zh")],
         path: AppAssets.languagesPack,
         fallbackLocale: const Locale('en'),
-        startLocale: const Locale("ar"),
         child: MultiVendors(router: router)),
   );
 }

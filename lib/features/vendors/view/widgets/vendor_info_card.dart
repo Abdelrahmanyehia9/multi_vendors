@@ -48,7 +48,7 @@ class VendorInfoCard extends StatelessWidget {
                     (e) => AppChip(
                   padding: EdgeInsets.all(4.w),
                   textStyle: TextStyles.bodySmall.copyWith(color: AppColors.white),
-                  text: e.name,
+                  text: e.name.localized,
                   selected: true,
                 ),
               )
@@ -70,7 +70,7 @@ class VendorInfoCard extends StatelessWidget {
                 _stat(
                   MvIcons.delivery,
                   AppColors.secondaryDark,
-                  '${delivery.estimatedDeliveryTime.min}-${delivery.estimatedDeliveryTime.max} Min',
+                  '${delivery.estimatedDeliveryTime.min}-${delivery.estimatedDeliveryTime.max} ${AppStrings.minutePlural.tr()}',
                   AppStrings.deliveryTime.tr(),
                   showDivider: delivery.deliveryFees != null,
                 ),

@@ -53,7 +53,7 @@ class AppConstants {
   static const String supportTikTok = "multiVendor";
   static const String? appStoreId = null;
   static final AppCurrency currency = AppCurrency(name: AppStrings.usd.tr(), char: "\$");
-
+  static  String locale= "en" ;
 
   static Future<void> setupPhoneSystem() async {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

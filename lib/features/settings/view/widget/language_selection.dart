@@ -39,25 +39,42 @@ class LanguageSelection extends StatefulWidget {
 
 class _LanguageSelectionState extends State<LanguageSelection> {
   late final ValueNotifier<_Locales> _selectedLanguage;
-
   final List<_Locales> _languages = [
     _Locales(
-      name: AppStrings.english.tr(),
+      name: "English",
       path: AppAssets.gBFlag,
       available: true,
       locale: const Locale("en"),
     ),
     _Locales(
-      name: AppStrings.arabic.tr(),
+      name: "العربية",
       path: AppAssets.sAFlag,
       available: true,
       locale: const Locale("ar"),
     ),
+    _Locales(
+      name: "Français",
+      path: AppAssets.fRFlag,
+      available: true,
+      locale: const Locale("fr"),
+    ),
+    _Locales(
+      name: "Español",
+      path: AppAssets.eSFlag,
+      available: true,
+      locale: const Locale("es"),
+    ),
+    _Locales(
+      name: "中文",
+      path: AppAssets.cNFlag,
+      available: true,
+      locale: const Locale("zh"),
+    ),
+
   ];
   @override
   void initState() {
     super.initState();
-
     _selectedLanguage = ValueNotifier(
       _languages.firstWhereOrNull(
             (e) => e.locale == userPreferencesCubit.state.locale,
@@ -87,7 +104,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
             ),
             SizedBox(height: 16.h),
             AppButton(
-              text: AppStrings.submit.tr(),
+              text: AppStrings.confirm.tr(),
               buttonSize: null,
               onPressed: () {
                 final newLocale = value.locale;

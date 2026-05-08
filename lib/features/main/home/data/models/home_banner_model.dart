@@ -5,8 +5,8 @@ import 'package:multi_vendor/core/enum/banner_type.dart';
 
 class HomeBannerModel {
   final int? id;
-  final String? title;
-  final String? description;
+  final Map<String, dynamic>? title;
+  final Map<String, dynamic>? description;
   final String image;
   final BannerType bannerType;
   final DateTime? createdAt;
@@ -14,7 +14,7 @@ class HomeBannerModel {
   final Color? backgroundColor;
   final Color? textColor;
   final String? redirect;
-  final String? buttonText;
+  final Map<String, dynamic>? buttonText;
 
   const HomeBannerModel({
     this.id,
@@ -43,7 +43,7 @@ class HomeBannerModel {
          backgroundColor: ColorExtension.fromRgbString(json['colors']['background_color']),
          textColor: ColorExtension.fromRgbString(json['colors']['text_color']),
          redirect: json['action']['redirect'],
-         buttonText: json['action']['title'],
+         buttonText: (json['action']as Map<String,dynamic>)['title'],
       );
   Map<String, dynamic> toJson() => {
     'id': id,

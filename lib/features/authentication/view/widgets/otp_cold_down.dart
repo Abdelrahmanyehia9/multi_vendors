@@ -20,7 +20,7 @@ class OtpColdDown extends StatelessWidget {
             text: "00:55",
             style: TextStyles.bodyMedium.copyWith(color: AppColors.primary),
           ),
-           const TextSpan(text:"\t""seconds",),
+           TextSpan(text:"\t""${AppStrings.secondsPlural.tr()}",),
         ],
       ),
     );

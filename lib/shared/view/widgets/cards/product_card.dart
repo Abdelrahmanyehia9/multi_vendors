@@ -140,7 +140,7 @@ class ProductCard extends StatelessWidget {
             ProductNameWithPrice(
               isBig: isBig,
               price: product.price,
-              name: product.name!,
+              name: product.name.localized,
             ).paddingHr(isBig ? 16 : 12),
             if (FeatureFlags.multiVendor && product.vendor != null) ...[
               const Spacer(),
@@ -148,7 +148,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    product.vendor!.name.toUpperCase(),
+                    product.vendor!.name.localized.toUpperCase(),
                     style: TextStyles.bodySmall.copyWith(
                       fontSize: isBig ? 14.sp : 10.sp,
                       color: context.colors.surfaceContainer,
