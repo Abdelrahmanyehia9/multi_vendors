@@ -16,6 +16,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_back_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
@@ -23,8 +24,8 @@ import 'package:multi_vendor/features/shop/product/data/model/products_filters_m
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/shared/data/models/category_model.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/app_expansion_tile.dart';
 import 'package:multi_vendor/core/widgets/app_radion_button.dart';
@@ -71,8 +72,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
   Widget _buildContent(ProductsFiltersModel f) {
     return DraggableScrollableSheet(
       minChildSize: 0.5,
-      maxChildSize: 0.9,
-      initialChildSize: 0.9,
+      initialChildSize: 1,
       expand: false,
       builder: (_, controller) {
         return SingleChildScrollView(
@@ -81,18 +81,24 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 12.h,
             children: [
-              Gap.small(),
-
               /// Header
-              SectionHeader(
-                title: AppStrings.filters.tr(),
-                headerStyle: TextStyles.labelLarge,
-                action: "Reset",
-                hasAction: true,
-                actionStyle: TextStyles.labelLarge,
-                onActionTap: resetFilters,
-              ),
-
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                spacing: 16.w,
+                children: [
+                  const AppBackButton(),
+                  Expanded(
+                    child: SectionHeader(
+                      title: AppStrings.filters.tr(),
+                      headerStyle: TextStyles.labelLarge,
+                      action: AppStrings.reset.tr(),
+                      hasAction: true,
+                      actionStyle: TextStyles.labelMedium,
+                      onActionTap: resetFilters,
+                    ),
+                  ),
+                ],
+              ).appPaddingVr,
               /// Categories
               if (_isVisible(f.categories, ProductsFilters.categories))
                 ValueListenableBuilder(
@@ -101,7 +107,6 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
                     final selectedText = value.isNullOrEmpty
                         ? null
                         : value.map((e) => e.name.localized).join(", ");
-
                     return _FilterItem(
                       title: AppStrings.categories.tr(),
                       subtitle: selectedText,

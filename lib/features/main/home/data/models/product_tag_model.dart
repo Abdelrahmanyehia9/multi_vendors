@@ -1,22 +1,23 @@
+import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 
-class ProductTagModel {
+class ProductTagModel extends Equatable{
   final ProductTags tag;
   final String? thumbnail;
-  final int count;
+  final int? count;
 
   const ProductTagModel({
     required this.tag,
     this.thumbnail,
-    required this.count,
+     this.count,
   });
 
   factory ProductTagModel.fromJson(Map<String, dynamic> json) =>
       ProductTagModel(
         tag: ProductTags.fromDatabase(json['type']),
         thumbnail: json['image'] as String?,
-        count: json['count'] as int,
+        count: json['count'] as int? ??0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,4 +43,8 @@ class ProductTagModel {
     count: 0,
   );
   String get name => tag.toText;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [tag];
 }

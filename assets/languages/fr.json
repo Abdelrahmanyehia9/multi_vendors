@@ -410,5 +410,19 @@
   "rate_order": "Noter la commande",
   "spanish": "Espagnol",
   "french": "Français",
-  "chinese": "Chinois"
+  "chinese": "Chinois",
+  "get_started": "Commencer",
+  "reset": "Réinitialiser",
+  "back": "Retour",
+  "resend_now": "Renvoyer maintenant",
+  "max_resend_reached": "Vous avez atteint le nombre maximal de tentatives de renvoi du code OTP.",
+  "more": "Plus",
+  "skip": "Passer",
+  "next": "Suivant",
+  "powered_by": "Propulsé par",
+  "nexyra_tech": "Nexyra Technology",
+  "user_updated_successfully": "Utilisateur mis à jour avec succès",
+  "egp": "LE"
+
+
 }

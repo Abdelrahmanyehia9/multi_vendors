@@ -5,7 +5,7 @@ import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
-import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
+import 'package:multi_vendor/features/main/favorite/view/widgets/app_favorite_button.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';

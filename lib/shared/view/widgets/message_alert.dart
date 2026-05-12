@@ -17,6 +17,7 @@ enum MessagesAlertType {
   promoFailed,
   orderCancelled,
   reviewSubmitted,
+  error,
   orderDeleted;
 
   String get title => switch (this) {
@@ -28,6 +29,7 @@ enum MessagesAlertType {
     promoSuccess => AppStrings.promoSuccess.tr(),
     promoFailed => AppStrings.promoFailed.tr(),
     reviewSubmitted => AppStrings.reviewSubmitted.tr(),
+    error => AppStrings.error.tr(),
   };
 
   String get message => switch (this) {
@@ -39,11 +41,12 @@ enum MessagesAlertType {
     promoFailed => AppStrings.promoFailedDescription.tr(),
     orderDeleted => AppStrings.orderDeletedDescription.tr(),
     reviewSubmitted => AppStrings.reviewSubmittedDescription.tr(),
+    error => AppStrings.errorDescription.tr(),
   };
 
   IconData get icon => switch (this) {
     loginRequired => MvIcons.login,
-    promoFailed => MvIcons.error,
+    promoFailed || error=> MvIcons.error,
     _ => MvIcons.verified,
   };
 
@@ -55,15 +58,12 @@ enum MessagesAlertType {
 
 class MessageAlert extends StatelessWidget {
   final MessagesAlertType type;
-
   final TextStyle? titleStyle;
   final TextStyle? messageStyle;
-
   final String? customMessage;
-
   final String? customTitle;
-
   final double iconSize;
+  final Widget? customIcon ;
 
   const MessageAlert(
     this.type, {
@@ -73,6 +73,7 @@ class MessageAlert extends StatelessWidget {
     this.customTitle,
     this.customMessage,
     this.iconSize = 105,
+        this.customIcon
   });
 
   @override
@@ -81,7 +82,8 @@ class MessageAlert extends StatelessWidget {
       spacing: 4.h,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Icon(type.icon, color: type.color, size: iconSize.sp),
+
+        customIcon ??Icon(type.icon, color: type.color, size: iconSize.sp),
         Gap.medium(),
         Text(
           customTitle ?? type.title,

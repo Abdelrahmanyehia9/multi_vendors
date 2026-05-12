@@ -9,6 +9,7 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
@@ -25,7 +26,7 @@ class HomeBanner extends StatelessWidget {
     return BaseBlocConsumer<HomeBannerCubit, List<HomeBannerModel>>(
       successBuilder: (banners) {
         return AppSlider(
-          height: 175,
+          height: 144,
           slides: banners.map((e) => _Slide(e)).toList(),
         );
       },
@@ -35,12 +36,12 @@ class HomeBanner extends StatelessWidget {
           bannerType: BannerType.v2,
         );
         return AppSlider(
-          height: 175,
+          height: 144,
           slides: List.generate(5, (_) => _Slide(banner)),
         );
       },
       failureBuilder: AppStates.error,
-    ).paddingVr(8);
+    );
   }
 }
 
@@ -58,6 +59,7 @@ class _Slide extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
+                margin:  EdgeInsetsDirectional.only(top: 8.h ),
                 decoration: BoxDecoration(
                   color: AppColors.grey800,
                   borderRadius: BorderRadius.circular(
@@ -68,12 +70,14 @@ class _Slide extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            banner.title?.localized??"",
-                            style: TextStyles.bodyMedium.copyWith(
+                            banner.title?.localized ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.labelSmall.copyWith(
                               color: banner.textColor,
                             ),
                           ),
@@ -81,11 +85,10 @@ class _Slide extends StatelessWidget {
                             banner.description?.localized ?? "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyles.captionMedium.copyWith(
+                            style: TextStyles.captionSmall.copyWith(
                               color: banner.textColor,
                             ),
                           ),
-                          Gap.small(),
                           AppButton(
                             text: banner.buttonText?.localized ?? "",
                             color: AppColors.secondary,
@@ -95,14 +98,13 @@ class _Slide extends StatelessWidget {
                                 context.pushNamed(banner.redirect!);
                               }
                             },
-                            fixedSize: const Size(180, 35),
-                            padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                            fixedSize: const Size(150, 35),
                             buttonSize: null,
                           ),
                         ],
                       ).appPaddingAll,
                     ),
-                    Gap(width * .275),
+                    Gap(width * .35),
                   ],
                 ),
               ),
@@ -112,14 +114,27 @@ class _Slide extends StatelessWidget {
                 left: context.isRTL ? 0 : null,
                 child: AppCachedNetworkImage(
                   banner.image,
-                  width: width * .365,
+                  width: width * .375,
+                  fit: BoxFit.fill,
+                  height: 132.h,
                 ),
               ),
             ],
-          ).appPaddingAll
-        : AppCachedNetworkImage(
-            banner.image,
-            width: width - 20.w,
-          );
+          )
+        : AppClick(
+          onTap: () {
+            if (banner.redirect != null) {
+              context.pushNamed(banner.redirect!);
+            }
+          },
+          child: Padding(
+            padding:  EdgeInsets.only(top: 8.0.h),
+            child: AppCachedNetworkImage(
+                banner.image,
+                radius: Decorations.borderRadius8.r,
+                width: width ,
+              ),
+          ),
+        );
   }
 }

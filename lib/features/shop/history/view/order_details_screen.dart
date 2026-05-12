@@ -78,9 +78,9 @@ class OrderDetailsScreen extends StatelessWidget {
             onTap: () {
               Popups.showWarning(
                 context,
-                title: AppStrings.deleteOrder.tr(),
+                title: AppStrings.deleteOrder,
                 onConfirm: onDelete,
-                message: AppStrings.deleteOrderMessage.tr(),
+                message: AppStrings.deleteOrderMessage,
               );
             },
           )

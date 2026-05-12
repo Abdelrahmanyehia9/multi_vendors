@@ -16,8 +16,8 @@ class ChangePasswordForm extends StatelessWidget {
       children: [
         PasswordField(controller: passwordController),
         PasswordField.confirm(
-          password: passwordController.text,
-          controller: passwordConfirmController,
+          passwordController: passwordController,
+          passwordConfirmController : passwordConfirmController,
         ),
         PasswordValidationBuilder(controller: passwordController),
       ],

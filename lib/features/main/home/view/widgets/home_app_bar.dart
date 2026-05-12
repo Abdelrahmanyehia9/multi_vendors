@@ -29,7 +29,7 @@ class HomeAppBar extends StatelessWidget {
               child: Row(
                 children: [
                    UserAvatar(
-                     size: 48,
+                     size: 50,
                      profile: u?.profilePic,),
                   Gap.small(),
                   Expanded(child: _nameWithLocation(context)),
@@ -48,15 +48,17 @@ class HomeAppBar extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(AppStrings.welcomeBack.tr(), style: TextStyles.labelSmall.copyWith(
+        Text(AppStrings.welcomeBack.tr(), style: TextStyles.bodyLarge.copyWith(
           color: context.colors.surfaceContainerLow,
-          fontSize: 10.sp
+          fontSize: 12.sp,
+            height: 0
         ),),
         Text(
-          userCubit.userName.toUpperCase(),
+          userCubit.userName,
           maxLines: 1,
-          style: TextStyles.labelSmall.copyWith(
-            fontWeight: FontWeightHelper.medium
+          style: TextStyles.captionLarge.copyWith(
+            fontWeight: FontWeightHelper.medium,
+            height: 0
           ),
           overflow: TextOverflow.ellipsis,
         ),

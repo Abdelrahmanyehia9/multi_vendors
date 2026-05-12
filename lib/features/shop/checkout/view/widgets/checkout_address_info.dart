@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/order_address_info_card.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_expansion_tile.dart';
 

@@ -17,12 +17,12 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   UserPreferencesCubit(this.localStorage) : super(const UserPreferencesStates());
 
-  void init() {
+  void init(BuildContext context) {
     final bool isDark = localStorage.read(LocalStorageConstants.isDark) ?? false;
     AppConstants.locale = localStorage.read(LocalStorageConstants.locale);
     safeEmit(state.copyWith(
       isDark: isDark,
-      locale: Locale(AppConstants.locale),
+      locale:AppConstants.locale == null ? context.locale: Locale(AppConstants.locale!),
     ));
 
   }
@@ -38,7 +38,7 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
     save();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       NavigationService.context?.pushNamedAndRemoveUntil(
-        Routes.splash,
+        Routes.mainLayout,
         predicate: (route) => false,
       );
     });
@@ -47,7 +47,7 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
   Future<void> save() async {
     await Future.wait([
       localStorage.write(LocalStorageConstants.isDark, state.isDark),
-      localStorage.write(LocalStorageConstants.locale, state.locale.languageCode),
+      localStorage.write(LocalStorageConstants.locale, state.locale!.languageCode),
     ]);
   }
 }

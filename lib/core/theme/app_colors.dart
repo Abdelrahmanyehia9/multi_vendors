@@ -23,7 +23,7 @@ class AppColors {
   static const Color secondary700 = Color(0xff798BB1);
   static const Color secondary800 = Color(0xff4C5F8E);
   static const Color secondary900 = Color(0xff2E3F76);
-  static const Color secondary     = primary ;
+  static const Color secondary     = primary;
   static const Color secondaryDark = secondary900;
 // ─── Grey ──────────────────────────────────────────────
   static const Color white    = Color(0xffFFFFFF);
@@ -64,15 +64,15 @@ class AppColors {
   static const Color info900 = Color(0xff003F77);
   static const Color info    = info500;
   // ─── Warning ───────────────────────────────────────────
-  static const Color warning100 = Color(0xffFEFDD1);
-  static const Color warning200 = Color(0xffFDFBA3);
-  static const Color warning300 = Color(0xffFAF675);
-  static const Color warning400 = Color(0xffF5F052);
-  static const Color warning500 = Color(0xffEFE81C);
-  static const Color warning600 = Color(0xffCDC614);
-  static const Color warning700 = Color(0xffACA50E);
-  static const Color warning800 = Color(0xff8A8408);
-  static const Color warning900 = Color(0xff726D05);
+  static const Color warning100 = Color(0xffFFFBEB);
+  static const Color warning200 = Color(0xffFEF3C7);
+  static const Color warning300 = Color(0xffFDE68A);
+  static const Color warning400 = Color(0xffFBBF24);
+  static const Color warning500 = Color(0xffF59E0B);
+  static const Color warning600 = Color(0xffD97706);
+  static const Color warning700 = Color(0xffB45309);
+  static const Color warning800 = Color(0xff92400E);
+  static const Color warning900 = Color(0xff78350F);
   static const Color warning    = warning500;
   // ─── Error ─────────────────────────────────────────────
   static const Color error100 = Color(0xffFEDDCB);

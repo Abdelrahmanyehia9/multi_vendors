@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/enum/user_roles.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 
 class UserModel extends Equatable {
   final String? id;

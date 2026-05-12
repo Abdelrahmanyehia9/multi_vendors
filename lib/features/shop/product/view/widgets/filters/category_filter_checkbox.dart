@@ -13,17 +13,17 @@ class _CategoryCheckbox extends StatelessWidget {
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
-      width: 18.w,
-      height: 18.w,
+      width: 20.w,
+      height: 20.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.r),
         border: Border.all(color: active ? color : context.colors.surfaceContainer, width: 1.5.w),
         color: checked ? color : partial ? color.withAppOpacity(0.15) : Colors.transparent,
       ),
       child: checked
-          ? Icon(MvIcons.checked, color: Colors.white, size: 12.sp)
+          ? Icon(MvIcons.checked, color: Colors.white, size: 16.sp)
           : partial
-          ? Icon(MvIcons.remove, color: color, size: 12.sp)
+          ? Icon(MvIcons.remove, color: color, size: 16.sp)
           : null,
     );
   }

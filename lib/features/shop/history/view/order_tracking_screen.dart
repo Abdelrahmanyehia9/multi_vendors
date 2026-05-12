@@ -91,9 +91,9 @@ class _CancelOrderButton extends StatelessWidget {
         onPressed: () async {
           await Popups.showWarning(
             context,
-            title: AppStrings.cancelOrder.tr(),
+            title: AppStrings.cancelOrder,
             onConfirm: onCancel,
-            message: AppStrings.cancelOrderMessage.tr(),
+            message: AppStrings.cancelOrderMessage,
           );
         },
       ),

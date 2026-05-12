@@ -42,13 +42,13 @@ class PasswordField extends StatefulWidget {
   });
 
   factory PasswordField.confirm({
-    required String password,
-    required TextEditingController controller,
+    required TextEditingController passwordController,
+    required TextEditingController passwordConfirmController,
   }) => PasswordField(
     hint: AppStrings.confirmPassword,
     header: AppStrings.confirmPassword,
-    controller: controller,
-    validator: (v) => AppValidation.validatePasswordConfirmation(password, v),
+    controller: passwordConfirmController,
+    validator: (v) => AppValidation.validatePasswordConfirmation(passwordController.text, v),
   );
 
   @override

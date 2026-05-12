@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 import 'package:multi_vendor/shared/data/models/user_model.dart';
 import 'dart:io';
 

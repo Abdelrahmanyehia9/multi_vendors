@@ -16,7 +16,6 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
           ? null
           : tags,
 
-
       vendors: !exclude.contains(ProductsFilters.vendor)
           ? null
           : vendors,
@@ -34,6 +33,7 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
           : priceRange,
     );
   }
+
   List<String> toChips(List<ProductsFilters>? exclude) {
     final ex = exclude ?? [];
     return [
@@ -43,20 +43,26 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
       ],
       if (ratingRange != null && !ex.contains(ProductsFilters.rating))
         "${AppStrings.over.tr()} ${ratingRange!.min} ⭐",
-      if (!categories.isNullOrEmpty &&
-          !ex.contains(ProductsFilters.categories)) ...[
+      if (!categories.isNullOrEmpty && !ex.contains(ProductsFilters.categories)) ...[
         for (var c in categories!) c.name.localized,
       ],
-      if (!vendors.isNullOrEmpty &&
-          !ex.contains(ProductsFilters.vendor)) ...[
+      if (!vendors.isNullOrEmpty && !ex.contains(ProductsFilters.vendor)) ...[
         for (var v in vendors!) v.name.localized,
       ],
       if (!tags.isNullOrEmpty && !ex.contains(ProductsFilters.tags)) ...[
         for (var t in tags!) t.name,
       ],
-
       if (sortBy != null)
         sortBy!.type.text + (sortBy!.asc ? "↑" : "↓"),
+    ];
+  }
+
+  List<String> toChipsLimited(List<ProductsFilters>? exclude, {int max = 6}) {
+    final all = toChips(exclude);
+    if (all.length <= max) return all;
+    return [
+      ...all.take(max),
+      "+${all.length - max} ${AppStrings.more.tr()}",
     ];
   }
 }

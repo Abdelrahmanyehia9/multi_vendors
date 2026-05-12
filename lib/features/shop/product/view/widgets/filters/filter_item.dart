@@ -9,6 +9,7 @@ class _FilterItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppExpansionTile(
+      initiallyExpanded: false,
       title: title != null ? Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

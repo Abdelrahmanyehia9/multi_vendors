@@ -3,11 +3,11 @@ import 'dart:ui';
 
 class UserPreferencesStates {
   final bool isDark;
-  final Locale locale;
+  final Locale? locale;
 
   const UserPreferencesStates({
     this.isDark = false,
-    this.locale = const Locale('en'),
+    this.locale,
   });
 
   UserPreferencesStates copyWith({

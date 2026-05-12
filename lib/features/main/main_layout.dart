@@ -7,8 +7,7 @@ import 'package:multi_vendor/features/main/main_layout_mixin.dart';
 
 class MainLayout extends StatefulWidget {
   final int initialIndex;
-
-  const MainLayout({super.key, this.initialIndex = 0});
+  const MainLayout({super.key, this.initialIndex = 2});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();

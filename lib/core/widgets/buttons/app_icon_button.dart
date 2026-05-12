@@ -13,12 +13,14 @@ class AppIconButton extends StatelessWidget {
   final Color? backGroundColor;
   final double size;
   final bool enabled ;
+  final double radius ;
 
   const AppIconButton({
     super.key,
     this.size = 20,
     this.tooltip,
     this.iconColor,
+    this.radius = 8,
     this.backGroundColor,
     this.onTap,
     this.enabled = true,
@@ -29,9 +31,10 @@ class AppIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton.icon(
       onPressed: onTap,
+      borderRadius: radius,
       toolTip: tooltip?.tr(),
       enabled: enabled,
-      fixedSize: Size(size * 2, size * 2),
+      fixedSize: Size(size * 1.8, size * 1.8),
       color: backGroundColor ?? context.colors.surfaceContainerLowest,
       icon: Icon(
         icon,

@@ -6,12 +6,13 @@ class AppTheme {
   const AppTheme._();
 
   static final Color _lightBackgroundColor = const Color(0xfffefafa);
-  static final Color _darkBackgroundColor = const Color.fromRGBO(11, 15, 20, 1);
+  static final Color _darkBackgroundColor = const Color.fromRGBO(10, 10, 15, 1);
 
   static final TooltipThemeData _tooltipThemeData = const TooltipThemeData(
     verticalOffset: 2,
     margin: EdgeInsets.zero,
-    decoration: BoxDecoration(color: AppColors.secondary),
+    textStyle: TextStyle(color: Colors.white),
+    decoration: BoxDecoration(color: AppColors.primary),
   );
 
   static final AppBarTheme _appBarTheme = const AppBarTheme(
@@ -34,6 +35,7 @@ class AppTheme {
   static ThemeData light(Locale locale) => ThemeData(
     scaffoldBackgroundColor: _lightBackgroundColor,
     canvasColor: _lightBackgroundColor,
+
     datePickerTheme: DatePickerThemeData(
       backgroundColor: _lightBackgroundColor,
       headerForegroundColor: Colors.white,
@@ -106,10 +108,10 @@ class _ColorScheme {
     error: AppColors.error,
     onError: Colors.white,
     brightness: Brightness.dark,
-    surfaceContainerLowest: AppColors.grey900,
-    surfaceContainerLow: AppColors.grey800,
+    surfaceContainerLowest: AppColors.grey800,
+    surfaceContainerLow: AppColors.grey700,
     surfaceContainer: AppColors.grey500,
-    surfaceContainerHigh: AppColors.grey100,
-    surfaceContainerHighest: AppColors.grey50,
+    surfaceContainerHigh: AppColors.grey200,
+    surfaceContainerHighest: AppColors.grey100,
   );
 }

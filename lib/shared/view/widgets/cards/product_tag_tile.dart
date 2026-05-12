@@ -40,7 +40,7 @@ class ProductTagTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final itemsCount = tag.count > 999 ? "999+" : tag.count.toString();
+    final itemsCount = (tag.count??0) > 999 ? "999+" : tag.count.toString();
     return ListTile(
       onTap: () => context.pushNamed(Routes.products, arguments: ProductsScreenArgs(
         initialFilters: ProductsFiltersModel(tags: [tag])

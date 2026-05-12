@@ -27,7 +27,6 @@ class AppValidation {
   static String? validatePasswordConfirmation(String? password, String? confirmPassword) {
     final confirmCheck = _checkNullOrEmpty(confirmPassword, AppStrings.confirmPassword);
     if (confirmCheck != null) return confirmCheck;
-
     if (password != confirmPassword) {
       return AppStrings.passwordsDoNotMatch.tr();
     }

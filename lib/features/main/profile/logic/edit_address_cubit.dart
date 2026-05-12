@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 
 class EditAddressCubit extends Cubit<BaseState<Unit>>{
   final ProfileRepository _repository ;

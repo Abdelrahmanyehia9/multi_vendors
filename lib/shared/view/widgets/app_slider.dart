@@ -7,7 +7,10 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
+import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/app_photo_view.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 
 
 class AppSlider extends StatefulWidget {
@@ -54,8 +57,8 @@ class _AppSliderState extends State<AppSlider> {
             },
           ),
         ),
-        if (widget.showDots) ...[
-          Gap.medium(),
+        if (widget.showDots && count > 1) ...[
+          Gap.small(),
           SliderDots(
             total: count,
             currentIndex: _currentIndex,
@@ -64,11 +67,19 @@ class _AppSliderState extends State<AppSlider> {
       ],
     );
   }
-  Widget _item(String image) => AppCachedNetworkImage(
-    height: widget.height.h,
-    width: double.infinity,
-    radius: Decorations.borderRadius16,
-    image
+  Widget _item(String image) => AppClick(
+    onTap: ()=>BottomSheets.show(
+      showCloseButton: true,
+      context, child: SizedBox(
+      height: context.height * 0.9,
+      child: AppPhotoView(imgUrl: image),
+    ),),
+    child: AppCachedNetworkImage(
+      height: widget.height.h,
+      width: double.infinity,
+      radius: Decorations.borderRadius16,
+      image
+    ),
   );
 }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
@@ -40,10 +41,9 @@ class _UserAvatarState extends State<UserAvatar> {
   @override
   Widget build(BuildContext context) {
     final String? image = widget.profile;
-
     return CircularBox(
       backgroundColor: randomColor.veryLight,
-      child: image == null || image.isEmpty
+      child: image.isNullOrEmpty
           ? _buildText()
           : AppCachedNetworkImage(
         image,
@@ -53,7 +53,7 @@ class _UserAvatarState extends State<UserAvatar> {
     );
   }
 
-  Widget _buildText() {
+  Widget _buildText(){
     final String userName = widget.userName?? userCubit.userName  ;
     final String firstLetter = userName[0] ;
     return SizedBox(
@@ -62,6 +62,7 @@ class _UserAvatarState extends State<UserAvatar> {
       child: Center(
         child: Text(
           firstLetter.toUpperCase(),
+          textAlign: TextAlign.center,
           style: TextStyles.labelMedium.copyWith(
             fontSize: widget.size.sp / 2.2,
             color: randomColor,

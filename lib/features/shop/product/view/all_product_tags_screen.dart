@@ -5,7 +5,6 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/overlays/widget_overlay.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/product/logic/product_all_tags_cubit.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
@@ -30,10 +29,7 @@ class AllProductTagsScreen extends StatelessWidget {
           children: [
             AppSearchbar(onQueryChanged: cubit.onSearch).appPaddingAll,
             Expanded(
-              child: WidgetOverlay(
-                showOverlay: hasFocus,
-                child:
-                    BaseBlocConsumer<
+              child: BaseBlocConsumer<
                           ProductAllTagsCubit,
                           List<ProductTagModel>
                         >(
@@ -51,7 +47,7 @@ class AllProductTagsScreen extends StatelessWidget {
                         )
                         .appPaddingHr,
               ),
-            ),
+
           ],
         ),
       ),

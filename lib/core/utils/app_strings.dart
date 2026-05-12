@@ -384,6 +384,7 @@ class AppStrings {
   static const String enjoyYourOrder = "enjoy_your_order";
 
   static const String usd = "usd";
+  static const String egp = "egp";
 
   static const String promoCodeVoucher = "promo_code_voucher";
 
@@ -624,4 +625,16 @@ class AppStrings {
   static const String spanish ="spanish" ;
   static const String french = "french" ;
   static const String chinese = "chinese" ;
+  static const String error = "error";
+  static const String errorDescription = "error_description";
+  static const String reset = "reset";
+  static const String resendNow = "resend_now";
+  static const String maxResendReached="max_resend_reached";
+  static const String more ="more";
+  static const String poweredBy = "powered_by";
+  static const String nexyraTech ="nexyra_tech";
+
+  static const String userUpdatedSuccessfully = "user_updated_successfully";
+
+
 }

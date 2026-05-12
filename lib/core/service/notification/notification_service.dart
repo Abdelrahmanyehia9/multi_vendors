@@ -1,0 +1,68 @@
+// // notification_service.dart
+// library;
+//
+// import 'dart:convert';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:multi_vendor/core/utils/app_constants.dart';
+// import 'package:onesignal_flutter/onesignal_flutter.dart';
+// part 'push_notification_service.dart';
+// part 'local_notification_service.dart';
+//
+// class NotificationService {
+//   final _LocalNotificationService? _localNotificationService;
+//   final PushNotificationService _pushNotificationService;
+//   const NotificationService._(
+//       this._localNotificationService,
+//       this._pushNotificationService,
+//       );
+//   static final  NotificationService _pushOnlyInstance = NotificationService._(null, PushNotificationService._instance);
+//   static final  NotificationService _fullInstance = NotificationService._(_LocalNotificationService._instance, PushNotificationService._instance);
+//   static NotificationService get pushOnly => _pushOnlyInstance;
+//   static NotificationService get instance => _fullInstance;
+//   static bool _debug = false;
+//   Future<void> init({bool debug = false}) async {
+//     _debug = debug;
+//     await _localNotificationService?.init();
+//     await _pushNotificationService._initialize(AppConstants.onesignalAppId, debug: _debug);
+//     _log("Notification Service initialized");
+//   }
+//
+//   Future<void> setupListeners({
+//     Function(OSNotificationWillDisplayEvent)? onForegroundMessage,
+//     required Function(OSNotification) onReceivedRemoteMessage,
+//     void Function(OSPushSubscriptionChangedState)? stateObserver,
+//     Function(NotificationResponse)? onLocalNotificationClicked,
+//   }) async {
+//     _localNotificationService?.setOnClickListener((notification) {
+//
+//       _log("Notification clicked ${notification.data}", isLocalNotification: true);
+//       onLocalNotificationClicked?.call(notification);
+//
+//     });
+//
+//     _pushNotificationService.setupListeners(
+//       onForegroundMessage: (event) {
+//
+//         _localNotificationService?.showNotification(event.notification);
+//         _log("Notification received in foreground ${event.notification.title}", isLocalNotification: true);
+//         onForegroundMessage?.call(event);
+//       },
+//       onReceivedRemoteMessage: (clicked) {
+//         _log("Notification clicked ${clicked.title}", isLocalNotification: false);
+//         onReceivedRemoteMessage.call(clicked);
+//       },
+//       stateObserver: stateObserver,
+//     );
+//   }
+//
+//   PushNotificationService get oneSignal => _pushNotificationService;
+//
+//   void _log(String message, {bool? isLocalNotification}) {
+//     if (_debug && kDebugMode) {
+//       debugPrint(
+//         "🔔 ${isLocalNotification == null ? "" : isLocalNotification ? "[Local Notification]" : "[Push Notification]"} $message",
+//       );
+//     }
+//   }
+// }

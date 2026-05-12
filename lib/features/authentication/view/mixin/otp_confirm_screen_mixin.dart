@@ -3,13 +3,14 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/features/authentication/logic/otp_confirm_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/otp_confirm_screen.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/otp_cold_down.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 mixin OtpConfirmScreenMixin on State<OtpConfirmScreen> {
 
   final PinInputController controller = PinInputController();
   OtpConfirmCubit get cubit => context.read<OtpConfirmCubit>();
-
+  OtpCountDownController get otpColdDownController   => OtpCountDownController();
 
 
   Future<void> onConfirm() async{
@@ -17,6 +18,9 @@ mixin OtpConfirmScreenMixin on State<OtpConfirmScreen> {
   }
   void onConfirmFailure(AppException e) {
     context.errorBar(message: e.message);
+  }
+
+  void onResendOtp() {
   }
   @override
   void dispose() {

@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
-import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
+import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_address_cubit.dart';
@@ -14,6 +14,8 @@ import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
+import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
+import 'package:multi_vendor/features/shop/history/view/order_history_screen.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
 import 'package:multi_vendor/features/shop/rating/logic/order_submit_review_cubit.dart';
@@ -78,9 +80,9 @@ import 'package:multi_vendor/features/vendors/view/vendor_details_screen.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
 import 'package:multi_vendor/shared/logic/image_handle_cubit.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
-import 'package:multi_vendor/shared/logic/main_categories_cubit.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
-import 'package:multi_vendor/shared/view/success_screen.dart';
+import 'package:multi_vendor/features/main/category/logic/main_categories_cubit.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
+import 'package:multi_vendor/shared/view/result_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {
@@ -156,7 +158,7 @@ class AppRouter {
                 create: (context) => MainLayoutCubit()..init(initialIndex),
               ),
             ],
-            child: MainLayout(initialIndex: initialIndex ?? 0),
+            child: MainLayout(initialIndex: initialIndex ?? 2),
           ),
 
           name: Routes.mainLayout,
@@ -230,7 +232,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) =>
-                    MainCategoriesCubit(getIt.get<HomeRepository>())
+                    MainCategoriesCubit(getIt.get<CategoryRepository>())
                       ..getCategories(),
               ),
               BlocProvider(
@@ -415,6 +417,14 @@ class AppRouter {
           ),
           name: Routes.rateProduct,
         );
+
+        case Routes.orderHistory:
+          return _page(BlocProvider(
+            create: (_) =>
+            OrderHistoryCubit(getIt<OrderHistoryRepository>())
+              ..getOrdersHistory(),
+            child: const OrderHistoryScreen(),
+          ), name: Routes.orderHistory);
         case Routes.reviewsScreen:
           final ProductDetailsModel model = settings.arguments as ProductDetailsModel;
           return _page(MultiBlocProvider(

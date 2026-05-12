@@ -24,14 +24,14 @@ class MultiVendors extends StatelessWidget {
         BlocProvider.value(value: userCubit),
         BlocProvider.value(value: cartCubit..init()),
         BlocProvider.value(value: favoriteCubit..init()),
-        BlocProvider.value(value: userPreferencesCubit..init()),
+        BlocProvider.value(value: userPreferencesCubit),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         child: GlobalLoaderOverlay(
-          overlayColor: Colors.black38,
+          overlayColor: Colors.black45,
           overlayWidgetBuilder: (_)=>const AppLoaderIndicator(),
           child: UserPreferencesBuilder(
             builder:(mode, locale)=> MaterialApp(

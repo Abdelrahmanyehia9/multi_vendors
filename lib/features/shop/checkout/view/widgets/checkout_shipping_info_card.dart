@@ -27,7 +27,7 @@ class OrderShippingInfoCard extends StatelessWidget {
       bottom: hasAction
           ? Text(
         "*${AppStrings.pleaseDoubleCheckTheDeliveryAddressDetailsBeforePlacingYourOrder.tr()}",
-        style: TextStyles.bodySmall.copyWith(color: AppColors.primary),
+        style: TextStyles.bodySmall.copyWith(color: AppColors.warning),
       )
           : null,
     );

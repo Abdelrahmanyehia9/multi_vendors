@@ -9,7 +9,7 @@ import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/shared/view/mixin/scroll_visibility.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 
 class NewsItemDetails extends StatefulWidget {

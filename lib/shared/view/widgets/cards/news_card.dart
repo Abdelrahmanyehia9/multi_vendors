@@ -10,25 +10,9 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
 
 
-class NewsList extends StatelessWidget {
-  final bool shrinkWrap ;
-  final List<NewsModel> news;
-  const NewsList({super.key,required this.news ,this.shrinkWrap = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return  ListView.separated(
-        shrinkWrap: shrinkWrap,
-        separatorBuilder: (_, __) => Gap.small(),
-        physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
-        itemBuilder: (_,i)=>  NewsCard(news: news[i],),
-        itemCount: news.length,
-    );
-  }
-}
 
 
 
@@ -64,7 +48,7 @@ class NewsCard extends StatelessWidget {
                 Text(
                   news.description.localized,
                   style: TextStyles.bodySmall.copyWith(
-                    color: context.colors.surfaceContainerLow
+                    color: context.colors.surfaceContainer
                   ),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,

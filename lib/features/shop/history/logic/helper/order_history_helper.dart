@@ -7,11 +7,8 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
-import 'package:multi_vendor/shared/view/success_screen.dart';
+import 'package:multi_vendor/shared/view/result_screen.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
-
-
-
 
 class OrderHistoryHelper {
     const OrderHistoryHelper._();
@@ -28,16 +25,13 @@ class OrderHistoryHelper {
               onPressed: () => c.pushNamedAndRemoveUntil(
                 Routes.mainLayout,
                 predicate: (_) => false,
+
               ),
             ),
             AppButton.outlined(
               text: AppStrings.toOrders.tr(),
-              onPressed: () => c.pushNamedAndRemoveUntil(
-                Routes.mainLayout,
-                predicate: (_) => false,
-                arguments: 3,
+              onPressed: () => c.pushNamed(Routes.orderHistory)
               ),
-            ),
           ],
         ),
       );

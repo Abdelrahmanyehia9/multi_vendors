@@ -5,8 +5,8 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
-import 'package:multi_vendor/shared/view/widgets/cards/news_card.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
+import 'package:multi_vendor/shared/view/layouts/news_list.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 class HomeNewsSection extends StatelessWidget {

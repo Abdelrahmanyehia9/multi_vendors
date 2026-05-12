@@ -435,7 +435,21 @@
   "rate_order": "Rate Order",
   "spanish"  : "Spanish",
   "french" : "French",
-   "chinese" : "Chinese"
+   "chinese" : "Chinese",
+  "get_started": "Get Started",
+  "reset": "Reset",
+  "back": "Back",
+  "resend_now": "Resend Now",
+  "max_resend_reached": "You have reached the maximum number of OTP resend attempts.",
+  "more": "More",
+  "skip": "Skip",
+  "next": "Next",
+  "powered_by": "Powered by",
+  "nexyra_tech": "Nexyra Tech",
+  "user_updated_successfully": "User updated successfully",
+  "egp": "EGP"
+
+
 
 
 }

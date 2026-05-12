@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
@@ -12,65 +13,19 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
+import 'package:multi_vendor/features/main/favorite/view/widgets/app_favorite_button.dart';
 import 'package:multi_vendor/shared/data/models/price_model.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
-
-class ProductGrid extends StatelessWidget {
-  final bool shrinkWrap;
-
-  final bool sliver;
-
-  final List<ProductModel> products;
-
-  const ProductGrid({
-    super.key,
-    this.sliver = false,
-    this.shrinkWrap = false,
-    required this.products,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (sliver) {
-      return SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 21.w,
-          crossAxisSpacing: 24.h,
-          childAspectRatio: ProductCard.smallSize.aspectRatio,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          (_, i) => ProductCard.small(product: products[i]),
-          childCount: products.length,
-        ),
-      );
-    }
-    return GridView.builder(
-      itemCount: products.length,
-      shrinkWrap: shrinkWrap,
-      padding: EdgeInsets.zero,
-      physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 21.h,
-        mainAxisSpacing: 24.h,
-        childAspectRatio: ProductCard.smallSize.aspectRatio,
-      ),
-      itemBuilder: (_, i) => ProductCard.small(product: products[i]),
-    );
-  }
-}
 
 enum _ProductCardType {
   big,
   small;
 
   Size get size => this == _ProductCardType.big
-      ? const Size(double.infinity, 275)
-      : const Size(157, 194);
+      ? const Size(double.infinity, 350)
+      : const Size(150, 250);
 }
 
 class ProductCard extends StatelessWidget {
@@ -106,13 +61,21 @@ class ProductCard extends StatelessWidget {
         height: h,
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.grey.withAppOpacity(0.1),
+              blurRadius: 3,
+              offset: const Offset(2, 2),
+            ),
+          ],
+          color: context.scaffoldBackground,
           borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-          border: Border.all(color: context.colors.surfaceContainerLowest, width: 0.3),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: h * .575,
+              height: h * .6,
               child: Stack(
                 alignment: AlignmentDirectional.topEnd,
                 children: [
@@ -156,7 +119,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   Gap.extraSmall(),
                   CircularBox(
-                    radius: isBig ? 24 : 20,
+                    radius: isBig ? 30 : 28,
                     child: AppCachedNetworkImage(product.vendor!.image),
                   ),
                 ],
@@ -237,10 +200,10 @@ class ProductNameWithPrice extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (price!.salePrice != null) ...[
+              if (price!.priceBeforeDiscount != null && price!.priceBeforeDiscount! != price!.price) ...[
                 Flexible(
                   child: Text(
-                    price!.totalPrice.usdPrice,
+                    price!.priceBeforeDiscount!.usdPrice,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.captionSmall.copyWith(
@@ -248,7 +211,7 @@ class ProductNameWithPrice extends StatelessWidget {
                       fontSize: isBig ? 12.sp : 10.sp,
                       decoration: TextDecoration.lineThrough,
                       decorationColor: context.colors.surfaceContainer,
-                      decorationThickness: 4,
+                      decorationThickness: 1.3.sp,
                     ),
                   ),
                 ),

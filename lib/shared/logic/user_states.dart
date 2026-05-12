@@ -1,3 +1,4 @@
+
 import 'package:multi_vendor/shared/data/models/user_model.dart';
 
 sealed class UserStates {

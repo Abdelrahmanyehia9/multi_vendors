@@ -4,7 +4,7 @@ class ShopQueries {
  static const String productItemDetails = """
   id, name, description, created_at,
   vendor:vendor_id(id, name, image),
-  price, in_stock,
+  price,price_before_discount ,in_stock,
   category:category_id(id, name),
   images, thumbnail, tags, rating
 """;

@@ -40,10 +40,23 @@ class ProfileScreen extends StatelessWidget {
             (context) => context.pushNamed(Routes.changePassword),
         ),
       (
+      AppStrings.orderHistory.tr(),
+      MvIcons.history,
+      (context)=>context.pushNamed(Routes.orderHistory),
+
+
+      )
+
+
+      ,
+
+
+      (
       AppStrings.settings.tr(),
       MvIcons.settings,
           (context) => context.pushNamed(Routes.settings),
       ),
+
       (AppStrings.rateUs.tr(), MvIcons.star, (_) async{
         await AppReviewHelper.instance.openStoreListener() ;
       }
@@ -103,8 +116,8 @@ class ProfileScreen extends StatelessWidget {
 
   Future<void> _onLogout(BuildContext context)async{
     await Popups.showWarning(context,
-    title: AppStrings.logout.tr(),
-    message: AppStrings.areYouSureToLogout.tr(),
+    title: AppStrings.logout,
+    message: AppStrings.areYouSureToLogout,
     onConfirm: userCubit.logout,
     );
   }

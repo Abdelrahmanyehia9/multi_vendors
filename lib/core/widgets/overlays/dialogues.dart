@@ -78,6 +78,7 @@ class  Popups {
  static  Future<void> showWarning(
     BuildContext context, {
     IconData icon = MvIcons.warning,
+    Color  iconColor = AppColors.warning ,
     String title = AppStrings.areYouSure,
     String message = AppStrings.areYouSureToDoThisAction,
     void Function()? onConfirm,
@@ -88,7 +89,7 @@ class  Popups {
           mainAxisSize: MainAxisSize.min,
           spacing: 4.h,
           children: [
-            Icon(icon, size: 80.sp, color: AppColors.primary,),
+            Icon(icon, size: 80.sp, color: iconColor,),
             Gap.small(),
             Text(title.tr() , textAlign: TextAlign.center, style: TextStyles.bodyLarge,),
             Text(message.tr(), textAlign: TextAlign.center, style: TextStyles.captionMedium,),

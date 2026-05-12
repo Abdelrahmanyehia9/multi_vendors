@@ -17,7 +17,7 @@ class SectionHeader extends StatelessWidget {
   final TextStyle ? headerStyle ;
   final MainAxisSize axisSize ;
   final TextStyle? actionStyle;
-  const SectionHeader({super.key,this.actionStyle, this.axisSize = MainAxisSize.max,this.headerStyle, this.onActionTap, this.customAction ,this.hasAction =false,this.verticalSpace =8 ,required this.title , this.action});
+  const SectionHeader({super.key,this.actionStyle, this.axisSize = MainAxisSize.max,this.headerStyle, this.onActionTap, this.customAction ,this.hasAction =false,this.verticalSpace =4 ,required this.title , this.action});
 
   @override
   Widget build(BuildContext context) {

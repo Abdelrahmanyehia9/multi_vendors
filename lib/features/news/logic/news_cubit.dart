@@ -1,9 +1,10 @@
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_state.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/features/news/data/repository/news_repository.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
 
 
 class NewsCubit extends Cubit<BaseState<List<NewsModel>>> {
@@ -24,16 +25,16 @@ class NewsCubit extends Cubit<BaseState<List<NewsModel>>> {
 
   }
   Future<void> searchNews([String? search])async{
-    if(search == _lastQuery) return ;
+    if (search.isNullOrEmpty||search == _lastQuery) return;
     EasyDebounce.debounce('search', const Duration(milliseconds: 500), () async{
+      _lastQuery = search;
       safeEmit(const BaseState.loading());
       final result = await _repository.getNews(query: search);
-
       result.fold(
             (l) => safeEmit(BaseState.failure(l)),
             (r) {
+              if(r.isEmpty) return safeEmit(const BaseState.empty());
               safeEmit(BaseState.success(r));
-              _lastQuery = search;
             }
         ,
       );

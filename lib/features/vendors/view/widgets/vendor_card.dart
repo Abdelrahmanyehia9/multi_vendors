@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
+import 'package:multi_vendor/features/main/favorite/view/widgets/app_favorite_button.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
@@ -16,7 +16,7 @@ import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/photo_overlay.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 

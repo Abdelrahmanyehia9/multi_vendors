@@ -64,7 +64,7 @@ class QuantityStepper extends StatelessWidget {
 
             if (remining > 0)
             Text('$remining ${AppStrings.itemsLeft.tr()}',style: TextStyles.labelMedium.copyWith(
-              color: AppColors.primary,
+              color: AppColors.error,
               fontSize: isNarrow? 12.sp : 14.sp
             ),)
           ],

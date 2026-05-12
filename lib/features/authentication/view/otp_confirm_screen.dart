@@ -52,7 +52,10 @@ class _OtpConfirmScreenState extends State<OtpConfirmScreen>
             ),
             Gap.small(),
             PinCode(controller: controller, onComplete: (_) => onConfirm()),
-            const OtpColdDown(),
+            OtpColdDown(
+              controller: otpColdDownController,
+              onResend: onResendOtp,
+            ),
             Gap.small(),
             BaseBlocConsumer(
               bloc: cubit,

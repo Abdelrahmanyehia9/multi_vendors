@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 
 import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
 
@@ -25,6 +26,7 @@ class AppBackButton extends StatelessWidget {
       child: AppIconButton(
         icon: MvIcons.arrowBack,
         size: 24,
+        tooltip: AppStrings.back,
         iconColor: iconColor,
         backGroundColor: backgroundColor,
         onTap:

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
@@ -33,13 +34,13 @@ class _ReviewsScreenState extends State<ReviewsScreen>
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar:  BaseAppBar(
-        title: "${AppStrings.reviews.tr()}\n${widget.model.name}",
+        title: "${AppStrings.reviews.tr()}\n${widget.model.name.localized}",
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             ProductReviewDistributionCard(rating: rating),
-            Gap.medium(),
+            Gap.large(),
             ProductReviewDistributionTabs(
               distribution: rating?.distributionList ?? [],
               selected: selected,

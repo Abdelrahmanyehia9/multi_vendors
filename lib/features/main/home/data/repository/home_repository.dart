@@ -6,11 +6,10 @@ import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:multi_vendor/core/queries/home_queries.dart';
-import 'package:multi_vendor/shared/data/models/category_model.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class HomeRepository {
@@ -23,7 +22,8 @@ class HomeRepository {
     String? select,
   PostgrestTransformBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
     required T Function(Map<String, dynamic>) fromJson,
-  }) async {
+  }) async
+  {
     try {
       final response = await _databaseService.GET(
         table: table,
@@ -36,20 +36,6 @@ class HomeRepository {
       return left(e.toAppException);
     }
   }
-  Future<Either<AppException, List<CategoryModel>>> getSubCategories() =>
-     _getList(
-      table: RemoteDatabaseConstants.category_table,
-       filter: (e) => e
-           .not("parent", "is", null)
-           .order("count", ascending: false),       fromJson: CategoryModel.fromJson,
-    );
-  Future<Either<AppException, List<CategoryModel>>> getMainCategories() =>
-     _getList(
-      table: RemoteDatabaseConstants.category_table,
-       filter: (e) => e
-           .isFilter("parent", null)
-           .order("count", ascending: false),       fromJson: CategoryModel.fromJson,
-    );
   Future<Either<AppException, List<VendorModel>>> getVendors() =>
      _getList(
       table: RemoteDatabaseConstants.vendor_table,
@@ -95,9 +81,18 @@ class HomeRepository {
           .eq(RemoteDatabaseConstants.is_active_column, true)
           .order(
         RemoteDatabaseConstants.created_at_column,
-        ascending: false,
+        ascending: true,
       ),
       fromJson: HomeBannerModel.fromJson,
+    );
+  Future<Either<AppException, List<ProductModel>>> getNewsArrivals() => _getList(
+      table: RemoteDatabaseConstants.product_table,
+      filter: (e) => ProductTags.newArrivals.filters(e)
+          .order(
+        RemoteDatabaseConstants.created_at_column,
+        ascending: false,
+      ),
+      fromJson: ProductModel.fromJson,
     );
 
 }

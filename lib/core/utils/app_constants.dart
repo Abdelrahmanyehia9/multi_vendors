@@ -20,7 +20,7 @@ class AppConstants {
   ///filters by or tags Like (outwear, formal, casual)
   static const String tagsString = "Fashion Style" ;
   static final ProductTags homeFeaturedItem = ProductTags.summerOffer ;
-  static const AuthFormType authFormType = AuthFormType.mobile;
+  static const AuthFormType authFormType = AuthFormType.emailAndPassword;
   static const List<OnBoardingItemData> items = [
     (
     title: AppStrings.onBoarding1Title,
@@ -44,7 +44,7 @@ class AppConstants {
   static final Country initialCountry = "EG".toCountry;
   static const  String supabaseUrl ="https://rjhzydonszurlkfrnhdc.supabase.co";
   static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
-  static final List<PaymentOption> payments = [PaymentOption.store, PaymentOption.cod];
+  static final List<PaymentOption> payments = [PaymentOption.cod];
   static const String supportPhoneNumber = "0111111111";
   static const String supportEmail = "support@multi-vendor.com";
   static const String supportFacebook = "multiVendor";
@@ -52,9 +52,9 @@ class AppConstants {
   static const String supportInstagram = "multiVendor";
   static const String supportTikTok = "multiVendor";
   static const String? appStoreId = null;
-  static final AppCurrency currency = AppCurrency(name: AppStrings.usd.tr(), char: "\$");
-  static  String locale= "en" ;
-
+  static final AppCurrency currency = AppCurrency(name: AppStrings.egp.tr(), char: "£");
+  static String? locale ;
+  static int otpColdDown = 10;
   static Future<void> setupPhoneSystem() async {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(
@@ -67,6 +67,7 @@ class AppConstants {
     );
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
+  static const String onesignalAppId = "c9e7fc5b-2149-46cd-82a3-3d1f287e783b";
 
 }
 

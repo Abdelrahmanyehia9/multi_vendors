@@ -20,21 +20,20 @@ class ProductReviewDistributionCard extends StatelessWidget {
     final List<int>distribution = [rating?.distribution?.one ?? 0, rating?.distribution?.two ?? 0, rating?.distribution?.three ?? 0, rating?.distribution?.four ?? 0, rating?.distribution?.five ?? 0];
     final int count = rating?.count ?? 0;
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
-          flex: 2,
           child: Column(
             children: [
               Text(
                 (rating?.rating??0).toString(),
-                style: TextStyles.headline1.copyWith(
+                style: TextStyles.headline2.copyWith(
                     fontWeight: FontWeightHelper.bold
                 ),
               ),
                RatingStars(
                 showCount: false,
-                size: 24,
+                size: 20,
                 rating: rating,
               ),
                Text(
@@ -48,7 +47,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
           ),
         ),
         Flexible(
-          flex: 3,
+          flex: 2,
           child: Column(
             children: List.generate(
               5, (i) {
@@ -58,7 +57,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
                 children: [
                   Icon(
                     MvIcons.star,
-                    size: 16.sp,
+                    size: 18.sp,
                     color: AppColors.warning,
                   ),
                   Text(
@@ -67,9 +66,10 @@ class ProductReviewDistributionCard extends StatelessWidget {
                   ),
                   Expanded(
                     child: LinearProgressIndicator(
-                      borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-                      minHeight: 6.h,
+                      borderRadius: BorderRadius.circular(Decorations.borderRadius50.r),
+                      minHeight: 4.h,
                       value: percentage,
+                      backgroundColor: context.colors.surfaceContainerLowest,
                     ),
                   ),
                   Text("${(percentage * 100).toStringAsFixed(1)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))

@@ -93,8 +93,10 @@ class _BaseNavbarState extends State<BaseNavbar> {
         padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
         child:
             item.child ??
-            Column(
+            Row(
               mainAxisSize: MainAxisSize.min,
+              spacing: 4.w,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(
                   icon,
@@ -107,7 +109,7 @@ class _BaseNavbarState extends State<BaseNavbar> {
                   Text(
                     label,
                     style: TextStyles.labelMedium.copyWith(
-                      color: AppColors.primary,
+                      color: AppColors.white,
                       letterSpacing: 0,
                       height: 0,
                     ),

@@ -8,7 +8,7 @@ import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class CartCubit extends Cubit<BaseState<List<CartModel>>> {
   final CartRepository _repository;
-  final List<CartModel> _cart = [];
+   List<CartModel> _cart = [];
 
   CartCubit(this._repository) : super(const BaseState.initial());
 
@@ -16,15 +16,15 @@ class CartCubit extends Cubit<BaseState<List<CartModel>>> {
     safeEmit(const BaseState.loading());
     final cart = await _repository.getCart();
     if (cart.isEmpty) return safeEmit(const BaseState.empty());
-    _cart.addAll(cart);
-    safeEmit(BaseState.success(List.of(_cart)));
+    _cart = cart;
+    safeEmit(BaseState.success(List.from(_cart)));
   }
 
   Future<void> get _update async {
     if(_cart.isEmpty) {
       safeEmit(const BaseState.empty());
     } else {
-      safeEmit(BaseState.success(List.of(_cart)));
+      safeEmit(BaseState.success(List.from(_cart)));
     }
    await  _repository.updateCart(_cart);
   }

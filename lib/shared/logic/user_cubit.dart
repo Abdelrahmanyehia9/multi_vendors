@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/shared/data/models/user_model.dart';
 import 'package:multi_vendor/shared/logic/user_states.dart';
 import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
-import 'package:multi_vendor/shared/data/models/user_model.dart';
 
 class UserCubit extends Cubit<UserStates> {
   final UserSessionRepository _sessionHelper ;

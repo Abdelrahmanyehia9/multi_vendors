@@ -29,9 +29,9 @@ enum States {
   String get message {
     switch (this) {
       case error:
-        return AppStrings.thereWasAnErrorWhileLoadingData.tr();
+        return AppStrings.thereWasAnErrorWhileLoadingData;
       case empty:
-      return AppStrings.noDataAvailable.tr();
+      return AppStrings.noDataAvailable;
     }
   }
 }
@@ -92,7 +92,7 @@ class AppStates extends StatelessWidget {
         children: [
           _buildImage(context),
           Text(
-            message ?? state.message,
+            message?.tr() ?? state.message.tr(),
             style: TextStyles.headline3.copyWith(
               fontWeight: FontWeightHelper.regular,
               fontSize: size * .7.sp,
@@ -102,7 +102,7 @@ class AppStates extends StatelessWidget {
           ),
           if (actionModel != null)
             AppButton(
-              text: actionModel!.text,
+              text: actionModel!.text.tr(),
               onPressed: () => actionModel?.action?.call(context),
               buttonSize: null,
               borderRadius: Decorations.borderRadius4,

@@ -2,12 +2,12 @@ import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class PriceModel {
   final num price;
-  final num? salePrice;
+  final num? priceBeforeDiscount;
   final DateTime? saleStartDate;
   final DateTime? saleEndDate;
   PriceModel({
     required this.price,
-     this.salePrice,
+     this.priceBeforeDiscount,
      this.saleStartDate,
      this.saleEndDate,
   });
@@ -16,7 +16,7 @@ class PriceModel {
     final interval = json['sale_interval'] ;
     return PriceModel(
       price: json['price'],
-      salePrice: json['price_before_discount'],
+      priceBeforeDiscount: json['price_before_discount'],
       saleStartDate: interval==null?null:DateTime.parse(interval['start']) ,
       saleEndDate: interval==null?null:DateTime.parse(interval['end']) ,
   );
@@ -24,7 +24,7 @@ class PriceModel {
 
   Map<String, dynamic> toJson() => {
     "price": price,
-    "price_before_discount": salePrice,
+    "price_before_discount": priceBeforeDiscount,
     "sale_interval": (saleStartDate != null || saleEndDate != null)
         ? {
       "start": saleStartDate?.toIso8601String(),
@@ -33,6 +33,6 @@ class PriceModel {
         : null,
   };
   factory PriceModel.fake()=>PriceModel(price: FakeData.fakeDouble);
-  num get totalPrice => salePrice ?? price;
+  num get totalPrice => price;
 }
 

@@ -2,10 +2,10 @@ import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_sort_by.dart';
-import 'package:multi_vendor/shared/data/models/category_model.dart';
+import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
 import 'package:multi_vendor/shared/data/models/range_model.dart';
 import 'package:multi_vendor/shared/data/models/stock_availabilty_model.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 
 
 class ProductsFiltersModel {

@@ -6,13 +6,12 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/overlays/widget_overlay.dart';
 import 'package:multi_vendor/features/news/logic/news_cubit.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import 'package:multi_vendor/shared/data/models/news_model.dart';
+import 'package:multi_vendor/features/news/data/model/news_model.dart';
+import 'package:multi_vendor/shared/view/layouts/news_list.dart';
 import 'package:multi_vendor/shared/view/widgets/app_search_bar.dart';
-import 'package:multi_vendor/shared/view/widgets/cards/news_card.dart';
 import 'package:multi_vendor/shared/view/widgets/search_builder.dart';
 
 class AllNewsScreen extends StatelessWidget {
@@ -41,9 +40,7 @@ class AllNewsScreen extends StatelessWidget {
           ).appPaddingHr,
           Expanded(
             child: SearchBuilder(
-              builder:(_,hasFocus)=> WidgetOverlay(
-                showOverlay: hasFocus,
-                child: BaseBlocConsumer<NewsCubit, List<NewsModel>>(
+              builder:(_,hasFocus)=>  BaseBlocConsumer<NewsCubit, List<NewsModel>>(
                     successBuilder:  _builder,
                     loadingBuilder: ()=>_builder(List.generate(10, (i)=>NewsModel.fake())),
                     emptyBuilder: AppStates.empty,
@@ -51,7 +48,7 @@ class AllNewsScreen extends StatelessWidget {
                   ).appPaddingHr,
                   )
               ),
-            )
+
         ],
       ),
     );

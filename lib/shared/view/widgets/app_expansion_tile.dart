@@ -18,7 +18,7 @@ class AppExpansionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      initiallyExpanded: true,
+      initiallyExpanded: initiallyExpanded,
       childrenPadding: EdgeInsets.zero,
       tilePadding: EdgeInsets.zero,
       iconColor: context.colors.surfaceContainerHigh,

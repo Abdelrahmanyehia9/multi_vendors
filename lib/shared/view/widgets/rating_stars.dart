@@ -101,6 +101,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
           valueListenable: _ratingNotifier,
           builder: (context, currentRating, _) {
             return Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 ...List.generate(5, (i) => _buildStar(i, currentRating, context)),
                 if (widget.rating?.count != null && widget.showCount) ...[

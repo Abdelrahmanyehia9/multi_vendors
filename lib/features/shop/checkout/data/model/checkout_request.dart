@@ -1,6 +1,6 @@
 import 'package:multi_vendor/core/extensions/data_type.dart';
 
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 

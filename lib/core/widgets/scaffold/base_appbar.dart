@@ -11,6 +11,8 @@ class BaseAppBar extends AppBar {
     Object? title,
     bool showLeading = true,
     super.actions,
+    super.titleTextStyle,
+    super.centerTitle
   }) : assert(
   title == null || title is String || title is Widget,
   'title must be a String or Widget',
@@ -21,8 +23,8 @@ class BaseAppBar extends AppBar {
             : Padding(
           padding: EdgeInsets.only(top: 6.h),
           child: title is String
-              ? Text(title,textAlign: TextAlign.center ,style: TextStyles.bodyMedium)  // ✅ String زي الأول
-              : title as Widget,                            // ✅ Widget للحالات الخاصة
+              ? Text(title,textAlign: TextAlign.center ,style: titleTextStyle ?? TextStyles.bodyMedium)
+              : title as Widget,
         ),
         leading: showLeading ? leading ?? _buildLeading() : const SizedBox(),
         leadingWidth: 60.sp,

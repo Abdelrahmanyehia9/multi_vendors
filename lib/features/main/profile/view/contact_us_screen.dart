@@ -66,15 +66,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: BaseAppBar(title: AppStrings.contactUs.tr(),),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 4.h,
           children: [
-            SvgPicture.asset(AppAssets.contactUsIllustration, height: 180.h,),
+            Center(child: SvgPicture.asset(AppAssets.contactUsIllustration, height: 180.h,)),
             Text(AppStrings.contactUsDescription.tr(),
             style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer),),
              SectionHeader(title: AppStrings.reachUs.tr()),
-           Row(
+           Wrap(
              spacing: 4.w,
-             children: _contactUsData.map((e) => Expanded(child: _contactUsTile(e))).toList(),
+             runSpacing: 4.h,
+             children: _contactUsData.map((e) => _contactUsTile(e)).toList(),
            ),
             Gap.small(),
              SectionHeader(title: AppStrings.socialMedia.tr()),
@@ -96,14 +98,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
       ),
       padding:  EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
         spacing: 8.w,
+        runSpacing: 8.h,
         children: [
           if(tile.icon != null)
           Icon(tile.icon,size: 24.sp ,color: Colors.white),
           Text(tile.title, style: TextStyles.labelMedium.copyWith(color: AppColors.white),),
-          const Spacer(),
         ],
       ),
 

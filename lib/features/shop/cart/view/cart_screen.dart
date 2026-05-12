@@ -20,7 +20,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
-import 'package:multi_vendor/shared/view/widgets/cards/cart_card.dart';
+import 'package:multi_vendor/shared/view/layouts/cart_list.dart';
 import 'package:multi_vendor/features/shop/cart/logic/cart_cubit.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
 

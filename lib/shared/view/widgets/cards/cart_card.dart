@@ -6,7 +6,6 @@ import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
@@ -18,24 +17,6 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/view/widgets/quantity_stepper.dart';
 
-class CartList extends StatelessWidget {
-  final List<CartModel> cart;
-
-  const CartList({super.key, required this.cart});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: cart.length,
-      primary: false,
-      padding: EdgeInsets.zero,
-      separatorBuilder: (_, i) => Divider(height: 24.h).appPaddingHr,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (_, i) => CartCard(cartItem: cart[i]),
-    );
-  }
-}
 
 class CartCard extends StatelessWidget {
   final double height;

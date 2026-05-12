@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/buttons/app_favorite_button.dart';
+import 'package:multi_vendor/features/main/favorite/view/widgets/app_favorite_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/product/data/model/product_details_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/product_details_cubit.dart';

@@ -34,7 +34,6 @@ class AppButton extends StatelessWidget {
   final double? borderWidth;
   final double borderRadius;
   final String? toolTip;
-
   final EdgeInsetsGeometry? padding;
   final Gradient? gradient;
   final Widget? icon;
@@ -250,7 +249,9 @@ class AppButton extends StatelessWidget {
         ),
       );
     }
+
     final String? message = toolTip ?? (text.isNotEmpty ? text : null);
+
     return AppClick(
       onTap: enabled ? onPressed : null,
       toolTip: message,
@@ -259,7 +260,7 @@ class AppButton extends StatelessWidget {
         height: size?.height ?? 40.h,
         alignment: Alignment.center,
         padding:
-            padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+        padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
         decoration: BoxDecoration(
           gradient: resolvedGradient,
           color: resolvedGradient == null ? _resolveButtonColor(context) : null,
@@ -281,13 +282,15 @@ class AppButton extends StatelessWidget {
                 child: text.isNotEmpty ? icon!.paddingHr(8) : icon!,
               ),
             if (text.isNotEmpty)
-              Text(
-                textAlign: TextAlign.center,
-                text,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: (style ?? TextStyles.bodyMedium).copyWith(
-                  color: _resolveTextColor(context),
+              Flexible(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: (style ?? TextStyles.bodyMedium).copyWith(
+                    color: _resolveTextColor(context),
+                  ),
                 ),
               ),
           ],
@@ -296,4 +299,3 @@ class AppButton extends StatelessWidget {
     );
   }
 }
-

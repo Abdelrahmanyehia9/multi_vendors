@@ -27,7 +27,7 @@ class EditAddressScreen extends StatefulWidget {
 }
 
 class _EditAddressScreenState extends State<EditAddressScreen>
-    with EditAddressMixin {
+    with EditAddressScreenMixin {
 
   @override
   Widget build(BuildContext context) {

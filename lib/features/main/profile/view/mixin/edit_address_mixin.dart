@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_address_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/edit_address_screen.dart';
 import 'package:multi_vendor/core/service/geo_locator.dart';
-import 'package:multi_vendor/shared/data/models/address_model.dart';
+import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 
-mixin EditAddressMixin on State<EditAddressScreen> {
+mixin EditAddressScreenMixin on State<EditAddressScreen> {
 
   @override
   void initState() {
     super.initState();
     _initControllers();
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await _initLocation());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.loaderOverlay.show();
+      await _initLocation();
+    if(mounted)  context.loaderOverlay.hide();
+    });
   }
 
   Placemark? _placemark;

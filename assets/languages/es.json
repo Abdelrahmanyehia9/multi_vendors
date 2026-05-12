@@ -410,5 +410,21 @@
   "rate_order": "Calificar pedido",
   "spanish": "Español",
   "french": "Francés",
-  "chinese": "Chino"
+  "chinese": "Chino",
+  "get_started": "Comenzar",
+  "reset": "Restablecer",
+  "back": "Atrás",
+  "resend_now": "Reenviar ahora",
+  "max_resend_reached": "Has alcanzado el número máximo de reenvíos del código OTP.",
+  "more": "Más",
+  "skip": "Saltar",
+  "next": "Siguiente",
+  "powered_by": "Desarrollado por",
+  "nexyra_tech": "Nexyra Technology",
+  "user_updated_successfully": "Usuario actualizado correctamente",
+  "egp": "LE"
+
+
+
+
 }

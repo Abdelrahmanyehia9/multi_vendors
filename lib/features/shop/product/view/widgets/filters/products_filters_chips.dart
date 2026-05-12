@@ -27,7 +27,7 @@ class ProductsFiltersChip extends StatelessWidget {
       },
       successBuilder: (s) {
         if(cubit.selectedFilters==null)return const SizedBox.shrink();
-        final chips = cubit.selectedFilters!.toChips(cubit.excludes);
+        final chips = cubit.selectedFilters!.toChipsLimited(cubit.excludes);
         return _buildFilterChips(chips, onClear: cubit.clearFilters);
       },
       loadingBuilder: ()=>_buildFilterChips(List.generate(3, (i) => "Filter $i")),

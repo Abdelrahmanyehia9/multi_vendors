@@ -25,7 +25,7 @@ class SearchHistory extends StatelessWidget {
     if (searchHistory.isEmpty) {
       return  Expanded(child: AppStates.empty(
       customIcon: MvIcons.search,
-      message: AppStrings.noSearchHistory.tr(),
+      message: AppStrings.noSearchHistory,
     ));
     }
     return Expanded(

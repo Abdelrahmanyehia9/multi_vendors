@@ -24,7 +24,7 @@ class ForgetPasswordButton extends StatelessWidget {
         child: AppClick(
           onTap: ()=>context.pushNamed(Routes.forgetPassword, arguments: ForgetPasswordArgs(email: email)),
           child: Text(
-             AppStrings.forgetPassword.tr(), style: TextStyles.labelSmall.copyWith(color: AppColors.primary),),
+             AppStrings.forgetPassword.tr(), style: TextStyles.labelSmall.copyWith(color: AppColors.error),),
         )).paddingVr(4);
   }
 }

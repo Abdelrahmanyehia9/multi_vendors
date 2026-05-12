@@ -11,16 +11,11 @@ import 'package:multi_vendor/features/shop/product/data/model/products_filters_m
 import 'package:multi_vendor/features/shop/product/view/widgets/filters/product_filters_action.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/filters/products_filters_chips.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
-import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/shared/view/layouts/product_grid.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
-class ProductsScreenArgs{
-  final ProductsFiltersModel? initialFilters ;
-  final List<ProductsFilters>? exclude;
-  const ProductsScreenArgs({this.initialFilters , this.exclude});
-}
 
 class AllProductsScreen extends StatelessWidget {
   final  ProductsScreenArgs? args ;
@@ -35,42 +30,48 @@ class AllProductsScreen extends StatelessWidget {
           ProductFiltersAction(),
         ],
       ),
-      body: Column(
-        spacing: 12.h,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ProductsFiltersChip(
-            onFiltersGetSuccess: (){
-              context.read<ProductsByFiltersCubit>().getProductsInFilter(
-                filters: args?.initialFilters,
-              );
-            },
-          ),
-          Expanded(
-            child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
+      body: SingleChildScrollView(
+        child: Column(
+          spacing: 12.h,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProductsFiltersChip(
+              onFiltersGetSuccess: (){
+                context.read<ProductsByFiltersCubit>().getProductsInFilter(
+                  filters: args?.initialFilters,
+                );
+              },
+            ),
+            BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
               successBuilder:_buildProducts,
               failureBuilder: AppStates.error,
               emptyBuilder: AppStates.empty,
               loadingBuilder: ()=> _buildProducts(ProductResponseModel.fake()),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
-
   Widget _buildProducts(ProductResponseModel model)=>Column(
     spacing: 12.h,
     children: [
       if(model.pagination?.total!=null)
       SectionHeader(title: "${AppStrings.totalProducts.tr()} (${model.pagination!.total}) ", headerStyle: TextStyles.captionMedium,),
-      Expanded(
-        child: ProductGrid(
-          products: model.products,
-        ),
+      ProductGrid(
+        shrinkWrap: true,
+        products: model.products,
       )
     ],
   );
+}
+
+
+
+class ProductsScreenArgs{
+  final ProductsFiltersModel? initialFilters ;
+  final List<ProductsFilters>? exclude;
+  const ProductsScreenArgs({this.initialFilters , this.exclude});
 }
 
 

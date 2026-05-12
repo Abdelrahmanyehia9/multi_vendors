@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
@@ -21,7 +23,7 @@ mixin ChangePasswordMixin on State<ChangePasswordScreen>{
   }
 
   void onChangePasswordSuccess() {
-    context.successBar(message: AppStrings.passwordChangedSuccessfully.tr());
+    context.successBar(message: AppStrings.passwordChangedSuccessfully);
   }
 
   @override

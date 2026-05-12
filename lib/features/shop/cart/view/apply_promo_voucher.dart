@@ -56,7 +56,6 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
   }
 
   Widget _buildSuccess(PromoCardResponse data) => MessageAlert(
-      customTitle: data.message,
       MessagesAlertType.promoSuccess,
       customMessage: data.couponInfo?.message) ;
   Widget _buildForm(
@@ -68,12 +67,12 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.promoCodeVoucher.tr(), style: TextStyles.headline3),
-        Gap.small(),
+        Gap.tiny(),
         Text(
           AppStrings.enjoyAMoreSpecialShoppingExperienceWithOurExclusiveVouchers.tr(),
           style: TextStyles.captionMedium,
         ),
-        Gap.huge(),
+        Gap.large(),
         AppTextField(
           textCapitalization: TextCapitalization.characters,
           validator: (val){

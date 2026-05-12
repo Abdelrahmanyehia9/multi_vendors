@@ -11,7 +11,7 @@ import 'package:multi_vendor/features/vendors/view/widgets/vendor_card.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
-import 'package:multi_vendor/shared/view/widgets/cards/product_card.dart';
+import 'package:multi_vendor/shared/view/layouts/product_grid.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_model.dart';
 
 class FavoriteScreen extends StatefulWidget {

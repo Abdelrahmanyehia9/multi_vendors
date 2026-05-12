@@ -47,10 +47,10 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             BaseBlocConsumer(
               bloc: profileCubit,
               onSuccess: (_) {
-                context.successBar(message: "User updated successfully");
+                context.successBar(message: AppStrings.userUpdatedSuccessfully.tr());
                 context.read<ImageHandleCubit>().reset();
               },
-              onEmpty: () =>context.warningBar(message: AppStrings.noChanges.tr()),
+              onEmpty: () =>context.warningBar(message: AppStrings.noChanges),
               onFailure: (e) => context.errorBar(message: e.message),
               builder: (state) => AppButton(
                 text: AppStrings.save.tr(),

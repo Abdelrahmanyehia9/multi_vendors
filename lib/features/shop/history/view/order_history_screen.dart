@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_history_cubit.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/shared/data/models/action_model.dart';
@@ -19,30 +20,24 @@ class OrderHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginRequired(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 70.h,
-            child: BaseAppBar(title: AppStrings.orderHistory.tr(), showLeading: false),
-          ),
-          Expanded(
-            child: BaseBlocConsumer<OrderHistoryCubit, List<OrderModel>>(
-              successBuilder: (orders) => _buildOrderList(orders),
-              failureBuilder: AppStates.error,
-              emptyBuilder: () => AppStates.empty(
-                message: AppStrings.noOrdersFound.tr(),
-                actionModel: ActionModel(
-                  text: AppStrings.listProducts.tr(),
-                  action: (context) => context.pushNamed(Routes.products),
-                ),
-              ),
-              loadingBuilder: () => _buildOrderList(
-                List<OrderModel>.generate(5, (_) => OrderModel()),
-              ),
+    return BaseScaffold(
+      paddingHr: 0,
+      appBar: BaseAppBar(title: AppStrings.orderHistory.tr()),
+      body: LoginRequired(
+        child: BaseBlocConsumer<OrderHistoryCubit, List<OrderModel>>(
+          successBuilder: (orders) => _buildOrderList(orders),
+          failureBuilder: AppStates.error,
+          emptyBuilder: () => AppStates.empty(
+            message: AppStrings.noOrdersFound,
+            actionModel: ActionModel(
+              text: AppStrings.listProducts,
+              action: (context) => context.pushNamed(Routes.products),
             ),
           ),
-        ],
+          loadingBuilder: () => _buildOrderList(
+            List<OrderModel>.generate(5, (_) => OrderModel()),
+          ),
+        ),
       ),
     );
   }

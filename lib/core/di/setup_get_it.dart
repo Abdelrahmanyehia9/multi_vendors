@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/service/image_picker_service.dart';
 import 'package:multi_vendor/core/service/real_time_service.dart';
 import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
+import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
@@ -42,7 +43,7 @@ UserCubit userCubit = getIt.get<UserCubit>();
 CartCubit cartCubit = getIt.get<CartCubit>();
 FavoriteCubit favoriteCubit = getIt.get<FavoriteCubit>();
 UserPreferencesCubit userPreferencesCubit = getIt.get<UserPreferencesCubit>();
-
+// NotificationService notification = NotificationService.instance ;
 
 class DI{
 const  DI._();
@@ -111,6 +112,7 @@ static Future<void> setupGetIt() async {
     getIt.registerFactory(()=>NewsRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>PromoCodeRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>CheckoutRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>CategoryRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>PaymentRepository(getIt.get<DatabaseService>()));
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
     getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));

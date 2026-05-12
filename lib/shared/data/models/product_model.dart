@@ -5,7 +5,7 @@ import 'package:multi_vendor/features/shop/product/data/model/product_details_mo
 import 'package:multi_vendor/shared/data/models/price_model.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/data/models/stock_availabilty_model.dart';
-import 'package:multi_vendor/shared/data/models/vendor_model.dart';
+import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_item.dart';
 
 class ProductModel extends Equatable implements FavoriteItem {
@@ -66,6 +66,7 @@ class ProductModel extends Equatable implements FavoriteItem {
     if (price != null) ...price!.toJson(),
     'tags': productTags?.map((e) => e.toDatabase).toList(),
     'thumbnail': thumbnail,
+    'in_stock': stockAvailability?.quantity,
     'vendor': vendor?.toJson(),
     'rating': rating?.toJson(),
   };
@@ -78,16 +79,15 @@ class ProductModel extends Equatable implements FavoriteItem {
         thumbnail: model.thumbnail,
         vendor: model.vendor,
         rating: model.rating,
+        stockAvailability: model.inStock,
         productTags: model.productTags,
       );
 
   @override
   List<Object?> get props =>
       [id, rating, price, productTags, name, thumbnail, vendor];
-
   int get uniqueId => id!;
   int get inStock => stockAvailability?.quantity ?? 0;
-
   @override
   int get favoriteId => id!;
   @override
