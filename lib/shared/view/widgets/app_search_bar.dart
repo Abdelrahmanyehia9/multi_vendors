@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
 
 
@@ -37,7 +38,7 @@ class AppSearchbar extends StatelessWidget {
           children: [
             if (title != null&&!state.hasFocus) ...[
               title!,
-              SizedBox(height: 8.h),
+              const Gap(6),
             ],
             AppTextField(
               focusNode: cubit.focusNode,

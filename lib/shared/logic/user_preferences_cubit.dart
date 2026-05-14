@@ -34,6 +34,7 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   void changeLocale(Locale locale, BuildContext context) {
     EasyLocalization.of(context)?.setLocale(locale);
+    AppConstants.locale = locale.languageCode;
     safeEmit(state.copyWith(locale: locale));
     save();
     WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -25,7 +25,6 @@ import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/read_more_text.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/view/widgets/filters/product_filters_action.dart';
-import 'package:multi_vendor/features/shop/product/view/widgets/filters/products_filters_chips.dart';
 
 class VendorDetailsScreen extends StatefulWidget {
   const VendorDetailsScreen({super.key});
@@ -71,7 +70,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
        if(vendor.bio!=null)SliverToBoxAdapter(child: _buildBio(vendor.bio!.localized),),
         SliverToBoxAdapter(child: VendorInfoCard(vendor: vendor)),
         _productsHeader(),
-        SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),
+        // SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),
         _productsList(),
       ],
     );

@@ -1,5 +1,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 
@@ -30,7 +31,7 @@ enum ProductSortByType{
     name => AppStrings.name.tr(),
   };
 }
-class ProductSortBy{
+class ProductSortBy extends Equatable{
   final ProductSortByType type;
   final bool asc;
   const ProductSortBy({required this.type,  this.asc =true});
@@ -38,4 +39,8 @@ class ProductSortBy{
     'p_sort_by': type.toDatabase,
     'p_sort_dir': asc? 'asc' : 'desc',
   }.withoutNulls;
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [type, asc];
 }

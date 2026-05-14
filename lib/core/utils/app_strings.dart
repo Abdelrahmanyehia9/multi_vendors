@@ -633,7 +633,7 @@ class AppStrings {
   static const String more ="more";
   static const String poweredBy = "powered_by";
   static const String nexyraTech ="nexyra_tech";
-
+  static const String iN = "IN" ;
   static const String userUpdatedSuccessfully = "user_updated_successfully";
 
 

@@ -1,4 +1,8 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
+import 'package:multi_vendor/core/extensions/colors.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
 class CategoryModel extends Equatable {
@@ -8,7 +12,8 @@ class CategoryModel extends Equatable {
   final Map<String, dynamic> name;
   final Map<String, dynamic>? description;
   final int? parent;
-
+final String? icon ;
+final Color? color ;
   const CategoryModel({
     this.id,
     this.img,
@@ -16,6 +21,8 @@ class CategoryModel extends Equatable {
     this.count,
     this.description,
     this.parent,
+    this.icon,
+    this.color
   });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
@@ -25,6 +32,8 @@ class CategoryModel extends Equatable {
     count: json['count'],
     description: json['description'],
     parent: json['parent'] ,
+    icon: json['icon'],
+    color: json['color'] == null ? null : ColorExtension.fromRgbString(json['color']),
   );
 
 
@@ -37,6 +46,7 @@ class CategoryModel extends Equatable {
     count: FakeData.fakeInt,
     description: FakeData.fakeMapDescription,
     parent: FakeData.fakeInt,
+    icon: FakeData.fakeImg,
   ) ;
 
 
@@ -47,7 +57,9 @@ class CategoryModel extends Equatable {
     "count": count,
     "description": description,
     "parent": parent,
-  };
+    "icon": icon,
+    "color": color?.toRgbString,
+  }.withoutNulls;
 
 
   @override

@@ -8,15 +8,15 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
 
   ProductsFiltersModel withoutEXCLUDES(List<ProductsFilters> exclude){
     return ProductsFiltersModel(
-      categories: !exclude.contains(ProductsFilters.categories)
+      categories: exclude.contains(ProductsFilters.categories)
           ? null
           : categories,
 
-      tags: !exclude.contains(ProductsFilters.tags)
+      tags: exclude.contains(ProductsFilters.tags)
           ? null
           : tags,
 
-      vendors: !exclude.contains(ProductsFilters.vendor)
+      vendors: exclude.contains(ProductsFilters.vendor)
           ? null
           : vendors,
 
@@ -24,11 +24,11 @@ extension ProductsFiltersEXT on ProductsFiltersModel {
           ? null
           : stockAvailability,
 
-      ratingRange: !exclude.contains(ProductsFilters.rating)
+      ratingRange: exclude.contains(ProductsFilters.rating)
           ? null
           : ratingRange,
 
-      priceRange: !exclude.contains(ProductsFilters.price)
+      priceRange: exclude.contains(ProductsFilters.price)
           ? null
           : priceRange,
     );

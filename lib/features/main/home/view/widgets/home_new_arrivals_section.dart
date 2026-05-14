@@ -8,7 +8,6 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_arrivals_cubit.dart';
-import 'package:multi_vendor/features/shop/product/data/model/product_sort_by.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
 import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
@@ -43,7 +42,6 @@ class HomeNewArrivalsSection extends StatelessWidget {
           arguments: const ProductsScreenArgs(
             initialFilters: ProductsFiltersModel(
               tags: [ProductTagModel(tag: ProductTags.newArrivals)],
-              sortBy: ProductSortBy(type: ProductSortByType.time, asc: false),
             ),
           ),
         ),

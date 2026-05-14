@@ -76,4 +76,6 @@ class ProductsFiltersModel {
   }.withoutNulls;
 
 
+   bool get isEmptyFilters => tags.isNullOrEmpty && vendors.isNullOrEmpty  && categories.isNullOrEmpty && ratingRange == null && priceRange == null && sortBy == null && stockAvailability == null;
+
 }

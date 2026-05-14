@@ -7,6 +7,8 @@ import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_navbar.dart';
 import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
+import 'package:multi_vendor/features/main/category/logic/main_categories_cubit.dart';
+import 'package:multi_vendor/features/main/category/view/category_screen.dart';
 import 'package:multi_vendor/features/main/favorite/view/favorite_screen.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
@@ -46,30 +48,6 @@ mixin MainLayoutMixin on State<MainLayout> {
 
   List<NavbarItem> _buildItems() {
     return [
-      NavbarItem(
-        icon: MvIcons.category,
-        label: AppStrings.categories.tr(),
-        toolTip: AppStrings.categories.tr(),
-        pageBuilder: () => const SizedBox.shrink()
-      ),
-      NavbarItem(
-        icon: MvIcons.search,
-        label: "Search",
-        pageBuilder: () => MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => SearchCubit()),
-            BlocProvider(
-              create: (_) =>
-              SearchProductHistoryCubit(getIt<SearchRepository>())
-                ..getHistory(),
-            ),
-            BlocProvider(
-              create: (_) => SearchProductsCubit(getIt<SearchRepository>()),
-            ),
-          ],
-          child: const SearchScreen(),
-        ),
-      ),
       NavbarItem(
         icon: MvIcons.home,
         label: "Home",
@@ -113,6 +91,36 @@ mixin MainLayoutMixin on State<MainLayout> {
               cubit.changePage(1);
             },
           ),
+        ),
+      ),
+      NavbarItem(
+        icon: MvIcons.category,
+        label: AppStrings.categories.tr(),
+        toolTip: AppStrings.categories.tr(),
+        pageBuilder: () => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context)=>SearchCubit(autoFocus: false)),
+              BlocProvider(create: (context)=> MainCategoriesCubit(getIt.get<CategoryRepository>())..getCategories()),
+              BlocProvider(create: (context)=> SubCategoriesCubit(getIt.get<CategoryRepository>()))
+            ],
+            child: const CategoryScreen())
+      ),
+      NavbarItem(
+        icon: MvIcons.search,
+        label: "Search",
+        pageBuilder: () => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => SearchCubit()),
+            BlocProvider(
+              create: (_) =>
+              SearchProductHistoryCubit(getIt<SearchRepository>())
+                ..getHistory(),
+            ),
+            BlocProvider(
+              create: (_) => SearchProductsCubit(getIt<SearchRepository>()),
+            ),
+          ],
+          child: const SearchScreen(),
         ),
       ),
       if (FeatureFlags.enableFavorite)

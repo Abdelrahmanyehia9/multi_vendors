@@ -158,7 +158,7 @@ class AppRouter {
                 create: (context) => MainLayoutCubit()..init(initialIndex),
               ),
             ],
-            child: MainLayout(initialIndex: initialIndex ?? 2),
+            child: MainLayout(initialIndex: initialIndex ?? 0),
           ),
 
           name: Routes.mainLayout,
@@ -170,7 +170,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) =>
-                    ProductsByFiltersCubit(getIt.get<ProductRepository>()),
+                    ProductsByFiltersCubit(getIt.get<ProductRepository>())..getProductsInFilter(filters: args?.initialFilters),
               ),
               BlocProvider(
                 create: (context) =>
