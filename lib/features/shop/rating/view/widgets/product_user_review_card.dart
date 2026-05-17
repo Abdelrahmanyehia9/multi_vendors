@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -28,20 +29,19 @@ class ProductUserReviewCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(Decorations.borderRadius8.w),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 5.h,
         children: [
           Row(
             spacing: 8.w,
             children: [
-              UserAvatar(userName: user.fullName, profile: user.profilePic, size: 50),
+              UserAvatar(userName: user.fullName, profile: user.profilePic, size: 40),
               _buildUserInfo(username, date: review.createdAt, context: context),
               const Spacer(),
               if (review.rate != null) _buildRatingIcon("${review.rate}"),
             ],
           ),
-          if(review.comment!=null)
-          Text(review.comment!,
-              style: TextStyles.bodyMedium),
+          Text(review.comment??AppStrings.noCommentAvailable.tr(), style: TextStyles.bodyMedium).paddingVr(8),
         ],
       ),
     );

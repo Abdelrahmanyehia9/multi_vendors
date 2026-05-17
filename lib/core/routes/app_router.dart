@@ -4,6 +4,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
+import 'package:multi_vendor/features/authentication/logic/social_login_cubit.dart';
 import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/main_layout.dart';
 import 'package:multi_vendor/features/main/main_layout_cubit.dart';
@@ -100,6 +101,9 @@ class AppRouter {
                   getIt.get<AuthRepository>(),
                   getIt.get<OtpRepository>(),
                 ),
+              ),
+              BlocProvider(
+                create: (context) => SocialLoginCubit(getIt.get<AuthRepository>()),
               ),
             ],
             child: const LoginScreen(),

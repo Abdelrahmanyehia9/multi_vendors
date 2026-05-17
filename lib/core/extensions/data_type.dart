@@ -46,5 +46,5 @@ extension MapEXt on Map{
 
 
 extension PriceExtension on num{
-  String get usdPrice => "${toString()}${AppConstants.currency.char}";
+  String get usdPrice => "${(this*AppConstants.currency.convertToDollar).toStringAsFixed(0)}${AppConstants.currency.symbol}";
 }

@@ -35,7 +35,7 @@ class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScr
   Widget build(BuildContext context) {
     return BaseScaffold(
       appBar: BaseAppBar(title: AppStrings.vendors.tr()),
-      body: Column(
+      body: Column(spacing: 12.h,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BaseBlocConsumer<MainCategoriesCubit, List<CategoryModel>>(
@@ -60,7 +60,6 @@ class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScr
       ),
     );
   }
-
 }
 
 class _Categories extends StatelessWidget {

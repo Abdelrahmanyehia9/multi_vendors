@@ -25,32 +25,34 @@ class CategorySideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color surfaceLowest = context.colors.surfaceContainerLowest;
+    final Color selectedColor =  AppColors.primary;
     return ValueListenableBuilder(
       valueListenable: selectedMainCategory,
       builder: (context, value, child) {
         return Container(
-          width: 90.w,
+          width: 70.w,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: context.scaffoldBackground,
             border: Border(
               right: context.isRTL
                   ? BorderSide.none
-                  : BorderSide(color: surfaceLowest, width: 1.75),
+                  : BorderSide(color: surfaceLowest, width: 0.5),
               left: context.isRTL
-                  ? BorderSide(color: surfaceLowest, width: 1.75)
+                  ? BorderSide(color: surfaceLowest , width: 0.5)
                   : BorderSide.none,
             ),
             borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
           ),
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             itemCount: categories.length,
             itemBuilder: (_, i) {
-              final Color selectedColor = categories[i].color ?? AppColors.primary;
               final isActive = value == categories[i];
               return AppClick(
                 onTap: () => selectedMainCategory.value = categories[i],
                 child: AnimatedContainer(
+                  alignment: AlignmentDirectional.center,
                   curve: Curves.bounceInOut,
                   decoration: BoxDecoration(
                     border: Border(
@@ -97,9 +99,9 @@ class CategorySideBar extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyles.labelSmall.copyWith(
-                          color: selectedColor,
-                          fontWeight: FontWeightHelper.bold,
+                        style: TextStyles.bodySmall.copyWith(
+                          color: isActive?   selectedColor : null,
+                          fontWeight: FontWeightHelper.medium,
                         ),
                       ),
                     ],

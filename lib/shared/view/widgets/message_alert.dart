@@ -17,13 +17,17 @@ enum MessagesAlertType {
   promoFailed,
   orderCancelled,
   reviewSubmitted,
+  versionNotSupported,
   error,
+  maintenance,
   orderDeleted;
 
   String get title => switch (this) {
     orderSuccess => AppStrings.orderSuccess.tr(),
+    versionNotSupported => AppStrings.versionNotSupported.tr(),
     orderCancelled => AppStrings.orderCancelled.tr(),
     orderDeleted => AppStrings.orderDeleted.tr(),
+    maintenance => AppStrings.maintenance.tr(),
     loginRequired => AppStrings.loginRequired.tr(),
     resetPasswordSuccess => AppStrings.resetPasswordSuccess.tr(),
     promoSuccess => AppStrings.promoSuccess.tr(),
@@ -33,9 +37,11 @@ enum MessagesAlertType {
   };
 
   String get message => switch (this) {
+    maintenance => AppStrings.maintenanceDescription.tr(),
     orderCancelled => AppStrings.orderCancelledDescription.tr(),
     orderSuccess => AppStrings.orderSuccessDescription.tr(),
     loginRequired => AppStrings.loginRequiredDescription.tr(),
+    versionNotSupported => AppStrings.versionNotSupportedDescription.tr(),
     resetPasswordSuccess => AppStrings.resetPasswordSuccessDescription.tr(),
     promoSuccess => AppStrings.promoSuccessDescription.tr(),
     promoFailed => AppStrings.promoFailedDescription.tr(),
@@ -46,12 +52,15 @@ enum MessagesAlertType {
 
   IconData get icon => switch (this) {
     loginRequired => MvIcons.login,
-    promoFailed || error=> MvIcons.error,
+    promoFailed || error || versionNotSupported => MvIcons.error,
+    maintenance => MvIcons.maintenance,
     _ => MvIcons.verified,
+
   };
 
   Color get color => switch (this) {
-    promoFailed  || loginRequired=> AppColors.error,
+    promoFailed  || loginRequired || versionNotSupported => AppColors.error,
+    maintenance => AppColors.warning,
      _ => AppColors.success,
   };
 }

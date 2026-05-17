@@ -131,7 +131,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
     final icon = Icon(
       full ? MvIcons.star : half ? MvIcons.starHalf : MvIcons.starOutlined,
       size: widget.size.sp,
-      color: full || half ? AppColors.warning500 : context.colors.surfaceContainer,
+      color: full || half ? AppColors.warning : context.colors.surfaceContainer,
     );
 
     if (widget.readOnly) return icon;

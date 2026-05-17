@@ -4,16 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
-import 'package:multi_vendor/features/shop/product/data/model/products_filters_model.dart';
-import 'package:multi_vendor/features/shop/product/view/all_products_screen.dart';
-import 'package:multi_vendor/core/routes/routes.dart';
+import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
@@ -33,23 +30,17 @@ class HomeShopByCategories extends StatefulWidget {
 }
 
 class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
-  final ValueNotifier<int> _selectedItem = ValueNotifier<int>(-1);
-  List<CategoryModel> _categories = [];
+  final _selected = ValueNotifier<CategoryModel?>(null);
 
-  void _onSelectionChanged() {
-    if (_selectedItem.value < 0 || _selectedItem.value >= _categories.length) return;
-    context.read<HomeProductBySubCategoryCubit>().getProductByCategory(
-      _categories[_selectedItem.value].id!,
-    );
+  @override
+  void initState() {
+    super.initState();
+    _selected.addListener(_onChanged);
   }
-
-  void _onCategoriesGetSuccess(List<CategoryModel>? data) {
-    if (data == null || data.isEmpty) return;
-    _selectedItem.removeListener(_onSelectionChanged);
-    _categories = data;
-    _selectedItem.value = 0;
-    _onSelectionChanged();
-    _selectedItem.addListener(_onSelectionChanged);
+  void _onChanged() {
+    final id = _selected.value?.id;
+    if (id == null) return;
+    context.read<HomeProductBySubCategoryCubit>().getProductByCategory(id);
   }
 
   @override
@@ -57,13 +48,10 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
     return Column(
       children: [
         BaseBlocConsumer<SubCategoriesCubit, List<CategoryModel>>(
-          onSuccess: _onCategoriesGetSuccess,
-          successBuilder: (categories) => _Categories(
-            selectedItem: _selectedItem,
-            categories: categories,
-          ),
+          onSuccess: (cat) => _selected.value = cat?.first,
+          successBuilder: (cats) => _Categories(selected: _selected, categories: cats),
           loadingBuilder: () => _Categories(
-            selectedItem: ValueNotifier(-1),
+            selected: ValueNotifier(null),
             categories: List.generate(10, (_) => CategoryModel.fake()),
           ),
         ),
@@ -72,10 +60,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
           successBuilder: (p) => ProductGrid(shrinkWrap: true, products: p),
           loadingBuilder: () => ProductGrid(
             shrinkWrap: true,
-            products: List.generate(
-              4,
-                  (_) => const ProductModel(name: {}, price: null),
-            ),
+            products: List.generate(4, (_) => const ProductModel(name: {}, price: null)),
           ),
           emptyBuilder: AppStates.empty,
           failureBuilder: AppStates.error,
@@ -86,17 +71,17 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
 
   @override
   void dispose() {
-    _selectedItem.removeListener(_onSelectionChanged);
-    _selectedItem.dispose();
+    _selected.removeListener(_onChanged);
+    _selected.dispose();
     super.dispose();
   }
 }
 
 class _Categories extends StatelessWidget {
-  final ValueNotifier<int> selectedItem;
+  final ValueNotifier<CategoryModel?> selected;
   final List<CategoryModel> categories;
 
-  const _Categories({required this.selectedItem, required this.categories});
+  const _Categories({required this.selected, required this.categories});
 
   @override
   Widget build(BuildContext context) {
@@ -105,60 +90,48 @@ class _Categories extends StatelessWidget {
         SectionHeader(
           title: AppStrings.categories.tr(),
           hasAction: true,
-          onActionTap: () {
-            final index = selectedItem.value;
-            if (index < 0 || index >= categories.length) return;
-            context.pushNamed(
-              Routes.products,
-              arguments: ProductsScreenArgs(
-                initialFilters: ProductsFiltersModel(
-                  categories: [categories[index]],
-                ),
-              ),
-            );
-          },
+          onActionTap: () => context.read<MainLayoutCubit>().changePage(1)
         ),
         ValueListenableBuilder(
-          valueListenable: selectedItem,
-          builder: (context, value, child) {
-            return SizedBox(
-              height: 42.h,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                clipBehavior: Clip.none,
-                itemCount: categories.length,
-                separatorBuilder: (_, __) => SizedBox(width: 12.w),
-                itemBuilder: (_, i) => AppClick(
-                  onTap: () => selectedItem.value = i,
+          valueListenable: selected,
+          builder: (context, value, _) => SizedBox(
+            height: 42.h,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.zero,
+              clipBehavior: Clip.none,
+              itemCount: categories.length,
+              separatorBuilder: (_, __) => SizedBox(width: 12.w),
+              itemBuilder: (_, i) {
+                final cat = categories[i];
+                final isSelected = value == cat;
+                return AppClick(
+                  onTap: () => selected.value = cat,
                   child: AppChip(
                     borderRadius: Decorations.borderRadius12.r,
-                    text: categories[i].name.localized,
-                    selected: value == i,
+                    text: cat.name.localized,
+                    selected: isSelected,
                     child: Row(
                       spacing: 6.w,
                       children: [
-                        if (value == i && !categories[i].img.isNullOrEmpty)
+                        if (isSelected && !cat.img.isNullOrEmpty)
                           CircularBox(
                             radius: 30,
-                            child: AppCachedNetworkImage(
-                              fit: BoxFit.fill,
-                              categories[i].img,
-                            ),
+                            child: AppCachedNetworkImage(fit: BoxFit.fill, cat.img),
                           ),
                         Text(
-                          categories[i].name.localized,
+                          cat.name.localized,
                           style: TextStyles.bodySmall.copyWith(
-                            color: value == i ? AppColors.white : null,
+                            color: isSelected ? AppColors.white : null,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+            ),
+          ),
         ),
       ],
     );

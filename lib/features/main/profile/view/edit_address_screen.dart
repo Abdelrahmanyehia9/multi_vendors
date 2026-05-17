@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
@@ -39,6 +40,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
       body: BaseBlocConsumer(
         bloc: addressCubit,
         onSuccess: (s)=>context.pop(address),
+        onFailure: (e)=>context.errorBar(message: e.message),
         builder:(state)=> SingleChildScrollView(
           child: Form(
             key: formKey,

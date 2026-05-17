@@ -7,7 +7,6 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
-import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
@@ -55,19 +54,17 @@ class ProductReviewDistributionCard extends StatelessWidget {
                 return Row(
                 spacing: 4.w,
                 children: [
-                  Icon(
-                    MvIcons.star,
-                    size: 18.sp,
-                    color: AppColors.warning,
-                  ),
                   Text(
-                    "${5 - i}",
-                    style: TextStyles.labelSmall.copyWith(color: AppColors.primary),
+                    "⭐ ${i+1}",
+                    style: TextStyles.labelMedium.copyWith(
+                        fontSize: 12.sp,
+                      ),
                   ),
                   Expanded(
                     child: LinearProgressIndicator(
-                      borderRadius: BorderRadius.circular(Decorations.borderRadius50.r),
-                      minHeight: 4.h,
+                      borderRadius: BorderRadius.circular(Decorations.borderRadius4.r),
+                      minHeight: 6.h,
+                      color: AppColors.warning,
                       value: percentage,
                       backgroundColor: context.colors.surfaceContainerLowest,
                     ),

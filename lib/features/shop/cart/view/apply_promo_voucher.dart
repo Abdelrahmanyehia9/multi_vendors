@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -41,6 +42,7 @@ class _ApplyPromoVoucherState extends State<ApplyPromoVoucher> {
     return BaseScaffold(
       appBar: BaseAppBar(title: AppStrings.promoVoucher.tr(), actions: [_buildAction()],),
       body: BaseBlocConsumer<ValidatePromoCubit, PromoCardResponse>(
+        onFailure: (e)=>context.errorBar(message: e.message),
         builder: (state) {
           final data = state.data;
           final isValid = data?.valid == true;

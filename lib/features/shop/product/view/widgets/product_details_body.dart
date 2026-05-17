@@ -38,6 +38,7 @@ class ProductDetailsBody extends StatelessWidget {
         children: [
           AppSlider(
             images: model.sliderImages,
+            thumbnailPosition: ThumbnailPosition.bottom,
             height: 300,
             placeHolder: model.thumbnail,
           ),
@@ -101,6 +102,9 @@ class ProductDetailsBody extends StatelessWidget {
              children: model.productTags!
                  .map((e) => AppChip(
                  selectedBorderColor: Colors.transparent,
+                 textStyle: TextStyles.bodySmall.copyWith(
+                   color: context.scaffoldBackground,
+                 ),
                  selectedColor: context.colors.surfaceContainerHighest,
                  text: e.toText, selected: true))
                  .toList(),

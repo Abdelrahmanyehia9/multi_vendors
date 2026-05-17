@@ -40,6 +40,7 @@ class HomeRepository {
      _getList(
       table: RemoteDatabaseConstants.vendor_table,
       select: HomeQueries.homeVendors,
+      filter: (q)=>q.order(RemoteDatabaseConstants.created_at_column, ascending: false),
       fromJson: VendorModel.fromJson,
     );
   Future<Either<AppException, List<ProductModel>>> getProductBySubCategory({
@@ -64,7 +65,7 @@ class HomeRepository {
   Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() =>
     _getList(
       table: RemoteDatabaseConstants.tags_table,
-      filter: (e)=>e.gt('count', 0).order('count', ascending: false).limit(4),
+      filter: (e)=>e.gt('count', 0).order('count', ascending: false).limit(3),
       fromJson: ProductTagModel.fromJson,
     );
   Future<Either<AppException, List<NewsModel>>> getNews() => _getList(
@@ -87,7 +88,8 @@ class HomeRepository {
     );
   Future<Either<AppException, List<ProductModel>>> getNewsArrivals() => _getList(
       table: RemoteDatabaseConstants.product_table,
-      filter: (e) => ProductTags.newArrivals.filters(e)
+      select: HomeQueries.productByFilter,
+      filter: (e) => e
           .order(
         RemoteDatabaseConstants.created_at_column,
         ascending: false,

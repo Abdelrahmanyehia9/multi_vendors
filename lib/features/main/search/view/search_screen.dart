@@ -4,12 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/gap.dart';
-
-
 import 'package:multi_vendor/features/main/search/logic/search_products_cubit.dart';
 import 'package:multi_vendor/features/main/search/view/widget/search_history.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
+import 'package:multi_vendor/shared/logic/search_cubit.dart';
 import 'package:multi_vendor/shared/view/layouts/product_grid.dart';
 import 'package:multi_vendor/shared/view/widgets/app_search_bar.dart';
 import 'package:multi_vendor/shared/view/widgets/search_builder.dart';
@@ -35,7 +33,6 @@ class _SearchScreenState extends State<SearchScreen> {
     return Column(
       spacing: 16.h,
       children: [
-        Gap.tiny(),
         AppSearchbar(
           onSubmit: historyCubit.saveToHistory,
            onQueryChanged: searchCubit.search,
@@ -45,6 +42,10 @@ class _SearchScreenState extends State<SearchScreen> {
           builder:(_, __)=> BaseBlocConsumer<SearchProductHistoryCubit, List<String>>(
             successBuilder: (items) => SearchHistory(
               searchHistory:items,
+              onTapOnItem: (item) {
+                context.read<SearchCubit>().controller.text = item ;
+                searchCubit.search(item) ;
+              },
               onRemoveItem: historyCubit.onRemoveItem,
               onRemoveAll: historyCubit.onRemoveAll,
             ),

@@ -5,8 +5,7 @@ class TextStyles {
 
   static const String enFontFamily = "Montserrat" ;
   static const String arFontFamily = "Tajawal" ;
-  static const double _largerFactor = 1;
-
+  static const double _largerFactor = 1.05;
   const TextStyles._();
   static final TextStyle headline1 = TextStyle(
     fontSize: 40.sp * _largerFactor,
@@ -21,31 +20,31 @@ class TextStyles {
     fontWeight: FontWeightHelper.bold,
   );
   static final TextStyle bodyLarge = TextStyle(
-    fontSize: 20.sp * _largerFactor,
+    fontSize: 18.sp * _largerFactor,
     fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle bodyMedium = TextStyle(
-    fontSize: 16.sp * _largerFactor,
+    fontSize: 15.sp * _largerFactor,
     fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle bodySmall = TextStyle(
-    fontSize: 12.sp * _largerFactor,
+    fontSize: 13.sp * _largerFactor,
     fontWeight: FontWeightHelper.regular,
   );
   static final TextStyle labelLarge = TextStyle(
-    fontSize: 20.sp * _largerFactor,
+    fontSize: 18.sp * _largerFactor,
     fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle labelMedium = TextStyle(
-    fontSize: 16.sp * _largerFactor,
+    fontSize: 15.sp * _largerFactor,
     fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle labelSmall = TextStyle(
-    fontSize: 12.sp * _largerFactor,
+    fontSize: 13.sp * _largerFactor,
     fontWeight: FontWeightHelper.medium,
   );
   static final TextStyle captionLarge = TextStyle(
-    fontSize: 18.sp * _largerFactor,
+    fontSize: 16.sp * _largerFactor,
     fontWeight: FontWeightHelper.light,
   );
   static final TextStyle captionMedium = TextStyle(
@@ -53,7 +52,7 @@ class TextStyles {
     fontWeight: FontWeightHelper.light,
   );
   static final TextStyle captionSmall = TextStyle(
-    fontSize: 10.sp * _largerFactor,
+    fontSize: 12.sp * _largerFactor,
     fontWeight: FontWeightHelper.light,
   );
 }

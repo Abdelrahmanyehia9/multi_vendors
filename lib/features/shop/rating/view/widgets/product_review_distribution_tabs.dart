@@ -19,7 +19,6 @@ class ProductReviewDistributionTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ValueListenableBuilder(
       valueListenable: selected,
       builder: (context, value, child) {
@@ -64,19 +63,21 @@ class ProductReviewDistributionTabs extends StatelessWidget {
       selectedColor: selectedColor,
       selectedBorderColor: selectedColor,
       unSelectedBorderColor: selectedColor,
+
       text: text,
       selected: selected,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 4.w,
         children: [
           Icon(
             icon,
-            size: 18.sp,
+            size: 16.sp,
             color: selected ? AppColors.white : selectedColor,
           ),
           Text(
             text,
-            style: TextStyles.bodySmall.copyWith(
+            style: TextStyles.labelMedium.copyWith(
               color: selected ? AppColors.white :selectedColor,
             ),
           ),

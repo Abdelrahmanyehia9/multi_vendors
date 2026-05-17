@@ -47,8 +47,9 @@ class _UserAvatarState extends State<UserAvatar> {
           ? _buildText()
           : AppCachedNetworkImage(
         image,
+        enableViewer: true,
         width: widget.size.w,
-        height: widget.size.w,
+        height: widget.size.h,
       ),
     );
   }
@@ -58,13 +59,14 @@ class _UserAvatarState extends State<UserAvatar> {
     final String firstLetter = userName[0] ;
     return SizedBox(
       width: widget.size.w,
-      height: widget.size.w,
+      height: widget.size.h,
       child: Center(
         child: Text(
           firstLetter.toUpperCase(),
           textAlign: TextAlign.center,
           style: TextStyles.labelMedium.copyWith(
-            fontSize: widget.size.sp / 2.2,
+            fontSize: widget.size.sp / 2.sp,
+            height: 0,
             color: randomColor,
           ),
         ),

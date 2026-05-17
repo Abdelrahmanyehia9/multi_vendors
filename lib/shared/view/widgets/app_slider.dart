@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
-
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -12,21 +12,22 @@ import 'package:multi_vendor/core/widgets/app_photo_view.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 
+enum ThumbnailPosition { bottom, side, dots }
 
 class AppSlider extends StatefulWidget {
   final List<String>? images;
   final double height;
   final double viewPort;
-  final bool showDots;
+  final ThumbnailPosition thumbnailPosition;
   final String? placeHolder;
-  final List<Widget>? slides ;
+  final List<Widget>? slides;
 
   const AppSlider({
     super.key,
     this.height = 250,
     this.viewPort = 1,
-    this.showDots = true,
-     this.images,
+    this.thumbnailPosition = ThumbnailPosition.dots,
+    this.images,
     this.placeHolder,
     this.slides,
   });
@@ -37,56 +38,214 @@ class AppSlider extends StatefulWidget {
 
 class _AppSliderState extends State<AppSlider> {
   int _currentIndex = 0;
+  late final CarouselSliderController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = CarouselSliderController();
+  }
+
+  void _onThumbnailTap(int index) {
+    _controller.animateToPage(index);
+    setState(() => _currentIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final int count = widget.images?.length ?? widget.slides?.length ?? 0;
-    if(widget.images.isNullOrEmpty && widget.slides.isNullOrEmpty) return AppCachedNetworkImage(widget.placeHolder, height: widget.height, width: double.infinity,radius: Decorations.borderRadius24,) ;
+    final images = widget.images;
+    final slides = widget.slides;
+
+    if (images.isNullOrEmpty && slides.isNullOrEmpty) {
+      return AppCachedNetworkImage(
+        widget.placeHolder,
+        height: widget.height,
+        width: double.infinity,
+        enableViewer: true,
+        radius: Decorations.borderRadius24,
+      );
+    }
+
+    final carousel = CarouselSlider(
+      carouselController: _controller,
+      items: slides ?? images!.map((i) => _item(i)).toList(),
+      options: CarouselOptions(
+        height: widget.height.h,
+        enlargeCenterPage: true,
+        viewportFraction: widget.viewPort,
+        onPageChanged: (index, _) => setState(() => _currentIndex = index),
+      ),
+    );
+
+    if (widget.thumbnailPosition == ThumbnailPosition.dots || images == null) {
+      return Column(
+        children: [
+          carousel,
+          if ((widget.slides?.length ?? images?.length ?? 0) > 1) ...[
+            Gap.small(),
+            SliderDots(total: images?.length ?? widget.slides!.length, currentIndex: _currentIndex),
+          ],
+        ],
+      );
+    }
+
+    if (widget.thumbnailPosition == ThumbnailPosition.side) {
+      return Stack(
+        children: [
+          Expanded(child: carousel),
+          _VerticalThumbnails(
+            images: images,
+            currentIndex: _currentIndex,
+            height: widget.height,
+            onTap: _onThumbnailTap,
+          ).paddingAll(8),
+        ],
+      );
+    }
+
+    // bottom
     return Column(
       children: [
-        CarouselSlider(
-          items:widget.slides ?? widget.images!.map((i) => _item(i)).toList(),
-          options: CarouselOptions(
-            height: widget.height.h,
-            enlargeCenterPage: true,
-            viewportFraction: widget.viewPort,
-            onPageChanged: (index, _) {
-              if (widget.showDots) {
-                setState(() => _currentIndex = index);
-              }
-            },
-          ),
+        carousel,
+        Gap.small(),
+        _HorizontalThumbnails(
+          images: images,
+          currentIndex: _currentIndex,
+          onTap: _onThumbnailTap,
         ),
-        if (widget.showDots && count > 1) ...[
-          Gap.small(),
-          SliderDots(
-            total: count,
-            currentIndex: _currentIndex,
-          ),
-        ],
       ],
     );
   }
+
   Widget _item(String image) => AppClick(
-    onTap: ()=>BottomSheets.show(
+    onTap: () {
+      BottomSheets.show(
       showCloseButton: true,
-      context, child: SizedBox(
-      height: context.height * 0.9,
-      child: AppPhotoView(imgUrl: image),
-    ),),
+      context,
+      child: SizedBox(
+        height: context.height * 0.9,
+        child: AppPhotoView(images: widget.images!, selectedIndex: _currentIndex),
+      ),
+    );
+    },
     child: AppCachedNetworkImage(
+      image,
       height: widget.height.h,
       width: double.infinity,
       radius: Decorations.borderRadius16,
-      image
     ),
   );
 }
 
+// ─── Horizontal Thumbnails ───────────────────────────────────────────────────
+
+class _HorizontalThumbnails extends StatelessWidget {
+  final List<String> images;
+  final int currentIndex;
+  final void Function(int) onTap;
+
+  const _HorizontalThumbnails({
+    required this.images,
+    required this.currentIndex,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 64.h,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        separatorBuilder: (_, __) => SizedBox(width: 8.w),
+        itemBuilder: (_, index) => _Thumbnail(
+          image: images[index],
+          isSelected: currentIndex == index,
+          onTap: () => onTap(index),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Vertical Thumbnails ─────────────────────────────────────────────────────
+
+class _VerticalThumbnails extends StatelessWidget {
+  final List<String> images;
+  final int currentIndex;
+  final double height;
+  final void Function(int) onTap;
+
+  const _VerticalThumbnails({
+    required this.images,
+    required this.currentIndex,
+    required this.height,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 50.w,
+      height: height.h,
+      child: ListView.separated(
+        itemCount: images.length,
+        separatorBuilder: (_, __) => Gap.small(),
+        itemBuilder: (_, index) => _Thumbnail(
+          image: images[index],
+          isSelected: currentIndex == index,
+          onTap: () => onTap(index),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Single Thumbnail ─────────────────────────────────────────────────────────
+
+class _Thumbnail extends StatelessWidget {
+  final String image;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _Thumbnail({
+    required this.image,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppClick(
+      onTap: onTap,
+      child: AnimatedContainer(
+        clipBehavior: Clip.hardEdge,
+
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: AppCachedNetworkImage(
+          image,
+          radius: Decorations.borderRadius8,
+          height: 40.h,
+          width: 50.w,
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Dots ─────────────────────────────────────────────────────────────────────
 
 class SliderDots extends StatelessWidget {
-  final int total ;
+  final int total;
   final int currentIndex;
+
   const SliderDots({super.key, required this.total, required this.currentIndex});
 
   @override

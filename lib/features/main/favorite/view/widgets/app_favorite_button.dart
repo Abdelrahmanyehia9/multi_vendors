@@ -57,14 +57,14 @@ class _AppFavoriteButtonState extends State<AppFavoriteButton>
                     Transform.scale(
                       scale: favoriteScaleAnim.value,
                       child: AppIconButton(
-                        size: widget.size.sp*.8,
+                        size: widget.size.sp*.75,
                         radius: 6,
                         backGroundColor: context.scaffoldBackground,
                         icon :isFavorite ? MvIcons.favorite : MvIcons.favoriteOutlined,
                         iconColor: isFavorite ? AppColors.error : context.colors.surfaceContainerHigh,
                       ),
                     ),
-                    if (favoriteAnimController.isAnimating)
+                    if (favoriteAnimController.isAnimating && isFavorite)
                       ..._buildParticles(),
                   ],
                 ),
@@ -77,23 +77,31 @@ class _AppFavoriteButtonState extends State<AppFavoriteButton>
   }
 
   List<Widget> _buildParticles() {
-    return List.generate(8, (i) {
-      final angle = (i / 6) * 2 * math.pi;
+    return List.generate(6, (i) {
+      final angle = (i / 8) * 2 * math.pi;
       final distance = favoriteParticleAnim.value * widget.size.sp * 1.3;
       final opacity = (1 - favoriteParticleAnim.value).clamp(0.0, 1.0);
       return Positioned(
-        left: widget.padding + widget.size.sp / 2 + math.cos(angle) * distance - 3,
-        top: widget.padding + widget.size.sp / 2 + math.sin(angle) * distance - 3,
+        left: widget.padding +
+            widget.size.sp / 2 +
+            math.cos(angle) * distance -
+            3,
+        top: widget.padding +
+            widget.size.sp / 2 +
+            math.sin(angle) * distance -
+            3,
         child: Opacity(
           opacity: opacity,
-          child:  Icon(
-            MvIcons.favorite,
+          child: Icon(
+            MvIcons.fire,
             size: 8.sp,
-            color: AppColors.error,
+            color: AppColors.mainColors[
+            i % AppColors.mainColors.length],
           ),
         ),
       );
     });
+
   }
   void _handleTap()  {
     playFavoriteAnimation();

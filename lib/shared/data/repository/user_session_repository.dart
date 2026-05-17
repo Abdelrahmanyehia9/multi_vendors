@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/enum/user_roles.dart';
+import 'package:multi_vendor/core/errors/error_messages.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
@@ -86,6 +88,9 @@ try{
     filter: (q) => q.eq(RemoteDatabaseConstants.id_column, id),
   );
   final UserModel user = UserModel.fromJson(response);
+  if(user.role!=UserRole.customer){
+    return left(const AuthenticateException(message: AuthErrorMessages.noAuthorization));
+  }
   await _cacheUser(user);
   return right(user);
 }catch(e){

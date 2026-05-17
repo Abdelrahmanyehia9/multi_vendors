@@ -99,8 +99,9 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           Gap.large(),
+          if(AppConstants.packageInfo != null)
           Text(
-            "${AppStrings.version.tr()} 1.1.2",
+            "${AppStrings.version.tr()} ${AppConstants.packageInfo!.version}",
             style: TextStyles.captionMedium.copyWith(color: AppColors.grey),
           ),
           if(!userCubit.isGuest)

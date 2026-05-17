@@ -19,10 +19,10 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   void init(BuildContext context) {
     final bool isDark = localStorage.read(LocalStorageConstants.isDark) ?? false;
-    AppConstants.locale = localStorage.read(LocalStorageConstants.locale);
+    AppConstants.locale = localStorage.read(LocalStorageConstants.locale)??context.locale.languageCode;
     safeEmit(state.copyWith(
       isDark: isDark,
-      locale:AppConstants.locale == null ? context.locale: Locale(AppConstants.locale!),
+      locale:Locale(AppConstants.locale!),
     ));
 
   }

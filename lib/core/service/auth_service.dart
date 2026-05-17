@@ -94,6 +94,7 @@ final class AuthenticationService {
           onSignedIn.call(data.session!.user.id);
           break;
         case AuthChangeEvent.initialSession:
+        case AuthChangeEvent.tokenRefreshed:
           onInitialSession.call();
           break;
         case AuthChangeEvent.signedOut:
@@ -122,6 +123,12 @@ final class AuthenticationService {
     );
   }
 
+
+  Future<bool>loginWithOAuth(OAuthProvider provider)async{
+   final result =await _client.auth.signInWithOAuth(provider) ;
+    return result;
+
+  }
 
   Future<void> logout() async => await _client.auth.signOut();
   Future<void>reAuth()async=>await _client.auth.reauthenticate() ;

@@ -19,7 +19,8 @@ class AppCartButton extends StatelessWidget {
         final int? count = cartCubit.state.data?.length;
         return Badge(
           isLabelVisible: count != null && count > 0,
-          label: Text(count?.toString() ?? '', style: TextStyles.labelSmall),
+          textStyle: TextStyles.labelSmall.copyWith(fontWeight: FontWeightHelper.extraBold),
+          label: Center(child: Text(count?.toString() ?? '')),
           child:  AppIconButton(
               tooltip: AppStrings.myCart,
               icon: MvIcons.shopping, onTap: () => context.pushNamed(Routes.cart)),

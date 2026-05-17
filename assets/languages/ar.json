@@ -450,7 +450,19 @@
   "nexyra_tech": "نيكسيرا تكنولوجى",
   "user_updated_successfully": "تم تحديث بيانات المستخدم بنجاح",
   "egp": "ج.م",
-  "IN": "فى"
+  "IN": "فى",
+  "big_sale": "تخفيضات كبيرة",
+  "not_comment_available": "لا يوجد تعليق متاح",
+  "sold_by": "يباع بواسطة",
+  "google": "جوجل",
+  "black_friday": "الجمعة البيضاء",
+  "f_sale": "تخفيضات حصرية",
+  "version_not_supported": "الإصدار غير مدعوم",
+  "version_not_supported_description": "يرجى تحديث التطبيق إلى أحدث إصدار للمتابعة",
+  "maintenance_mode": "وضع الصيانة",
+  "maintenance_mode_description": "التطبيق تحت الصيانة حالياً، يرجى المحاولة مرة أخرى لاحقاً"
+
+
 
 
 

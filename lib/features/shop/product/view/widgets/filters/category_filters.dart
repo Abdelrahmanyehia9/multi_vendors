@@ -14,7 +14,6 @@ class _CategoryFilter extends StatelessWidget with _CategoryFilterMixin {
       valueListenable: selected,
       builder: (context, selectedValues, _) {
         return Column(
-          spacing: 12.h,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: roots
               .map((root) => _buildNode(context, root, selectedValues, 0))
@@ -33,7 +32,6 @@ class _CategoryFilter extends StatelessWidget with _CategoryFilterMixin {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: (depth * 16).w),
       child: ExpansionTile(
-        initiallyExpanded: depth == 0,
         tilePadding: EdgeInsets.zero,
         minTileHeight: 0,
         childrenPadding: EdgeInsets.zero,

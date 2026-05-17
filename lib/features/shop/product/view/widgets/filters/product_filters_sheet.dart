@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
@@ -70,123 +71,113 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
   }
 
   Widget _buildContent(ProductsFiltersModel f) {
-    return DraggableScrollableSheet(
-      minChildSize: 0.5,
-      initialChildSize: 1,
-      expand: false,
-      builder: (_, controller) {
-        return SingleChildScrollView(
-          controller: controller,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 12.h,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 16.h,
+        children: [
+          /// Header
+          Row(
+            spacing: 8.w,
             children: [
-              /// Header
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                spacing: 16.w,
-                children: [
-                  const AppBackButton(),
-                  Expanded(
-                    child: SectionHeader(
-                      title: AppStrings.filters.tr(),
-                      headerStyle: TextStyles.labelLarge,
-                      action: AppStrings.reset.tr(),
-                      hasAction: true,
-                      actionStyle: TextStyles.labelMedium,
-                      onActionTap: resetFilters,
-                    ),
-                  ),
-                ],
-              ).appPaddingVr,
-              /// Categories
-              if (_isVisible(f.categories, ProductsFilters.categories))
-                ValueListenableBuilder(
-                  valueListenable: _selectedCategories,
-                  builder: (_, value, __) {
-                    final selectedText = value.isNullOrEmpty
-                        ? null
-                        : value.map((e) => e.name.localized).join(", ");
-                    return _FilterItem(
-                      title: AppStrings.categories.tr(),
-                      subtitle: selectedText,
-                      child: _CategoryFilter(
-                        items: f.categories!,
-                        selected: _selectedCategories,
-                      ),
-                    );
-                  },
-                ),
-
-              /// Price
-              if (_isVisible(f.priceRange, ProductsFilters.price))
-                _FilterItem(
-                  title: AppStrings.price.tr(),
-                  child: _PriceFilter(
-                    priceRange: _priceRange,
-                    availableRange: f.priceRange!.toRangeValues(),
-                  ),
-                ),
-
-              /// Rating
-              if (_isVisible(f.ratingRange, ProductsFilters.rating))
-                _FilterItem(
-                  title: AppStrings.rating.tr(),
-                  child: _RatingFilter(
-                    selectedRating: _selectedRating,
-                    ratingRange: f.ratingRange!.toRangeValues(),
-                  ),
-                ),
-
-              /// Vendors
-              if (_isVisible(f.vendors, ProductsFilters.vendor) &&
-                  FeatureFlags.multiVendor)
-                _FilterItem(
-                  title: AppStrings.vendor.tr(),
-                  child: _VendorFilters(
-                    items: f.vendors!,
-                    selected: _selectedVendors,
-                  ),
-                ),
-
-              /// Tags
-              if (_isVisible(f.tags, ProductsFilters.tags) &&
-                  FeatureFlags.shopByTags)
-                _FilterItem(
-                  title: AppStrings.tags.tr(),
-                  child: _TagsFilters(
-                    tags: f.tags!,
-                    selectedTags: _selectedTags,
-                  ),
-                ),
-
-              // /// Stock
-              // if (_isVisible(StockAvailability.values, ProductsFilters.stock))
-              //   _FilterItem(
-              //     title: "Availability",
-              //     initiallyExpanded: false,
-              //     _StockFilters(
-              //       items: StockAvailability.values,
-              //       selected: _selectedStock,
-              //     ),
-              //   ),
-              /// Button
-              ValueListenableBuilder(
-                valueListenable: _cubit.totalProducts,
-                builder: (_, value, __) {
-                  return AppButton(
-                    text: "${AppStrings.see.tr()} ${value ?? ""} ${AppStrings.products.tr()}",
-                    buttonSize: null,
-                    onPressed: _onSubmit,
-                  );
-                },
+              const AppBackButton(
+                size: 18,
               ),
-
-              Gap.medium(),
+              Flexible(
+                child: SectionHeader(
+                  title: AppStrings.filters.tr(),
+                  headerStyle: TextStyles.labelLarge,
+                  action: AppStrings.reset.tr(),
+                  hasAction: true,
+                  actionStyle: TextStyles.labelMedium,
+                  onActionTap: resetFilters,
+                ),
+              ),
             ],
-          ).appPaddingHr,
-        );
-      },
+          ).appPaddingVr,
+          /// Categories
+          if (_isVisible(f.categories, ProductsFilters.categories))
+            ValueListenableBuilder(
+              valueListenable: _selectedCategories,
+              builder: (_, value, __) {
+                final selectedText = value.isNullOrEmpty
+                    ? null
+                    : value.map((e) => e.name.localized).join(", ");
+                return _FilterItem(
+                  title: AppStrings.categories.tr(),
+                  subtitle: selectedText,
+                  child: _CategoryFilter(
+                    items: f.categories!,
+                    selected: _selectedCategories,
+                  ),
+                );
+              },
+            ),
+          /// Price
+          if (_isVisible(f.priceRange, ProductsFilters.price))
+            _FilterItem(
+              title: AppStrings.price.tr(),
+              child: _PriceFilter(
+                priceRange: _priceRange,
+                availableRange: f.priceRange!.toRangeValues(),
+              ),
+            ),
+          /// Rating
+          if (_isVisible(f.ratingRange, ProductsFilters.rating))
+            _FilterItem(
+              title: AppStrings.rating.tr(),
+              child: _RatingFilter(
+                selectedRating: _selectedRating,
+                ratingRange: f.ratingRange!.toRangeValues(),
+              ),
+            ),
+          /// Vendors
+          if (_isVisible(f.vendors, ProductsFilters.vendor) &&
+              FeatureFlags.multiVendor)
+            _FilterItem(
+              title: AppStrings.vendor.tr(),
+              child: _VendorFilters(
+                items: f.vendors!,
+                selected: _selectedVendors,
+              ),
+            ),
+
+          /// Tags
+          if (_isVisible(f.tags, ProductsFilters.tags) &&
+              FeatureFlags.shopByTags)
+            _FilterItem(
+              title: AppStrings.tags.tr(),
+              child: _TagsFilters(
+                tags: f.tags!.where((e)=>ProductTags.ribbons.contains(e.tag)).toList(),
+                selectedTags: _selectedTags,
+              ),
+            ),
+
+          // /// Stock
+          // if (_isVisible(StockAvailability.values, ProductsFilters.stock))
+          //   _FilterItem(
+          //     title: "Availability",
+          //     initiallyExpanded: false,
+          //     _StockFilters(
+          //       items: StockAvailability.values,
+          //       selected: _selectedStock,
+          //     ),
+          //   ),
+          /// Button
+          ValueListenableBuilder(
+            valueListenable: _cubit.totalProducts,
+            builder: (_, value, __) {
+              return AppButton(
+                text: "${AppStrings.see.tr()} ${value ?? ""} ${AppStrings.products.tr()}",
+                buttonSize: null,
+                onPressed: _onSubmit,
+              );
+            },
+          ),
+
+          Gap.medium(),
+        ],
+      ).appPaddingHr,
     );
   }
 

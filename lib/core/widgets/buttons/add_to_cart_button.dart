@@ -32,7 +32,7 @@ class AddToCartButton extends StatelessWidget {
         }
         return AppButton(
           text: AppStrings.addToCart.tr(),
-          fixedSize: Size(double.infinity, 41.h),
+          fixedSize: const Size(double.infinity, 41),
           padding: EdgeInsets.zero,
           enabled: enabled,
           onPressed: () => cartCubit.addToCart(product),

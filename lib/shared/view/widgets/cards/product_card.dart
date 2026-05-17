@@ -25,7 +25,7 @@ enum _ProductCardType {
 
   Size get size => this == _ProductCardType.big
       ? const Size(double.infinity, 350)
-      : const Size(150, 250);
+      : const Size(160, 250);
 }
 
 class ProductCard extends StatelessWidget {
@@ -63,9 +63,9 @@ class ProductCard extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: AppColors.grey.withAppOpacity(0.1),
-              blurRadius: 3,
-              offset: const Offset(2, 2),
+              color: AppColors.grey.withAppOpacity(0.075),
+              blurRadius: 10,
+              offset: const Offset(0.5, 0.5),
             ),
           ],
           color: context.scaffoldBackground,
@@ -87,9 +87,9 @@ class ProductCard extends StatelessWidget {
                   ),
                   if(product.id!=null)
                   _favorite(),
-                  if(!product.productTags.isNullOrEmpty)
-                  _ribbon(product.productTags!.first.toText, context
-                  , color: product.productTags!.first.color,
+                  if(product.ribbon!=null)
+                  _ribbon(product.ribbon!.toText, context
+                  , color: product.ribbon!.color,
                   ),
                 ],
               ),
@@ -119,7 +119,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   Gap.extraSmall(),
                   CircularBox(
-                    radius: isBig ? 30 : 28,
+                    radius: isBig ? 26 : 24,
                     child: AppCachedNetworkImage(product.vendor!.image),
                   ),
                 ],
@@ -186,6 +186,7 @@ class ProductNameWithPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: isBig ? 16.w : 8.w,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
@@ -193,7 +194,7 @@ class ProductNameWithPrice extends StatelessWidget {
             name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: isBig ? TextStyles.labelMedium : TextStyles.labelSmall,
+            style:  TextStyles.labelMedium.copyWith(fontSize: isBig ? 16.sp : 12.sp) ,
           ),
         ),
         if (price != null)
@@ -201,32 +202,28 @@ class ProductNameWithPrice extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (price!.priceBeforeDiscount != null && price!.priceBeforeDiscount! != price!.price) ...[
-                Flexible(
-                  child: Text(
-                    price!.priceBeforeDiscount!.usdPrice,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.captionSmall.copyWith(
-                      color: context.colors.surfaceContainer,
-                      fontSize: isBig ? 12.sp : 10.sp,
-                      decoration: TextDecoration.lineThrough,
-                      decorationColor: context.colors.surfaceContainer,
-                      decorationThickness: 1.3.sp,
-                    ),
-                  ),
-                ),
-                Gap(isBig ? 8 : 4),
-              ],
-              Flexible(
-                flex: 2,
-                child: Text(
-                  price!.totalPrice.usdPrice,
+                Text(
+                  price!.priceBeforeDiscount!.usdPrice,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyles.labelMedium.copyWith(
-                    color: AppColors.primary,
-                    fontSize: isBig ? 14.sp : 11.sp,
+                  style: TextStyles.captionSmall.copyWith(
+                    color: context.colors.surfaceContainer,
+                    fontSize: isBig ? 12.sp : 8.sp,
+                    decoration: TextDecoration.lineThrough,
+                    decorationColor: context.colors.surfaceContainer,
+                    decorationThickness: 4.sp,
                   ),
+                ),
+                Gap(isBig ? 6 : 3),
+              ],
+              Text(
+                price!.totalPrice.usdPrice,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.labelMedium.copyWith(
+                  color: AppColors.primary,
+                  fontSize: isBig ? 14.sp : 12.sp,
+                  fontWeight: FontWeightHelper.bold
                 ),
               ),
             ],

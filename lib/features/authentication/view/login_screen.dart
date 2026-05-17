@@ -10,6 +10,7 @@ import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/mixin/login_screen_mixin.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_header.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/auth_social_login.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/login_form.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/toggle_singup_and_login.dart';
 
@@ -19,7 +20,8 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin{
+
+class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin{
             BaseBlocConsumer(
               bloc: cubit,
               onFailure: onLoginFailure,
-              onSuccess:(_)=> onLoginSuccess(),
+              onSuccess: (_) => onLoginSuccess(),
               builder: (state) => AppButton(
                 text: AppStrings.signIn.tr(),
                 buttonSize: null,
@@ -50,11 +52,15 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin{
             ),
             if (AppConstants.authFormType == AuthFormType.emailAndPassword)
               const ToggleSignupAndLogin(),
-            AppButton.text(text: AppStrings.continueAsGuest.tr(), onPressed: userCubit.loginAsGuest,),
+            AppButton.text(
+              text: AppStrings.continueAsGuest.tr(),
+              onPressed: userCubit.loginAsGuest,
+            ),
+
+            const AuthSocialLogin(),
           ],
         ),
       ),
     );
   }
-
 }

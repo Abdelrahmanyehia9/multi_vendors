@@ -40,17 +40,20 @@ class AppSearchbar extends StatelessWidget {
               title!,
               const Gap(6),
             ],
-            AppTextField(
-              focusNode: cubit.focusNode,
-              controller: cubit.controller,
-              onTap: onTap,
-              hintText: '${AppStrings.search.tr()} ....',
-              hintStyle: TextStyles.captionLarge,
-              borderType: AppBorderType.filled,
-              padding: !state.hasFocus
-                  ? EdgeInsets.zero
-                  : EdgeInsets.symmetric(horizontal: 16.w),
-              prefix: state.hasFocus ? null : const Icon(MvIcons.search),
+            SizedBox(
+              height: 36.h,
+              child: AppTextField(
+                focusNode: cubit.focusNode,
+                controller: cubit.controller,
+                onTap: onTap,
+                hintText: '${AppStrings.search.tr()} ....',
+                hintStyle: TextStyles.captionLarge,
+                borderType: AppBorderType.filled,
+                padding: !state.hasFocus
+                    ? EdgeInsets.zero
+                    : EdgeInsets.symmetric(horizontal: 16.w),
+                prefix: state.hasFocus ? null : const Icon(MvIcons.search),
+              ),
             ),
           ],
         );

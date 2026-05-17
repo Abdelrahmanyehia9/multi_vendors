@@ -636,5 +636,24 @@ class AppStrings {
   static const String iN = "IN" ;
   static const String userUpdatedSuccessfully = "user_updated_successfully";
 
+  static const String bigSale = "big_sale";
+
+  static const String noCommentAvailable = "not_comment_available";
+
+  static const String soldBy = "sold_by";
+  static const String google = "google";
+  static const String apple = "apple";
+
+  static const String blackFriday = "black_friday";
+  static const String flashSale =   "f_sale";
+
+  static const String versionNotSupported = "version_not_supported";
+
+  static const String versionNotSupportedDescription = "version_not_supported_description";
+
+  static const String maintenanceDescription = "maintenance_mode_description";
+
+  static const String maintenance = "maintenance_mode";
+
 
 }

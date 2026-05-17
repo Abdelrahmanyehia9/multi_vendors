@@ -23,6 +23,7 @@ class AppCachedNetworkImage extends StatelessWidget {
   final Widget? placeholder;
   final Widget? errorWidget;
   final double? opacity;
+  final bool enableViewer ;
 
   final Alignment? alignment;
 
@@ -33,6 +34,7 @@ class AppCachedNetworkImage extends StatelessWidget {
     this.height,
     this.fit = BoxFit.cover,
     this.borderRadius,
+        this.enableViewer = false,
     this.color,
     this.alignment,
     this.radius,
@@ -49,14 +51,14 @@ class AppCachedNetworkImage extends StatelessWidget {
     }
     final image = AppClick(
       enabled: !imageUrl.isNullOrEmpty,
-      onDoubleTap: () => BottomSheets.show(
+      onDoubleTap:enableViewer ?  () => BottomSheets.show(
         showCloseButton: true,
         context,
         child: SizedBox(
           height: context.height * 0.9,
-          child: AppPhotoView(imgUrl: imageUrl!),
+          child: AppPhotoView(images: [?imageUrl]),
         ),
-      ),
+      ) : null,
       child: Opacity(
         opacity: opacity ?? 1,
         child: CachedNetworkImage(

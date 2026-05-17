@@ -15,9 +15,12 @@ class AppAssets{
 
 
   static const String facebookIcon = "assets/icons/facebook.svg" ;
+  static const String googleIcon = "assets/icons/google.svg" ;
+  static const String appleIcon = "assets/icons/apple.svg" ;
   static const String instagramIcon ="assets/icons/instagram.svg" ;
   static const String whatsappIcon = "assets/icons/whatsapp.svg" ;
   static const String tikTokIcon = "assets/icons/tiktok.svg" ;
+  static const String linkedInIcon = "assets/icons/linkedin.svg" ;
   static const String gBFlag = "assets/icons/gb.svg";
   static const String sAFlag = "assets/icons/sa.svg";
   static const String fRFlag = "assets/icons/fr.svg";

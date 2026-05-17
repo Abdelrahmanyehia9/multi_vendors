@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/routes/app_router.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
-import 'package:multi_vendor/multi_vendor.dart';
+import 'package:multi_vendor/avera.dart';
 import 'package:multi_vendor/shared/view/error_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,9 +24,12 @@ void main() async {
     AppConstants.setupPhoneSystem(),
     ScreenUtil.ensureScreenSize(),
   ]);
-
+  await Future.wait([
+    FeatureFlags.init(),
+    AppConstants.init()
+  ]) ;
   final AppRouter router = AppRouter();
-  await FeatureFlags.init();
+
   ErrorWidget.builder = (_) {
     return const ErrorScreen() ;
   };
@@ -41,7 +44,7 @@ void main() async {
       ],
       path: AppAssets.languagesPack,
       fallbackLocale: const Locale('en'),
-      child: MultiVendors(router: router),
+      child: Avera(router: router),
     ),
   );
 }

@@ -14,10 +14,12 @@ class SearchHistory extends StatelessWidget {
   final List<String> searchHistory;
   final void Function(int)? onRemoveItem ;
   final void Function()? onRemoveAll ;
+  final void Function(String)? onTapOnItem ;
 
   const SearchHistory({super.key,
     this.onRemoveAll,
     this.onRemoveItem,
+    this.onTapOnItem,
     required this.searchHistory});
 
   @override
@@ -43,7 +45,9 @@ class SearchHistory extends StatelessWidget {
               itemCount: searchHistory.length,
               separatorBuilder: (_, index) => Gap.large(),
               itemBuilder: (_, index) =>
-                  _buildHistoryItem(searchHistory[index] , index),
+                  AppClick(
+                      onTap: ()=>onTapOnItem?.call(searchHistory[index]),
+                      child: _buildHistoryItem(searchHistory[index] , index)),
             ),
           ),
         ],

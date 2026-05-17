@@ -59,7 +59,7 @@ class _Slide extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
-                margin:  EdgeInsetsDirectional.only(top: 8.h ),
+                margin:  EdgeInsetsDirectional.only(top: 8.h, start: 16.w , end: 16.w),
                 decoration: BoxDecoration(
                   color: AppColors.grey800,
                   borderRadius: BorderRadius.circular(
@@ -79,6 +79,7 @@ class _Slide extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyles.labelSmall.copyWith(
                               color: banner.textColor,
+                              fontWeight: FontWeightHelper.bold
                             ),
                           ),
                           Text(
@@ -87,36 +88,40 @@ class _Slide extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyles.captionSmall.copyWith(
                               color: banner.textColor,
+                              fontSize: 12.sp
                             ),
                           ),
                           AppButton(
                             text: banner.buttonText?.localized ?? "",
                             color: AppColors.secondary,
-                            style: TextStyles.bodySmall,
+                            style: TextStyles.labelSmall.copyWith(
+                              fontSize: 11.sp
+                            ),
+                            padding: EdgeInsets.zero,
                             onPressed: () {
                               if (banner.redirect != null) {
                                 context.pushNamed(banner.redirect!);
                               }
                             },
-                            fixedSize: const Size(150, 35),
+                            fixedSize: const Size(110, 25),
                             buttonSize: null,
                           ),
                         ],
                       ).appPaddingAll,
                     ),
-                    Gap(width * .35),
+                    Gap(width * .375),
                   ],
                 ),
               ),
               Positioned(
                 bottom: 0.h,
-                right: context.isRTL ? null : 0,
-                left: context.isRTL ? 0 : null,
+                right: context.isRTL ? null : -4.w,
+                left: context.isRTL ? -4.w : null,
                 child: AppCachedNetworkImage(
                   banner.image,
                   width: width * .375,
                   fit: BoxFit.fill,
-                  height: 132.h,
+                  height: 147,
                 ),
               ),
             ],
@@ -135,6 +140,6 @@ class _Slide extends StatelessWidget {
                 width: width ,
               ),
           ),
-        );
+        ).appPaddingHr;
   }
 }

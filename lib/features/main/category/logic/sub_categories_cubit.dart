@@ -19,8 +19,7 @@ List<CategoryModel> _subcategories = [] ;
           (l) => safeEmit(BaseState.failure(l)),
           (r) {
             _subcategories = r ;
-            if(r.isEmpty) return safeEmit(const BaseState.empty()) ;
-        safeEmit(BaseState.success(r));
+         safeEmit(BaseState.success(r));
       },
     );
 

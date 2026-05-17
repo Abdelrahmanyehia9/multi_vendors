@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
 
 
 class SloganText extends StatelessWidget {
@@ -13,11 +13,11 @@ class SloganText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: "${AppStrings.discoverYourBest.tr()}\t",
+        text: "${AppConstants.slogan.tr()}\t",
         style: TextStyles.labelLarge,
         children: [
           TextSpan(
-            text: AppStrings.fashion.tr(),
+            text: AppConstants.sloganHighlight.tr(),
             style: TextStyles.labelLarge.copyWith(color: AppColors.primary),
           ),
         ],

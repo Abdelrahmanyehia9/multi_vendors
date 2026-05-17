@@ -42,7 +42,7 @@ class _ReviewsScreenState extends State<ReviewsScreen>
             ProductReviewDistributionCard(rating: rating),
             Gap.large(),
             ProductReviewDistributionTabs(
-              distribution: rating?.distributionList ?? [],
+              distribution: (rating?.distributionList ?? []),
               selected: selected,
             ),
             BaseBlocConsumer<UserReviewsCubit, List<UserReviewModel>>(

@@ -73,10 +73,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             Text(AppStrings.contactUsDescription.tr(),
             style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer),),
              SectionHeader(title: AppStrings.reachUs.tr()),
-           Wrap(
+           Row(
              spacing: 4.w,
-             runSpacing: 4.h,
-             children: _contactUsData.map((e) => _contactUsTile(e)).toList(),
+             children: _contactUsData.map((e) => Expanded(child: _contactUsTile(e))).toList(),
            ),
             Gap.small(),
              SectionHeader(title: AppStrings.socialMedia.tr()),
@@ -124,7 +123,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       child: Row(
         spacing: 8.w,
         children: [
-          SvgPicture.asset(tile.path, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
+          SvgPicture.asset(tile.path , width: 25.w, colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),),
           Text(tile.title, style: TextStyles.labelMedium.copyWith(color: AppColors.white),),
           const Spacer(),
           Icon(MvIcons.arrowForward,size: 20.sp ,color: Colors.white),

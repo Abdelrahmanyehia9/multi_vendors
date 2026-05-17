@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 
 import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
@@ -37,54 +38,62 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 70.h,
-          child: BaseAppBar(
-            title: AppStrings.categories.tr(),
-            showLeading: false,
+    return RefreshIndicator(
+      onRefresh: ()async=> _onRefresh(context),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 70.h,
+            child: BaseAppBar(
+              title: AppStrings.categories.tr(),
+              showLeading: false,
+            ),
           ),
-        ),
 
-        Expanded(
-          child: Row(
-            children: [
-              /// ─── Main Categories ───
-              BaseBlocConsumer<MainCategoriesCubit, List<CategoryModel>>(
-                onSuccess: (data) {
-                  if (!data.isNullOrEmpty && selectedCategory.value == null) {
-                    selectedCategory.value = data!.first;
-                  }
-                },
-                successBuilder: (data) => CategorySideBar(
-                  selectedMainCategory: selectedCategory,
-                  categories: data,
-                ),
-
-                loadingBuilder: () => CategorySideBar(
-                  selectedMainCategory: selectedCategory,
-                  categories: List.generate(4, (_) => CategoryModel.fake()),
-                ),
-              ),
-              /// ─── Sub Categories ───
-              Expanded(
-                child: ValueListenableBuilder(
-                  valueListenable: selectedCategory,
-                  builder: (_, value, __) {
-                    return  SubCategoriesGrid(
-                        mainCategory: value,
-                      ) ;
+          Expanded(
+            child: Row(
+              children: [
+                /// ─── Main Categories ───
+                BaseBlocConsumer<MainCategoriesCubit, List<CategoryModel>>(
+                  onSuccess: (data) {
+                    if (!data.isNullOrEmpty && selectedCategory.value == null) {
+                      selectedCategory.value = data!.first;
+                    }
                   },
+                  successBuilder: (data) => CategorySideBar(
+                    selectedMainCategory: selectedCategory,
+                    categories: data,
+                  ),
+                  failureBuilder: AppStates.error,
+                  loadingBuilder: () => CategorySideBar(
+                    selectedMainCategory: selectedCategory,
+                    categories: List.generate(4, (_) => CategoryModel.fake()),
+                  ),
                 ),
-              ),
-            ],
+                /// ─── Sub Categories ───
+                Expanded(
+                  child: ValueListenableBuilder(
+                    valueListenable: selectedCategory,
+                    builder: (_, value, __) {
+                      return  SubCategoriesGrid(
+                          mainCategory: value,
+                        ) ;
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+
   }
 
+  Future<void> _onRefresh(BuildContext context)async{
+    context.read<MainCategoriesCubit>().getCategories();
+    context.read<SubCategoriesCubit>().getSubCategories();
+  }
   @override
   void dispose() {
     selectedCategory.dispose();

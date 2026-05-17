@@ -33,7 +33,6 @@ mixin MainLayoutMixin on State<MainLayout> {
   MainLayoutCubit get cubit => context.read<MainLayoutCubit>()  ;
   late final List<NavbarItem> items;
   late final List<Widget?> _loadedPages;
-  late final List<int> _refreshKeys;
 
 
   @override
@@ -41,7 +40,6 @@ mixin MainLayoutMixin on State<MainLayout> {
     super.initState();
     items = _buildItems();
     _loadedPages = List.generate(items.length, (_) => null);
-    _refreshKeys = List.generate(items.length, (_) => 0);
     _loadedPages[widget.initialIndex] = items[widget.initialIndex]
         .pageBuilder();
   }
@@ -86,11 +84,7 @@ mixin MainLayoutMixin on State<MainLayout> {
               HomeBannerCubit(getIt<HomeRepository>())..getBanners(),
             ),
           ],
-          child: HomeScreen(
-            onSearch: () {
-              cubit.changePage(1);
-            },
-          ),
+          child: const HomeScreen(),
         ),
       ),
       NavbarItem(
@@ -142,22 +136,9 @@ mixin MainLayoutMixin on State<MainLayout> {
   }
   bool get canPop => cubit.canPop;
 
-  Future<void> onRefresh() async{
-    final currentIndex = cubit.state;
-
-    setState(() {
-      _refreshKeys[currentIndex]++;
-      _loadedPages[currentIndex] = items[currentIndex].pageBuilder();
-    });
-  }
-  List<Widget> get pages => _loadedPages.asMap().entries.map((entry) {
-    final index = entry.key;
-    final page = entry.value ?? const SizedBox();
-    return KeyedSubtree(
-      key: ValueKey(_refreshKeys[index]),
-      child: page,
-    );
-  }).toList();
-
+  List<Widget> get pages => _loadedPages
+      .map((p) => p ?? const SizedBox.shrink()
+  )
+      .toList();
 
 }

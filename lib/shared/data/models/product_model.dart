@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
@@ -84,10 +85,12 @@ class ProductModel extends Equatable implements FavoriteItem {
       );
 
   @override
-  List<Object?> get props =>
-      [id, rating, price, productTags, name, thumbnail, vendor];
+  List<Object?> get props => [id, rating, price, productTags, name, thumbnail, vendor];
   int get uniqueId => id!;
   int get inStock => stockAvailability?.quantity ?? 0;
+  ProductTags? get ribbon => productTags?.firstWhereOrNull((e) => ProductTags.ribbons.contains(e));
+
+
   @override
   int get favoriteId => id!;
   @override

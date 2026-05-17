@@ -26,8 +26,8 @@ class CategoryRepository {
       final response = await _db.GET(
         table: RemoteDatabaseConstants.category_table,
         filter: (e) => parentId != null
-            ? e.gt("count", 0).eq("parent", parentId).order("count", ascending: false)
-            : e.gt("count", 0).not("parent", "is", null).order("count", ascending: false),
+            ? e.gte("count", 0).eq("parent", parentId).order("count", ascending: false)
+            : e.gte("count", 0).not("parent", "is", null).order("count", ascending: false),
       );
       return right(response.map(CategoryModel.fromJson).toList());
     } catch (e) {

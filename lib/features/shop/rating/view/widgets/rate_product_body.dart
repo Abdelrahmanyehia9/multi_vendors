@@ -29,6 +29,7 @@ class _RateProductBodyState extends State<RateProductBody> with AutomaticKeepAli
   Widget build(BuildContext context) {
     super.build(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12.h,
       children: [
         CheckoutProductCard(

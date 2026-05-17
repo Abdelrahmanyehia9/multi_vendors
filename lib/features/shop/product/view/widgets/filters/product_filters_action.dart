@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
@@ -52,7 +53,9 @@ class _ProductFiltersActionState extends State<ProductFiltersAction>
       items: _sortOptions
           .map((e) => PopupMenuItem(
         value: e,
-        child: Text(e.type.toText(e.asc)),
+        child: Text(e.type.toText(e.asc), style: TextStyles.labelMedium.copyWith(
+          color: currentFilters?.sortBy == e ?AppColors.primary :null
+        )),
       ))
           .toList(),
       onSelected: (value) => _applyFilters(

@@ -18,11 +18,10 @@ class NewsRepository {
           final q = query?.trim();
           final base = e.order(RemoteDatabaseConstants.created_at_column, ascending: false);
           if (q == null || q.isEmpty) return base;
-
-          final encoded = Uri.encodeComponent(q);
+          final safeQuery = q.replaceAll(',', r'\,');
           final locale = AppConstants.locale;
           return e
-              .or('title->>$locale.ilike.%$encoded%,description->>$locale.ilike.%$encoded%')
+              .or('title->>$locale.ilike.%$safeQuery%,description->>$locale.ilike.%$safeQuery%')
               .order(RemoteDatabaseConstants.created_at_column, ascending: false);
         },
       );

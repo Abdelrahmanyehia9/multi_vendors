@@ -8,7 +8,6 @@ mixin _ProductFiltersSheetMixin on State<ProductFiltersSheet> {
   final ValueNotifier<List<CategoryModel>> _selectedCategories = ValueNotifier([]);
    ProductsFiltersModel? _filters;
   ProductsAllFiltersCubit get _cubit => context.read<ProductsAllFiltersCubit>();
-
   @override
   void initState() {
     _setupInitialFilters();

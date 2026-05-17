@@ -62,7 +62,7 @@ class QuantityStepper extends StatelessWidget {
                 ? _NarrowAddOrMinus(args)
                 : _WideAddOrMinus(args),
 
-            if (remining > 0)
+            if (remining > 0  && remining < 10)
             Text('$remining ${AppStrings.itemsLeft.tr()}',style: TextStyles.labelMedium.copyWith(
               color: AppColors.error,
               fontSize: isNarrow? 12.sp : 14.sp
@@ -87,9 +87,10 @@ class _NarrowAddOrMinus extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CircleButton(icon: MvIcons.remove, onTap: _args.onMinus, enabled: _args.minusEnabled),
-          Text(_args.quantity.toString(), style: TextStyles.labelSmall).appPaddingHr,
           _CircleButton(icon: MvIcons.add, onTap: _args.onAdd, enabled: _args.addEnabled),
+          Text(_args.quantity.toString(), style: TextStyles.labelSmall).appPaddingHr,
+          _CircleButton(icon: MvIcons.remove, onTap: _args.onMinus, enabled: _args.minusEnabled),
+
         ],
       ),
     );
@@ -106,16 +107,17 @@ class _WideAddOrMinus extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         AppIconButton(
-          enabled: _args.minusEnabled,
-          icon: MvIcons.remove,
-          onTap: _args.onMinus,
-        ),
-        Text(_args.quantity.toString(), style: TextStyles.labelLarge),
-        AppIconButton(
           enabled: _args.addEnabled,
           icon: MvIcons.add,
           onTap: _args.onAdd,
         ),
+        Text(_args.quantity.toString(), style: TextStyles.labelLarge),
+        AppIconButton(
+          enabled: _args.minusEnabled,
+          icon: MvIcons.remove,
+          onTap: _args.onMinus,
+        ),
+
       ],
     ).appPaddingVr;
   }

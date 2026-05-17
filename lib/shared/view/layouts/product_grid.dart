@@ -23,8 +23,8 @@ class ProductGrid extends StatelessWidget {
       return SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing: 21.w,
-          crossAxisSpacing: 24.h,
+          mainAxisSpacing: 16.w,
+          crossAxisSpacing: 16.h,
           childAspectRatio: ProductCard.smallSize.aspectRatio,
         ),
         delegate: SliverChildBuilderDelegate(
@@ -40,8 +40,8 @@ class ProductGrid extends StatelessWidget {
       physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 21.h,
-        mainAxisSpacing: 24.h,
+        mainAxisSpacing: 16.w,
+        crossAxisSpacing: 16.h,
         childAspectRatio: ProductCard.smallSize.aspectRatio,
       ),
       itemBuilder: (_, i) => ProductCard.small(product: products[i]),

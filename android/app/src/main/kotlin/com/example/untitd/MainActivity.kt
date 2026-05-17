@@ -1,4 +1,4 @@
-package com.example.untitd
+package com.nexyra.avera
 
 import io.flutter.embedding.android.FlutterActivity
 

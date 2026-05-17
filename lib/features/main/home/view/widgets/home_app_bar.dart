@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -41,7 +40,7 @@ class HomeAppBar extends StatelessWidget {
           const AppCartButton(),
         ],
       ),
-    ).appPaddingVr;
+    );
   }
 
   Widget _nameWithLocation(BuildContext context) {

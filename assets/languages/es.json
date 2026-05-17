@@ -423,7 +423,20 @@
   "nexyra_tech": "Nexyra Technology",
   "user_updated_successfully": "Usuario actualizado correctamente",
   "egp": "LE",
-  "IN": "en"
+  "IN": "en",
+  "big_sale": "Gran oferta",
+  "not_comment_available": "No hay comentarios disponibles",
+  "sold_by": "Vendido por",
+  "google": "Google",
+  "black_friday": "Black Friday",
+  "f_sale": "Oferta flash",
+  "version_not_supported": "Versión no compatible",
+  "version_not_supported_description": "Por favor, actualiza la aplicación a la última versión para continuar",
+  "maintenance_mode": "Modo de mantenimiento",
+  "maintenance_mode_description": "La aplicación está actualmente en mantenimiento, por favor inténtalo más tarde"
+
+
+
 
 
 

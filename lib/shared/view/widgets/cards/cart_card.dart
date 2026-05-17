@@ -22,7 +22,7 @@ class CartCard extends StatelessWidget {
   final double height;
   final CartModel cartItem;
 
-  const CartCard({super.key, required this.cartItem, this.height = 100});
+  const CartCard({super.key, required this.cartItem, this.height = 120});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,8 @@ class CartCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.labelMedium,
                   ),
-                  Text("${AppStrings.total.tr()}: ${cartItem.total.usdPrice}"),
+                  Text("${AppStrings.total.tr()} : ${cartItem.total.usdPrice}"),
+                  Text("${AppStrings.soldBy.tr()} : ${cartItem.product.vendor?.name.localized}", style: TextStyles.captionSmall,),
                   Gap.small(),
                   QuantityStepper.narrow(item: cartItem.product),
                 ],

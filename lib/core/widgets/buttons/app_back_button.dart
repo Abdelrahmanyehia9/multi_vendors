@@ -11,21 +11,25 @@ class AppBackButton extends StatelessWidget {
   final Color? iconColor;
   final Color? backgroundColor;
   final GestureTapCallback? onBack;
+  final double size ;
+  final double padding ;
 
   const AppBackButton({
     super.key,
     this.onBack,
     this.iconColor,
     this.backgroundColor,
+    this.size =24,
+    this.padding =16
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 16.w, top: 16.h),
+      padding: EdgeInsetsDirectional.only(start: padding.w, top: padding.h),
       child: AppIconButton(
         icon: MvIcons.arrowBack,
-        size: 24,
+        size: size,
         tooltip: AppStrings.back,
         iconColor: iconColor,
         backGroundColor: backgroundColor,

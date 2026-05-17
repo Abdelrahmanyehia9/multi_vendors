@@ -23,6 +23,7 @@ mixin EditProfilePicMixin on State<ChangeProfilePic>{
   }
   void onImageChangedFailed(AppException ex) {
     context.errorBar(message: ex.message);
+    imageHandleCubit.reset() ;
     context.loaderOverlay.hide() ;
   }
 

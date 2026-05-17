@@ -112,6 +112,7 @@ class AppButton extends StatelessWidget {
     String? toolTip,
     ButtonSize? buttonSize,
     bool enabled = true,
+    bool isLoading = false,
   }) => AppButton(
     text: text,
     onPressed: onPressed,
@@ -127,6 +128,7 @@ class AppButton extends StatelessWidget {
     icon: icon,
     buttonSize: buttonSize,
     enabled: enabled,
+    isLoading: isLoading,
     variant: ButtonVariant.outlined,
   );
 

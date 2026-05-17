@@ -35,13 +35,14 @@ class VendorDetailsScreen extends StatefulWidget {
 
 class _VendorDetailsScreenState extends State<VendorDetailsScreen>
     with ScrollTitleVisibilityMixin {
-
-    Future<void> _fetchProducts(VendorDetailsModel? v) async {
+  Future<void> _fetchProducts(VendorDetailsModel? v) async {
     final filters = ProductsFiltersModel(
       vendors: [VendorModel(id: v!.id, name: v.name, image: v.image)],
     );
     final filtersCubit = context.read<ProductsAllFiltersCubit>();
-    filtersCubit..init(filters)..exclude([ProductsFilters.vendor]);
+    filtersCubit
+      ..init(filters)
+      ..exclude([ProductsFilters.vendor]);
     context.read<ProductsByFiltersCubit>().getProductsInFilter(
       filters: filters,
     );
@@ -53,6 +54,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
       body: BaseBlocConsumer<VendorDetailsCubit, VendorDetailsModel>(
         onSuccess: _fetchProducts,
         successBuilder: _buildContent,
+        failureBuilder: AppStates.error,
         loadingBuilder: () => _buildContent(VendorDetailsModel.fake()),
       ),
     );
@@ -67,7 +69,8 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
           vendor: vendor,
           expandedHeight: titleThreshold,
         ),
-       if(vendor.bio!=null)SliverToBoxAdapter(child: _buildBio(vendor.bio!.localized),),
+        if (vendor.bio != null)
+          SliverToBoxAdapter(child: _buildBio(vendor.bio!.localized)),
         SliverToBoxAdapter(child: VendorInfoCard(vendor: vendor)),
         _productsHeader(),
         // SliverToBoxAdapter(child: const ProductsFiltersChip().appPaddingAll),
@@ -75,6 +78,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
       ],
     );
   }
+
   Widget _productsHeader() {
     return SliverToBoxAdapter(
       child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
@@ -105,6 +109,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
       ),
     );
   }
+
   Widget _productsList() {
     return SliverToBoxAdapter(
       child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
@@ -118,30 +123,38 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
       ).appPaddingHr,
     );
   }
-  Widget _buildBio(String bio){
-      return Container(
-        padding: EdgeInsets.all(16.r),
-        margin: EdgeInsets.all(8.r),
-        decoration: BoxDecoration(
-          color: context.scaffoldBackground,
-          boxShadow: [
-            BoxShadow(
-              color: context.colors.surfaceContainerLowest.withAppOpacity(0.4),
-              blurRadius: Decorations.borderRadius24.r,
-              offset: const Offset(0, 2),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-          border: Border.all(color: context.colors.surfaceContainerLowest),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(AppStrings.bio.tr().toUpperCase(), style: TextStyles.labelMedium,),
-            ReadMoreText(text:bio , maxLength: 60,style: TextStyles.captionMedium,)
-          ],
-        ),
-      );
+
+  Widget _buildBio(String bio) {
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      margin: EdgeInsets.all(8.r),
+      decoration: BoxDecoration(
+        color: context.scaffoldBackground,
+        boxShadow: [
+          BoxShadow(
+            color: context.colors.surfaceContainerLowest.withAppOpacity(0.4),
+            blurRadius: Decorations.borderRadius24.r,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
+        border: Border.all(color: context.colors.surfaceContainerLowest),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppStrings.bio.tr().toUpperCase(),
+            style: TextStyles.labelMedium,
+          ),
+          ReadMoreText(
+            text: bio,
+            maxLength: 60,
+            style: TextStyles.captionMedium,
+          ),
+        ],
+      ),
+    );
   }
 
   @override

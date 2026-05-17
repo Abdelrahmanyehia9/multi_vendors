@@ -107,6 +107,7 @@ class _Vendor extends StatelessWidget {
                         ),
                       ),
               ),
+               if(!lastOne)
                Row(
             children: [
                 ConstrainedBox(
@@ -126,7 +127,9 @@ class _Vendor extends StatelessWidget {
                 if(vendor.isVerified)
                 Icon(MvIcons.verified, size: 16.sp, color: AppColors.success600),
             ],
-          ),
+          )else
+               Text("${AppStrings.more.tr()} ...", style: TextStyles.labelSmall,)
+            ,
         ],
       ),
     );

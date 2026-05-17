@@ -10,8 +10,9 @@ class ResultScreenArgs {
   final String? customMessage ;
   final String? customTitle;
   final Widget? customIcon;
+  final bool showAppbar ;
   final Widget Function(BuildContext)? action ;
-  const ResultScreenArgs({required this.type, this.customIcon, this.customMessage, this.action, this.customTitle });
+  const ResultScreenArgs({required this.type,this.showAppbar= false ,this.customIcon, this.customMessage, this.action, this.customTitle });
 }
 
 
@@ -22,8 +23,9 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      appBar: BaseAppBar(),
+      appBar:  args.showAppbar ?  BaseAppBar() : null,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         spacing: 8.h,
         children: [
           MessageAlert(

@@ -15,13 +15,14 @@ class SearchRepository {
  const SearchRepository(this._db ,this._storage);
   Future<Either<AppException, List<ProductModel>>> searchProducts(
     String query,
-  ) async {
+  ) async
+  {
     try {
-      final encoded= Uri.encodeComponent(query);
+      final safeQuery = query.replaceAll(',', r'\,');
       final locale = AppConstants.locale;
       final response  = await _db.GET(table: RemoteDatabaseConstants.product_table,
           filter: (e) => e.or(
-              'name->>$locale.ilike.%$encoded%,description->>$locale.ilike.%$encoded%'
+              'name->>$locale.ilike.%$safeQuery%,description->>$locale.ilike.%$safeQuery%'
           ).order(RemoteDatabaseConstants.created_at_column).limit(10)
       );
       final products = response.map((e) => ProductModel.fromJson(e)).toList();

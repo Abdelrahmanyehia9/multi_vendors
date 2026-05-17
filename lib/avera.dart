@@ -13,9 +13,9 @@ import 'package:multi_vendor/core/service/navigation_service.dart';
 import 'package:multi_vendor/core/theme/app_theme.dart';
 import 'package:multi_vendor/core/utils/helper/app_scroll_behavior.dart';
 
-class MultiVendors extends StatelessWidget {
+class Avera extends StatelessWidget {
   final AppRouter router;
-  const MultiVendors({super.key, required this.router});
+  const Avera({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,9 @@ class MultiVendors extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               onGenerateRoute: router.generateRoute,
               initialRoute: Routes.splash,
-              builder: (context, child) => UserSessionBuilder(child: child!),
+              builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+                  child: UserSessionBuilder(child: child!)),
             ),
           ),
         ),

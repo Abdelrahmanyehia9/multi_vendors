@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
-import 'package:multi_vendor/features/authentication/data/repository/social_media_login.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import 'package:multi_vendor/shared/data/models/user_model.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRepository {
   final AuthenticationService _authService;
@@ -41,10 +41,10 @@ class AuthRepository {
 
 
   Future<Either<AppException, Unit>> socialLogin(
-    SocialMediaAuthProvider provider,
+    OAuthProvider provider,
   ) async {
     try {
-      await provider.login();
+      await _authService.signInWithOAuth(provider)  ;
       return right(unit);
     } catch (e) {
       return left(e.toAppException);

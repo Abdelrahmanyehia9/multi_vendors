@@ -448,7 +448,20 @@
   "nexyra_tech": "Nexyra Technology",
   "user_updated_successfully": "用户信息更新成功",
   "egp": "埃镑",
-  "IN": "在"
+  "IN": "在",
+  "big_sale": "大促销",
+  "not_comment_available": "暂无评论",
+  "sold_by": "出售者",
+  "google": "Google",
+  "black_friday": "黑色星期五",
+  "f_sale": "限时抢购",
+  "version_not_supported": "版本不受支持",
+  "version_not_supported_description": "请将应用更新到最新版本以继续使用",
+  "maintenance_mode": "维护模式",
+  "maintenance_mode_description": "应用当前正在维护中，请稍后再试"
+
+
+
 
 
 

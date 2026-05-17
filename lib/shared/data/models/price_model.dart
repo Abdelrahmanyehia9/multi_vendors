@@ -34,5 +34,9 @@ class PriceModel {
   };
   factory PriceModel.fake()=>PriceModel(price: FakeData.fakeDouble);
   num get totalPrice => price;
+  num get discountPercentage =>
+    priceBeforeDiscount != null && priceBeforeDiscount! > price
+        ? ((priceBeforeDiscount! - price) / priceBeforeDiscount!) * 100
+        : 0;
 }
 
