@@ -35,9 +35,7 @@ class _UserSessionBuilderState extends State<UserSessionBuilder> {
 
   void _go(String route) {
     if (!mounted || _isNavigating) return;
-
     _isNavigating = true;
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       NavigationService.navigator?.pushNamedAndRemoveUntil(

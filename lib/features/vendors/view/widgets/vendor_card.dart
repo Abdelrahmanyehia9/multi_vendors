@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -68,7 +68,7 @@ class VendorCard extends StatelessWidget {
                     Row(
                       spacing: 8.w,
                       children: [
-                        _iconText(MvIcons.delivery, "40 ${AppConstants.currency.name}"),
+                        _iconText(MvIcons.delivery, "40 ${AppConfigs.currency.name}"),
                         _iconText(MvIcons.timelapse, "20-50 ${AppStrings.minutePlural.tr()}"),
                       ],
                     ),

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/features/authentication/logic/social_login_cubit.dart';
 
@@ -20,7 +20,7 @@ class AuthSocialLogin extends StatelessWidget {
       onFailure: (f) =>context.errorBar(message: f.message),
       builder:(s)=> Column(
         spacing: 12.h,
-        children:  AppConstants.socialAuth.map(
+        children:  AppConfigs.socialAuth.map(
           (e) => AppButton.outlined(
         text: e.text.tr(),
         color: context.colors.surfaceContainer,

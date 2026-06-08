@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
@@ -6,13 +7,17 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class BottomSheets {
   const BottomSheets._();
-  static Future<T?> show<T>(
-    BuildContext context, {
+
+  static Future<T?> show<T>(BuildContext context, {
     required Widget child,
     bool dismissible = true,
     bool enableDrag = false,
@@ -39,7 +44,10 @@ class BottomSheets {
               ),
             ),
             Padding(
-              padding:  EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+              padding: EdgeInsets.only(bottom: MediaQuery
+                  .of(context)
+                  .padding
+                  .bottom),
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   boxShadow: shadow,
@@ -48,26 +56,26 @@ class BottomSheets {
                     top: Radius.circular(borderRadius.r),
                   ),
                 ),
-                  child: Stack(
-                    alignment: AlignmentDirectional.topEnd,
-                    children: [
-                      child,
-                      if (showCloseButton)
-                        AppClick(
-                          onTap: context.pop,
-                          child: CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: AppColors.primary,
-                            child: Icon(
-                              MvIcons.close,
-                              size: 22.sp,
-                              color: Colors.white,
-                            ),
-                          ).appPaddingHr.paddingVr(8),
-                        ),
-                    ],
-                  ),
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    child,
+                    if (showCloseButton)
+                      AppClick(
+                        onTap: context.pop,
+                        child: CircleAvatar(
+                          radius: 20.r,
+                          backgroundColor: AppColors.primary,
+                          child: Icon(
+                            MvIcons.close,
+                            size: 22.sp,
+                            color: Colors.white,
+                          ),
+                        ).appPaddingHr.paddingVr(8),
+                      ),
+                  ],
                 ),
+              ),
             ),
           ],
         );
@@ -75,81 +83,37 @@ class BottomSheets {
     );
   }
 
+  static Future<void> showWarning(BuildContext context,
+      {String title = AppStrings.areYouSure,
+        IconData icon = MvIcons.warning,
+        Color iconColor = AppColors.primary,
+        VoidCallback? onConfirm,
+        String message = AppStrings
+          .areYouSureToDoThisAction}) async{
+    final result = await show(context,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 4.h,
+          children: [
+            Icon(icon, size: 80.sp, color: iconColor,),
+            Gap.small(),
+            Text(title.tr() , textAlign: TextAlign.center, style: TextStyles.bodyLarge,),
+            Text(message.tr(), textAlign: TextAlign.center, style: TextStyles.captionMedium,),
+            Gap.medium(),
+            AppButton(text: AppStrings.confirm.tr(), buttonSize: null, onPressed: (){
+              context.pop(true) ;
+            },),
+            AppButton.text(text: AppStrings.cancel.tr(), onPressed: (){
+              context.pop(false) ;
+            })
+          ],
+
+        ).paddingHr(8)
+    );
+    if(!context.mounted) return ;
+    if(result == true){
+      onConfirm?.call();
+      return ;
+    }
+  }
 }
-//
-// static Future<T?> showBasic<T>({
-//   required BuildContext context,
-//   Widget? icon,
-//   String? title,
-//   String? subtitle,
-//   Widget? action,
-//   Widget? action2,
-//   bool dismissible = true,
-//   bool showCloseButton = true,
-//   bool showPattern = false,
-// })
-// {
-//   return show<T>(
-//     context,
-//     dismissible: dismissible,
-//     showCloseButton: showCloseButton,
-//     showPattern: showPattern,
-//     child: Column(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: [
-//         if (icon != null) ...[icon, const Gap(8)],
-//         if (title != null)
-//           Text(
-//             title,
-//             style: TextStyles.labelMedium,
-//             textAlign: TextAlign.center,
-//           ),
-//         if (subtitle != null)
-//           Text(
-//             subtitle,
-//             style: TextStyles.bodyMedium.copyWith(
-//               color: context.colorScheme.surfaceContainerHigh,
-//               fontWeight: FontWeightHelper.regular,
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         const Gap(16),
-//         if (action != null) ...[action, const Gap(8)],
-//         if (action2 != null) ...[action2, const Gap(4)],
-//       ],
-//     ).appPaddingHr(),
-//   );
-// }
-//
-// static Future<bool> alertBottomSheet({
-//   required BuildContext context,
-//   String? title,
-//   required String message,
-// })
-// async {
-//   final bool? selected = await BottomSheets.showBasic<bool>(
-//     context: context,
-//     title: title ?? "هل انت متاكد",
-//     showCloseButton: false,
-//     icon: Column(
-//       children: [
-//         const Gap(24),
-//         Icon(AppIcons.warning, size: 60.sp, color: AppColors.warning),
-//       ],
-//     ),
-//     subtitle: message,
-//     action: AppButton(
-//       text: "تاكيد",
-//       onPressed: () => context.pop(true),
-//       height: 40,
-//     ),
-//     action2: AppButton(
-//       text: "الغاء",
-//       onPressed: () => context.pop(false),
-//       height: 40,
-//       isTextButton: true,
-//     ),
-//   );
-//   return selected ?? false;
-// }

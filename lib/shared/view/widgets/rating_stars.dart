@@ -95,6 +95,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
     if (!FeatureFlags.enableRating) return const SizedBox.shrink();
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.title != null) SectionHeader(title: widget.title!),
         ValueListenableBuilder<double>(

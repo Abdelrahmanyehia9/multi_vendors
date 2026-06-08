@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:multi_vendor/core/cubit/connection_cubit.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
+import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 import 'package:multi_vendor/core/widgets/app_loader_indicator.dart';
+import 'package:multi_vendor/shared/view/widgets/network_checker_init.dart';
 import 'package:multi_vendor/shared/view/widgets/user_prefrences_builder.dart';
 import 'package:multi_vendor/shared/view/widgets/user_session_builder.dart';
 import 'package:multi_vendor/core/routes/app_router.dart';
@@ -15,6 +18,7 @@ import 'package:multi_vendor/core/utils/helper/app_scroll_behavior.dart';
 
 class Avera extends StatelessWidget {
   final AppRouter router;
+
   const Avera({super.key, required this.router});
 
   @override
@@ -25,6 +29,10 @@ class Avera extends StatelessWidget {
         BlocProvider.value(value: cartCubit..init()),
         BlocProvider.value(value: favoriteCubit..init()),
         BlocProvider.value(value: userPreferencesCubit),
+        BlocProvider(
+          create: (context) =>
+              ConnectionCubit(getIt.get<NetworkChecker>())..init(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
@@ -32,9 +40,9 @@ class Avera extends StatelessWidget {
         splitScreenMode: true,
         child: GlobalLoaderOverlay(
           overlayColor: Colors.black45,
-          overlayWidgetBuilder: (_)=>const AppLoaderIndicator(),
+          overlayWidgetBuilder: (_) => const AppLoaderIndicator(),
           child: UserPreferencesBuilder(
-            builder:(mode, locale)=> MaterialApp(
+            builder: (mode, locale) => MaterialApp(
               locale: locale,
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
@@ -47,8 +55,13 @@ class Avera extends StatelessWidget {
               onGenerateRoute: router.generateRoute,
               initialRoute: Routes.splash,
               builder: (context, child) => MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
-                  child: UserSessionBuilder(child: child!)),
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: TextScaler.noScaling),
+                child: NetworkCheckerInit(
+                  child: UserSessionBuilder(child: child!),
+                ),
+              ),
             ),
           ),
         ),

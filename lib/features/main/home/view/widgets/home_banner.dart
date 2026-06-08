@@ -77,7 +77,7 @@ class _Slide extends StatelessWidget {
                             banner.title?.localized ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyles.labelSmall.copyWith(
+                            style: TextStyles.labelMedium.copyWith(
                               color: banner.textColor,
                               fontWeight: FontWeightHelper.bold
                             ),
@@ -86,30 +86,27 @@ class _Slide extends StatelessWidget {
                             banner.description?.localized ?? "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyles.captionSmall.copyWith(
+                            style: TextStyles.captionMedium.copyWith(
                               color: banner.textColor,
-                              fontSize: 12.sp
                             ),
                           ),
                           AppButton(
                             text: banner.buttonText?.localized ?? "",
                             color: AppColors.secondary,
-                            style: TextStyles.labelSmall.copyWith(
-                              fontSize: 11.sp
-                            ),
+                            style: TextStyles.labelSmall,
                             padding: EdgeInsets.zero,
                             onPressed: () {
                               if (banner.redirect != null) {
                                 context.pushNamed(banner.redirect!);
                               }
                             },
-                            fixedSize: const Size(110, 25),
+                            fixedSize: const Size(120, 28),
                             buttonSize: null,
                           ),
                         ],
                       ).appPaddingAll,
                     ),
-                    Gap(width * .375),
+                    Gap(width * .3),
                   ],
                 ),
               ),
@@ -119,7 +116,7 @@ class _Slide extends StatelessWidget {
                 left: context.isRTL ? -4.w : null,
                 child: AppCachedNetworkImage(
                   banner.image,
-                  width: width * .375,
+                  width: 147,
                   fit: BoxFit.fill,
                   height: 147,
                 ),

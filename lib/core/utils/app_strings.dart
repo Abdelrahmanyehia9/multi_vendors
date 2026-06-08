@@ -655,5 +655,7 @@ class AppStrings {
 
   static const String maintenance = "maintenance_mode";
 
+  static const String orderItems = "order_items";
+
 
 }

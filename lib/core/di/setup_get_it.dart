@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import 'package:multi_vendor/core/service/image_crop_service.dart';
@@ -6,6 +8,7 @@ import 'package:multi_vendor/core/service/image_picker_service.dart';
 import 'package:multi_vendor/core/service/real_time_service.dart';
 import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
+import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
@@ -15,8 +18,6 @@ import 'package:multi_vendor/shared/data/repository/user_session_repository.dart
 import 'package:multi_vendor/shared/logic/user_preferences_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
     show SupabaseClient, Supabase;
-
-// import '../database/hive_local_storage.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/otp_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
@@ -82,7 +83,7 @@ static Future<void> setupGetIt() async {
  );
 
 
-    getIt.registerLazySingleton(
+ getIt.registerLazySingleton(
           () =>
           UserSessionRepository(
             getIt.get<AuthenticationService>(),
@@ -91,13 +92,16 @@ static Future<void> setupGetIt() async {
             getIt.get<LocalStorage>(instanceName: _userCache),
           ),
     );
-
-
-
-    getIt.registerLazySingleton(() => UserCubit(getIt.get<UserSessionRepository>()));
-    getIt.registerLazySingleton(() => CartCubit(getIt.get<CartRepository>()));
-    getIt.registerLazySingleton(() => FavoriteCubit(getIt.get<FavoriteRepository>()));
-    getIt.registerLazySingleton(() => UserPreferencesCubit(getIt.get<LocalStorage>(instanceName: _settings),));
+    getIt.registerLazySingleton( () => Connectivity());
+    getIt.registerLazySingleton( () => InternetConnection());
+    getIt.registerLazySingleton( () => NetworkChecker(
+      getIt.get<Connectivity>(),
+      getIt.get<InternetConnection>(),
+    ));
+    getIt.registerLazySingleton( () => UserCubit(getIt.get<UserSessionRepository>()));
+    getIt.registerLazySingleton( () => CartCubit(getIt.get<CartRepository>()));
+    getIt.registerLazySingleton( () => FavoriteCubit(getIt.get<FavoriteRepository>()));
+    getIt.registerLazySingleton( () => UserPreferencesCubit(getIt.get<LocalStorage>(instanceName: _settings),));
     getIt.registerFactory(() =>
         AuthRepository(
             getIt.get<AuthenticationService>() ));

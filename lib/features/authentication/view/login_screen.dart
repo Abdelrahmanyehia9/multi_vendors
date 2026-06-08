@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin {
                 onPressed: onLogin,
               ),
             ),
-            if (AppConstants.authFormType == AuthFormType.emailAndPassword)
+            if (AppConfigs.authFormType == AuthFormType.emailAndPassword)
               const ToggleSignupAndLogin(),
             AppButton.text(
               text: AppStrings.continueAsGuest.tr(),

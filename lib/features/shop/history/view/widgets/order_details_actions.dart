@@ -21,7 +21,7 @@ class OrderDetailsActions extends StatelessWidget {
     return Column(
       spacing: 8.h,
       children: [
-        if(status == OrderStatus.delivered)...[
+        if(status == OrderStatus.completed)...[
           if(FeatureFlags.enableRating && hasUnratedItems)
             AppButton.outlined(text: AppStrings.rateOrder.tr(),onPressed:order.items.isNullOrEmpty? null: ()=>context.pushNamed(Routes.rateOrder, arguments: order.items),),
         ],

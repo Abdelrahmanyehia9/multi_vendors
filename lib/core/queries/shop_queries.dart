@@ -1,7 +1,7 @@
 class ShopQueries {
- const ShopQueries._();
+  const ShopQueries._();
 
- static const String productItemDetails = """
+  static const String productItemDetails = """
   id, name, description, created_at,
   vendor:vendor_id(id, name, image),
   price,price_before_discount ,in_stock,
@@ -9,8 +9,7 @@ class ShopQueries {
   images, thumbnail, tags, rating
 """;
 
-
- static const String orderDetails = '''
+  static const String orderDetails = '''
   *,
   payments(*),
   items:order_items(
@@ -20,7 +19,7 @@ class ShopQueries {
     product(
       id,
       name,
-      image:thumbnail,
+      thumbnail,
       in_stock,
       price,
       price_before_discount,
@@ -28,23 +27,27 @@ class ShopQueries {
     )
   )
 ''';
- static const String orderHistory = ''' 
- created_at, id, payments(*), estimated_delivery,status
- ''' ;
+  static const String orderHistory = ''' 
+ created_at, id, payments(*), estimated_delivery,status,items:order_items(
+     order_item_id:id, 
+     quantity, 
+ product(id, thumbnail,name, price)
+ )
+ ''';
 
- static const String orderTracking = ''' 
+  static const String orderTracking = ''' 
  created_at, id, status, captain:profiles(full_name, profile_pic,phone_number)
- ''' ;
-static const String vendorsByCategory = '''
+ ''';
+
+  static const String vendorsByCategory = '''
  id, name, image, is_verified , delivery_option, rating
 ''';
-static const String productRating = '''
+  static const String productRating = '''
  rating
 ''';
 
-static const String userReviews = '''
+  static const String userReviews = '''
 *,
 user:public_profiles(id, full_name, profile_pic)
 ''';
-
 }

@@ -5,6 +5,7 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/service/image_crop_service.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/core/widgets/overlays/bottom_sheets.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_profile_pic_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/change_profile_pic.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,13 @@ mixin EditProfilePicMixin on State<ChangeProfilePic>{
     path = p;
     _onAddPic();
   }
-  Future<void>onDeletePic()async =>editPicCubit.remove();
+  Future<void>onDeletePic()async{
+    BottomSheets.showWarning(context,
+    onConfirm: ()async{
+      editPicCubit.remove();
+    }
+    );
+  }
   Future<void>_onAddPic()async{
     if(path == null) return;
     editPicCubit.add(path!) ;

@@ -6,6 +6,7 @@ import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/authentication/view/mixin/signup_screen_mixin.dart';
+import 'package:multi_vendor/features/authentication/view/widgets/agree_privacy_policy.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/signup_form.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -39,6 +40,8 @@ class _SignUpScreenState extends State<SignUpScreen> with SignUpScreenMixin{
                 phoneController: phone,
               ),
             ),
+
+            const AgreePrivacyPolicy(),
             BaseBlocConsumer(
               bloc: cubit,
               onFailure: onSignUpFailure,

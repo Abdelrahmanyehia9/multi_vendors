@@ -17,7 +17,7 @@ class OrderModel {
   final DateTime? estimatedDelivery;
   final String? couponUsed;
   final OrderStatus? status;
- final int? trackId ;
+  final int? trackId ;
   OrderModel({
     this.id,
     this.userId,

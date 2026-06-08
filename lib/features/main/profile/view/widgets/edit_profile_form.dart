@@ -5,7 +5,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_text_fields.dart';
@@ -36,7 +36,7 @@ class EditProfileForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isEmailProvided =
-        AppConstants.authFormType == AuthFormType.emailAndPassword;
+        AppConfigs.authFormType == AuthFormType.emailAndPassword;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 16.h,

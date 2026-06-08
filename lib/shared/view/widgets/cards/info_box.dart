@@ -46,7 +46,9 @@ class InfoBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(child: Text(items[i].$1)),
-              if(!items[i].$2.isNullOrEmpty)
+              if(items[i].child != null)
+                items[i].child!
+              else if (!items[i].$2.isNullOrEmpty)
                 Flexible(child: Text(items[i].$2!, textAlign: TextAlign.end,)),
             ],
           )),

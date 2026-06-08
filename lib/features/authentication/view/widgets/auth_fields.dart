@@ -18,7 +18,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
@@ -140,7 +140,7 @@ class PhoneField extends StatelessWidget {
             autovalidateMode: validator == null ? null : AutovalidateMode.always,
             invalidNumberMessage: AppStrings.enterInvalidPhone.tr(),
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            initialCountryCode: userCubit.user?.country?.code ?? AppConstants.initialCountry.code,
+            initialCountryCode: userCubit.user?.country?.code ?? AppConfigs.initialCountry.code,
             controller: controller,
             pickerDialogStyle: PickerDialogStyle(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),

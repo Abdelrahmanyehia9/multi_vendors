@@ -7,7 +7,7 @@ import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/service/navigation_service.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/shared/logic/user_preferences_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +19,10 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   void init(BuildContext context) {
     final bool isDark = localStorage.read(LocalStorageConstants.isDark) ?? false;
-    AppConstants.locale = localStorage.read(LocalStorageConstants.locale)??context.locale.languageCode;
+    AppConfigs.locale = localStorage.read(LocalStorageConstants.locale)??context.locale.languageCode;
     safeEmit(state.copyWith(
       isDark: isDark,
-      locale:Locale(AppConstants.locale!),
+      locale:Locale(AppConfigs.locale!),
     ));
 
   }
@@ -34,7 +34,7 @@ class UserPreferencesCubit extends Cubit<UserPreferencesStates> {
 
   void changeLocale(Locale locale, BuildContext context) {
     EasyLocalization.of(context)?.setLocale(locale);
-    AppConstants.locale = locale.languageCode;
+    AppConfigs.locale = locale.languageCode;
     safeEmit(state.copyWith(locale: locale));
     save();
     WidgetsBinding.instance.addPostFrameCallback((_) {

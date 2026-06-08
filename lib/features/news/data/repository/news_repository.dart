@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/news/data/model/news_model.dart';
 
@@ -19,7 +19,7 @@ class NewsRepository {
           final base = e.order(RemoteDatabaseConstants.created_at_column, ascending: false);
           if (q == null || q.isEmpty) return base;
           final safeQuery = q.replaceAll(',', r'\,');
-          final locale = AppConstants.locale;
+          final locale = AppConfigs.locale;
           return e
               .or('title->>$locale.ilike.%$safeQuery%,description->>$locale.ilike.%$safeQuery%')
               .order(RemoteDatabaseConstants.created_at_column, ascending: false);

@@ -433,7 +433,9 @@
   "version_not_supported": "Version non prise en charge",
   "version_not_supported_description": "Veuillez mettre à jour l'application vers la dernière version pour continuer",
   "maintenance_mode": "Mode maintenance",
-  "maintenance_mode_description": "L'application est actuellement en maintenance, veuillez réessayer plus tard"
+  "maintenance_mode_description": "L'application est actuellement en maintenance, veuillez réessayer plus tard",
+  "order_items": "Articles de la commande"
+
 
 
 

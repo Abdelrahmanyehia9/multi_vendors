@@ -20,8 +20,8 @@ class OrderShippingInfoCard extends StatelessWidget {
     return InfoBox(
       title: title == null ? null : SectionHeader(title: title!),
       items:  [
-        (AppStrings.shippingCosts.tr(), shipping),
-        (AppStrings.estimatedDelivery.tr(), estimatedDelivery.formattedDate),
+        (AppStrings.shippingCosts.tr(), shipping , child: null),
+        (AppStrings.estimatedDelivery.tr(), estimatedDelivery.formattedDate, child:  null),
 
       ],
       bottom: hasAction

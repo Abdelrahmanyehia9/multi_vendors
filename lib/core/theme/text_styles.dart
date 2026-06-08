@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
-
-  static const String enFontFamily = "Montserrat" ;
-  static const String arFontFamily = "Tajawal" ;
-  static const double _largerFactor = 1.05;
+  static const String enFontFamily = "Montserrat";
+  static const String arFontFamily = "Tajawal";
+  static const double _largerFactor = 1.1;
   const TextStyles._();
   static final TextStyle headline1 = TextStyle(
     fontSize: 40.sp * _largerFactor,
@@ -59,6 +58,7 @@ class TextStyles {
 
 class FontWeightHelper {
   const FontWeightHelper._();
+
   static const FontWeight extraLight = FontWeight.w200;
   static const FontWeight thin = FontWeight.w100;
   static const FontWeight light = FontWeight.w300;

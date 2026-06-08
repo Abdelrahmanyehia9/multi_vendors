@@ -4,7 +4,7 @@ import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
 
@@ -19,7 +19,7 @@ class SearchRepository {
   {
     try {
       final safeQuery = query.replaceAll(',', r'\,');
-      final locale = AppConstants.locale;
+      final locale = AppConfigs.locale;
       final response  = await _db.GET(table: RemoteDatabaseConstants.product_table,
           filter: (e) => e.or(
               'name->>$locale.ilike.%$safeQuery%,description->>$locale.ilike.%$safeQuery%'

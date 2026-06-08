@@ -5,7 +5,7 @@ import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/features/authentication/logic/sign_up_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/sign_up_screen.dart';
 import 'package:multi_vendor/shared/data/models/user_model.dart';
@@ -19,7 +19,7 @@ mixin SignUpScreenMixin on State<SignUpScreen> {
   final TextEditingController phone = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   SignupCubit get cubit => context.read<SignupCubit>();
-  Country selectedCountry = userCubit.user?.country ?? AppConstants.initialCountry;
+  Country selectedCountry = userCubit.user?.country ?? AppConfigs.initialCountry;
 
   void onSignUp() {
     if (!(formKey.currentState?.validate() ?? false)) return;

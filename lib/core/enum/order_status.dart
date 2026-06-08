@@ -6,23 +6,23 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 
 enum OrderStatus {
-  pending  , cancelled, delivered ,  ;
+  pending  , cancelled, completed ,  ;
   static const Map<OrderStatus,String>_map= {
     pending : "pending",
     cancelled : "cancelled",
-    delivered : "delivered",
+    completed : "complete",
   };
   String get toDatabase => _map[this]??"pending";
   factory OrderStatus.fromDatabase(String status)=>_map.entries.firstWhereOrNull((element) => element.value == status)?.key??pending;
   String get title => switch(this){
     pending => AppStrings.orderPending.tr(),
     cancelled => AppStrings.orderCancelled.tr(),
-    delivered => AppStrings.orderDelivered.tr(),
+    completed => AppStrings.orderDelivered.tr(),
   };
   Color get color => switch(this){
     pending  => AppColors.primary,
     cancelled => AppColors.error,
-    delivered => AppColors.success,
+    completed => AppColors.success,
   };
   /// to separate tracking status from order status
 }

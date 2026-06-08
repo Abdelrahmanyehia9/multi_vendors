@@ -53,6 +53,7 @@ class OrderDetailsScreen extends StatelessWidget {
       children: [
         OrderDetailsCard(
           hasAction: false,
+          showOrderItems: false,
           title: AppStrings.orderDetails.tr(),
           order: order,
         ),

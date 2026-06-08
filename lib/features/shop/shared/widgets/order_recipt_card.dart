@@ -30,28 +30,28 @@ class OrderReceiptCard extends StatelessWidget {
       spacing: 2.h,
       children: [
         if (hasTitle)  SectionHeader(title: AppStrings.totalPayment.tr()),
-        _buildPriceRow((AppStrings.subtotal.tr(), summery.subTotalDisplay), context),
+        _buildPriceRow((AppStrings.subtotal.tr(), summery.subTotalDisplay, child: null), context),
         if (summery.discountDisplay!=null)
           _buildPriceRow(
-            (promo?.code??AppStrings.discount.tr(), summery.discountDisplay),
+            (promo?.code??AppStrings.discount.tr(), summery.discountDisplay, child: null),
             context,
             titleColor: AppColors.success,
           ),
 
         if (shipping != null)
           _buildPriceRow(
-            (AppStrings.shipping.tr(), shipping, ),
+            (AppStrings.shipping.tr(), shipping,child:  null),
             context,
 
           ),
 
         if (summery.taxDisplay != null)
-          _buildPriceRow((AppStrings.tax.tr(), summery.taxDisplay), context),
+          _buildPriceRow((AppStrings.tax.tr(), summery.taxDisplay, child: null), context),
 
         Divider(height: 20.h),
 
         _buildPriceRow(
-          (AppStrings.total.tr(), summery.totalDisplay),
+          (AppStrings.total.tr(), summery.totalDisplay , child: null),
           context,
           priceColor: AppColors.primary,
           titleColor: context.colors.surfaceContainerHighest,

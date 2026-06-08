@@ -37,7 +37,6 @@ class OrderHistoryRepository {
   }
 
   Future<Either<AppException, OrderModel>> getOrderDetails(int orderId) async {
-
       final response = await _db.GET_SINGLE(
         filter: (e) => e.eq(RemoteDatabaseConstants.id_column, orderId),
         table: RemoteDatabaseConstants.orders_table,
@@ -45,7 +44,6 @@ class OrderHistoryRepository {
       );
       final order = OrderModel.fromJson(response);
       return right(order);
-
   }
 
   Future<Either<AppException, OrderTrackingModel>> getOrderTrackingDetails(

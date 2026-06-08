@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
@@ -54,10 +55,11 @@ class ProductReviewDistributionCard extends StatelessWidget {
                 return Row(
                 spacing: 4.w,
                 children: [
+                  Icon(MvIcons.star, size: 16.sp, color: AppColors.warning),
                   Text(
-                    "⭐ ${i+1}",
+                    "${i+1}",
                     style: TextStyles.labelMedium.copyWith(
-                        fontSize: 12.sp,
+                        fontSize: 14.sp,
                       ),
                   ),
                   Expanded(
@@ -69,7 +71,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
                       backgroundColor: context.colors.surfaceContainerLowest,
                     ),
                   ),
-                  Text("${(percentage * 100).toStringAsFixed(1)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))
+                  Text("${(percentage * 100).toStringAsFixed(0)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))
                 ],
               ).paddingVr(2);
               },

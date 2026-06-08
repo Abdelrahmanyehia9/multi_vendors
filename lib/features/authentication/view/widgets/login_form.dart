@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_validation.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/auth_fields.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/forget_password_button.dart';
 
 class LoginForm extends StatelessWidget {
@@ -25,7 +25,7 @@ class LoginForm extends StatelessWidget {
     return Column(
       spacing: 8.h,
       children:  [
-        if (AppConstants.authFormType == AuthFormType.emailAndPassword) ...[
+        if (AppConfigs.authFormType == AuthFormType.emailAndPassword) ...[
           EmailField(
             controller: emailController,
           ),

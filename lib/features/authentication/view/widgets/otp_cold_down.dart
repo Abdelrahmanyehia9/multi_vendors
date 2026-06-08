@@ -3,12 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 
 class OtpCountDownController {
-  final ValueNotifier<int> seconds = ValueNotifier(AppConstants.otpColdDown);
+  final ValueNotifier<int> seconds = ValueNotifier(AppConfigs.otpColdDown);
   final ValueNotifier<int> attemptsLeft = ValueNotifier(3);
 
   bool get isFinished => seconds.value == 0;
@@ -58,7 +58,7 @@ class _OtpColdDownState extends State<OtpColdDown> {
     }
     widget.onResend?.call();
     _controller.attemptsLeft.value--;
-    _controller.seconds.value = AppConstants.otpColdDown;
+    _controller.seconds.value = AppConfigs.otpColdDown;
     _startTimer();
   }
 

@@ -5,7 +5,7 @@ import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
@@ -20,7 +20,7 @@ class CheckoutPaymentOptionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = AppConstants.payments ;
+    final items = AppConfigs.payments ;
     return ValueListenableBuilder(
       valueListenable: selectedOption,
       builder: (context, value, child) {

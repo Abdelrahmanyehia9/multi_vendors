@@ -1,5 +1,5 @@
 
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 
 /// String ///
 extension StringExtension on String? {
@@ -7,7 +7,7 @@ extension StringExtension on String? {
 }
 
 extension LocalizedJson on Map<String, dynamic> {
-  String get localized =>this[AppConstants.locale]??this['en']??"" ;
+  String get localized =>this[AppConfigs.locale]??this['en']??"" ;
 }
 /// List ////
 extension ListExtension<T> on List<T>? {
@@ -46,5 +46,5 @@ extension MapEXt on Map{
 
 
 extension PriceExtension on num{
-  String get usdPrice => "${(this*AppConstants.currency.convertToDollar).toStringAsFixed(0)}${AppConstants.currency.symbol}";
+  String get usdPrice => "${(this*AppConfigs.currency.convertToDollar).toStringAsFixed(0)}${AppConfigs.currency.symbol}";
 }

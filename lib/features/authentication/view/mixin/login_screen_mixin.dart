@@ -5,7 +5,7 @@ import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/features/authentication/logic/login_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +16,10 @@ mixin LoginScreenMixin on State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController phone = TextEditingController();
   LoginCubit get cubit => context.read<LoginCubit>();
-  Country selectedCountry = AppConstants.initialCountry;
+  Country selectedCountry = AppConfigs.initialCountry;
   void onLogin() {
     if (!(formKey.currentState?.validate() ?? false)) return;
-    if (AppConstants.authFormType == AuthFormType.emailAndPassword) {
+    if (AppConfigs.authFormType == AuthFormType.emailAndPassword) {
       cubit.login(email: email.text.trim(), password: password.text.trim());
       return;
     }
@@ -29,7 +29,7 @@ mixin LoginScreenMixin on State<LoginScreen> {
      cubit.loginWithMobile(country: selectedCountry, mobile: phone.text);
   }
   void onLoginSuccess() {
-    if (AppConstants.authFormType == AuthFormType.mobile) {
+    if (AppConfigs.authFormType == AuthFormType.mobile) {
       context.pushNamed(Routes.otp, arguments: selectedCountry.dialCode+phone.text);
     }
   }

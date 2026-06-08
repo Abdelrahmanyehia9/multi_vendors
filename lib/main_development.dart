@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/routes/app_router.dart';
+import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/avera.dart';
 import 'package:multi_vendor/shared/view/error_screen.dart';
@@ -21,14 +22,14 @@ void main() async {
   await Future.wait([
     DI.setupGetIt(),
     EasyLocalization.ensureInitialized(),
-    AppConstants.setupPhoneSystem(),
+    AppConfigs.setupPhoneSystem(),
     ScreenUtil.ensureScreenSize(),
   ]);
 
   final AppRouter router = AppRouter();
   await Future.wait([
     FeatureFlags.init(),
-    AppConstants.init()
+    AppConfigs.init()
   ]) ;
   ErrorWidget.builder = (_) {
     return const ErrorScreen() ;

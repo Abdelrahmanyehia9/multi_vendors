@@ -19,13 +19,13 @@ class OrderAddressInfoCard extends StatelessWidget {
       title: title == null ? null : SectionHeader(title: title!),
       items:  [
         if(address.name!=null)
-        (AppStrings.name.tr(), address.name),
-        (AppStrings.street.tr(), address.street),
-        ("${AppStrings.country.tr()}/${AppStrings.region.tr()}", address.country),
-        ("${AppStrings.state.tr()}/${AppStrings.province.tr()}", address.city),
-        ("${AppStrings.building.tr()} / ${AppStrings.apartment.tr()} / ${AppStrings.floor.tr()}", "${address.buildNum} / ${address.aptNum} / ${address.floor??""}"),
+        (AppStrings.name.tr(), address.name, child: null),
+        (AppStrings.street.tr(), address.street, child: null),
+        ("${AppStrings.country.tr()}/${AppStrings.region.tr()}", address.country, child: null),
+        ("${AppStrings.state.tr()}/${AppStrings.province.tr()}", address.city, child:  null),
+        ("${AppStrings.building.tr()} / ${AppStrings.apartment.tr()} / ${AppStrings.floor.tr()}", "${address.buildNum} / ${address.aptNum} / ${address.floor??""}", child: null),
         if(address.postalCode!=null)
-        (AppStrings.postalCode.tr(), address.postalCode.toString()),
+        (AppStrings.postalCode.tr(), address.postalCode.toString(), child:  null),
       ],
       bottom: hasAction
           ?  AppButton(

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/features/main/home/data/repository/home_repository.dart';
 
 import 'package:multi_vendor/core/cubit/base_state.dart';
@@ -12,7 +12,7 @@ class HomeFeaturedItemCubit extends Cubit<BaseState<ProductModel>> {
 
   Future<void>getFeaturedItem()async{
   safeEmit(const BaseState.loading());
-  final result = await _repository.getItemByFilter(AppConstants.homeFeaturedItem);
+  final result = await _repository.getItemByFilter(AppConfigs.homeFeaturedItem);
   result.fold(
     (l) => safeEmit(BaseState.failure(l)),
     (r) {

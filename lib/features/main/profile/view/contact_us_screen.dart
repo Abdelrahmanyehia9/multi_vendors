@@ -8,7 +8,7 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -35,15 +35,15 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     super.initState();
     _contactUsData = [
       (title: AppStrings.call.tr(), color: AppColors.primary, icon: MvIcons.call, onTap: ()async{
-        await UrlLauncherService.instance.launchPhoneCall(AppConstants.supportPhoneNumber) ;
+        await UrlLauncherService.instance.launchPhoneCall(AppConfigs.supportPhoneNumber) ;
       }),
       (title: AppStrings.email.tr(), color: AppColors.primary, icon: MvIcons.email, onTap: ()async{
-        await UrlLauncherService.instance.launchEmail(AppConstants.supportEmail) ;
+        await UrlLauncherService.instance.launchEmail(AppConfigs.supportEmail) ;
       }),
     ];
     _socialMediaData =[
-      (title: AppStrings.facebook.tr(), color: const Color(0xff0866FF), path: AppAssets.facebookIcon, platform: SocialMediaPlatform.facebook, userName: AppConstants.supportFacebook,gradient: null),
-      (title: AppStrings.instagram.tr(), color: AppColors.primary, path: AppAssets.instagramIcon, platform: SocialMediaPlatform.instagram, userName: AppConstants.supportInstagram, gradient: const LinearGradient(
+      (title: AppStrings.facebook.tr(), color: const Color(0xff0866FF), path: AppAssets.facebookIcon, platform: SocialMediaPlatform.facebook, userName: AppConfigs.supportFacebook,gradient: null),
+      (title: AppStrings.instagram.tr(), color: AppColors.primary, path: AppAssets.instagramIcon, platform: SocialMediaPlatform.instagram, userName: AppConfigs.supportInstagram, gradient: const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -55,8 +55,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ],
         stops: [0.0, 0.25, 0.5, 0.75, 1.0],
       ),),
-      (title: AppStrings.whatsApp.tr(), color: const Color(0xff3EE85D), path: AppAssets.whatsappIcon, platform: SocialMediaPlatform.whatsapp, userName: AppConstants.supportWhatsApp,gradient: null),
-      (title: AppStrings.tikTok.tr(), color: AppColors.black, path: AppAssets.tikTokIcon, platform: SocialMediaPlatform.tiktok, userName: AppConstants.supportTikTok, gradient: null),
+      (title: AppStrings.whatsApp.tr(), color: const Color(0xff3EE85D), path: AppAssets.whatsappIcon, platform: SocialMediaPlatform.whatsapp, userName: AppConfigs.supportWhatsApp,gradient: null),
+      (title: AppStrings.tikTok.tr(), color: AppColors.black, path: AppAssets.tikTokIcon, platform: SocialMediaPlatform.tiktok, userName: AppConfigs.supportTikTok, gradient: null),
 
     ] ;
   }

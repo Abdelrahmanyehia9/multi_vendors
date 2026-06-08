@@ -62,7 +62,7 @@ class BaseTabBar extends StatelessWidget implements PreferredSizeWidget {
                 (e) => Text(
                               e,
                               style:
-                              style ?? TextStyles.labelSmall.copyWith(fontSize: 14.sp),
+                              style ?? TextStyles.labelMedium.copyWith(fontSize: 14.sp),
                             ),
           )
               .toList(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_tab_bar.dart';
@@ -60,6 +61,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
               Expanded(child: products)
             else ...[
               BaseTabBar(
+                style: TextStyles.bodyLarge,
                 alignment: TabAlignment.center,
                 controller: controller,
                 tabs:  [AppStrings.products.tr(), AppStrings.vendors.tr()],

@@ -219,14 +219,12 @@ class _Thumbnail extends StatelessWidget {
     return AppClick(
       onTap: onTap,
       child: AnimatedContainer(
-        clipBehavior: Clip.hardEdge,
-
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
+          borderRadius: BorderRadius.circular(Decorations.borderRadius12.r),
           border: Border.all(
             color: isSelected ? AppColors.primary : Colors.transparent,
-            width: 2,
+            width: 2.2.sp,
           ),
         ),
         child: AppCachedNetworkImage(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
-import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
@@ -27,7 +27,7 @@ class HomeFeaturedItem extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SectionHeader(
-        title: AppConstants.homeFeaturedItem.toText,
+        title: AppConfigs.homeFeaturedItem.toText,
         hasAction: true,
         action: AppStrings.viewDetails.tr(),
         onActionTap: () => context.pushNamed(Routes.product, arguments: product!.id),

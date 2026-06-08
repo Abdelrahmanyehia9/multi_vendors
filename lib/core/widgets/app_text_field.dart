@@ -8,7 +8,6 @@ import 'package:multi_vendor/core/widgets/gap.dart';
 
 enum AppBorderType { filled, outlined, underlined, none }
 
-enum AuthTextFieldType { email, phone, password }
 
 class AppTextField extends StatelessWidget {
   final AppBorderType borderType;
