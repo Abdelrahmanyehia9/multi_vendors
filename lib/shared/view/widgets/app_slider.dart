@@ -16,20 +16,22 @@ enum ThumbnailPosition { bottom, side, dots }
 
 class AppSlider extends StatefulWidget {
   final List<String>? images;
-  final double height;
+  final double? height;
   final double viewPort;
   final ThumbnailPosition thumbnailPosition;
   final String? placeHolder;
   final List<Widget>? slides;
+  final bool showThumbnail;
 
   const AppSlider({
     super.key,
-    this.height = 250,
+    this.height ,
     this.viewPort = 1,
     this.thumbnailPosition = ThumbnailPosition.dots,
     this.images,
     this.placeHolder,
     this.slides,
+    this.showThumbnail = true,
   });
 
   @override
@@ -70,7 +72,7 @@ class _AppSliderState extends State<AppSlider> {
       carouselController: _controller,
       items: slides ?? images!.map((i) => _item(i)).toList(),
       options: CarouselOptions(
-        height: widget.height.h,
+        height: widget.height?.h,
         enlargeCenterPage: true,
         viewportFraction: widget.viewPort,
         onPageChanged: (index, _) => setState(() => _currentIndex = index),
@@ -83,6 +85,7 @@ class _AppSliderState extends State<AppSlider> {
           carousel,
           if ((widget.slides?.length ?? images?.length ?? 0) > 1) ...[
             Gap.small(),
+            if(widget.showThumbnail)
             SliderDots(total: images?.length ?? widget.slides!.length, currentIndex: _currentIndex),
           ],
         ],
@@ -93,10 +96,11 @@ class _AppSliderState extends State<AppSlider> {
       return Stack(
         children: [
           Expanded(child: carousel),
+          if(widget.showThumbnail)
           _VerticalThumbnails(
             images: images,
             currentIndex: _currentIndex,
-            height: widget.height,
+            height: widget.height??250,
             onTap: _onThumbnailTap,
           ).paddingAll(8),
         ],
@@ -108,6 +112,7 @@ class _AppSliderState extends State<AppSlider> {
       children: [
         carousel,
         Gap.small(),
+        if(widget.showThumbnail)
         _HorizontalThumbnails(
           images: images,
           currentIndex: _currentIndex,
@@ -130,7 +135,7 @@ class _AppSliderState extends State<AppSlider> {
     },
     child: AppCachedNetworkImage(
       image,
-      height: widget.height.h,
+      height: widget.height?.h,
       width: double.infinity,
       radius: Decorations.borderRadius16,
     ),

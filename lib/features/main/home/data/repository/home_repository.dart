@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:multi_vendor/core/enum/order_status.dart';
 import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
@@ -6,6 +7,7 @@ import 'package:multi_vendor/core/service/database_service.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:multi_vendor/core/queries/home_queries.dart';
@@ -14,16 +16,18 @@ import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class HomeRepository {
   final DatabaseService _databaseService;
-  HomeRepository(this._databaseService);
 
+  HomeRepository(this._databaseService);
 
   Future<Either<AppException, List<T>>> _getList<T>({
     required String table,
     String? select,
-  PostgrestTransformBuilder<PostgrestList> Function(PostgrestFilterBuilder<PostgrestList>)? filter,
+    PostgrestTransformBuilder<PostgrestList> Function(
+      PostgrestFilterBuilder<PostgrestList>,
+    )?
+    filter,
     required T Function(Map<String, dynamic>) fromJson,
-  }) async
-  {
+  }) async {
     try {
       final response = await _databaseService.GET(
         table: table,
@@ -36,65 +40,77 @@ class HomeRepository {
       return left(e.toAppException);
     }
   }
-  Future<Either<AppException, List<VendorModel>>> getVendors() =>
-     _getList(
-      table: RemoteDatabaseConstants.vendor_table,
-      select: HomeQueries.homeVendors,
-      filter: (q)=>q.order(RemoteDatabaseConstants.created_at_column, ascending: false),
-      fromJson: VendorModel.fromJson,
-    );
+
+  Future<Either<AppException, List<VendorModel>>> getVendors() => _getList(
+    table: RemoteDatabaseConstants.vendor_table,
+    select: HomeQueries.homeVendors,
+    filter: (q) =>
+        q.order(RemoteDatabaseConstants.created_at_column, ascending: false),
+    fromJson: VendorModel.fromJson,
+  );
+
   Future<Either<AppException, List<ProductModel>>> getProductBySubCategory({
     required int catId,
-  }) =>
-      _getList(
-      table: RemoteDatabaseConstants.product_table,
-      select: HomeQueries.productByCategory,
-      filter: (e) =>
-          e.eq(RemoteDatabaseConstants.category_id_column, catId),
-      fromJson: ProductModel.fromJson,
-    );
-  Future<Either<AppException, List<ProductModel>>> getItemByFilter(
-      ProductTags tag, {
-        int limit = 1,
-      }) => _getList(
-      table: RemoteDatabaseConstants.product_table,
-      select: HomeQueries.productByFilter,
-      filter: (q) => tag.filters(q).limit(limit),
-      fromJson: ProductModel.fromJson,
-    );
-  Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() =>
-    _getList(
-      table: RemoteDatabaseConstants.tags_table,
-      filter: (e)=>e.gt('count', 0).order('count', ascending: false).limit(3),
-      fromJson: ProductTagModel.fromJson,
-    );
-  Future<Either<AppException, List<NewsModel>>> getNews() => _getList(
-      table: RemoteDatabaseConstants.news_table,
-      filter: (e) => e.order(
-        RemoteDatabaseConstants.created_at_column,
-        ascending: true,
-      ),
-      fromJson: NewsModel.fromJson,
-    );
-  Future<Either<AppException, List<HomeBannerModel>>> getBanners() => _getList(
-      table: RemoteDatabaseConstants.banner_table,
-      filter: (e) => e
-          .eq(RemoteDatabaseConstants.is_active_column, true)
-          .order(
-        RemoteDatabaseConstants.created_at_column,
-        ascending: true,
-      ),
-      fromJson: HomeBannerModel.fromJson,
-    );
-  Future<Either<AppException, List<ProductModel>>> getNewsArrivals() => _getList(
-      table: RemoteDatabaseConstants.product_table,
-      select: HomeQueries.productByFilter,
-      filter: (e) => e
-          .order(
-        RemoteDatabaseConstants.created_at_column,
-        ascending: false,
-      ),
-      fromJson: ProductModel.fromJson,
-    );
+  }) => _getList(
+    table: RemoteDatabaseConstants.product_table,
+    select: HomeQueries.productByCategory,
+    filter: (e) => e.eq(RemoteDatabaseConstants.category_id_column, catId),
+    fromJson: ProductModel.fromJson,
+  );
 
+  Future<Either<AppException, List<ProductModel>>> getItemByFilter(
+    ProductTags tag, {
+    int limit = 1,
+  }) => _getList(
+    table: RemoteDatabaseConstants.product_table,
+    select: HomeQueries.productByFilter,
+    filter: (q) => tag.filters(q).limit(limit),
+    fromJson: ProductModel.fromJson,
+  );
+
+  Future<Either<AppException, List<ProductTagModel>>> getTagsInfo() => _getList(
+    table: RemoteDatabaseConstants.tags_table,
+    filter: (e) => e.gt('count', 0).order('count', ascending: false).limit(3),
+    fromJson: ProductTagModel.fromJson,
+  );
+
+  Future<Either<AppException, List<NewsModel>>> getNews() => _getList(
+    table: RemoteDatabaseConstants.news_table,
+    filter: (e) =>
+        e.order(RemoteDatabaseConstants.created_at_column, ascending: true),
+    fromJson: NewsModel.fromJson,
+  );
+
+  Future<Either<AppException, List<HomeBannerModel>>> getBanners() => _getList(
+    table: RemoteDatabaseConstants.banner_table,
+    filter: (e) => e
+        .eq(RemoteDatabaseConstants.is_active_column, true)
+        .order(RemoteDatabaseConstants.created_at_column, ascending: true),
+    fromJson: HomeBannerModel.fromJson,
+  );
+
+  Future<Either<AppException, List<ProductModel>>> getNewsArrivals() =>
+      _getList(
+        table: RemoteDatabaseConstants.product_table,
+        select: HomeQueries.productByFilter,
+        filter: (e) => e.order(
+          RemoteDatabaseConstants.created_at_column,
+          ascending: false,
+        ),
+        fromJson: ProductModel.fromJson,
+      );
+
+  Future<Either<AppException, List<OrderModel>>> getOnGoingOrder() async {
+    try {
+      final response = await _databaseService.GET(
+        table: RemoteDatabaseConstants.orders_table,
+        select: "id,track_id",
+        filter: (e) => e.eq('status', OrderStatus.pending.toDatabase),
+      );
+      final data = response.map((e) => OrderModel.fromJson(e)).toList();
+      return right(data);
+    } catch (e) {
+      return left(e.toAppException);
+    }
+  }
 }

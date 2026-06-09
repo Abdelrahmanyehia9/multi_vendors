@@ -73,21 +73,25 @@ class _Slide extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            banner.title?.localized ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.labelMedium.copyWith(
-                              color: banner.textColor,
-                              fontWeight: FontWeightHelper.bold
+                          Flexible(
+                            child: Text(
+                              banner.title?.localized ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyles.labelMedium.copyWith(
+                                color: banner.textColor,
+                                fontWeight: FontWeightHelper.bold,
+                              ),
                             ),
                           ),
-                          Text(
-                            banner.description?.localized ?? "",
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.captionMedium.copyWith(
-                              color: banner.textColor,
+                          Flexible(
+                            child: Text(
+                              banner.description?.localized ?? "",
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyles.captionMedium.copyWith(
+                                color: banner.textColor,
+                              ),
                             ),
                           ),
                           AppButton(
@@ -100,7 +104,7 @@ class _Slide extends StatelessWidget {
                                 context.pushNamed(banner.redirect!);
                               }
                             },
-                            fixedSize: const Size(120, 28),
+                            fixedSize: const Size(120, 26),
                             buttonSize: null,
                           ),
                         ],

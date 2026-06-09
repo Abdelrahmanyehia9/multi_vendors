@@ -459,7 +459,11 @@
   "version_not_supported_description": "Please update the app to the latest version to continue",
   "maintenance_mode": "Maintenance Mode",
   "maintenance_mode_description": "The app is currently under maintenance, please try again later",
-  "order_items": "Order Items"
+  "order_items": "Order Items",
+  "you_have_pending_order": "You have a pending order",
+  "copied_to_clipboard_success": "Copied to clipboard successfully"
+
+
 
 
 

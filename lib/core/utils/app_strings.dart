@@ -657,5 +657,9 @@ class AppStrings {
 
   static const String orderItems = "order_items";
 
+  static const String youHavePendingOrder = "you_have_pending_order";
+
+  static const String copiedToClipboard = "copied_to_clipboard_success";
+
 
 }

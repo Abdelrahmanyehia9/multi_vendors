@@ -14,14 +14,17 @@ class SnackBars {
     String message, {
     Color backgroundColor = AppColors.primary,
     Color borderColor = Colors.transparent,
-    String title = "",
+    String? title ,
     IconData? icon,
     bool showPattern = true,
     bool showGradient = true,
+        double radius = 0  ,
     bool hasTitle = true,
     TextStyle ? titleStyle ,
     TextStyle ? messageStyle ,
+    SnackBarBehavior behavior = SnackBarBehavior.fixed,
     required BuildContext context ,
+
     Duration duration = const Duration(milliseconds: 1200),
   })
   {
@@ -36,6 +39,7 @@ class SnackBars {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: backgroundColor,
+          borderRadius: BorderRadius.circular(radius),
           gradient: showGradient ?  LinearGradient(
             colors: [backgroundColor, backgroundColor.darken(0.05)],
           ) :null,
@@ -50,7 +54,7 @@ class SnackBars {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if(hasTitle)
+                  if(hasTitle && title!=null)
                   Text(title.tr(), style:titleStyle?? TextStyles.labelSmall),
                   Text(message.tr(),maxLines: 2 ,style: messageStyle?? TextStyles.captionLarge),
                 ],
@@ -63,7 +67,7 @@ class SnackBars {
         side: BorderSide(color: borderColor),
       ),
       duration: duration,
-      behavior: SnackBarBehavior.fixed,
+      behavior: behavior ,
     );
     ScaffoldMessenger.of(NavigationService.context!).showSnackBar(
       snackBar,

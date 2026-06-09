@@ -15,6 +15,7 @@ import 'package:multi_vendor/features/main/home/logic/home_banner_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_featured_item_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_arrivals_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_news_cubit.dart';
+import 'package:multi_vendor/features/main/home/logic/home_on_going_order_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_product_by_sub_category_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_tags_filter_cubit.dart';
 import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
@@ -82,6 +83,10 @@ mixin MainLayoutMixin on State<MainLayout> {
             BlocProvider(
               create: (_) =>
               HomeBannerCubit(getIt<HomeRepository>())..getBanners(),
+            ),
+            BlocProvider(
+              create: (_) =>
+              HomeOnGoingOrderCubit(getIt<HomeRepository>())..getOnGoing(),
             ),
           ],
           child: const HomeScreen(),
