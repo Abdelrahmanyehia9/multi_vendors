@@ -16,6 +16,7 @@ class HomeFeaturedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (AppConfigs.homeFeaturedItem == null) return const SizedBox.shrink();
     return BaseBlocConsumer<HomeFeaturedItemCubit, ProductModel>(
       successBuilder: (item) => _builder(context, product: item),
       loadingBuilder: () => _builder(context),
@@ -27,7 +28,7 @@ class HomeFeaturedItem extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SectionHeader(
-        title: AppConfigs.homeFeaturedItem.toText,
+        title: AppConfigs.homeFeaturedItem!.toText,
         hasAction: true,
         action: AppStrings.viewDetails.tr(),
         onActionTap: () => context.pushNamed(Routes.product, arguments: product!.id),

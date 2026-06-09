@@ -7,7 +7,7 @@ import 'package:multi_vendor/features/main/category/data/model/category_model.da
 import 'package:multi_vendor/shared/data/models/price_model.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/data/models/stock_availabilty_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class ProductDetailsModel extends Equatable {
   final int? id ;

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
@@ -8,6 +9,7 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
@@ -43,9 +45,13 @@ class ProductCard extends StatelessWidget {
 
   factory ProductCard.small({Key? key, required ProductModel product}) =>
       ProductCard._(key: key, type: _ProductCardType.small, product: product);
+
   static Size get bigSize => _ProductCardType.big.size;
+
   static Size get smallSize => _ProductCardType.small.size;
+
   bool get isBig => _type == _ProductCardType.big;
+
   Size get cardSize => _type.size;
 
   @override
@@ -56,95 +62,116 @@ class ProductCard extends StatelessWidget {
 
     return AppClick(
       onTap: () => context.pushNamed(Routes.product, arguments: product.id),
-      child: Container(
-        width: w,
-        height: h,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.grey.withAppOpacity(0.075),
-              blurRadius: 10,
-              offset: const Offset(0.5, 0.5),
+      child: Stack(
+        children: [
+          Container(
+            width: w,
+            height: h,
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: (product.sponsored ? Colors.transparent : AppColors.grey).withAppOpacity(0.075),
+                  blurRadius: 10,
+                  offset: const Offset(0.5, 0.5),
+                ),
+              ],
+              border: product.vendor?.isSponsored == true
+                  ? Border.all(color: AppColors.gold, width: 1.65.sp)
+                  : null,
+              color: context.scaffoldBackground,
+              borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
             ),
-          ],
-          color: context.scaffoldBackground,
-          borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: h * .6,
-              child: Stack(
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  Positioned.fill(
-                    child: AppCachedNetworkImage(
-                      product.thumbnail,
-                      alignment: Alignment.topCenter,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: h * .6,
+                  width: w,
+                  child: Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    children: [
+                      Positioned.fill(
+                        child: AppCachedNetworkImage(
+                          product.thumbnail,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ),
+                      if (product.id != null) _favorite(),
+                      if (product.ribbon != null)
+                        _ribbon(
+                          product.ribbon!.toText,
+                          context,
+                          color: product.ribbon!.color,
+                        ),
+                    ],
                   ),
-                  if(product.id!=null)
-                  _favorite(),
-                  if(product.ribbon!=null)
-                  _ribbon(product.ribbon!.toText, context
-                  , color: product.ribbon!.color,
+                ),
+                Gap.small(),
+                if (product.rating != null)
+                  RatingStars(
+                    rating: product.rating,
+                    size: isBig ? 18 : 14,
+                  ).paddingHr(isBig ? 16 : 12),
+                ProductNameWithPrice(
+                  isBig: isBig,
+                  price: product.price,
+                  name: product.name.localized,
+                ).paddingHr(isBig ? 16 : 12),
+                if (FeatureFlags.multiVendor && product.vendor != null) ...[
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        product.vendor!.name.localized.toUpperCase(),
+                        style: TextStyles.bodySmall.copyWith(
+                          fontSize: isBig ? 14.sp : 10.sp,
+                          color: context.colors.surfaceContainer,
+                        ),
+                      ),
+                      Gap.extraSmall(),
+                      CircularBox(
+                        radius: isBig ? 26 : 24,
+                        child: AppCachedNetworkImage(product.vendor!.image),
+                      ),
+                    ],
                   ),
+                  const Spacer(),
                 ],
-              ),
+              ],
             ),
-            Gap.small(),
-            if (product.rating != null)
-              RatingStars(
-                rating: product.rating,
-                size: isBig ? 18 : 14,
-              ).paddingHr(isBig ? 16 : 12),
-            ProductNameWithPrice(
-              isBig: isBig,
-              price: product.price,
-              name: product.name.localized,
-            ).paddingHr(isBig ? 16 : 12),
-            if (FeatureFlags.multiVendor && product.vendor != null) ...[
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    product.vendor!.name.localized.toUpperCase(),
-                    style: TextStyles.bodySmall.copyWith(
-                      fontSize: isBig ? 14.sp : 10.sp,
-                      color: context.colors.surfaceContainer,
-                    ),
-                  ),
-                  Gap.extraSmall(),
-                  CircularBox(
-                    radius: isBig ? 26 : 24,
-                    child: AppCachedNetworkImage(product.vendor!.image),
-                  ),
-                ],
-              ),
-              const Spacer(),
-            ],
-          ],
-        ),
+          ),
+          if (product.sponsored)
+            _ribbon(
+              AppStrings.featured.tr(),
+              align: AlignmentDirectional.bottomStart,
+              context,
+              borderRadius: BorderRadius.circular(Decorations.borderRadius8),
+              color: AppColors.gold.darken(0.25),
+            ),
+        ],
       ),
     );
   }
 
-  Widget _favorite() => Align(
-    alignment: AlignmentDirectional.topEnd,
-    child: AppFavoriteButton(
-      item: product,
-      padding: isBig ? 12 : 8,
-      size: isBig ? 28 : 20,
-    ),
+  Widget _favorite() => AppFavoriteButton(
+    item: product,
+    padding: isBig ? 12 : 8,
+    size: isBig ? 28 : 20,
   );
-  Widget _ribbon(String text, BuildContext context, {Color? color}) {
+
+  Widget _ribbon(
+    String text,
+    BuildContext context, {
+    Color? color,
+  BorderRadiusGeometry? borderRadius, 
+    AlignmentDirectional align = AlignmentDirectional.topStart,
+  }) {
     final r = Radius.circular(Decorations.borderRadius16.r);
     final rtl = Directionality.of(context) == TextDirection.rtl;
     return Align(
-      alignment: AlignmentDirectional.topStart,
+      alignment: align,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: isBig ? 12.w : 8.w,
@@ -152,7 +179,7 @@ class ProductCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
-          borderRadius: BorderRadius.only(
+          borderRadius:borderRadius?? BorderRadius.only(
             topLeft: rtl ? Radius.zero : r,
             bottomLeft: rtl ? r : Radius.zero,
             topRight: rtl ? r : Radius.zero,
@@ -194,14 +221,17 @@ class ProductNameWithPrice extends StatelessWidget {
             name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style:  TextStyles.labelMedium.copyWith(fontSize: isBig ? 16.sp : 12.sp) ,
+            style: TextStyles.labelMedium.copyWith(
+              fontSize: isBig ? 16.sp : 12.sp,
+            ),
           ),
         ),
         if (price != null)
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (price!.priceBeforeDiscount != null && price!.priceBeforeDiscount! != price!.price) ...[
+              if (price!.priceBeforeDiscount != null &&
+                  price!.priceBeforeDiscount! != price!.price) ...[
                 Text(
                   price!.priceBeforeDiscount!.usdPrice,
                   maxLines: 1,
@@ -223,7 +253,7 @@ class ProductNameWithPrice extends StatelessWidget {
                 style: TextStyles.labelMedium.copyWith(
                   color: AppColors.primary,
                   fontSize: isBig ? 14.sp : 12.sp,
-                  fontWeight: FontWeightHelper.bold
+                  fontWeight: FontWeightHelper.bold,
                 ),
               ),
             ],

@@ -15,7 +15,7 @@ import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.da
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/features/main/category/logic/main_categories_cubit.dart';
 import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 import 'package:multi_vendor/features/vendors/logic/vendors_by_category_cubit.dart';

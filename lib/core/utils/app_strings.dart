@@ -661,5 +661,10 @@ class AppStrings {
 
   static const String copiedToClipboard = "copied_to_clipboard_success";
 
+  static const String verified = "verified";
+  static const String verifiedVendor = "verified_vendor";
+  static const String advertisement = "advertisement";
+
+
 
 }

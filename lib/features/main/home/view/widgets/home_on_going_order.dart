@@ -60,16 +60,13 @@ class _Slide extends StatelessWidget {
                     backgroundColor: textColor,
                   ),
                 ),
-                Row(
-                  spacing: 10.w,
-                  children: [
+
                     Text(
                       AppStrings.orderNumber.tr(),
                       style: TextStyles.bodySmall.copyWith(color: textColor),
                     ),
-                    _orderNumber(textColor, context: context, oNumber: order.orderIdDisplay),
-                  ],
-                ),
+                _orderNumber(textColor, context: context, oNumber: order.orderIdDisplay),
+
               ],
             ),
           ),
@@ -94,9 +91,8 @@ class _Slide extends StatelessWidget {
                 maxWidth: 120.w,
 
               ),
-              child: SelectableText(
+              child: Text(
                 maxLines: 2,
-                minLines: 1,
                 oNumber,
                 style: TextStyles.labelSmall.copyWith(
                   color: textColor,

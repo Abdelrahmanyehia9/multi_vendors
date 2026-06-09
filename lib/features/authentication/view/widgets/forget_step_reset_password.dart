@@ -9,7 +9,7 @@ import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
+import 'package:multi_vendor/core/widgets/overlays/popups.dart';
 import 'package:multi_vendor/shared/view/widgets/message_alert.dart';
 import 'package:multi_vendor/features/authentication/logic/forget_password_change_password_cubit.dart';
 import 'package:multi_vendor/features/authentication/view/widgets/forget_password_form.dart';

@@ -74,6 +74,7 @@ class AppColors {
   static const Color warning800 = Color(0xff92400E);
   static const Color warning900 = Color(0xff78350F);
   static const Color warning    = warning500;
+  static const Color gold    = warning300;
   // ─── Error ─────────────────────────────────────────────
   static const Color error100 = Color(0xffFEDDCB);
   static const Color error200 = Color(0xffFEB398);
@@ -94,5 +95,8 @@ class AppColors {
     primary700, secondaryDark, info700, warning700, error700, success700, grey700,
   ];
 
+
+  // extra
+static const Color iceColor = Color(0xFF89E9FF) ;
 
 }

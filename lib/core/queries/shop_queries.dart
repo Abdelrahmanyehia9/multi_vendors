@@ -40,7 +40,7 @@ class ShopQueries {
  ''';
 
   static const String vendorsByCategory = '''
- id, name, image, is_verified , delivery_option, rating
+ id, name, image, is_verified , delivery_option, rating,sponsored
 ''';
   static const String productRating = '''
  rating

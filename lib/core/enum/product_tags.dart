@@ -56,6 +56,6 @@ enum ProductTags {
  bigSale => AppColors.error
   };
 
- static List<ProductTags> get ribbons => [blackFriday,summerOffer, featured, flashSale];
+ static List<ProductTags> get ribbons => [blackFriday,summerOffer, flashSale];
 
 }

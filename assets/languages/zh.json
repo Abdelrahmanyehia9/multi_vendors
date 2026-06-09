@@ -461,7 +461,10 @@
   "maintenance_mode_description": "应用当前正在维护中，请稍后再试",
   "order_items": "订单商品",
   "you_have_pending_order": "您有一个待处理订单",
-  "copied_to_clipboard_success": "已成功复制到剪贴板"
+  "copied_to_clipboard_success": "已成功复制到剪贴板",
+  "verified": "已认证",
+  "verified_vendor": "认证卖家",
+  "advertisement": "广告"
 
 
 

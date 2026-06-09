@@ -12,7 +12,7 @@ import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/features/main/home/logic/home_vendors_cubit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/circular_box.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
@@ -92,6 +92,7 @@ class _Vendor extends StatelessWidget {
               CircularBox(
                 radius: 65,
                 padding: EdgeInsets.zero,
+                borderColor : vendor.isSponsored ? AppColors.primary : null,
                 child: !lastOne
                     ? AppCachedNetworkImage(vendor.image)
                     : AppClick(

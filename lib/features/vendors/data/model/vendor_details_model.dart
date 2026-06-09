@@ -3,7 +3,7 @@ import 'package:multi_vendor/features/vendors/data/model/vendor_delivery_option.
 
 import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 
 class VendorDetailsModel extends VendorModel {
   final List<CategoryModel>? categories;

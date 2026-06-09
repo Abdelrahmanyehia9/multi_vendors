@@ -12,6 +12,7 @@ extension LocalizedJson on Map<String, dynamic> {
 /// List ////
 extension ListExtension<T> on List<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
+  bool  isExists(int index) => !isNullOrEmpty&&index<this!.length;
 }
 extension IterableX<T> on Iterable<T?> {
   Iterable<T> whereNotNull() sync* {

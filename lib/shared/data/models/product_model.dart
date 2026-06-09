@@ -6,7 +6,7 @@ import 'package:multi_vendor/features/shop/product/data/model/product_details_mo
 import 'package:multi_vendor/shared/data/models/price_model.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/data/models/stock_availabilty_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_item.dart';
 
 class ProductModel extends Equatable implements FavoriteItem {
@@ -89,7 +89,7 @@ class ProductModel extends Equatable implements FavoriteItem {
   int get uniqueId => id!;
   int get inStock => stockAvailability?.quantity ?? 0;
   ProductTags? get ribbon => productTags?.firstWhereOrNull((e) => ProductTags.ribbons.contains(e));
-
+  bool get sponsored => vendor?.isSponsored ?? false;
 
   @override
   int get favoriteId => id!;

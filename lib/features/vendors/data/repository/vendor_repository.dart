@@ -34,7 +34,7 @@ class VendorRepository {
       final response = await _db.GET(
         table: RemoteDatabaseConstants.vendor_table,
         select: ShopQueries.vendorsByCategory,
-        filter: (e)=>e.contains("categories", [categoryId])
+        filter: (e)=>e.contains("categories", [categoryId]).order("sponsored")
       );
       final vendors = List<VendorDetailsModel>.from(response.map((x) => VendorDetailsModel.fromJson(x)));
       return right(vendors);

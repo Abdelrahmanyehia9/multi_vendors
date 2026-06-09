@@ -461,7 +461,10 @@
   "maintenance_mode_description": "The app is currently under maintenance, please try again later",
   "order_items": "Order Items",
   "you_have_pending_order": "You have a pending order",
-  "copied_to_clipboard_success": "Copied to clipboard successfully"
+  "copied_to_clipboard_success": "Copied to clipboard successfully",
+  "verified": "Verified",
+  "verified_vendor": "Verified Vendor",
+  "advertisement": "Advertisement"
 
 
 

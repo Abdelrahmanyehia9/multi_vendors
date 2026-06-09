@@ -14,7 +14,7 @@ import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/helper/app_review_helper.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
-import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
+import 'package:multi_vendor/core/widgets/overlays/popups.dart';
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/extensions/colors.dart';
 
 import 'package:multi_vendor/core/widgets/app_text_field.dart';
 
@@ -13,6 +14,15 @@ class Decorations {
   static const double borderRadius24 = 24;
   static const double borderRadius30 = 30;
   static const double borderRadius50 = 50;
+
+
+  static final List<BoxShadow> shadow = [
+    BoxShadow(
+      color: Colors.black.withAppOpacity(0.2),
+      blurRadius: 4,
+      offset: const Offset(0, 2),
+    ),
+  ] ;
 }
 
 class AppInputDecoration {

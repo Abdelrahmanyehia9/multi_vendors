@@ -16,7 +16,7 @@ import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/photo_overlay.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
@@ -55,7 +55,7 @@ class VendorCard extends StatelessWidget {
                 width: 120,
                 height: cardSize.height.h,
                 radius: Decorations.borderRadius16,
-              ),
+              ), 
               Gap.small(),
               Expanded(
                 child: Column(

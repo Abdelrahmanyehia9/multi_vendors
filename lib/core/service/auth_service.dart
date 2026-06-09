@@ -1,6 +1,5 @@
 
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final class AuthenticationService {
@@ -59,27 +58,7 @@ final class AuthenticationService {
         phone: phone, token: otp, type: type);
   }
 
-  Future<AuthResponse> googleSignIn({
-    required String webClientId,
-    required String iosClientId,
-  }) async {
-    final GoogleSignIn google = GoogleSignIn.instance;
-    await google.initialize(clientId: iosClientId, serverClientId: webClientId);
-    const List<String> scopes = ['email', 'profile'];
-    final googleUser = await google.authenticate(scopeHint: scopes);
-    final googleAuth = googleUser.authentication;
-    final idToken = googleAuth.idToken;
 
-    if (idToken == null) {
-      throw 'No ID Token found.';
-    }
-
-    final result = await _client.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-    );
-    return result;
-  }
 
   void setupAuthListener(
       Function(String id) onSignedIn,

@@ -26,7 +26,7 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/features/main/category/data/model/category_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:multi_vendor/shared/view/widgets/app_chip.dart';
 import 'package:multi_vendor/shared/view/widgets/app_expansion_tile.dart';
 import 'package:multi_vendor/core/widgets/app_radion_button.dart';

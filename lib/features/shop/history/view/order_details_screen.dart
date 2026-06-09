@@ -6,7 +6,7 @@ import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
-import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
+import 'package:multi_vendor/core/widgets/overlays/popups.dart';
 import 'package:multi_vendor/features/shop/history/logic/order_delete_cubit.dart';
 import 'package:multi_vendor/features/shop/history/view/widgets/order_details_actions.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';

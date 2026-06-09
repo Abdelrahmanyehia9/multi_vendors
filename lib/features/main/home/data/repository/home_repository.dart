@@ -8,7 +8,7 @@ import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/features/main/home/data/models/home_banner_model.dart';
 import 'package:multi_vendor/features/main/home/data/models/product_tag_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
-import 'package:multi_vendor/features/vendors/data/model/vendor_model.dart';
+import 'package:multi_vendor/shared/data/models/vendor_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:multi_vendor/core/queries/home_queries.dart';
 import 'package:multi_vendor/features/news/data/model/news_model.dart';
@@ -44,8 +44,7 @@ class HomeRepository {
   Future<Either<AppException, List<VendorModel>>> getVendors() => _getList(
     table: RemoteDatabaseConstants.vendor_table,
     select: HomeQueries.homeVendors,
-    filter: (q) =>
-        q.order(RemoteDatabaseConstants.created_at_column, ascending: false),
+    filter: (q) => q.order('sponsored', ascending: false),
     fromJson: VendorModel.fromJson,
   );
 
@@ -59,12 +58,12 @@ class HomeRepository {
   );
 
   Future<Either<AppException, List<ProductModel>>> getItemByFilter(
-    ProductTags tag, {
+    ProductTags? tag, {
     int limit = 1,
   }) => _getList(
     table: RemoteDatabaseConstants.product_table,
     select: HomeQueries.productByFilter,
-    filter: (q) => tag.filters(q).limit(limit),
+    filter: (q) => (tag?.filters(q)??q).limit(limit),
     fromJson: ProductModel.fromJson,
   );
 
@@ -96,7 +95,14 @@ class HomeRepository {
         filter: (e) => e.order(
           RemoteDatabaseConstants.created_at_column,
           ascending: false,
-        ),
+        ).limit(8),
+        fromJson: ProductModel.fromJson,
+      );
+  Future<Either<AppException, List<ProductModel>>> getProductsByVendor(int vendorId) =>
+      _getList(
+        table: RemoteDatabaseConstants.product_table,
+        select: HomeQueries.productByFilter,
+        filter: (e) => e.eq('vendor_id', vendorId).limit(8),
         fromJson: ProductModel.fromJson,
       );
 

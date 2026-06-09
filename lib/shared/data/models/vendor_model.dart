@@ -1,4 +1,6 @@
+import 'dart:ui';
 import 'package:equatable/equatable.dart';
+import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 
@@ -10,13 +12,17 @@ class VendorModel extends Equatable implements FavoriteItem{
   final String image ;
   final int? count ;
   final bool isVerified;
+  final Color? color ;
+  final bool isSponsored;
 
-  const VendorModel({required this.id,this.isVerified = false ,this.count ,required this.name, required this.image});
+  const VendorModel({required this.id,this.isSponsored = false,this.isVerified = false ,this.count, this.color ,required this.name, required this.image});
   factory VendorModel.fromJson(Map<String ,dynamic>json)=>VendorModel(
       id: json['id'],
       name: json["name"],
       image: json['image'],
       count: json['count'],
+      isSponsored: json['sponsored']??false,
+      color: json['color'] == null ? null : ColorExtension.fromRgbString(json['color']),
       isVerified: json['is_verified']??false,
   );
 
@@ -33,6 +39,8 @@ class VendorModel extends Equatable implements FavoriteItem{
     "image": image,
     "count": count,
     "is_verified": isVerified,
+    "sponsored": isSponsored,
+    'color':color?.toRgbString,
   }.withoutNulls;
   @override
   // TODO: implement props

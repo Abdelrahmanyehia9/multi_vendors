@@ -463,7 +463,10 @@
   "maintenance_mode_description": "التطبيق تحت الصيانة حالياً، يرجى المحاولة مرة أخرى لاحقاً",
   "order_items": "المنتجات المطلوبة",
   "you_have_pending_order": "لديك طلب فى الخدمة",
-  "copied_to_clipboard_success": "تم النسخ إلى الحافظة بنجاح"
+  "copied_to_clipboard_success": "تم النسخ إلى الحافظة بنجاح",
+  "verified": "موثق",
+  "verified_vendor": "بائع موثق",
+  "advertisement": "إعلان"
 
 
 

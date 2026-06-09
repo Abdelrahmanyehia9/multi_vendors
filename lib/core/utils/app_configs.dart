@@ -13,11 +13,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 class AppConfigs {
   const AppConfigs._();
 
-  static  ProductTags homeFeaturedItem = ProductTags.summerOffer ;
+  static  ProductTags? homeFeaturedItem  ;
   static  AuthFormType authFormType = AuthFormType.emailAndPassword;
   static List<SocialMediaAuth> socialAuth = [] ;
   static  Country initialCountry = "EG".toCountry;
-
+  static List<int> vendorBoost = [] ;
   static  List<PaymentOption> payments = [PaymentOption.cod];
   static  String supportPhoneNumber = "0111111111";
   static  String supportEmail = "support@multi-vendor.com";
@@ -54,7 +54,7 @@ class AppConfigs {
       await _initPackageInfo();
       final response = await getIt.get<DatabaseService>().GET_SINGLE(
           table: "app_config",
-          select: "configs,requirements",
+          select: "configs,requirements,vendor_boost",
           filter: (q)=>q.eq(RemoteDatabaseConstants.is_active_column, true)
       );
       if (response.isEmpty) return;
@@ -73,6 +73,7 @@ class AppConfigs {
       otpColdDown               = config['otp_cold_down']          ?? otpColdDown;
       requiredBuild = requirements['build'] ?? requiredBuild;
       isMaintenance = requirements['is_maintenance'] ?? isMaintenance;
+      vendorBoost = response['vendor_boost'] != null ? List<int>.from(response['vendor_boost']) : vendorBoost;
       ///TO DO
     } catch (e) {
       debugPrint(e.toString());

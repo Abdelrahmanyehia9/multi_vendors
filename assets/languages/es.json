@@ -436,7 +436,10 @@
   "maintenance_mode_description": "La aplicación está actualmente en mantenimiento, por favor inténtalo más tarde",
   "order_items": "Artículos del pedido",
   "you_have_pending_order": "Tienes un pedido pendiente",
-  "copied_to_clipboard_success": "Copiado al portapapeles correctamente"
+  "copied_to_clipboard_success": "Copiado al portapapeles correctamente",
+  "verified": "Verificado",
+  "verified_vendor": "Vendedor verificado",
+  "advertisement": "Anuncio"
 
 
 

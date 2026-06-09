@@ -8,7 +8,7 @@ import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
-import 'package:multi_vendor/core/widgets/overlays/dialogues.dart';
+import 'package:multi_vendor/core/widgets/overlays/popups.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/core/widgets/scaffold/sticky_bottom_layout.dart';

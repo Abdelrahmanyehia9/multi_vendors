@@ -436,7 +436,10 @@
   "maintenance_mode_description": "L'application est actuellement en maintenance, veuillez réessayer plus tard",
   "order_items": "Articles de la commande",
   "you_have_pending_order": "Vous avez une commande en attente",
-  "copied_to_clipboard_success": "Copié dans le presse-papiers avec succès"
+  "copied_to_clipboard_success": "Copié dans le presse-papiers avec succès",
+  "verified": "Vérifié",
+  "verified_vendor": "Vendeur vérifié",
+  "advertisement": "Publicité"
 
 
 
