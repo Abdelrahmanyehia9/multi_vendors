@@ -38,5 +38,12 @@ class PriceModel {
     priceBeforeDiscount != null && priceBeforeDiscount! > price
         ? ((priceBeforeDiscount! - price) / priceBeforeDiscount!) * 100
         : 0;
-}
+  bool get isOnSale {
+    if (priceBeforeDiscount == null) return false;
+    if (saleStartDate == null || saleEndDate == null) {
+      return true;
+    }
+    final now = DateTime.now();
+    return now.isAfter(saleStartDate!) && now.isBefore(saleEndDate!);
+  }}
 

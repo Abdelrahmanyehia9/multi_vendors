@@ -42,9 +42,26 @@ class BaseBlocConsumer<B extends BlocBase<BaseState<S>>, S>
     final B cubit = bloc ?? context.read<B>();
     return SkeletonizerConfig(
       data: SkeletonizerConfigData(
+        // switchAnimationConfig: SwitchAnimationConfig(
+        //   duration: const Duration(milliseconds: 1000),
+        //   transitionBuilder: (child, animation)=>AnimatedSwitcher(
+        //     duration: const Duration(milliseconds: 1000),
+        //     switchInCurve: Curves.easeInOut,
+        //     switchOutCurve: Curves.easeInOut,
+        //     child: child,
+        //     transitionBuilder: (child , animation)=>AnimatedSwitcher(
+        //       duration: const Duration(milliseconds: 1000),
+        //       child: child,
+        //       switchInCurve: Curves.easeInOut,
+        //       switchOutCurve: Curves.easeInOut,
+        //       reverseDuration: Duration(milliseconds: ),
+        //     ),
+        //   )
+        // ),
+        enableSwitchAnimation: true,
         effect: ShimmerEffect(
-          baseColor: context.colors.surfaceContainerLow.lighten(),
-          highlightColor: context.colors.surfaceContainerLowest,
+          baseColor: context.colors.surfaceContainerLow.lighten(context.isDark ? 0 : 0.1).darken(context.isDark ? 0.1 : 0),
+          highlightColor: context.colors.surfaceContainerLowest.lighten(context.isDark ? 0.05 : 0).darken(context.isDark ? 0 : 0.05),
         ),
         containersColor: context.colors.surfaceContainerLow.lighten(),
       ),

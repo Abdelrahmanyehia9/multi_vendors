@@ -34,13 +34,13 @@ class CartModel {
     'product': product.toJson(),
   }.withoutNulls;
 
-  num get total => quantity * (product.price?.totalPrice??0);
+  num get total => quantity * (product.price.totalPrice);
 }
 
 extension CartEXT on List<CartModel>{
   num get totalPrice => fold<num>(
     0,
         (sum, item) =>
-    sum + ((item.product.price?.price??0) * item.quantity),
+    sum + ((item.product.price.price) * item.quantity),
   );
 }

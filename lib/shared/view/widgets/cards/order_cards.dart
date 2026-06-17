@@ -71,7 +71,7 @@ class OrderDetailsCard extends StatelessWidget {
         ],
       );
 
-  Widget _buildOrderItems(OrderModel order, {double size = 36}) {
+  Widget _buildOrderItems(OrderModel order, {double size = 40}) {
     final items = order.items ?? [];
     const int maxDisplay = 3;
     final displayItems = items.take(maxDisplay).toList();
@@ -80,11 +80,21 @@ class OrderDetailsCard extends StatelessWidget {
       spacing: 4,
       children: [
         ...displayItems.map((item) =>
-            AppCachedNetworkImage(
-              width: size,
-              height: size,
-              radius: Decorations.borderRadius8,
-              item.product.thumbnail,
+            Stack(
+              children: [
+                AppCachedNetworkImage(
+                  width: size,
+                  height: size,
+                  radius: Decorations.borderRadius8,
+                  item.product.thumbnail,
+                ),
+                if(item.quantity > 1)
+                CircleAvatar(
+                  radius: (size*.25).r,
+                  backgroundColor: AppColors.secondary,
+                  child: Text((item.quantity-1).toString(), style: TextStyles.labelSmall.copyWith(color: AppColors.white, fontSize: (size*.25).sp, fontWeight: FontWeightHelper.bold)),
+                )
+              ],
             ),
         ),
         if (remainderCount > 0)

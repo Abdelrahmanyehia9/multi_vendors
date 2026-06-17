@@ -30,5 +30,6 @@ class AppConstants {
   static const  String supabaseKey ="sb_publishable_rg0vpTC-CtVu69U8zcf1zg_3nggFbBG";
   static const String privacyPolicyUrl = "https://sites.google.com/view/avera-privacy/";
   static const String? appStoreId = null;
+  static const String onesignalAppId = "c9e7fc5b-2149-46cd-82a3-3d1f287e783b";
 
 }

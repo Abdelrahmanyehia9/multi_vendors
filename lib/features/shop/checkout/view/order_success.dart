@@ -36,6 +36,7 @@ class OrderSuccessScreen extends StatelessWidget {
         MessageAlert(MessagesAlertType.orderSuccess , customMessage: successMsg),
         OrderDetailsCard(
           order: order,
+          showOrderItems: false,
           hasStatus: false, hasAction: false,title: AppStrings.orderDetails.tr(),),
         if(order.address != null)
           OrderAddressInfoCard(hasAction: false, title: AppStrings.shippingAddress.tr(),address: order.address!,) ,

@@ -64,9 +64,10 @@ class MvIcons {
   static const IconData support = Icons.support_agent ;
   static const IconData checkedCircle = Icons.check_circle_sharp ;
   static const IconData category = CupertinoIcons.square_grid_2x2 ;
-
+  static const IconData info = CupertinoIcons.info;
   static const IconData theme = Icons.nightlight_round;
   static const IconData light = Icons.dark_mode;
   static const IconData dark = Icons.sunny;
+  static const IconData notification = CupertinoIcons.bell;
   static const IconData maintenance = Icons.auto_fix_high;
 }

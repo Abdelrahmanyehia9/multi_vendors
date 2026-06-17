@@ -111,8 +111,8 @@ class VendorCardGrid extends StatelessWidget {
     physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,
-      mainAxisSpacing: 4.w,
-      crossAxisSpacing: 4.h,
+      mainAxisSpacing: 8.w,
+      crossAxisSpacing: 8.h,
     ),
     itemBuilder: (_, i) =>  AppClick(
         onTap: ()=>context.pushNamed(Routes.vendor, arguments: vendors[i].id),

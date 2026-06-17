@@ -59,7 +59,6 @@ class _AppFavoriteButtonState extends State<AppFavoriteButton>
                       child: AppIconButton(
                         size: widget.size.sp*.75,
                         radius: 6,
-                        backGroundColor: context.scaffoldBackground,
                         icon :isFavorite ? MvIcons.favorite : MvIcons.favoriteOutlined,
                         iconColor: isFavorite ? AppColors.error : context.colors.surfaceContainerHigh,
                       ),

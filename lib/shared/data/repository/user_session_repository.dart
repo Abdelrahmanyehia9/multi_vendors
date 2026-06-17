@@ -4,6 +4,7 @@ import 'package:multi_vendor/core/enum/user_roles.dart';
 import 'package:multi_vendor/core/errors/error_messages.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
+import 'package:multi_vendor/core/service/notification/notification_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/core/utils/remote_database_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
@@ -19,12 +20,11 @@ final class UserSessionRepository {
   final LocalStorage _settingsStorage;
   final LocalStorage _cacheStorage;
 
-  const UserSessionRepository(
-      this._authService,
+  const UserSessionRepository(this._authService,
       this._databaseService,
       this._settingsStorage,
-      this._cacheStorage,
-      );
+      this._cacheStorage,);
+
   static const String _getUserQuery = "*, address(*)";
 
 
@@ -34,37 +34,40 @@ final class UserSessionRepository {
     required void Function() onFirstTimeJoin,
     required void Function(UserModel) onUpdateUser,
     required void Function(AppException) onError,
-  }) async{
-
+  }) async {
     _authService.setupAuthListener(
+
       /// onSignIn
-          (id) async {
-        final result = await _getUserRemote(id);
-        result.fold((l) => onError.call(l), (_) => onSignIn.call());
-      },
-      /// onSignOut
-          () async{
-        await HiveHelper.clearAll();
-        onSignOut.call();
-      },
-      /// onUpdateUser
-          (id) async {
-            final result = await _getUserRemote(id);
-        result.fold((l) => null, onUpdateUser.call);
-      },
-      /// onInitialSession
-        ()async{
+            (id) async {
+          final result = await _getUserRemote(id);
+          result.fold((l) => onError.call(l), (_) => onSignIn.call());
+        },
+
+        /// onSignOut
+            () async {
+          await HiveHelper.clearAll();
+          onSignOut.call();
+        },
+
+        /// onUpdateUser
+            (id) async {
+          final result = await _getUserRemote(id);
+          result.fold((l) => null, onUpdateUser.call);
+        },
+
+        /// onInitialSession
+            () async {
           final bool firstTime = await _settingsStorage.read(
             LocalStorageConstants.firstTime,
             defaultValue: true,
           );
           if (firstTime) return onFirstTimeJoin.call();
-          if(_authService.isAuthenticated) {
-            onSignIn.call();
+          if (_authService.isAuthenticated) {
+            final result = await _getUserRemote(_authService.currentUser!.id);
+            result.fold((l) => onError.call(l), (_) => onSignIn.call());
           } else {
             onSignOut.call();
           }
-
         }
     );
   }
@@ -73,32 +76,32 @@ final class UserSessionRepository {
     favoriteCubit.clearFavorite();
     cartCubit.clearCart();
     await _authService.logout();
-
   }
 
-  Future<void> finishIntro() async=> await _settingsStorage.write(LocalStorageConstants.firstTime, false);
+  Future<void> finishIntro() async =>
+      await _settingsStorage.write(LocalStorageConstants.firstTime, false);
+
   UserModel? get cachedUser => _getLocalUser();
 
   Future<Either<AppException, UserModel>> _getUserRemote(String id) async {
-
-try{
-  final response = await _databaseService.GET_SINGLE(
-    table: RemoteDatabaseConstants.profile_table,
-    select: _getUserQuery,
-    filter: (q) => q.eq(RemoteDatabaseConstants.id_column, id),
-  );
-  final UserModel user = UserModel.fromJson(response);
-  if(user.role!=UserRole.customer){
-    return left(const AuthenticateException(message: AuthErrorMessages.noAuthorization));
+    try {
+      final response = await _databaseService.GET_SINGLE(
+        table: RemoteDatabaseConstants.profile_table,
+        select: _getUserQuery,
+        filter: (q) => q.eq(RemoteDatabaseConstants.id_column, id),
+      );
+      final UserModel user = UserModel.fromJson(response);
+      if (user.role != UserRole.customer) {
+        return left(const AuthenticateException(
+            message: AuthErrorMessages.noAuthorization));
+      }
+      await _updateFcmToken();
+      await _cacheUser(user);
+      return right(user);
+    } catch (e) {
+      return left(e.toAppException);
+    }
   }
-  await _cacheUser(user);
-  return right(user);
-}catch(e){
-  return left(e.toAppException);
-}
-
-  }
-
   Future<void> _cacheUser(UserModel user) async =>
       _cacheStorage.write(
         LocalStorageConstants.user,
@@ -107,10 +110,20 @@ try{
           'address': user.address?.toJson(),
         },
       );
-
   UserModel? _getLocalUser() {
-    final userJson = _cacheStorage.read(LocalStorageConstants.user)as Map?;
+    final userJson = _cacheStorage.read(LocalStorageConstants.user) as Map?;
     return userJson != null ? UserModel.fromJson(userJson.deepCast) : null;
+  }
+  Future<void> _updateFcmToken() async {
+    if (_authService.currentUser == null) return;
+    try {
+      await _databaseService.UPDATE(
+          id: _authService.currentUser!.id,
+          table: RemoteDatabaseConstants.profile_table,
+          data: {
+            "fcm": NotificationService.instance.oneSignal.pushToken
+          });
+    } catch (_) {}
   }
 
 }

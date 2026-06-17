@@ -6,7 +6,6 @@ extension DateTimeX on DateTime {
   String get timeAgo {
     final now = DateTime.now();
     final difference = now.difference(this);
-
     if (difference.isNegative || difference.inSeconds < 60) return DateTimeStrings.justNow;
     if (difference.inMinutes < 60) return _pastFormat(difference.inMinutes, DateTimeStrings.minuteSingular, DateTimeStrings.minutePlural);
     if (difference.inHours < 24)   return _pastFormat(difference.inHours,   DateTimeStrings.hourSingular,   DateTimeStrings.hourPlural);
@@ -36,11 +35,11 @@ extension DateTimeX on DateTime {
 
   String _pastFormat(int value, String singular, String plural) {
     final unit = value == 1 ? singular : plural;
-    return '$value $unit ${DateTimeStrings.ago}';
+    return DateTimeStrings.agoFormat('$value', unit);
   }
   String _futureFormat(int value, String singular, String plural) {
     final unit = value == 1 ? singular : plural;
-    return '${DateTimeStrings.inPrefix} $value $unit';
+    return DateTimeStrings.inFormat('$value', unit);
   }
 
   String get formattedDate {

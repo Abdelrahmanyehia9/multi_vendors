@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:equatable/equatable.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
@@ -21,6 +23,7 @@ class UserModel extends Equatable {
   final bool? isMale;
   final DateTime? birthDate;
   final AddressModel? address;
+  final UserPreferences? preferences;
 
   const UserModel({
     this.id,
@@ -28,6 +31,7 @@ class UserModel extends Equatable {
     this.updatedAt,
     this.fullName,
     this.profilePic,
+    this.preferences,
     this.fcmToken,
     this.isMale,
     this.birthDate,
@@ -37,7 +41,6 @@ class UserModel extends Equatable {
     this.role = UserRole.customer,
     this.email,
     this.phone,
-
   });
 
   UserModel copyWith({
@@ -53,6 +56,7 @@ class UserModel extends Equatable {
     bool? isActive,
     Country? country,
     UserRole? role,
+    UserPreferences? preferences,
     String? email,
     String? phone,
   }) {
@@ -69,6 +73,7 @@ class UserModel extends Equatable {
       isActive: isActive ?? this.isActive,
       country: country ?? this.country,
       role: role ?? this.role,
+      preferences: preferences ?? this.preferences,
       email: email ?? this.email,
       phone: phone ?? this.phone,
     );
@@ -77,6 +82,7 @@ class UserModel extends Equatable {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
+      preferences: json['preferences'] ==null ?null :UserPreferences.fromJson(json['preferences']),
       createdAt: json['created_at'] != null
           ? DateTime.tryParse(json['created_at'])
           : null,
@@ -97,7 +103,9 @@ class UserModel extends Equatable {
       country: json['country'] != null
           ? (json['country'] as String).toCountry
           : null,
-      role: json['role']==null ? UserRole.customer : UserRole.fromQuery(json['role']),
+      role: json['role'] == null
+          ? UserRole.customer
+          : UserRole.fromQuery(json['role']),
       email: json['email'],
       phone: json['phone_number'],
     );
@@ -114,11 +122,11 @@ class UserModel extends Equatable {
       'role': role.name,
       'email': email,
       'is_male': isMale,
+      'preferences': preferences?.toJson(),
       'birth_date': birthDate?.toIso8601String(),
       'phone_number': phone,
     }.withoutNulls;
   }
-
 
   @override
   List<Object?> get props => [
@@ -133,9 +141,32 @@ class UserModel extends Equatable {
     address,
   ];
 
-
-  factory UserModel.fake()=>const UserModel(
+  factory UserModel.fake() => const UserModel(
     profilePic: FakeData.fakeImg,
     fullName: FakeData.fakeStringTitle,
   );
+}
+
+class UserPreferences {
+  final Locale? locale;
+  final bool? darkTheme;
+
+  const UserPreferences({this.locale, this.darkTheme});
+
+  factory UserPreferences.fromJson(Map<String, dynamic> json) =>
+      UserPreferences(
+        locale: json['locale'] == null ? null : Locale(json['locale']),
+        darkTheme: json['dark_theme'] ?? false,
+      );
+
+  Map<String, dynamic> toJson() => {
+    'locale': locale?.languageCode,
+    'dark_theme': darkTheme,
+  };
+
+  UserPreferences copyWith({Locale? locale, bool? darkTheme}) =>
+      UserPreferences(
+        locale: locale ?? this.locale,
+        darkTheme: darkTheme ?? this.darkTheme,
+      );
 }

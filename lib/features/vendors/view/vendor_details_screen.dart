@@ -10,6 +10,7 @@ import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/shop/product/data/model/products_response_model.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_all_filters_cubit.dart';
 import 'package:multi_vendor/features/shop/product/logic/products_by_filters_cubit.dart';
@@ -50,7 +51,8 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+    return BaseScaffold(
       body: BaseBlocConsumer<VendorDetailsCubit, VendorDetailsModel>(
         onSuccess: _fetchProducts,
         successBuilder: _buildContent,

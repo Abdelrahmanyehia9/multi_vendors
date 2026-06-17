@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,17 +15,20 @@ import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 
 class _Locales {
   final String name;
   final String path;
   final bool available;
   final Locale locale;
+  final String? fontFamily;
 
   _Locales({
     required this.name,
     required this.locale,
     required this.path,
+    this.fontFamily,
     required this.available,
   });
 }
@@ -48,6 +51,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
     ),
     _Locales(
       name: "العربية",
+      fontFamily: TextStyles.arFontFamily,
       path: AppAssets.sAFlag,
       available: true,
       locale: const Locale("ar"),
@@ -95,14 +99,14 @@ class _LanguageSelectionState extends State<LanguageSelection> {
               AppStrings.language.tr(),
               style: TextStyles.labelLarge,
             ).appPaddingAll,
-            SizedBox(height: 12.h),
+            const Gap(12),
             ..._languages.map(
                   (e) => _languageTile(
                 e,
                 selected: value == e,
               ),
             ),
-            SizedBox(height: 16.h),
+            const Gap(16),
             AppButton(
               text: AppStrings.confirm.tr(),
               buttonSize: null,
@@ -143,14 +147,15 @@ class _LanguageSelectionState extends State<LanguageSelection> {
           color: selected ? selectedColor.veryLight : Colors.transparent,
         ),
         child: Row(
+
           children: [
             SvgPicture.asset(
               locale.path,
               width: 36.w,
               height: 36.h,
             ),
-            SizedBox(width: 12.w),
-            Expanded(
+              const Gap(12),
+              Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -158,6 +163,7 @@ class _LanguageSelectionState extends State<LanguageSelection> {
                     locale.name,
                     style: TextStyles.labelMedium.copyWith(
                       color: selected ? selectedColor : null,
+                      fontFamily: locale.fontFamily,
                     ),
                   ),
                   if (!locale.available)

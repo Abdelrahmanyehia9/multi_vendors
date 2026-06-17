@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -41,6 +42,7 @@ class AppButton extends StatelessWidget {
   final ButtonVariant variant;
   final bool enabled;
   final bool isLoading;
+  final bool isBlurEffect;
 
   const AppButton({
     super.key,
@@ -62,6 +64,7 @@ class AppButton extends StatelessWidget {
     this.variant = ButtonVariant.filled,
     this.enabled = true,
     this.isLoading = false,
+    this.isBlurEffect = false,
   });
 
   factory AppButton.filled({
@@ -80,6 +83,7 @@ class AppButton extends StatelessWidget {
     ButtonSize? buttonSize,
     bool enabled = true,
     bool enableGradient = true,
+    bool isBlurEffect = false,
   }) => AppButton(
     text: text,
     onPressed: onPressed,
@@ -96,6 +100,7 @@ class AppButton extends StatelessWidget {
     icon: icon,
     buttonSize: buttonSize,
     enabled: enabled,
+    isBlurEffect: isBlurEffect,
   );
 
   factory AppButton.outlined({
@@ -106,6 +111,7 @@ class AppButton extends StatelessWidget {
     Gradient? gradient,
     TextStyle? style,
     Size? fixedSize,
+    EdgeInsets? padding ,
     double? borderRadius,
     double? borderWidth,
     Widget? icon,
@@ -113,10 +119,12 @@ class AppButton extends StatelessWidget {
     ButtonSize? buttonSize,
     bool enabled = true,
     bool isLoading = false,
+    bool isBlurEffect = false,
   }) => AppButton(
     text: text,
     onPressed: onPressed,
     color: Colors.transparent,
+    padding: padding,
     textColor: textColor ?? color ?? AppColors.primary,
     borderColor: color ?? AppColors.primary,
     gradient: gradient,
@@ -130,16 +138,18 @@ class AppButton extends StatelessWidget {
     enabled: enabled,
     isLoading: isLoading,
     variant: ButtonVariant.outlined,
+    isBlurEffect: isBlurEffect,
   );
 
   factory AppButton.text({
     required String text,
-    VoidCallback? onPressed,
+    GestureTapCallback? onPressed,
     Color? color,
     TextStyle? style,
     EdgeInsets? padding,
     String? toolTip,
     Size? fixedSize,
+    bool isBlurEffect = false,
   }) => AppButton(
     text: text,
     onPressed: onPressed,
@@ -150,6 +160,7 @@ class AppButton extends StatelessWidget {
     buttonSize: null,
     padding: padding ?? EdgeInsets.zero,
     variant: ButtonVariant.text,
+    isBlurEffect: isBlurEffect,
   );
 
   factory AppButton.loading({
@@ -180,6 +191,7 @@ class AppButton extends StatelessWidget {
     String? toolTip,
     bool enabled = true,
     bool isLoading = false,
+    bool isBlurEffect = false,
     EdgeInsets? padding,
     ButtonVariant variant = ButtonVariant.filled,
   }) => AppButton(
@@ -197,6 +209,7 @@ class AppButton extends StatelessWidget {
     enabled: enabled,
     buttonSize: null,
     isLoading: isLoading,
+    isBlurEffect: isBlurEffect,
   );
 
   bool get _isTransparentVariant =>
@@ -227,8 +240,7 @@ class AppButton extends StatelessWidget {
         LinearGradient(colors: [base.darken(0.2), base.darken(0.14), base]);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     final size = _resolvedSize;
     final resolvedBorderColor = borderColor ?? Colors.transparent;
     final resolvedGradient = _resolveGradient(context);
@@ -252,52 +264,63 @@ class AppButton extends StatelessWidget {
       );
     }
 
-    final String? message = toolTip ?? (text.isNotEmpty ? text : null);
+    return Container(
+      width: size?.width,
+      height: size?.height ?? 40.h,
+      alignment: Alignment.center,
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        gradient: resolvedGradient,
+        color: resolvedGradient == null ? _resolveButtonColor(context) : null,
+        border: Border.all(
+          color: resolvedBorderColor,
+          width: borderWidth ?? 1,
+        ),
+        borderRadius: BorderRadius.circular(borderRadius.r),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null)
+            Theme(
+              data: ThemeData(
+                iconTheme: IconThemeData(color: _resolveTextColor(context)),
+              ),
+              child: text.isNotEmpty ? icon!.paddingHr(8) : icon!,
+            ),
+          if (text.isNotEmpty)
+            Flexible(
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: (style ?? TextStyles.bodyMedium).copyWith(
+                  color: _resolveTextColor(context),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    final String? message = toolTip ?? (text.isNotEmpty ? text : null);
     return AppClick(
       onTap: enabled ? onPressed : null,
       toolTip: message,
-      child: Container(
-        width: size?.width,
-        height: size?.height ?? 40.h,
-        alignment: Alignment.center,
-        padding:
-        padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          gradient: resolvedGradient,
-          color: resolvedGradient == null ? _resolveButtonColor(context) : null,
-          border: Border.all(
-            color: resolvedBorderColor,
-            width: borderWidth ?? 1,
-          ),
-          borderRadius: BorderRadius.circular(borderRadius.r),
+      child: isBlurEffect
+          ? ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius.r),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3.w, sigmaY: 3.h),
+          child: _buildContent(context),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null)
-              Theme(
-                data: ThemeData(
-                  iconTheme: IconThemeData(color: _resolveTextColor(context)),
-                ),
-                child: text.isNotEmpty ? icon!.paddingHr(8) : icon!,
-              ),
-            if (text.isNotEmpty)
-              Flexible(
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: (style ?? TextStyles.bodyMedium).copyWith(
-                    color: _resolveTextColor(context),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
+      )
+          : _buildContent(context),
     );
   }
 }

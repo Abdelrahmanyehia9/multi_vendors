@@ -8,8 +8,6 @@ class DateTimeStrings {
   static final String yesterday = AppStrings.yesterday.tr();
   static final String tomorrow  = AppStrings.tomorrow.tr();
   static final String unknown   = AppStrings.unknown.tr();
-  static final String ago = AppStrings.ago.tr();
-  static final String inPrefix = AppStrings.inPrefix.tr();
   static final String minuteSingular = AppStrings.minuteSingular.tr();
   static final String minutePlural   = AppStrings.minutePlural.tr();
   static final String hourSingular   = AppStrings.hourSingular.tr();
@@ -22,6 +20,12 @@ class DateTimeStrings {
   static final String monthPlural    = AppStrings.monthPlural.tr();
   static final String yearSingular   = AppStrings.yearSingular.tr();
   static final String yearPlural     = AppStrings.yearPlural.tr();
+  static String agoFormat(String value, String unit) =>
+      AppStrings.agoFormat.tr(args: [value, unit]);
+
+  static String inFormat(String value, String unit) =>
+      AppStrings.inFormat.tr(args: [value, unit]);
+
 
   static final String am = AppStrings.am.tr();
   static final String pm = AppStrings.pm.tr();

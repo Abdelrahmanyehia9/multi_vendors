@@ -12,7 +12,8 @@ import 'package:multi_vendor/features/main/favorite/data/model/favorite_item.dar
 class ProductModel extends Equatable implements FavoriteItem {
   final int? id;
   final RatingModel? rating;
-  final PriceModel? price;
+  final PriceModel price;
+  final Map<String, dynamic>? description;
   final List<ProductTags>? productTags;
   final Map<String, dynamic> name;
   final String? thumbnail;
@@ -28,49 +29,69 @@ class ProductModel extends Equatable implements FavoriteItem {
     this.productTags,
     this.thumbnail,
     this.vendor,
+    this.description,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-    id: json['id'],
-    name: json['name'],
-    price: json['price'] is Map
-        ? PriceModel.fromJson(json['price'])
-        : PriceModel.fromJson(json),
-    productTags: json["tags"] == null
-        ? null
-        : (json['tags'] as List)
-        .map((e) => ProductTags.fromDatabase(e))
-        .toList(),
-    thumbnail: json['thumbnail'],
-    stockAvailability: json['in_stock'] == null
-        ? null
-        : StockAvailabilityModel(quantity: json['in_stock']),
-    vendor:
-    json['vendor'] == null ? null : VendorModel.fromJson(json['vendor']),
-    rating:
-    json['rating'] == null ? null : RatingModel.fromJson(json['rating']),
-  );
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      ProductModel(
+        id: json['id'],
+        name: json['name'],
+        description: json['description'],
+        price: json['price'] is Map
+            ? PriceModel.fromJson(json['price'])
+            : PriceModel.fromJson(json),
+        productTags: json["tags"] == null
+            ? null
+            : (json['tags'] as List)
+            .map((e) => ProductTags.fromDatabase(e))
+            .toList(),
+        thumbnail: json['thumbnail'],
+        stockAvailability: json['in_stock'] == null
+            ? null
+            : StockAvailabilityModel(quantity: json['in_stock']),
+        vendor:
+        json['vendor'] == null ? null : VendorModel.fromJson(json['vendor']),
+        rating:
+        json['rating'] == null ? null : RatingModel.fromJson(json['rating']),
+      );
 
-  factory ProductModel.fake() => ProductModel(
-    id: FakeData.fakeInt,
-    name: const {},
-    price: PriceModel.fake(),
-    productTags: const [],
-    thumbnail: FakeData.fakeImg,
-    vendor: VendorModel.fake(),
-    rating: RatingModel.fake(),
-  );
+  factory ProductModel.fake() =>
+      ProductModel(
+        id: FakeData.fakeInt,
+        name: const {},
+        price: PriceModel.fake(),
+        productTags: const [],
+        thumbnail: FakeData.fakeImg,
+        vendor: VendorModel.fake(),
+        rating: RatingModel.fake(),
+        description: FakeData.fakeMap,
+      );
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    if (price != null) ...price!.toJson(),
-    'tags': productTags?.map((e) => e.toDatabase).toList(),
-    'thumbnail': thumbnail,
-    'in_stock': stockAvailability?.quantity,
-    'vendor': vendor?.toJson(),
-    'rating': rating?.toJson(),
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        'id': id,
+        'name': name,
+         ...price.toJson(),
+        'tags': productTags?.map((e) => e.toDatabase).toList(),
+        'thumbnail': thumbnail,
+        'in_stock': stockAvailability?.quantity,
+        'vendor': vendor?.toJson(),
+        'rating': rating?.toJson(),
+        'description': description,
+      };
+
+  ProductDetailsModel toProductDetails() =>
+      ProductDetailsModel(
+        name: name,
+        price: price,
+        id: id,
+        thumbnail: thumbnail,
+        description: description,
+        vendor: vendor,
+        rating: rating,
+        inStock: stockAvailability,
+        productTags: productTags,
+      );
 
   factory ProductModel.fromProductDetails(ProductDetailsModel model) =>
       ProductModel(
@@ -78,6 +99,7 @@ class ProductModel extends Equatable implements FavoriteItem {
         price: model.price,
         id: model.id,
         thumbnail: model.thumbnail,
+        description: model.description,
         vendor: model.vendor,
         rating: model.rating,
         stockAvailability: model.inStock,
@@ -85,16 +107,24 @@ class ProductModel extends Equatable implements FavoriteItem {
       );
 
   @override
-  List<Object?> get props => [id, rating, price, productTags, name, thumbnail, vendor];
+  List<Object?> get props =>
+      [id, rating, price, productTags, name, thumbnail, vendor];
+
   int get uniqueId => id!;
+
   int get inStock => stockAvailability?.quantity ?? 0;
-  ProductTags? get ribbon => productTags?.firstWhereOrNull((e) => ProductTags.ribbons.contains(e));
+
+  ProductTags? get ribbon =>
+      productTags?.firstWhereOrNull((e) => ProductTags.ribbons.contains(e));
+
   bool get sponsored => vendor?.isSponsored ?? false;
 
   @override
   int get favoriteId => id!;
+
   @override
   Map<String, dynamic>? get favoriteName => name;
+
   @override
   FavoriteType get favoriteType => FavoriteType.product;
 }

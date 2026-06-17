@@ -33,18 +33,20 @@ enum _ProductCardType {
 class ProductCard extends StatelessWidget {
   final _ProductCardType _type;
   final ProductModel product;
+  final bool showVendor ;
 
   const ProductCard._({
     super.key,
     required this.product,
+    this.showVendor = true,
     required _ProductCardType type,
   }) : _type = type;
 
-  factory ProductCard.big({Key? key, required ProductModel product}) =>
-      ProductCard._(key: key, type: _ProductCardType.big, product: product);
+  factory ProductCard.big({Key? key, required ProductModel product , bool showVendor = true}) =>
+      ProductCard._(key: key, type: _ProductCardType.big, product: product, showVendor: showVendor);
 
-  factory ProductCard.small({Key? key, required ProductModel product}) =>
-      ProductCard._(key: key, type: _ProductCardType.small, product: product);
+  factory ProductCard.small({Key? key, required ProductModel product, bool showVendor = true}) =>
+      ProductCard._(key: key, type: _ProductCardType.small, product: product, showVendor: showVendor,);
 
   static Size get bigSize => _ProductCardType.big.size;
 
@@ -61,7 +63,7 @@ class ProductCard extends StatelessWidget {
     final h = size.height.h;
 
     return AppClick(
-      onTap: () => context.pushNamed(Routes.product, arguments: product.id),
+      onTap: () => context.pushNamed(Routes.product, arguments: product),
       child: Stack(
         children: [
           Container(
@@ -71,13 +73,15 @@ class ProductCard extends StatelessWidget {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: (product.sponsored ? Colors.transparent : AppColors.grey).withAppOpacity(0.075),
+                  color:
+                      (product.sponsored ? Colors.transparent : AppColors.grey)
+                          .withAppOpacity(0.075),
                   blurRadius: 10,
                   offset: const Offset(0.5, 0.5),
                 ),
               ],
               border: product.vendor?.isSponsored == true
-                  ? Border.all(color: AppColors.gold, width: 1.65.sp)
+                  ? Border.all(color: AppColors.gold, width: 1.25.sp)
                   : null,
               color: context.scaffoldBackground,
               borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
@@ -112,13 +116,22 @@ class ProductCard extends StatelessWidget {
                   RatingStars(
                     rating: product.rating,
                     size: isBig ? 18 : 14,
-                  ).paddingHr(isBig ? 16 : 12),
+                  ).paddingHr(isBig ? 16 : 12).paddingVr(isBig ? 4 : 2),
                 ProductNameWithPrice(
                   isBig: isBig,
                   price: product.price,
                   name: product.name.localized,
                 ).paddingHr(isBig ? 16 : 12),
-                if (FeatureFlags.multiVendor && product.vendor != null) ...[
+                if (isBig && product.description != null)
+                  Text(
+                    product.description!.localized,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.captionSmall.copyWith(
+                      color: context.colors.surfaceContainer,
+                    ),
+                  ).paddingHr(isBig ? 16 : 12),
+                if (FeatureFlags.multiVendor && product.vendor != null && showVendor) ...[
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -165,7 +178,7 @@ class ProductCard extends StatelessWidget {
     String text,
     BuildContext context, {
     Color? color,
-  BorderRadiusGeometry? borderRadius, 
+    BorderRadiusGeometry? borderRadius,
     AlignmentDirectional align = AlignmentDirectional.topStart,
   }) {
     final r = Radius.circular(Decorations.borderRadius16.r);
@@ -179,12 +192,14 @@ class ProductCard extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
-          borderRadius:borderRadius?? BorderRadius.only(
-            topLeft: rtl ? Radius.zero : r,
-            bottomLeft: rtl ? r : Radius.zero,
-            topRight: rtl ? r : Radius.zero,
-            bottomRight: rtl ? Radius.zero : r,
-          ),
+          borderRadius:
+              borderRadius ??
+              BorderRadius.only(
+                topLeft: rtl ? Radius.zero : r,
+                bottomLeft: rtl ? r : Radius.zero,
+                topRight: rtl ? r : Radius.zero,
+                bottomRight: rtl ? Radius.zero : r,
+              ),
         ),
         child: Text(
           text,
@@ -230,8 +245,7 @@ class ProductNameWithPrice extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (price!.priceBeforeDiscount != null &&
-                  price!.priceBeforeDiscount! != price!.price) ...[
+              if (price!.isOnSale) ...[
                 Text(
                   price!.priceBeforeDiscount!.usdPrice,
                   maxLines: 1,

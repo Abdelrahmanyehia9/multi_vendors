@@ -90,9 +90,8 @@ class _Vendor extends StatelessWidget {
       child: Column(
         children: [
               CircularBox(
-                radius: 65,
+                radius: 60,
                 padding: EdgeInsets.zero,
-                borderColor : vendor.isSponsored ? AppColors.primary : null,
                 child: !lastOne
                     ? AppCachedNetworkImage(vendor.image)
                     : AppClick(

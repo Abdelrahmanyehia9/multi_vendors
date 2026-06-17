@@ -34,7 +34,7 @@ class HomeFeaturedItem extends StatelessWidget {
         onActionTap: () => context.pushNamed(Routes.product, arguments: product!.id),
       ),
       ProductCard.big(
-        product: product ?? const ProductModel(name: {}, price: null),
+        product: product ?? ProductModel.fake(),
       ),
     ],
   );

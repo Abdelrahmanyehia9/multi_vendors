@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_cart_button.dart';
+import 'package:multi_vendor/core/widgets/buttons/app_notification_button.dart';
 import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/shared/view/widgets/user_avatar.dart';
@@ -21,6 +22,7 @@ class HomeAppBar extends StatelessWidget {
     final layoutCubit = context.read<MainLayoutCubit>();
     return UserBuilder(
       builder: (u)=> Row(
+        spacing: 4.w,
         children: [
           Expanded(
             child: AppClick(
@@ -36,7 +38,7 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Gap.small(),
+          const AppNotificationButton(),
           const AppCartButton(),
         ],
       ),
@@ -48,7 +50,7 @@ class HomeAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppStrings.welcomeBack.tr(), style: TextStyles.bodyLarge.copyWith(
-          color: context.colors.surfaceContainerLow,
+          color: context.colors.secondary,
           fontSize: 12.sp,
             height: 0
         ),),

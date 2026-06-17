@@ -26,7 +26,7 @@ class AppConfigs {
   static  String supportInstagram = "multiVendor";
   static  String supportTikTok = "multiVendor";
   static final AppCurrency currency = AppCurrency.dollar;
-  static String? locale ;
+  static Locale? locale ;
   static int otpColdDown = 10;
   static PackageInfo? packageInfo;
   static String requiredBuild ='0';

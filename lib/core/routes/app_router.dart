@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/cubit/selection_cubit.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/features/authentication/data/repository/auth_repository.dart';
 import 'package:multi_vendor/features/authentication/data/repository/reset_password_repository.dart';
@@ -11,6 +12,11 @@ import 'package:multi_vendor/features/main/main_layout_cubit.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_address_cubit.dart';
 import 'package:multi_vendor/features/main/profile/logic/edit_profile_pic_cubit.dart';
 import 'package:multi_vendor/features/main/profile/view/contact_us_screen.dart';
+import 'package:multi_vendor/features/notifications/data/repository/notification_repository.dart';
+import 'package:multi_vendor/features/notifications/logic/notification_count_cubit.dart';
+import 'package:multi_vendor/features/notifications/logic/notification_delete_cubit.dart';
+import 'package:multi_vendor/features/notifications/logic/notifications_cubit.dart';
+import 'package:multi_vendor/features/notifications/view/notification_screen.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/cart_model.dart';
 import 'package:multi_vendor/features/shop/cart/data/repository/promo_code_repository.dart';
 import 'package:multi_vendor/features/shop/cart/logic/validate_promo_cubit.dart';
@@ -78,6 +84,7 @@ import 'package:multi_vendor/features/vendors/logic/vendors_by_category_cubit.da
 import 'package:multi_vendor/features/vendors/view/all_vendors_screen.dart';
 import 'package:multi_vendor/features/shop/product/view/product_details_screen.dart';
 import 'package:multi_vendor/features/vendors/view/vendor_details_screen.dart';
+import 'package:multi_vendor/shared/data/models/product_model.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
 import 'package:multi_vendor/shared/logic/image_handle_cubit.dart';
 import 'package:multi_vendor/shared/logic/search_cubit.dart';
@@ -103,7 +110,8 @@ class AppRouter {
                 ),
               ),
               BlocProvider(
-                create: (context) => SocialLoginCubit(getIt.get<AuthRepository>()),
+                create: (context) =>
+                    SocialLoginCubit(getIt.get<AuthRepository>()),
               ),
             ],
             child: const LoginScreen(),
@@ -161,6 +169,11 @@ class AppRouter {
               BlocProvider(
                 create: (context) => MainLayoutCubit()..init(initialIndex),
               ),
+              BlocProvider(
+                create: (context) =>
+                    NotificationCountCubit(getIt.get<NotificationRepository>())
+                      ..getCount(),
+              ),
             ],
             child: MainLayout(initialIndex: initialIndex ?? 0),
           ),
@@ -174,7 +187,8 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (context) =>
-                    ProductsByFiltersCubit(getIt.get<ProductRepository>())..getProductsInFilter(filters: args?.initialFilters),
+                    ProductsByFiltersCubit(getIt.get<ProductRepository>())
+                      ..getProductsInFilter(filters: args?.initialFilters),
               ),
               BlocProvider(
                 create: (context) =>
@@ -188,13 +202,13 @@ class AppRouter {
           name: Routes.products,
         );
       case Routes.product:
-        final int pId = settings.arguments as int;
+        final ProductModel product = settings.arguments as ProductModel;
         return _page(
           BlocProvider(
             create: (context) =>
                 ProductDetailsCubit(getIt.get<ProductRepository>())
-                  ..getProductDetails(pId: pId),
-            child: const ProductDetailsScreen(),
+                  ..getProductDetails(pId: product.id!),
+            child: ProductDetailsScreen(product: product),
           ),
           name: Routes.product,
         );
@@ -422,30 +436,55 @@ class AppRouter {
           name: Routes.rateProduct,
         );
 
-        case Routes.orderHistory:
-          return _page(BlocProvider(
+      case Routes.orderHistory:
+        return _page(
+          BlocProvider(
             create: (_) =>
-            OrderHistoryCubit(getIt<OrderHistoryRepository>())
-              ..getOrdersHistory(),
+                OrderHistoryCubit(getIt<OrderHistoryRepository>())
+                  ..getOrdersHistory(),
             child: const OrderHistoryScreen(),
-          ), name: Routes.orderHistory);
-        case Routes.reviewsScreen:
-          final ProductDetailsModel model = settings.arguments as ProductDetailsModel;
-          return _page(MultiBlocProvider(
-              providers:  [
-                BlocProvider(
-                  create: (context) =>
-                      UserReviewsCubit(getIt.get<RatingRepository>(), model.id!)..getUserReviews(),
-                ),
-              ],
-              child: ReviewsScreen(model: model)), name: Routes.reviewsScreen);
+          ),
+          name: Routes.orderHistory,
+        );
+      case Routes.reviewsScreen:
+        final ProductDetailsModel model =
+            settings.arguments as ProductDetailsModel;
+        return _page(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    UserReviewsCubit(getIt.get<RatingRepository>(), model.id!)
+                      ..getUserReviews(),
+              ),
+            ],
+            child: ReviewsScreen(model: model),
+          ),
+          name: Routes.reviewsScreen,
+        );
       case Routes.result:
         final ResultScreenArgs args = settings.arguments as ResultScreenArgs;
         return _page(ResultScreen(args: args), name: Routes.result);
 
-       case Routes.contactUs:
+      case Routes.contactUs:
         return _page(const ContactUsScreen(), name: Routes.contactUs);
+      case Routes.notifications:
+        return _page(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    NotificationCubit(getIt.get<NotificationRepository>())
+                      ..getAllNotifications(),
+              ),
+              BlocProvider(create: (context)=>SelectionCubit<int>()),
+              BlocProvider(create: (context)=>NotificationDeleteCubit(getIt.get<NotificationRepository>())),
 
+            ],
+            child: const NotificationScreen(),
+          ),
+          name: Routes.notifications,
+        );
       default:
         return null;
     }

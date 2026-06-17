@@ -5,9 +5,9 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 class AppTheme {
   const AppTheme._();
 
-  static final Color _lightBackgroundColor = const Color(0xfffefafa);
-  static final Color _darkBackgroundColor = const Color.fromRGBO(10, 10, 15, 1);
-
+  static final Color _lightBackgroundColor = const Color(0xfffcfcfd);
+  static final Color _darkBackgroundColor = const Color.fromRGBO(
+      14, 14, 20, 1.0);
   static final TooltipThemeData _tooltipThemeData = const TooltipThemeData(
     verticalOffset: 2,
     margin: EdgeInsets.zero,
@@ -91,6 +91,7 @@ class _ColorScheme {
     onTertiary: Colors.white,
     error: AppColors.error,
     onError: Colors.white,
+    surface: AppColors.white,
     surfaceContainerLowest: AppColors.grey200,
     surfaceContainerLow: AppColors.grey300,
     surfaceContainer: AppColors.grey500,
@@ -102,6 +103,7 @@ class _ColorScheme {
     seedColor: AppColors.primary,
     primary: AppColors.primary,
     onPrimary: Colors.white,
+    surface: Colors.black,
     secondary: AppColors.secondary,
     onSecondary: Colors.white,
     onTertiary: Colors.white,
@@ -110,8 +112,8 @@ class _ColorScheme {
     brightness: Brightness.dark,
     surfaceContainerLowest: AppColors.grey800,
     surfaceContainerLow: AppColors.grey700,
-    surfaceContainer: AppColors.grey500,
-    surfaceContainerHigh: AppColors.grey200,
-    surfaceContainerHighest: AppColors.grey100,
+    surfaceContainer: AppColors.grey600,
+    surfaceContainerHigh: AppColors.grey400,
+    surfaceContainerHighest: AppColors.grey200,
   );
 }

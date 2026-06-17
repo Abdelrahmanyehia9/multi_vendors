@@ -144,6 +144,8 @@
   "unknown": "Inconnu",
   "ago": "il y a",
   "in": "dans",
+  "ago_format": "{} {} il ya",
+  "in_format": "dans {} {}",
   "minute": "minute",
   "minutes": "minutes",
   "hour": "heure",
@@ -439,7 +441,21 @@
   "copied_to_clipboard_success": "Copié dans le presse-papiers avec succès",
   "verified": "Vérifié",
   "verified_vendor": "Vendeur vérifié",
-  "advertisement": "Publicité"
+  "advertisement": "Publicité",
+  "view_cart": "Voir le panier",
+  "home": "Accueil",
+  "poor": "Médiocre",
+  "average": "Moyen",
+  "good": "Bon",
+  "very_good": "Très bon",
+  "excellent": "Excellent",
+  "notifications": "Notifications",
+  "select_all": "Tout sélectionner",
+  "unselect_all": "Tout désélectionner",
+  "item_selected": "Élément sélectionné"
+
+
+
 
 
 

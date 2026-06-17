@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/routes/routes.dart';
 import 'package:multi_vendor/core/service/navigation_service.dart';
+import 'package:multi_vendor/core/service/notification/notification_service.dart';
 import 'package:multi_vendor/shared/logic/user_cubit.dart';
 import 'package:multi_vendor/shared/logic/user_states.dart';
 
@@ -24,8 +26,10 @@ class _UserSessionBuilderState extends State<UserSessionBuilder> {
         if (state is UserFirstTimeJoin) {
           _go(Routes.onBoarding);
         } else if (state is UserSignIn) {
+          NotificationService.instance.login(userCubit.user?.id);
           _go(Routes.mainLayout);
         } else if (state is UserSignOut) {
+          NotificationService.instance.logout();
           _go(Routes.loginScreen);
         }
       },

@@ -34,13 +34,13 @@ class _AddOrMinusArgs {
 class QuantityStepper extends StatelessWidget {
   final QuantityStepperStyle style;
   final ProductModel product;
-  const QuantityStepper._({required this.style, required this.product});
+  const QuantityStepper._({super.key,required this.style, required this.product});
 
-  factory QuantityStepper.wide({required ProductModel item}) =>
-      QuantityStepper._(style: QuantityStepperStyle.wide, product: item);
+  factory QuantityStepper.wide({required ProductModel item,Key? key}) =>
+      QuantityStepper._(style: QuantityStepperStyle.wide, key: key, product: item);
 
-  factory QuantityStepper.narrow({required ProductModel item}) =>
-      QuantityStepper._(style: QuantityStepperStyle.narrow, product: item);
+  factory QuantityStepper.narrow({required ProductModel item, Key? key}) =>
+      QuantityStepper._(style: QuantityStepperStyle.narrow, key:key , product: item);
 
 
   @override
@@ -56,12 +56,11 @@ class QuantityStepper extends StatelessWidget {
           onMinus: () => cartCubit.updateQuantity(false, item: product),
         );
         return Column(
-          spacing: isNarrow? 4.sp : 8.sp,
+          spacing: isNarrow? 4.h : 8.h,
           children: [
             style == QuantityStepperStyle.narrow
                 ? _NarrowAddOrMinus(args)
                 : _WideAddOrMinus(args),
-
             if (remining > 0  && remining < 10)
             Text('$remining ${AppStrings.itemsLeft.tr()}',style: TextStyles.labelMedium.copyWith(
               color: AppColors.error,
@@ -117,12 +116,10 @@ class _WideAddOrMinus extends StatelessWidget {
           icon: MvIcons.remove,
           onTap: _args.onMinus,
         ),
-
       ],
-    ).appPaddingVr;
+    );
   }
-}
-class _CircleButton extends StatelessWidget {
+}class _CircleButton extends StatelessWidget {
   const _CircleButton({
     required this.icon,
     required this.onTap,

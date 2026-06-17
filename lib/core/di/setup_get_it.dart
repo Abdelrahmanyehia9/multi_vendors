@@ -11,9 +11,11 @@ import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
 import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
+import 'package:multi_vendor/features/notifications/data/repository/notification_repository.dart';
 import 'package:multi_vendor/features/shop/history/data/repository/order_history_repository.dart';
 import 'package:multi_vendor/features/shop/rating/data/repository/rating_repository.dart';
 import 'package:multi_vendor/shared/data/repository/image_handler.dart';
+import 'package:multi_vendor/shared/data/repository/user_pref_repository.dart';
 import 'package:multi_vendor/shared/data/repository/user_session_repository.dart';
 import 'package:multi_vendor/shared/logic/user_preferences_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'
@@ -101,7 +103,8 @@ static Future<void> setupGetIt() async {
     getIt.registerLazySingleton( () => UserCubit(getIt.get<UserSessionRepository>()));
     getIt.registerLazySingleton( () => CartCubit(getIt.get<CartRepository>()));
     getIt.registerLazySingleton( () => FavoriteCubit(getIt.get<FavoriteRepository>()));
-    getIt.registerLazySingleton( () => UserPreferencesCubit(getIt.get<LocalStorage>(instanceName: _settings),));
+    getIt.registerLazySingleton( () => UserPrefRepository(databaseService: getIt.get<DatabaseService>(),localStorage: getIt.get<LocalStorage>(instanceName: _settings)));
+    getIt.registerLazySingleton( () => UserPreferencesCubit(getIt.get<UserPrefRepository>()));
     getIt.registerFactory(() =>
         AuthRepository(
             getIt.get<AuthenticationService>() ));
@@ -121,6 +124,7 @@ static Future<void> setupGetIt() async {
     getIt.registerFactory(()=>SearchRepository(getIt.get<DatabaseService>(), getIt.get<LocalStorage>(instanceName: _searchHistoryCache)));
     getIt.registerFactory(()=>OrderHistoryRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));
     getIt.registerFactory(()=>RatingRepository(getIt.get<DatabaseService>()));
+    getIt.registerFactory(()=>NotificationRepository(getIt.get<DatabaseService>(), getIt.get<RealtimeService>()));
   }
 static Future<void> _setupLocalStorage() async {
   await HiveHelper.init();

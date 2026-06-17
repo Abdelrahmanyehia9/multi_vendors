@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/navigation.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
@@ -20,10 +21,10 @@ class AppCartButton extends StatelessWidget {
         return Badge(
           isLabelVisible: count != null && count > 0,
           textStyle: TextStyles.labelSmall.copyWith(fontWeight: FontWeightHelper.extraBold),
-          label: Center(child: Text(count?.toString() ?? '')),
+          label: Center(child: Text(count?.compactNumber ?? '')),
           child:  AppIconButton(
               tooltip: AppStrings.myCart,
-              icon: MvIcons.shopping, onTap: () => context.pushNamed(Routes.cart)),
+              icon: MvIcons.shoppingOutlined, onTap: () => context.pushNamed(Routes.cart)),
         );
       },
     );

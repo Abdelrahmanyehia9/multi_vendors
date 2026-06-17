@@ -153,6 +153,8 @@
   "unknown": "未知",
   "ago": "前",
   "in": "在",
+  "ago_format": "{} {} 前",
+  "in_format": "在 {} {}",
   "minute": "分钟",
   "minutes": "分钟",
   "hour": "小时",
@@ -464,12 +466,18 @@
   "copied_to_clipboard_success": "已成功复制到剪贴板",
   "verified": "已认证",
   "verified_vendor": "认证卖家",
-  "advertisement": "广告"
-
-
-
-
-
+  "advertisement": "广告",
+  "view_cart": "查看购物车",
+  "home": "首页",
+  "poor": "较差",
+  "average": "一般",
+  "good": "良好",
+  "very_good": "很好",
+  "excellent": "优秀",
+  "notifications": "通知",
+  "select_all": "全选",
+  "unselect_all": "取消全选",
+  "item_selected": "已选择项目"
 
 
 }

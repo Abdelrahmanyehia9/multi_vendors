@@ -24,6 +24,8 @@ class _MainLayoutState extends State<MainLayout> with MainLayoutMixin {
         child: BaseScaffold(
           paddingHr: 0,
           paddingVr: 0,
+          topSafeArea: true,
+          bottomSafeArea: false,
           bottomNavigationBar: BaseNavbar(
             items: items,
             initialIndex: value,

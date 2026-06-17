@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
+import 'package:multi_vendor/core/service/notification/notification_service.dart';
 import 'package:multi_vendor/core/utils/app_assets.dart';
 import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/routes/app_router.dart';
@@ -15,12 +16,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: AppConstants.supabaseUrl,
-    anonKey: AppConstants.supabaseKey,
+    publishableKey: AppConstants.supabaseKey,
     debug: false,
   );
 
   await Future.wait([
     DI.setupGetIt(),
+    NotificationService.instance.init(),
     EasyLocalization.ensureInitialized(),
     AppConfigs.setupPhoneSystem(),
     ScreenUtil.ensureScreenSize(),

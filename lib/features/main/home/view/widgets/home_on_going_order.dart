@@ -23,7 +23,7 @@ class HomeOnGoingOrder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseBlocConsumer<HomeOnGoingOrderCubit, List<OrderModel>>(
       successBuilder:(orders)=> AppSlider(
-        height: 120,
+        height: 100,
         slides: orders.map((order) => _Slide(color, order)).toList(),
       ),
     ) ;
@@ -89,7 +89,6 @@ class _Slide extends StatelessWidget {
             ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: 120.w,
-
               ),
               child: Text(
                 maxLines: 2,
@@ -116,16 +115,17 @@ class _Slide extends StatelessWidget {
             onPressed: ()=>context.pushNamed(Routes.orderTracking,arguments: order.trackId),
             text: AppStrings.orderTracking.tr(),
             buttonSize: null,
-            fixedSize: Size(128.w, 32.h),
+            fixedSize: const Size(148, 48),
             color: textColor,
             padding: EdgeInsets.zero,
             style: TextStyles.labelSmall,
             textColor: color,
           ),
-          AppButton.outlined(
+          AppButton.text(
             onPressed: ()=>context.pushNamed(Routes.orderDetails,arguments: order.id),
             text: AppStrings.more.tr(),
-            fixedSize: Size(128.w, 32.h),
+            fixedSize: const Size(148, 36),
+            padding: EdgeInsets.zero,
             color: textColor,
             style: TextStyles.labelSmall,
           ),

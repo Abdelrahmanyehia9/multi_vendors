@@ -7,7 +7,8 @@ class PhotoOverlay extends StatelessWidget {
   final String? img;
   final Widget? title ;
   final int titlePadding;
-  const PhotoOverlay({super.key,this.title, this.titlePadding =16 , this.img});
+  final double? radius ;
+  const PhotoOverlay({super.key, this.radius,this.title, this.titlePadding =16 , this.img});
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 import 'package:multi_vendor/core/widgets/scaffold/sticky_bottom_layout.dart';
 import 'package:multi_vendor/features/shop/cart/data/models/promo_code_model.dart';
+import 'package:multi_vendor/features/shop/checkout/logic/checkout_cubit.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_address_info.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_expansion_tile.dart';
 import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_shipping_info_card.dart';
@@ -14,6 +15,7 @@ import 'package:multi_vendor/features/shop/checkout/view/widgets/checkout_total_
 import 'package:multi_vendor/features/shop/checkout/view/widgets/select_payment_tile.dart';
 import 'package:multi_vendor/features/shop/shared/model/checkout_model.dart';
 import 'package:multi_vendor/features/shop/shared/model/extension/checkout_summery_model_extension.dart';
+import 'package:multi_vendor/features/shop/shared/model/order_model.dart';
 import 'package:multi_vendor/features/shop/shared/widgets/checkout_list_porducts.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
@@ -45,7 +47,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>  with CheckoutMixin {
         sticky: BaseBlocConsumer<PaymentCubit, int?>(
           bloc: paymentCubit,
           onSuccess:placeOrder,
-          builder:(payStates)=>BaseBlocConsumer(
+          builder:(payStates)=>BaseBlocConsumer<CheckoutCubit, OrderModel>(
             onFailure: onOrderFailed,
             bloc: checkoutCubit,
             onSuccess: onOrderSuccess,

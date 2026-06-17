@@ -665,6 +665,24 @@ class AppStrings {
   static const String verifiedVendor = "verified_vendor";
   static const String advertisement = "advertisement";
 
+  static const String viewCart = "view_cart";
+
+  static const  String home = "home";
+  static const String poorRate = "poor" ;
+  static const String averageRate = "average" ;
+  static const String goodRate = "good" ;
+  static const String veryGoodRate = "very_good" ;
+  static const String excellentRate = "excellent" ;
+  static const String agoFormat = 'ago_format';
+  static const String inFormat  = 'in_format';
+  static const String today = "today" ;
+  static const String notifications = 'notifications';
+
+  static const String selectAll=      "select_all";
+  static const String unSelectAll=    "unselect_all";
+  static const String itemSelected = "item_selected";
+
+
 
 
 }

@@ -7,6 +7,8 @@ extension SizeExt on BuildContext {
   Size get rSize => MediaQuery.sizeOf(this);
   double get width => rSize.width;
   double get height => rSize.height;
+  double get topSafeArea => MediaQuery.of(this).padding.top;
+  double get bottomSafeArea => MediaQuery.of(this).padding.bottom;
 }
 
 extension ThemeEXT on BuildContext {

@@ -25,9 +25,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     initAnimation(
       vsync: this,
-      onFinished: () {
-        SplashLogic.init(context);
-      },
+      onFinished: () async=>SplashLogic.init(context)
     );
     super.initState();
   }

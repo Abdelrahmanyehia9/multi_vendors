@@ -18,6 +18,7 @@ class VerifiedChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: (size*.32).w, vertical: (size*.1).h),
       decoration: BoxDecoration(
         color: AppColors.success.veryLight,
         borderRadius: BorderRadius.circular(Decorations.borderRadius8.r),
@@ -30,8 +31,8 @@ class VerifiedChip extends StatelessWidget {
           Text(
             title ?? AppStrings.verified.tr(),
             style: TextStyles.labelMedium.copyWith(
-              color: AppColors.success,
-              fontSize: (size * .9).sp,
+              color: AppColors.success500,
+              fontSize: (size * .65).sp,
             ),
           ),
         ],

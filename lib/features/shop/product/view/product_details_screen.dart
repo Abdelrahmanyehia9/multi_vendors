@@ -12,13 +12,13 @@ import 'package:multi_vendor/core/widgets/buttons/share_button.dart';
 import 'package:multi_vendor/shared/data/models/product_model.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  final ProductModel product;
+  const ProductDetailsScreen({super.key, required this.product});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  ValueNotifier<ProductDetailsModel?> product = ValueNotifier(null) ;
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
@@ -32,7 +32,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             model: p,
           ),
         loadingBuilder: () => ProductDetailsBody(
-            model: ProductDetailsModel.fake()
+            model: widget.product.toProductDetails()
         ),
         failureBuilder: AppStates.error,
       ),
@@ -50,12 +50,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       successBuilder: (p) =>  action(ProductModel.fromProductDetails(p)),
       loadingBuilder: () => action(ProductModel.fake()),
     );
-
-  }
-  @override
-  void dispose() {
-    product.dispose();
-    super.dispose();
   }
 }
 

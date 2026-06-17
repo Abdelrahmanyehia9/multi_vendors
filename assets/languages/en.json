@@ -464,7 +464,21 @@
   "copied_to_clipboard_success": "Copied to clipboard successfully",
   "verified": "Verified",
   "verified_vendor": "Verified Vendor",
-  "advertisement": "Advertisement"
+  "advertisement": "Advertisement",
+  "view_cart": "View Cart",
+  "home": "Home",
+  "poor": "Poor",
+  "average": "Average",
+  "good": "Good",
+  "very_good": "Very Good",
+  "excellent": "Excellent",
+  "notifications": "Notifications",
+  "ago_format": "{} {} ago",
+  "in_format": "in {} {}",
+  "select_all": "Select All",
+  "unselect_all": "Unselect All",
+  "item_selected": "Item Selected"
+
 
 
 

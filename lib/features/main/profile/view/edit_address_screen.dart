@@ -57,6 +57,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
                   children: [
                     Expanded(
                       child: _textField(
+                        readOnly: true,
                         label: AppStrings.country.tr(),
                         controller: countryController,
                       ),
@@ -141,6 +142,7 @@ class _EditAddressScreenState extends State<EditAddressScreen>
     int? maxLength,
     bool isNumeric = false,
     bool isOptional = false,
+    bool readOnly = false,
   }) {
     Widget header = Row(
       mainAxisSize: MainAxisSize.min,
@@ -156,6 +158,8 @@ class _EditAddressScreenState extends State<EditAddressScreen>
     return AppTextField(
       borderWidth: 1.2,
       maxLines: maxLines ?? 1,
+      readOnly: readOnly,
+      enabled: !readOnly,
       borderType: AppBorderType.filled,
       autoValidateMode: AutovalidateMode.disabled,
       hintText: "${AppStrings.enter.tr()} $label ${isOptional ? AppStrings.optional.tr() : ""}",

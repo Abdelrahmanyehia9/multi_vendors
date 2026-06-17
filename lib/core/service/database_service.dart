@@ -55,7 +55,23 @@ class DatabaseService {
     if(data==null )return {};
     return await _supabase.from(table).update(data).eq(idColumn, id).select().single();
   }
+  Future<List<Map<String, dynamic>>> UPDATE_MANY({
+    required String table,
+    required Map<String, dynamic> data,
+     PostgrestFilterBuilder<dynamic> Function(
+        PostgrestFilterBuilder<dynamic>,
+        )? filter,
+  }) async {
+    if (data.isEmpty) return [];
+    if(filter == null) {
+      return await _supabase.from(table).update(data).select();
+    }
+    final result = await filter(
+      _supabase.from(table).update(data),
+    ).select();
 
+    return List<Map<String, dynamic>>.from(result);
+  }
   Future<Map<String, dynamic>> UPSERT({
     required String table,
     required Map<String, dynamic> data,
@@ -109,8 +125,22 @@ class DatabaseService {
   Future<void> DELETE_WHERE({
     required String table,
     required PostgrestFilterBuilder<dynamic> Function(PostgrestFilterBuilder<dynamic>) filter,
-  }) async {
+  }) async
+  {
     PostgrestFilterBuilder<dynamic> query = _supabase.from(table).delete();
     await filter(query);
+  }
+  Future<int> COUNT({
+    required String table,
+    PostgrestFilterBuilder<PostgrestList> Function(
+        PostgrestFilterBuilder<PostgrestList>,
+        )? filter,
+  }) async {
+    var query = _supabase.from(table).select();
+    if (filter != null) {
+      query = filter(query);
+    }
+    final response = await query.count();
+    return response.count;
   }
 }

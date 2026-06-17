@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
+import 'package:multi_vendor/core/service/notification/notification_service.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
@@ -39,6 +40,7 @@ mixin MainLayoutMixin on State<MainLayout> {
   @override
   void initState() {
     super.initState();
+    NotificationService.instance.login(userCubit.user?.id);
     items = _buildItems();
     _loadedPages = List.generate(items.length, (_) => null);
     _loadedPages[widget.initialIndex] = items[widget.initialIndex]
@@ -49,7 +51,7 @@ mixin MainLayoutMixin on State<MainLayout> {
     return [
       NavbarItem(
         icon: MvIcons.home,
-        label: "Home",
+        label: AppStrings.home.tr(),
         pageBuilder: () => MultiBlocProvider(
           providers: [
             BlocProvider(
@@ -106,7 +108,7 @@ mixin MainLayoutMixin on State<MainLayout> {
       ),
       NavbarItem(
         icon: MvIcons.search,
-        label: "Search",
+        label: AppStrings.search.tr(),
         pageBuilder: () => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => SearchCubit()),
@@ -125,13 +127,13 @@ mixin MainLayoutMixin on State<MainLayout> {
       if (FeatureFlags.enableFavorite)
         NavbarItem(
           icon: MvIcons.favoriteOutlined,
-          label: "favorite",
+          label: AppStrings.favorites.tr(),
           pageBuilder: () => const FavoriteScreen(),
         ),
 
       NavbarItem(
         icon: MvIcons.user,
-        label: "profile",
+        label: AppStrings.profile.tr(),
         pageBuilder: () => const ProfileScreen(),
       ),
     ];
@@ -140,7 +142,6 @@ mixin MainLayoutMixin on State<MainLayout> {
     _loadedPages[index] ??= items[index].pageBuilder();
   }
   bool get canPop => cubit.canPop;
-
   List<Widget> get pages => _loadedPages
       .map((p) => p ?? const SizedBox.shrink()
   )

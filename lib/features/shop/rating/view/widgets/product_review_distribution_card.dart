@@ -7,7 +7,6 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
-import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 import 'package:multi_vendor/shared/view/widgets/rating_stars.dart';
 
@@ -18,6 +17,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<int>distribution = [rating?.distribution?.one ?? 0, rating?.distribution?.two ?? 0, rating?.distribution?.three ?? 0, rating?.distribution?.four ?? 0, rating?.distribution?.five ?? 0];
+    final List<String> distributionsString = [AppStrings.poorRate, AppStrings.averageRate, AppStrings.goodRate, AppStrings.veryGoodRate, AppStrings.excellentRate] ;
     final int count = rating?.count ?? 0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,16 +50,17 @@ class ProductReviewDistributionCard extends StatelessWidget {
           flex: 2,
           child: Column(
             children: List.generate(
+
               5, (i) {
                 final double  percentage= distribution[i] / (count==0?1:count) ;
                 return Row(
                 spacing: 4.w,
                 children: [
-                  Icon(MvIcons.star, size: 16.sp, color: AppColors.warning),
                   Text(
-                    "${i+1}",
-                    style: TextStyles.labelMedium.copyWith(
+                    distributionsString[i].tr(),
+                    style: TextStyles.bodyMedium.copyWith(
                         fontSize: 14.sp,
+                      color: context.colors.surfaceContainerHigh,
                       ),
                   ),
                   Expanded(
@@ -71,7 +72,7 @@ class ProductReviewDistributionCard extends StatelessWidget {
                       backgroundColor: context.colors.surfaceContainerLowest,
                     ),
                   ),
-                  Text("${(percentage * 100).toStringAsFixed(0)}%", style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer))
+                  Text("${(percentage * 100).toStringAsFixed(0)}%", style: TextStyles.captionSmall.copyWith(color: context.colors.surfaceContainer))
                 ],
               ).paddingVr(2);
               },

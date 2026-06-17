@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
@@ -41,7 +42,7 @@ class AppSearchbar extends StatelessWidget {
               const Gap(6),
             ],
             SizedBox(
-              height: 36.h,
+              height: 32.h,
               child: AppTextField(
                 focusNode: cubit.focusNode,
                 controller: cubit.controller,
@@ -49,6 +50,7 @@ class AppSearchbar extends StatelessWidget {
                 hintText: '${AppStrings.search.tr()} ....',
                 hintStyle: TextStyles.captionLarge,
                 borderType: AppBorderType.filled,
+                filledColor: context.colors.surfaceContainerLowest,
                 padding: !state.hasFocus
                     ? EdgeInsets.zero
                     : EdgeInsets.symmetric(horizontal: 16.w),

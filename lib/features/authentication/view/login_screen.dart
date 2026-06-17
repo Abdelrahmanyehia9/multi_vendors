@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/DI/setup_get_it.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
 import 'package:multi_vendor/core/enum/login_providers.dart';
+import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_configs.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
@@ -52,11 +54,15 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin {
             ),
             if (AppConfigs.authFormType == AuthFormType.emailAndPassword)
               const ToggleSignupAndLogin(),
-            AppButton.text(
+              AppButton.text(
+                style: TextStyles.bodyLarge.copyWith(
+                  color: AppColors.secondary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.secondary,
+                ),
               text: AppStrings.continueAsGuest.tr(),
               onPressed: userCubit.loginAsGuest,
             ),
-
             const AuthSocialLogin(),
           ],
         ),

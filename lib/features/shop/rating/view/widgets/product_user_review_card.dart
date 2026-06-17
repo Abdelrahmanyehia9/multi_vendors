@@ -37,11 +37,17 @@ class ProductUserReviewCard extends StatelessWidget {
             children: [
               UserAvatar(userName: user.fullName, profile: user.profilePic, size: 40),
               _buildUserInfo(username, date: review.createdAt, context: context),
-              const Spacer(),
-              if (review.rate != null) _buildRatingIcon("${review.rate}"),
             ],
           ),
-          Text(review.comment??AppStrings.noCommentAvailable.tr(), style: TextStyles.bodyMedium).paddingVr(8),
+          if(review.comment != null)
+          Text(review.comment!, style: TextStyles.bodyMedium).paddingVr(8)
+          else Row(
+            spacing: 4.w,
+            children: [
+              Icon(MvIcons.info, size: 14.sp, color: context.colors.surfaceContainer),
+              Text(AppStrings.noCommentAvailable.tr(), style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer)).paddingVr(8),
+            ],
+          ),
         ],
       ),
     );
@@ -62,13 +68,5 @@ class ProductUserReviewCard extends StatelessWidget {
           ),
       ],
     ),
-  );
-  /// Build rating icon
-  Widget _buildRatingIcon(String rate) => Row(
-    spacing: 2.w,
-    children: [
-      Icon(MvIcons.star, size: 16.sp, color: AppColors.warning),
-      Text(rate, style: TextStyles.labelSmall),
-    ],
   );
 }

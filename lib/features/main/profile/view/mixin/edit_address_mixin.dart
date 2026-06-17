@@ -59,6 +59,10 @@ mixin EditAddressScreenMixin on State<EditAddressScreen> {
 
   Future<void> _initLocation() async {
     if (userCubit.user?.address != null) return;
+    _scanLocation() ;
+  }
+
+  Future<void> _scanLocation ()async{
     if (!await geoLocator.checkPermission()) return;
     final location = await geoLocator.getCurrentLocation();
     if (location == null) return;
@@ -73,6 +77,7 @@ mixin EditAddressScreenMixin on State<EditAddressScreen> {
     for (var c in _controllers) {
       c.clear();
     }
+    _scanLocation() ;
   }
 
   void onSave() {

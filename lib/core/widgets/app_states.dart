@@ -92,7 +92,7 @@ class AppStates extends StatelessWidget {
         children: [
           _buildImage(context),
           Text(
-            message ?? state.message,
+            message?.tr() ?? state.message.tr(),
             style: TextStyles.headline3.copyWith(
               fontWeight: FontWeightHelper.regular,
               fontSize: size * .7.sp,

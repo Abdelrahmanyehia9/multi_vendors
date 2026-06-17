@@ -10,12 +10,14 @@ class ProductList extends StatelessWidget {
   final Clip clipBehavior;
   final EdgeInsetsGeometry? padding;
   final double spacing ;
+  final bool showVendor;
 
   const ProductList({
     super.key,
     this.shrinkWrap = true,
     this.spacing = 16,
     this.padding,
+    this.showVendor = true,
     this.clipBehavior = Clip.none,
     this.scrollDirection = Axis.horizontal,
     required this.products,
@@ -34,7 +36,7 @@ class ProductList extends StatelessWidget {
       physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
       padding: padding ?? EdgeInsets.zero,
 clipBehavior: clipBehavior,
-      itemBuilder: (_, i) => ProductCard.small(product: products[i]),
+      itemBuilder: (_, i) => ProductCard.small(product: products[i], showVendor: showVendor),
     );
   }
 }

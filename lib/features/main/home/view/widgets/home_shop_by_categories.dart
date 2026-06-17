@@ -60,7 +60,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
           successBuilder: (p) => ProductGrid(shrinkWrap: true, products: p),
           loadingBuilder: () => ProductGrid(
             shrinkWrap: true,
-            products: List.generate(4, (_) => const ProductModel(name: {}, price: null)),
+            products: List.generate(4, (_) =>  ProductModel.fake()),
           ),
           emptyBuilder: AppStates.empty,
           failureBuilder: AppStates.error,

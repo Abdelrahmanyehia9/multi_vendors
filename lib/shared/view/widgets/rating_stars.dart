@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/shared/view/widgets/section_header.dart';
 
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
-import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/shared/data/models/rating_model.dart';
 
 
@@ -18,12 +18,14 @@ class RatingStars extends StatefulWidget {
   final bool readOnly;
   final String? title;
   final bool showCount;
+  final double spacing ;
   final ValueChanged<double>? onRatingChanged;
 
   const RatingStars({
     super.key,
     this.rating,
     this.size = 16,
+    this.spacing =  0 ,
     this.readOnly = true,
     this.title,
     this.showCount = true,
@@ -102,11 +104,11 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
           valueListenable: _ratingNotifier,
           builder: (context, currentRating, _) {
             return Row(
+              spacing: widget.spacing,
               mainAxisSize: MainAxisSize.min,
               children: [
                 ...List.generate(5, (i) => _buildStar(i, currentRating, context)),
                 if (widget.rating?.count != null && widget.showCount) ...[
-                  Gap.extraSmall(),
                   Text(
                     "(${widget.rating!.count})",
                     maxLines: 1,
@@ -115,7 +117,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
                       color: context.colors.surfaceContainer,
                       fontSize: (widget.size - 6).sp,
                     ),
-                  ),
+                  ).paddingHr(4),
                 ],
               ],
             );

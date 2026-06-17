@@ -9,7 +9,6 @@ class VendorDetailsModel extends VendorModel {
   final List<CategoryModel>? categories;
   final RatingModel? vendorRating;
   final VendorDeliveryOptionModel? deliveryOption;
-  final Map<String, dynamic>? bio;
 
   const VendorDetailsModel({
     this.categories,
@@ -17,7 +16,7 @@ class VendorDetailsModel extends VendorModel {
     this.deliveryOption,
     super.isVerified ,
     super.id,
-    this.bio,
+    super.bio,
     required super.name,
     required super.image,
   });
@@ -44,7 +43,6 @@ class VendorDetailsModel extends VendorModel {
       VendorDetailsModel(
         name: FakeData.fakeMapName,
         image: FakeData.fakeImg,
-        bio: FakeData.fakeMapDescription,
         categories:  List<CategoryModel>.generate(10, (index) => CategoryModel.fake()),
         isVerified: FakeData.fakeBoolean,
         vendorRating:RatingModel.fake(),

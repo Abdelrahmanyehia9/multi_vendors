@@ -32,6 +32,7 @@ static const String  result = '/result';
 static const String reviewsScreen = '/reviewsScreen';
 static const String contactUs = '/contactUs';
 static const String orderHistory = '/orderHistory';
+static const String notifications = '/notifications';
 
 
 }

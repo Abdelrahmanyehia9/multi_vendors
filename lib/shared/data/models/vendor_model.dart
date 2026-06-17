@@ -14,12 +14,14 @@ class VendorModel extends Equatable implements FavoriteItem{
   final bool isVerified;
   final Color? color ;
   final bool isSponsored;
+  final Map<String, dynamic>? bio;
 
-  const VendorModel({required this.id,this.isSponsored = false,this.isVerified = false ,this.count, this.color ,required this.name, required this.image});
+  const VendorModel({required this.id,this.isSponsored = false,this.isVerified = false ,this.count, this.color ,required this.name, required this.image, this.bio});
   factory VendorModel.fromJson(Map<String ,dynamic>json)=>VendorModel(
       id: json['id'],
       name: json["name"],
       image: json['image'],
+      bio: json['bio'],
       count: json['count'],
       isSponsored: json['sponsored']??false,
       color: json['color'] == null ? null : ColorExtension.fromRgbString(json['color']),
@@ -31,6 +33,7 @@ class VendorModel extends Equatable implements FavoriteItem{
     name: FakeData.fakeMapName,
     image: FakeData.fakeImg,
     count: FakeData.fakeInt,
+    bio: FakeData.fakeMapName,
   );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +44,8 @@ class VendorModel extends Equatable implements FavoriteItem{
     "is_verified": isVerified,
     "sponsored": isSponsored,
     'color':color?.toRgbString,
+    'bio':bio,
+
   }.withoutNulls;
   @override
   // TODO: implement props

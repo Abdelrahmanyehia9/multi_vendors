@@ -466,7 +466,22 @@
   "copied_to_clipboard_success": "تم النسخ إلى الحافظة بنجاح",
   "verified": "موثق",
   "verified_vendor": "بائع موثق",
-  "advertisement": "إعلان"
+  "advertisement": "إعلان",
+  "view_cart": "عرض السلة",
+  "home": "الرئيسية",
+  "poor": "ضعيف",
+  "average": "متوسط",
+  "good": "جيد",
+  "very_good": "جيد جداً",
+  "excellent": "ممتاز",
+  "notifications": "الإشعارات",
+  "ago_format": "منذ {} {}",
+  "in_format": "يعد{} {}",
+  "select_all": "تحديد الكل",
+  "unselect_all": "إلغاء تحديد الكل",
+  "item_selected": "عنصر محدد"
+
+
 
 
 

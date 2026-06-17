@@ -67,17 +67,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
           children: [
             Center(child: SvgPicture.asset(AppAssets.contactUsIllustration, height: 180.h,)),
             Text(AppStrings.contactUsDescription.tr(),
             style: TextStyles.bodySmall.copyWith(color: context.colors.surfaceContainer),),
+             Gap.medium(),
              SectionHeader(title: AppStrings.reachUs.tr()),
            Row(
              spacing: 4.w,
              children: _contactUsData.map((e) => Expanded(child: _contactUsTile(e))).toList(),
            ),
-            Gap.small(),
+            Gap.medium(),
              SectionHeader(title: AppStrings.socialMedia.tr()),
            ..._socialMediaData.where((e)=>e.userName!=null).toList().map((e)=>_socialMediaTile(e)),
 
@@ -102,8 +102,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         runSpacing: 8.h,
         children: [
           if(tile.icon != null)
-          Icon(tile.icon,size: 24.sp ,color: Colors.white),
-          Text(tile.title, style: TextStyles.labelMedium.copyWith(color: AppColors.white),),
+          Icon(tile.icon,size: 20.sp ,color: Colors.white),
+          Text(tile.title, style: TextStyles.labelSmall.copyWith(color: AppColors.white),),
         ],
       ),
 
@@ -114,6 +114,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       await UrlLauncherService.instance.launchSocialMedia(tile.platform, tile.userName!);
     },
     child: Container(
+      margin: EdgeInsets.only(bottom: 4.h),
       decoration: BoxDecoration(
         color: tile.color,
         gradient: tile.gradient,

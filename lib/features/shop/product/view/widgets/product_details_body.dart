@@ -51,7 +51,7 @@ class ProductDetailsBody extends StatelessWidget {
                       if(model.id== null) return ;
                       context.pushNamed(Routes.reviewsScreen, arguments: model);
                     },
-                    child: RatingStars(rating: model.rating!, size: 22)),
+                    child: RatingStars(rating: model.rating!, size: 22 , spacing: 2,)),
               Text(
                 model.category?.name.localized ?? "",
                 style: TextStyles.captionMedium,

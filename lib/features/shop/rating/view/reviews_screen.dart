@@ -37,8 +37,9 @@ class _ReviewsScreenState extends State<ReviewsScreen>
         title: "${AppStrings.reviews.tr()}\n${widget.model.name.localized}",
       ),
       body: SingleChildScrollView(
-        child: Column(
+        child:(widget.model.rating?.count??0) >0? Column(
           children: [
+
             ProductReviewDistributionCard(rating: rating),
             Gap.large(),
             ProductReviewDistributionTabs(
@@ -52,14 +53,14 @@ class _ReviewsScreenState extends State<ReviewsScreen>
               emptyBuilder: AppStates.empty,
             )
           ],
-        ),
+        ):AppStates.empty(),
       ),
     );
   }
 
   Widget _builder(List<UserReviewModel> reviews)=>Column(
     children: [
-       SectionHeader(title: AppStrings.comments.tr()).appPaddingVr,
+       SectionHeader(title: "${AppStrings.comments.tr()} (${reviews.length})").appPaddingVr ,
       ListView.separated(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
