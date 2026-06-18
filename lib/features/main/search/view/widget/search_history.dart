@@ -42,6 +42,7 @@ class SearchHistory extends StatelessWidget {
             ),
           Expanded(
             child: ListView.separated(
+              padding: EdgeInsets.zero,
               itemCount: searchHistory.length,
               separatorBuilder: (_, index) => Gap.large(),
               itemBuilder: (_, index) =>

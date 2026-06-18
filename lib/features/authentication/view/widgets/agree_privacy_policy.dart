@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:multi_vendor/core/service/url_launcher.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AgreePrivacyPolicy extends StatelessWidget {
@@ -14,10 +16,10 @@ class AgreePrivacyPolicy extends StatelessWidget {
     return Text.rich(
       TextSpan(
         style: TextStyles.bodySmall,
-        text: "By signing up you agree to our ",
+        text: "${AppStrings.agreePrivacyPolicy.tr()}\t",
         children: [
           TextSpan(
-            text: "privacy policies",
+            text: AppStrings.privacyPolicy.tr(),
             style: TextStyles.labelSmall.copyWith(color: AppColors.primary),
             recognizer: TapGestureRecognizer()
               ..onTap = () async {

@@ -477,7 +477,12 @@
   "in_format": "in {} {}",
   "select_all": "Select All",
   "unselect_all": "Unselect All",
-  "item_selected": "Item Selected"
+  "item_selected": "Item Selected",
+  "by_signing_up_you_agree_to_our": "By signing up, you agree to our",
+  "privacy_policy": "Privacy Policy",
+  "network_error_description": "Unable to connect to the internet. Please check your connection and try again.",
+  "retry": "Retry"
+
 
 
 

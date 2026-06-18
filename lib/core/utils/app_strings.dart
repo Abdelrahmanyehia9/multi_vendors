@@ -682,6 +682,13 @@ class AppStrings {
   static const String unSelectAll=    "unselect_all";
   static const String itemSelected = "item_selected";
 
+  static const String agreePrivacyPolicy = "by_signing_up_you_agree_to_our";
+  static const String privacyPolicy = "privacy_policy" ;
+
+  static const networkErrorDescription = "network_error_description";
+
+  static const String retry = "retry";
+
 
 
 

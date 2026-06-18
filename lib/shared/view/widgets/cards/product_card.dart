@@ -84,7 +84,7 @@ class ProductCard extends StatelessWidget {
                   ? Border.all(color: AppColors.gold, width: 1.25.sp)
                   : null,
               color: context.scaffoldBackground,
-              borderRadius: BorderRadius.circular(Decorations.borderRadius16.r),
+              borderRadius: BorderRadius.circular(Decorations.borderRadius12.r),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +255,7 @@ class ProductNameWithPrice extends StatelessWidget {
                     fontSize: isBig ? 12.sp : 8.sp,
                     decoration: TextDecoration.lineThrough,
                     decorationColor: context.colors.surfaceContainer,
-                    decorationThickness: 4.sp,
+                    decorationThickness: 1.sp,
                   ),
                 ),
                 Gap(isBig ? 6 : 3),

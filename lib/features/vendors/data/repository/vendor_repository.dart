@@ -29,17 +29,23 @@ class VendorRepository {
     }
   }
 
-  Future<Either<AppException, List<VendorDetailsModel>>> getVendorsByCategory(int categoryId) async {
+  Future<Either<AppException, List<VendorDetailsModel>>> getVendorsByCategory(int? categoryId) async {
     try {
       final response = await _db.GET(
         table: RemoteDatabaseConstants.vendor_table,
         select: ShopQueries.vendorsByCategory,
-        filter: (e)=>e.contains("categories", [categoryId]).order("sponsored")
+        filter: (e) {
+          final query = categoryId != null
+              ? e.contains("categories", [categoryId])
+              : e;
+          return query.order("sponsored");
+        },
       );
-      final vendors = List<VendorDetailsModel>.from(response.map((x) => VendorDetailsModel.fromJson(x)));
+      final vendors = List<VendorDetailsModel>.from(
+        response.map((x) => VendorDetailsModel.fromJson(x)),
+      );
       return right(vendors);
     } catch (e) {
       return left(e.toAppException);
     }
-  }
-}
+  }}

@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
-import 'package:multi_vendor/core/enum/product_tags.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
@@ -148,7 +147,7 @@ class _ProductFiltersSheetState extends State<ProductFiltersSheet>
             _FilterItem(
               title: AppStrings.tags.tr(),
               child: _TagsFilters(
-                tags: f.tags!.where((e)=>ProductTags.ribbons.contains(e.tag)).toList(),
+                tags: f.tags!,
                 selectedTags: _selectedTags,
               ),
             ),

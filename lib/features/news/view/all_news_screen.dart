@@ -30,7 +30,7 @@ class AllNewsScreen extends StatelessWidget {
           BaseBlocConsumer(
             bloc: cubit,
             builder: (s) {
-              if(s.isSuccess || s.isLoading) {
+              if(!s.isFailure) {
                 return AppSearchbar(
                 onQueryChanged: cubit.searchNews,
             );

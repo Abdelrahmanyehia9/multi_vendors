@@ -10,7 +10,7 @@ class VendorsByCategoryCubit extends Cubit<BaseState<List<VendorDetailsModel>>> 
   VendorsByCategoryCubit(this._repo) : super(const BaseState.initial());
 
 
-  Future<void>getVendorsByXCategory(int catID)async{
+  Future<void>getVendorsByXCategory(int? catID)async{
     safeEmit(const BaseState.loading());
     final result = await _repo.getVendorsByCategory(catID);
     result.fold(

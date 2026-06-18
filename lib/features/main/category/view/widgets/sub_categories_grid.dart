@@ -55,9 +55,9 @@ class SubCategoriesGrid extends StatelessWidget {
         ),
         Expanded(
           child: BaseBlocConsumer<SubCategoriesCubit, List<CategoryModel>>(
-            successBuilder: (s) => _grid(context, s),
+            successBuilder: (s) => _grid(context, s , s.length != context.read<SubCategoriesCubit>().items.length),
             loadingBuilder: () =>
-                _grid(context, List.generate(6, (_) => CategoryModel.fake())),
+                _grid(context, List.generate(6, (_) => CategoryModel.fake()), false),
             emptyBuilder: AppStates.empty,
             failureBuilder: AppStates.error,
           ),
@@ -66,9 +66,10 @@ class SubCategoriesGrid extends StatelessWidget {
     ).paddingHr(4);
   }
 
-  Widget _grid(BuildContext context, List<CategoryModel> categories) {
+  Widget _grid(BuildContext context, List<CategoryModel> categories, bool searchMode) {
     return GridView.builder(
-      itemCount: categories.length + (mainCategory != null ? 1 : 0),
+      padding: EdgeInsets.zero,
+      itemCount: categories.length + (mainCategory != null&&!searchMode ? 1 : 0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10.w,
@@ -76,7 +77,7 @@ class SubCategoriesGrid extends StatelessWidget {
       ),
       itemBuilder: (_, i) {
         final isSeeAll = mainCategory != null && i == categories.length;
-        if (isSeeAll) {
+        if (isSeeAll&&!searchMode) {
           return _seeAllButton(
                 () => _openProducts(context, [mainCategory!, ...categories]),
           );

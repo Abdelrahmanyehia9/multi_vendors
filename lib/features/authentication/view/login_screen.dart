@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
+      topSafeArea: true,
       body: SingleChildScrollView(
         child: Column(
           spacing: 16.h,
@@ -57,7 +58,6 @@ class _LoginScreenState extends State<LoginScreen> with LoginScreenMixin {
               AppButton.text(
                 style: TextStyles.bodyLarge.copyWith(
                   color: AppColors.secondary,
-                  decoration: TextDecoration.underline,
                   decorationColor: AppColors.secondary,
                 ),
               text: AppStrings.continueAsGuest.tr(),

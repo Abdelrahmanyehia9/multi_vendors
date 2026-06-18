@@ -4,9 +4,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class NetworkChecker{
-  final Connectivity _connectivity;
-  final InternetConnection _internetChecker;
-  const NetworkChecker(this._connectivity, this._internetChecker);
+  final Connectivity _connectivity = Connectivity();
+  final InternetConnection _internetChecker = InternetConnection();
+   NetworkChecker._();
+   static final NetworkChecker instance = NetworkChecker._();
   Future<bool> isConnectedToNetwork() async {
     final result = await _connectivity.checkConnectivity();
     return !result.contains(ConnectivityResult.none);

@@ -73,8 +73,14 @@ class _HomeScreenState extends State<HomeScreen> with HomeBoostVendorsMixin {
                 const HomeFeaturedItem().appPaddingAll,
                 if (FeatureFlags.shopByTags)
                   const HomeShopByProductTags().appPaddingHr,
+                if (boosts.isExists(2))
+                  BlocProvider.value(
+                    value: boosts[2],
+                    child: const HomeProductByVendor().appPaddingVr,
+                  ),
                 if (FeatureFlags.hasNews)
                   const HomeNewsSection().appPaddingAll,
+
               ],
             ),
           ),
@@ -88,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> with HomeBoostVendorsMixin {
     children: [
       const SloganText(),
       SizedBox(
-        height: 32.h,
+        height: 36.h,
         child: AppTextField(
           onTap: () => context.read<MainLayoutCubit>().changePage(2),
           padding: EdgeInsets.zero,

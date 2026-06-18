@@ -59,7 +59,7 @@ class _Slide extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
-                margin:  EdgeInsetsDirectional.only(top: 8.h, start: 16.w , end: 16.w),
+                margin:  EdgeInsetsDirectional.only(top: 4.h, start: 16.w , end: 16.w),
                 decoration: BoxDecoration(
                   color: AppColors.grey800,
                   borderRadius: BorderRadius.circular(
@@ -134,7 +134,7 @@ class _Slide extends StatelessWidget {
             }
           },
           child: Padding(
-            padding:  EdgeInsets.only(top: 8.0.h),
+            padding:  EdgeInsets.only(top: 4.0.h),
             child: AppCachedNetworkImage(
                 banner.image,
                 radius: Decorations.borderRadius8.r,

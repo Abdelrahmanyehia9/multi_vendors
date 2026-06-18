@@ -477,7 +477,12 @@
   "notifications": "通知",
   "select_all": "全选",
   "unselect_all": "取消全选",
-  "item_selected": "已选择项目"
+  "item_selected": "已选择项目",
+  "by_signing_up_you_agree_to_our": "注册即表示您同意我们的",
+  "privacy_policy": "隐私政策",
+  "network_error_description": "无法连接到互联网。请检查您的网络连接后重试。",
+  "retry": "重试"
+
 
 
 }

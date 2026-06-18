@@ -6,10 +6,10 @@ import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
+import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
-import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 import 'package:multi_vendor/features/vendors/data/model/vendor_details_model.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
@@ -63,16 +63,16 @@ class _AllVendorsScreenState extends State<AllVendorsScreen>  with AllVendorsScr
 }
 
 class _Categories extends StatelessWidget {
-  final ValueNotifier<int>selectedTag ;
-  final List<CategoryModel>categories;
+  final ValueNotifier<int> selectedTag;
+  final List<CategoryModel> categories;
   const _Categories(this.selectedTag, this.categories);
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         SectionHeader(
+        SectionHeader(
           title: AppStrings.categories.tr(),
         ),
         ValueListenableBuilder<int>(
@@ -82,38 +82,67 @@ class _Categories extends StatelessWidget {
             clipBehavior: Clip.none,
             child: Row(
               spacing: 4.w,
-              children: List.generate(
-                categories.length,
-                    (i) => AppClick(
-                  onTap: () => selectedTag.value = i,
-                  child: _categoryItem(selected: i == value, category: categories[i]),
+              children: [
+                AppClick(
+                  onTap: () => selectedTag.value = -1,
+                  child: _allItem(selected: value == -1),
                 ),
-              ),
+                ...List.generate(
+                  categories.length,
+                      (i) => AppClick(
+                    onTap: () => selectedTag.value = i,
+                    child: _categoryItem(selected: i == value, category: categories[i]),
+                  ),
+                ),
+              ],
             ).paddingVr(8),
           ),
         ),
       ],
     );
   }
-  Widget _categoryItem({double width = 70, bool selected = false,required CategoryModel category}) {
+
+  Widget _allItem({double width = 70, bool selected = false}) {
     return SizedBox(
       width: width.w,
       child: Column(
+        spacing: 4.h,
         children: [
           CircularBox(
             radius: 65,
             borderColor: selected ? AppColors.primary : null,
-            child:  AppCachedNetworkImage(category.img),
+            backgroundColor: selected ? AppColors.primary : null,
+            child: Icon(MvIcons.category, color: selected ? AppColors.white : AppColors.primary),
           ),
-          Gap.tiny(),
-          SizedBox(
-            width: (width - 20).w,
-            child: Text(
-              category.name.localized,
-              textAlign: TextAlign.center,
-              style: TextStyles.bodySmall.copyWith(
-                color: selected ? AppColors.primary : null,
-              ),
+          Text(
+            AppStrings.all.tr(),
+            textAlign: TextAlign.center,
+            style: TextStyles.bodySmall.copyWith(
+              color: selected ? AppColors.primary : null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _categoryItem({double width = 70, bool selected = false, required CategoryModel category}) {
+    return ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: width*.5.w,
+          maxWidth: width.w,) ,
+      child: Column(
+        spacing: 4.h,
+        children: [
+          CircularBox(
+            radius: 65,
+            borderColor: selected ? AppColors.primary : null,
+            child: AppCachedNetworkImage(category.img),
+          ),
+          Text(
+            category.name.localized,
+            textAlign: TextAlign.center,
+            style: TextStyles.bodySmall.copyWith(
+              color: selected ? AppColors.primary : null,
             ),
           ),
         ],

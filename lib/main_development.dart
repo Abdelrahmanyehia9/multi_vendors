@@ -9,7 +9,6 @@ import 'package:multi_vendor/core/routes/app_router.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/avera.dart';
-import 'package:multi_vendor/shared/view/error_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -33,9 +32,7 @@ void main() async {
     FeatureFlags.init(),
     AppConfigs.init()
   ]) ;
-  ErrorWidget.builder = (_) {
-    return const ErrorScreen() ;
-  };
+
   runApp(
     EasyLocalization(
       supportedLocales: const [

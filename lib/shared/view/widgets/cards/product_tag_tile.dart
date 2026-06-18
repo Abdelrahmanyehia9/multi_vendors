@@ -28,6 +28,7 @@ class ProductTagTileList extends StatelessWidget {
     return ListView.builder(
       itemCount: tags.length,
       shrinkWrap: shrinkWrap,
+      padding: EdgeInsets.zero,
       physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
       itemBuilder: (_, i) => ProductTagTile(tag: tags[i]),
     );

@@ -11,6 +11,7 @@ import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
 
 import 'package:multi_vendor/features/main/profile/view/widgets/profile_list_tile.dart';
 import 'package:multi_vendor/features/settings/view/widget/language_selection.dart';
+import 'package:multi_vendor/features/settings/view/widget/notification_switcher.dart';
 import 'package:multi_vendor/features/settings/view/widget/theme_switcher.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -45,6 +46,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const ThemeSwitcher(),
+          const NotificationSwitcher(),
+
 
         ]
       ),

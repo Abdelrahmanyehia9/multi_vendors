@@ -58,7 +58,7 @@ class _BuildProductsByVendor extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [color.darken(0.05), color, color.withAppOpacity(0.7),color.withAppOpacity(0.3), Colors.transparent],
+              colors: [color.darken(0.05), color, color.withAppOpacity(0.7),color.withAppOpacity(0.1), Colors.transparent ,],
             ),
           ),
           child: Column(

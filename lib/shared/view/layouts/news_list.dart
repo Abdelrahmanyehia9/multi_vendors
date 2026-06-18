@@ -12,6 +12,7 @@ class NewsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ListView.separated(
       shrinkWrap: shrinkWrap,
+      padding: EdgeInsets.zero,
       separatorBuilder: (_, __) => Gap.small(),
       physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
       itemBuilder: (_,i)=>  NewsCard(news: news[i],),

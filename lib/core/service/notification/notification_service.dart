@@ -42,7 +42,7 @@ class NotificationService {
  /// push notification listeners
     _pushNotificationService.setupListeners(
       onForegroundMessage: (event) {
-
+         event.preventDefault() ;
         _localNotificationService.showNotification(event.notification);
         _log("Notification received in foreground ${event.notification.title}", isLocalNotification: true);
         onForegroundMessage?.call(event);
@@ -53,9 +53,7 @@ class NotificationService {
       stateObserver: stateObserver,
     );
   }
-
   PushNotificationService get oneSignal => _pushNotificationService;
-
   void _log(String message, {bool? isLocalNotification}) {
     if (_debug && kDebugMode) {
       debugPrint(

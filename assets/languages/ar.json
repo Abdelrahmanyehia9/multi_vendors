@@ -479,7 +479,13 @@
   "in_format": "يعد{} {}",
   "select_all": "تحديد الكل",
   "unselect_all": "إلغاء تحديد الكل",
-  "item_selected": "عنصر محدد"
+  "item_selected": "عنصر محدد",
+  "by_signing_up_you_agree_to_our": "بالتسجيل، فإنك توافق على",
+  "privacy_policy": "سياسة الخصوصية",
+  "network_error_description": "تعذر الاتصال بالإنترنت. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+  "retry": "إعادة المحاولة"
+
+
 
 
 

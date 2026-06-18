@@ -53,6 +53,8 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
   Widget build(BuildContext context) {
 
     return BaseScaffold(
+      paddingVr: 0,
+      paddingHr: 0,
       body: BaseBlocConsumer<VendorDetailsCubit, VendorDetailsModel>(
         onSuccess: _fetchProducts,
         successBuilder: _buildContent,
@@ -115,8 +117,7 @@ class _VendorDetailsScreenState extends State<VendorDetailsScreen>
   Widget _productsList() {
     return SliverToBoxAdapter(
       child: BaseBlocConsumer<ProductsByFiltersCubit, ProductResponseModel>(
-        successBuilder: (res) =>
-            ProductGrid(shrinkWrap: true, products: res.products),
+        successBuilder: (res) => ProductGrid(shrinkWrap: true, products: res.products),
         loadingBuilder: () => ProductGrid(
           shrinkWrap: true,
           products: ProductResponseModel.fake().products,

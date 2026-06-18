@@ -10,7 +10,7 @@ import 'package:multi_vendor/features/news/data/model/news_model.dart';
 class NewsCubit extends Cubit<BaseState<List<NewsModel>>> {
   final NewsRepository _repository ;
   NewsCubit(this._repository) : super(const BaseState.initial());
-  String? _lastQuery ='';
+  String? _lastQuery;
 
   Future<void> getAllNews()async{
     safeEmit(const BaseState.loading());

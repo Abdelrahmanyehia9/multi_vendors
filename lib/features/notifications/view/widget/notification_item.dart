@@ -7,8 +7,8 @@ class _NotificationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color surfaceColor = isSelected ? context.colors.surfaceContainerHighest : context.colors.surface;
-    final Color onSurfaceColor = isSelected ? Colors.white : context.colors.onSurface;
+    final Color surfaceColor = isSelected ? context.colors.onSurface : context.colors.surface;
+    final Color onSurfaceColor = isSelected ? context.colors.surface : context.colors.onSurface;
     return AppDeleteDismissable(
       key: ValueKey("notification_${notification.id}"),
        onDelete: (){  },
@@ -58,7 +58,7 @@ class _NotificationItem extends StatelessWidget {
             ),
           ),
           if(isSelected)
-           Icon(MvIcons.checkedCircle, color: Colors.white, size: 16.sp).paddingAll(8),
+           Icon(MvIcons.checkedCircle, color: onSurfaceColor, size: 16.sp).paddingAll(8),
         ],
       ),
     );

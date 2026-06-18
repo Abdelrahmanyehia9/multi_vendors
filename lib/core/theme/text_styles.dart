@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TextStyles {
   static const String enFontFamily = "Montserrat";
   static const String arFontFamily = "Tajawal";
-  static const double _largerFactor = 1.1;
+  static const double _largerFactor = 1;
   const TextStyles._();
   static final TextStyle headline1 = TextStyle(
     fontSize: 40.sp * _largerFactor,

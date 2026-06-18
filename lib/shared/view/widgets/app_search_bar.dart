@@ -42,7 +42,7 @@ class AppSearchbar extends StatelessWidget {
               const Gap(6),
             ],
             SizedBox(
-              height: 32.h,
+              height: 36.h,
               child: AppTextField(
                 focusNode: cubit.focusNode,
                 controller: cubit.controller,

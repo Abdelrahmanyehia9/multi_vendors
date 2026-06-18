@@ -18,12 +18,14 @@ enum MessagesAlertType {
   orderCancelled,
   reviewSubmitted,
   versionNotSupported,
+  networkError,
   error,
   maintenance,
   orderDeleted;
 
   String get title => switch (this) {
     orderSuccess => AppStrings.orderSuccess.tr(),
+    networkError => AppStrings.networkError.tr(),
     versionNotSupported => AppStrings.versionNotSupported.tr(),
     orderCancelled => AppStrings.orderCancelled.tr(),
     orderDeleted => AppStrings.orderDeleted.tr(),
@@ -37,6 +39,7 @@ enum MessagesAlertType {
   };
 
   String get message => switch (this) {
+    networkError => AppStrings.networkErrorDescription.tr(),
     maintenance => AppStrings.maintenanceDescription.tr(),
     orderCancelled => AppStrings.orderCancelledDescription.tr(),
     orderSuccess => AppStrings.orderSuccessDescription.tr(),

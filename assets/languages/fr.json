@@ -452,7 +452,13 @@
   "notifications": "Notifications",
   "select_all": "Tout sélectionner",
   "unselect_all": "Tout désélectionner",
-  "item_selected": "Élément sélectionné"
+  "item_selected": "Élément sélectionné",
+  "by_signing_up_you_agree_to_our": "En vous inscrivant, vous acceptez notre",
+  "privacy_policy": "Politique de confidentialité",
+  "network_error_description": "Impossible de se connecter à Internet. Veuillez vérifier votre connexion et réessayer.",
+  "retry": "Réessayer"
+
+
 
 
 

@@ -42,7 +42,7 @@ class SplashLogic {
         final NotificationPayload payload = NotificationPayload.fromJson(jsonDecode(noti.payload!)) ;
         NotificationRedirectHelper.instance.redirect(payload);
       }) ;
-      userPreferencesCubit.init(context);
+      if(context.mounted)userPreferencesCubit.init(context);
       DeepLinkService.instance.initDeepLink();
     }
   }

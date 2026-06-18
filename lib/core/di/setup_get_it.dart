@@ -1,6 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:multi_vendor/core/database/local_storage_constants.dart';
 import 'package:multi_vendor/core/service/auth_service.dart';
 import 'package:multi_vendor/core/service/image_crop_service.dart';
@@ -8,7 +6,6 @@ import 'package:multi_vendor/core/service/image_picker_service.dart';
 import 'package:multi_vendor/core/service/real_time_service.dart';
 import 'package:multi_vendor/core/service/storage_service.dart';
 import 'package:multi_vendor/core/utils/helper/hive_helper.dart';
-import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 import 'package:multi_vendor/features/main/category/data/repository/category_repository.dart';
 import 'package:multi_vendor/features/main/profile/data/repository/profile_repository.dart';
 import 'package:multi_vendor/features/notifications/data/repository/notification_repository.dart';
@@ -94,12 +91,6 @@ static Future<void> setupGetIt() async {
             getIt.get<LocalStorage>(instanceName: _userCache),
           ),
     );
-    getIt.registerLazySingleton( () => Connectivity());
-    getIt.registerLazySingleton( () => InternetConnection());
-    getIt.registerLazySingleton( () => NetworkChecker(
-      getIt.get<Connectivity>(),
-      getIt.get<InternetConnection>(),
-    ));
     getIt.registerLazySingleton( () => UserCubit(getIt.get<UserSessionRepository>()));
     getIt.registerLazySingleton( () => CartCubit(getIt.get<CartRepository>()));
     getIt.registerLazySingleton( () => FavoriteCubit(getIt.get<FavoriteRepository>()));

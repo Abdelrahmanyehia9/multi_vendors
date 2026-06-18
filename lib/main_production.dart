@@ -19,7 +19,6 @@ void main() async {
     publishableKey: AppConstants.supabaseKey,
     debug: false,
   );
-
   await Future.wait([
     DI.setupGetIt(),
     NotificationService.instance.init(),

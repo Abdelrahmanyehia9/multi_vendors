@@ -10,9 +10,9 @@ class ConnectionCubit extends Cubit<ConnectionStates>
   bool hasNetwork = false;
   StreamSubscription? _internetSubscription;
   Timer? _debounceTimer;
-  final NetworkChecker checker;
+  final NetworkChecker checker = NetworkChecker.instance;
 
-  ConnectionCubit(this.checker) : super(ConnectionStateInitial());
+  ConnectionCubit() : super(ConnectionStateInitial());
 
   Future<void> init() async {
     WidgetsBinding.instance.addObserver(this);

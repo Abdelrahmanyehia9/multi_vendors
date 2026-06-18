@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/connection_cubit.dart';
 import 'package:multi_vendor/core/di/setup_get_it.dart';
-import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 import 'package:multi_vendor/core/widgets/app_loader_indicator.dart';
 import 'package:multi_vendor/shared/view/widgets/network_checker_init.dart';
 import 'package:multi_vendor/shared/view/widgets/user_prefrences_builder.dart';
@@ -30,8 +29,7 @@ class Avera extends StatelessWidget {
         BlocProvider.value(value: favoriteCubit..init()),
         BlocProvider.value(value: userPreferencesCubit),
         BlocProvider(
-          create: (context) =>
-              ConnectionCubit(getIt.get<NetworkChecker>())..init(),
+          create: (context) => ConnectionCubit()..init(),
         ),
       ],
       child: ScreenUtilInit(

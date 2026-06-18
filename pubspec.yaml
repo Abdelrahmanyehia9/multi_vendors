@@ -1,6 +1,6 @@
 name: multi_vendor
 description: "Multi vendor With Local brands"
-version: 1.0.0+8
+version: 1.0.0+10
 
 environment:
   sdk: ^3.9.2
