@@ -43,19 +43,16 @@ class BottomSheets {
                 child: const SizedBox.expand(),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery
-                  .of(context)
-                  .padding
-                  .bottom),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  boxShadow: shadow,
-                  color: backgroundColor ?? context.scaffoldBackground,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(borderRadius.r),
-                  ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                boxShadow: shadow,
+                color: backgroundColor ?? context.scaffoldBackground,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(borderRadius.r),
                 ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: context.bottomSafeArea),
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
                   children: [

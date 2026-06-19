@@ -16,7 +16,8 @@ enum NotificationTemplates {
   password_changed,
   promo_offer ;
 
-  static NotificationTemplates? fromString(String name) {
+  static NotificationTemplates? fromString(String? name) {
+   if(name==null) return null;
     return NotificationTemplates.values.firstWhereOrNull((element) => element.name == name);
   }
 

@@ -141,7 +141,6 @@ mixin MainLayoutMixin on State<MainLayout> {
   void onChange(int index) {
     _loadedPages[index] ??= items[index].pageBuilder();
   }
-  bool get canPop => cubit.canPop;
   List<Widget> get pages => _loadedPages
       .map((p) => p ?? const SizedBox.shrink()
   )

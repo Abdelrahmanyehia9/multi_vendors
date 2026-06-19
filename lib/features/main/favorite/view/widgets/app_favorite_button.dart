@@ -18,11 +18,13 @@ class AppFavoriteButton extends StatefulWidget {
   final FavoriteItem item;
   final double padding;
   final double size;
+  final double radius ;
 
   const AppFavoriteButton({
     this.size = 18,
     this.padding = 12,
     super.key,
+    this.radius = 12,
     required this.item,
   });
 
@@ -57,8 +59,8 @@ class _AppFavoriteButtonState extends State<AppFavoriteButton>
                     Transform.scale(
                       scale: favoriteScaleAnim.value,
                       child: AppIconButton(
-                        size: widget.size.sp*.75,
-                        radius: 6,
+                        size: widget.size.sp,
+                        radius: widget.radius,
                         icon :isFavorite ? MvIcons.favorite : MvIcons.favoriteOutlined,
                         iconColor: isFavorite ? AppColors.error : context.colors.surfaceContainerHigh,
                       ),

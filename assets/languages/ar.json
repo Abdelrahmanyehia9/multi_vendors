@@ -1,4 +1,6 @@
 {
+  "app_name": "افيرا",
+
   "order_pending": "قيد الانتظار",
   "order_cancelled": "تم الإلغاء",
   "order_delivered": "تم التوصيل",
@@ -483,7 +485,16 @@
   "by_signing_up_you_agree_to_our": "بالتسجيل، فإنك توافق على",
   "privacy_policy": "سياسة الخصوصية",
   "network_error_description": "تعذر الاتصال بالإنترنت. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
-  "retry": "إعادة المحاولة"
+  "retry": "إعادة المحاولة",
+  "order_has_been_assigned_to_captin": "تم إسناد الطلب إلى الكابتن",
+  "transactions": "المعاملات",
+  "promotions": "العروض",
+  "activity": "انشطة",
+  "others": "أخرى",
+  "press_back_again_to_exit": "اضغط رجوع مرة تانية للخروج",
+  "un_stable_network": "الشبكة غير مستقرة"
+
+
 
 
 

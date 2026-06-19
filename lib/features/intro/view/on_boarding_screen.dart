@@ -43,6 +43,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return BaseScaffold(
       paddingHr: 0,
+      topSafeArea: true,
       body: Column(
         children: [
           Expanded(

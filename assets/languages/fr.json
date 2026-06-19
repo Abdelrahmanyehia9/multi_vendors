@@ -1,4 +1,5 @@
 {
+  "app_name": "Avera",
   "order_pending": "En attente",
   "order_cancelled": "Annulé",
   "order_delivered": "Livré",
@@ -456,7 +457,16 @@
   "by_signing_up_you_agree_to_our": "En vous inscrivant, vous acceptez notre",
   "privacy_policy": "Politique de confidentialité",
   "network_error_description": "Impossible de se connecter à Internet. Veuillez vérifier votre connexion et réessayer.",
-  "retry": "Réessayer"
+  "retry": "Réessayer",
+  "order_has_been_assigned_to_captin": "La commande a été attribuée au livreur",
+  "transactions": "Transactions",
+  "promotions": "Promotions",
+  "activity": "Activité",
+  "others": "Autres",
+  "press_back_again_to_exit": "Appuyez de nouveau sur retour pour quitter",
+  "un_stable_network": "Réseau instable"
+
+
 
 
 

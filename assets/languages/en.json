@@ -1,4 +1,5 @@
 {
+  "app_name": "Avera",
   "order_pending": "Pending",
   "order_cancelled": "Cancelled",
   "order_delivered": "Delivered",
@@ -481,7 +482,14 @@
   "by_signing_up_you_agree_to_our": "By signing up, you agree to our",
   "privacy_policy": "Privacy Policy",
   "network_error_description": "Unable to connect to the internet. Please check your connection and try again.",
-  "retry": "Retry"
+  "retry": "Retry",
+  "order_has_been_assigned_to_captin": "Order has been assigned to the captain",
+  "transactions": "Transactions",
+  "promotions": "Promotions",
+  "activity": "Activity",
+  "others": "Others",
+  "press_back_again_to_exit": "Press back again to exit",
+  "un_stable_network": "Unstable network"
 
 
 

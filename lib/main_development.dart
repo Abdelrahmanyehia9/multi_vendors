@@ -16,7 +16,7 @@ void main() async {
   await Supabase.initialize(
     url: AppConstants.supabaseUrl,
     publishableKey: AppConstants.supabaseKey,
-    debug: true,
+    debug: true
   );
 
   await Future.wait([

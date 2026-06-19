@@ -20,7 +20,7 @@ final class AuthenticationService {
   Future<void> sendForgetPasswordEmail({required String email}) async =>
       await _client.auth.resetPasswordForEmail(
         email,
-        redirectTo: 'myapp://reset-password',
+        redirectTo: 'myapp://avera/reset-password',
       );
 
   Future<void> updateUser({

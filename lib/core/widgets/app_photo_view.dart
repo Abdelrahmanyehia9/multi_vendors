@@ -1,8 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/core/extensions/widget.dart';
 import 'package:multi_vendor/core/theme/app_colors.dart';
+import 'package:multi_vendor/core/theme/text_styles.dart';
+import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
 import 'package:multi_vendor/core/widgets/app_loader_indicator.dart';
+import 'package:multi_vendor/shared/view/widgets/app_slider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -10,10 +16,13 @@ class AppPhotoView extends StatefulWidget {
   final List<String> images;
   final int? selectedIndex;
 
-  const AppPhotoView({super.key, required this.images, this.selectedIndex});
+  const AppPhotoView._({required this.images, this.selectedIndex});
 
   @override
   State<AppPhotoView> createState() => _AppPhotoViewState();
+
+  factory AppPhotoView.single({ String? image})=>AppPhotoView._(images: [image ?? ""]);
+  factory AppPhotoView.multiple({required List<String?> images, int? index})=>AppPhotoView._(images: images.map((e) => e ?? "").toList(), selectedIndex: index);
 }
 
 class _AppPhotoViewState extends State<AppPhotoView> {
@@ -38,54 +47,53 @@ class _AppPhotoViewState extends State<AppPhotoView> {
     if (widget.images.length == 1) {
       return PhotoView(
         imageProvider: CachedNetworkImageProvider(widget.images.first),
-        loadingBuilder: (_, __) => const Center(child: AppLoaderIndicator()),
-        errorBuilder: (_, __, ___) => const Icon(MvIcons.error, color: AppColors.error),
+        loadingBuilder: (_, __) => _buildLoadingState(),
+        errorBuilder: (_, __, ___) => _buildErrorState(),
         backgroundDecoration: const BoxDecoration(color: Colors.black),
         strictScale: true,
         minScale: PhotoViewComputedScale.contained,
         maxScale: PhotoViewComputedScale.covered * 3,
       );
     }
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         PhotoViewGallery.builder(
           pageController: _pageController,
           itemCount: widget.images.length,
+          backgroundDecoration: const BoxDecoration(color: Colors.black),
           builder: (_, index) => PhotoViewGalleryPageOptions(
-            imageProvider: CachedNetworkImageProvider(widget.images[index]),
+            imageProvider:  CachedNetworkImageProvider(widget.images[index]),
             minScale: PhotoViewComputedScale.contained,
             maxScale: PhotoViewComputedScale.covered * 3,
-            errorBuilder: (_, __, ___) => const Icon(MvIcons.error, color: AppColors.error),
+            errorBuilder: (_, __, ___) =>  _buildErrorState()
           ),
-          loadingBuilder: (_, __) => const Center(child: SizedBox(
-              width: 100,
-              height: 100,
-              child: AppLoaderIndicator())),
-          backgroundDecoration: const BoxDecoration(color: Colors.black),
+          loadingBuilder: (_, __) => _buildLoadingState(),
           onPageChanged: (index) => setState(() => _currentIndex = index),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              widget.images.length,
-                  (index) => AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                width: _currentIndex == index ? 16 : 8,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: _currentIndex == index ? Colors.white : Colors.white38,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-          ),
-        ),
+        SliderDots(total: widget.images.length,
+            currentIndex: _currentIndex).appPaddingAll
       ],
     );
   }
+
+
+  Widget _buildErrorState()=>ColoredBox(
+    color: Colors.black,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(MvIcons.error,size: 40.sp, color: AppColors.error),
+        Text(AppStrings.errorOccurred.tr(), style: TextStyles.labelSmall.copyWith(color: AppColors.error),),
+      ],
+    ),
+  ) ;
+  Widget _buildLoadingState()=> const ColoredBox(
+    color: Colors.black,
+    child:  Center(
+        child:  AppLoaderIndicator(
+          size: 50,
+        )
+    ),
+  ) ;
 }

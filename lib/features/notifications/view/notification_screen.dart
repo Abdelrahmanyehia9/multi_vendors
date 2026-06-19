@@ -6,21 +6,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:multi_vendor/core/cubit/base_bloc_consumer.dart';
+import 'package:multi_vendor/core/enum/notification_type.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/extensions/date_time.dart';
 import 'package:multi_vendor/core/extensions/widget.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/theme/text_styles.dart';
 import 'package:multi_vendor/core/utils/app_strings.dart';
 import 'package:multi_vendor/core/utils/mv_icons.dart';
+import 'package:multi_vendor/core/widgets/app_cached_network_image.dart';
 import 'package:multi_vendor/core/widgets/app_click.dart';
 import 'package:multi_vendor/core/widgets/app_states.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_delete_button.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_icon_button.dart';
+import 'package:multi_vendor/core/widgets/gap.dart';
 import 'package:multi_vendor/core/widgets/overlays/popups.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/core/widgets/scaffold/base_scaffold.dart';
+import 'package:multi_vendor/core/widgets/scaffold/base_tab_bar.dart';
 import 'package:multi_vendor/core/widgets/selection_builder.dart';
 import 'package:multi_vendor/features/notifications/data/model/notification_model.dart';
 import 'package:multi_vendor/features/notifications/logic/helper/notification_redirect_helper.dart';
@@ -33,8 +38,29 @@ part 'widget/notification_item.dart';
 part 'widget/notification_list.dart';
 part 'widget/notification_screen_actions.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
+
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: NotificationType.values.length+1, vsync: this);
+    _tabController.addListener(onTypeChanged);
+  }
+
+  Future<void> onTypeChanged()async{
+    if(_tabController.indexIsChanging){
+      final index = _tabController.index;
+      final selectedType = index == 0 ? null : NotificationType.values[index - 1];
+      context.read<NotificationCubit>().getAllNotifications(type: selectedType);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +81,11 @@ class NotificationScreen extends StatelessWidget {
               )
             ],
           ),
-          body: BaseBlocConsumer(
-            bloc: context.read<NotificationDeleteCubit>(),
+          body: BaseBlocConsumer<NotificationDeleteCubit, List<int>>(
             onLoading: context.loaderOverlay.show,
-            onSuccess: (_) {
-              notificationsCubit.getAllNotifications();
+            onSuccess: (deletedIds) {
+              notificationsCubit.deleteNotifications(deletedIds??[]);
+              ///clear multiSelect
               cubit.clear();
               context.loaderOverlay.hide();
             },
@@ -70,7 +96,16 @@ class NotificationScreen extends StatelessWidget {
             builder: (_) => RefreshIndicator(
               onRefresh: () async => notificationsCubit.getAllNotifications(),
               child: Column(
+                spacing: 4.h,
                 children: [
+                  BaseTabBar(
+                    controller: _tabController,
+                    tabs: [
+                      AppStrings.all.tr(),
+                      ...NotificationType.values.map((e) => e.text),
+                    ]
+                  ),
+                  Gap.extraSmall(),
                   SelectionModeHeader(
                     isSelectionMode: state.isSelectionMode,
                     count: state.selected.length,
@@ -93,6 +128,12 @@ class NotificationScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }
 

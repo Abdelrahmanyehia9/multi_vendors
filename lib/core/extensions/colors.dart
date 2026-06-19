@@ -26,6 +26,6 @@ extension ColorExtension on Color {
     return color == null ? null : Color(color);
   }
 
-  Color get veryLight => lighten().withAppOpacity(0.2) ;
+  Color get veryLight =>lighten().withAppOpacity(0.4) ;
 }
 

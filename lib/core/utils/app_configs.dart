@@ -25,7 +25,7 @@ class AppConfigs {
   static  String supportWhatsApp = "multiVendor";
   static  String supportInstagram = "multiVendor";
   static  String supportTikTok = "multiVendor";
-  static final AppCurrency currency = AppCurrency.dollar;
+  static final AppCurrency currency = AppCurrency.egyptianPound;
   static Locale? locale ;
   static int otpColdDown = 10;
   static PackageInfo? packageInfo;
@@ -48,13 +48,13 @@ class AppConfigs {
    packageInfo = await PackageInfo.fromPlatform() ;
   }
 
-
   static Future<void> init() async {
     try {
       await _initPackageInfo();
       final response = await getIt.get<DatabaseService>().GET_SINGLE(
           table: "app_config",
           select: "configs,requirements,vendor_boost",
+          timeout: const Duration(seconds: 10),
           filter: (q)=>q.eq(RemoteDatabaseConstants.is_active_column, true)
       );
       if (response.isEmpty) return;

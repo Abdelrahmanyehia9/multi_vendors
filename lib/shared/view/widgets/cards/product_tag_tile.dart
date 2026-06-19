@@ -48,12 +48,12 @@ class ProductTagTile extends StatelessWidget {
       ) ),
       contentPadding: EdgeInsets.zero,
       leading: AppCachedNetworkImage(
-        width: 70,
+        width: 80,
         tag.thumbnail,
         radius: Decorations.borderRadius8,
       ),
       title: Text(tag.name, style: TextStyles.bodyMedium,),
-      subtitle: Text("$itemsCount ${AppStrings.items.tr()}", style: TextStyles.captionMedium,),
+      subtitle: Text("($itemsCount ${AppStrings.items.tr()})", style: TextStyles.captionMedium,),
       trailing: const Icon(MvIcons.arrowForward, color: AppColors.primary),
     );
   }

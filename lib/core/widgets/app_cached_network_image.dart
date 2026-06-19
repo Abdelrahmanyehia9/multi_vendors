@@ -56,7 +56,7 @@ class AppCachedNetworkImage extends StatelessWidget {
         context,
         child: SizedBox(
           height: context.height * 0.9,
-          child: AppPhotoView(images: [?imageUrl]),
+          child: AppPhotoView.multiple(images: [?imageUrl]),
         ),
       ) : null,
       child: Opacity(

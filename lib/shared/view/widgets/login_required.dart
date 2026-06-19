@@ -35,8 +35,7 @@ class LoginRequired extends StatelessWidget {
       Gap.small(),
       AppButton.outlined(
         text: AppStrings.continueAsGuest.tr(),
-        onPressed: () =>
-            context.pushNamedAndRemoveUntil(Routes.mainLayout,predicate: (_)=>false ,arguments: 0),
+        onPressed: context.pop,
       ),
     ],
   ).appPaddingHr;

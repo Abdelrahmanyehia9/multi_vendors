@@ -5,14 +5,15 @@ import 'package:multi_vendor/core/theme/app_colors.dart';
 
 class AppLoaderIndicator extends StatelessWidget {
   final double? value ;
-  const AppLoaderIndicator({super.key, this.value});
+  final double size ;
+  const AppLoaderIndicator({super.key, this.size =45, this.value});
 
   @override
   Widget build(BuildContext context) {
     return   Center(
       child: SpinKitSquareCircle(
         color: AppColors.white,
-        size: 45.sp,
+        size: size.sp,
       ),
     );
   }

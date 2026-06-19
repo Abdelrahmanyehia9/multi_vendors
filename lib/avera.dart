@@ -32,6 +32,7 @@ class Avera extends StatelessWidget {
           create: (context) => ConnectionCubit()..init(),
         ),
       ],
+
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

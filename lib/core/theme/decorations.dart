@@ -18,9 +18,9 @@ class Decorations {
 
   static final List<BoxShadow> shadow = [
     BoxShadow(
-      color: Colors.black.withAppOpacity(0.2),
-      blurRadius: 4,
-      offset: const Offset(0, 2),
+      color: Colors.black.withAppOpacity(0.06),
+      blurRadius: 3,
+      offset: const Offset(1, 1),
     ),
   ] ;
 }

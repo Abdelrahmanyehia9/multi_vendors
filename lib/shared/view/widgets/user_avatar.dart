@@ -33,8 +33,8 @@ class _UserAvatarState extends State<UserAvatar> {
   void initState() {
     super.initState();
 
-    randomColor = AppColors.mainDarkColors[
-    Random().nextInt(AppColors.mainDarkColors.length)
+    randomColor = AppColors.mainColors[
+    Random().nextInt(AppColors.mainColors.length)
     ];
   }
 

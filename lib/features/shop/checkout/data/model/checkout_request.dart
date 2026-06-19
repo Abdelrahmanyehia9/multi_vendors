@@ -27,7 +27,7 @@ class CheckoutRequest {
     "p_address" : address?.toJson(),
     "p_estimated_delivery": estimatedDelivery.toIso8601String(),
     "p_items": items.map((e)=>e.toJson()).toList(),
-    "p_coupon_used": coupon,
+    "p_coupon_used": coupon??{},
   }.withoutNulls;
 
 }

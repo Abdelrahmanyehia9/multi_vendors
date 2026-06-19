@@ -118,7 +118,7 @@ class ProductCard extends StatelessWidget {
                     size: isBig ? 18 : 14,
                   ).paddingHr(isBig ? 16 : 12).paddingVr(isBig ? 4 : 2),
                 ProductNameWithPrice(
-                  isBig: isBig,
+                  size: isBig? 16.sp:12.sp,
                   price: product.price,
                   name: product.name.localized,
                 ).paddingHr(isBig ? 16 : 12),
@@ -170,8 +170,8 @@ class ProductCard extends StatelessWidget {
 
   Widget _favorite() => AppFavoriteButton(
     item: product,
-    padding: isBig ? 12 : 8,
-    size: isBig ? 28 : 20,
+    size: isBig ? 18 : 16,
+    radius: isBig ? 8 : 6,
   );
 
   Widget _ribbon(
@@ -214,30 +214,32 @@ class ProductCard extends StatelessWidget {
 }
 
 class ProductNameWithPrice extends StatelessWidget {
-  final bool isBig;
   final String name;
+  final double size ;
   final PriceModel? price;
+  final int? maxLines;
 
   const ProductNameWithPrice({
     super.key,
     required this.name,
     this.price,
-    this.isBig = true,
+     this.size = 16,
+    this.maxLines = 2,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: isBig ? 16.w : 8.w,
+      spacing: size*.6,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Text(
             name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            maxLines: maxLines,
+            overflow:maxLines==null ? null : TextOverflow.ellipsis,
             style: TextStyles.labelMedium.copyWith(
-              fontSize: isBig ? 16.sp : 12.sp,
+              fontSize: size
             ),
           ),
         ),
@@ -250,15 +252,15 @@ class ProductNameWithPrice extends StatelessWidget {
                   price!.priceBeforeDiscount!.usdPrice,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyles.captionSmall.copyWith(
+                  style: TextStyles.bodySmall.copyWith(
                     color: context.colors.surfaceContainer,
-                    fontSize: isBig ? 12.sp : 8.sp,
+                    fontSize: size*.8,
                     decoration: TextDecoration.lineThrough,
                     decorationColor: context.colors.surfaceContainer,
                     decorationThickness: 1.sp,
                   ),
                 ),
-                Gap(isBig ? 6 : 3),
+                Gap(size*.2),
               ],
               Text(
                 price!.totalPrice.usdPrice,
@@ -266,7 +268,7 @@ class ProductNameWithPrice extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.labelMedium.copyWith(
                   color: AppColors.primary,
-                  fontSize: isBig ? 14.sp : 12.sp,
+                  fontSize: size*.9,
                   fontWeight: FontWeightHelper.bold,
                 ),
               ),

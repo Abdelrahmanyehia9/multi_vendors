@@ -27,6 +27,7 @@ static bool enableNotification = true;
    final response = await getIt.get<DatabaseService>().GET_SINGLE(
     table: "app_config",
     select: "features",
+    timeout: const Duration(seconds: 10),
     filter: (q)=>q.eq(RemoteDatabaseConstants.is_active_column, true)
    );
    if (response.isEmpty) return;

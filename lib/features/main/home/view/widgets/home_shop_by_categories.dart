@@ -29,7 +29,7 @@ class HomeShopByCategories extends StatefulWidget {
   State<HomeShopByCategories> createState() => _HomeShopByCategoriesState();
 }
 
-class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
+class _HomeShopByCategoriesState extends State<HomeShopByCategories>  with AutomaticKeepAliveClientMixin {
   final _selected = ValueNotifier<CategoryModel?>(null);
 
   @override
@@ -45,6 +45,7 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         BaseBlocConsumer<SubCategoriesCubit, List<CategoryModel>>(
@@ -75,6 +76,10 @@ class _HomeShopByCategoriesState extends State<HomeShopByCategories> {
     _selected.dispose();
     super.dispose();
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class _Categories extends StatelessWidget {

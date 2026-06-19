@@ -89,10 +89,10 @@ class AppColors {
 
   // ─── Main Colors ───────────────────────────
   static const List<Color> mainColors = [
-    primary, secondaryDark, info, warning, error, success, grey,
+    primary, secondaryDark, info, warning, error, success,
   ];
   static const List<Color> mainDarkColors = [
-    primary700, secondaryDark, info700, warning700, error700, success700, grey700,
+    primary700, secondaryDark, info700, warning700, error700, success700, grey,
   ];
 
 

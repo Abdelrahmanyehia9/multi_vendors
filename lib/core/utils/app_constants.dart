@@ -32,4 +32,6 @@ class AppConstants {
   static const String? appStoreId = null;
   static const String onesignalAppId = "c9e7fc5b-2149-46cd-82a3-3d1f287e783b";
 
+  static final  appName = AppStrings.appName;
+
 }

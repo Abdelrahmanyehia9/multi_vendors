@@ -36,7 +36,7 @@ class ShopQueries {
  ''';
 
   static const String orderTracking = ''' 
- created_at, id, status, captain:profiles(full_name, profile_pic,phone_number)
+ created_at, id, status, captain:public_profiles(*)
  ''';
 
   static const String vendorsByCategory = '''

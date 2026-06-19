@@ -24,9 +24,6 @@ class SelectionModeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: isSelectionMode,
-      maintainSize: true,
-      maintainAnimation: true,
-      maintainState: true,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,7 +32,9 @@ class SelectionModeHeader extends StatelessWidget {
             text: isAllSelected ? AppStrings.unSelectAll.tr() : AppStrings.selectAll.tr(),
             onPressed: isAllSelected
                 ? onUnselectAll
-                : () => onSelectAll,
+                : onSelectAll,
+            padding: EdgeInsets.zero,
+            fixedSize: const Size(100, 20),
             style: TextStyles.labelSmall.copyWith(color: context.colors.primary),
           ),
         ],

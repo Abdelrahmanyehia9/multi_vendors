@@ -16,12 +16,19 @@ class NetworkChecker{
     try {
       final hasNetwork = await isConnectedToNetwork();
       if (!hasNetwork) return false;
-      final hasInternet = await _internetChecker.hasInternetAccess;
-      return hasInternet;
+      for (int attempt = 0; attempt < 3; attempt++) {
+        final hasInternet = await _internetChecker.hasInternetAccess;
+        if (hasInternet) return true;
+        if (attempt < 2) {
+          await Future.delayed(const Duration(milliseconds: 800));
+        }
+      }
+      return false;
     } catch (e) {
       return false;
     }
   }
+
   Stream<bool> get onInternetChanged {
     return _internetChecker.onStatusChange.map((status) {
       return status == InternetStatus.connected;
@@ -30,14 +37,12 @@ class NetworkChecker{
   Future<void> waitForRealInternet({
     required VoidCallback onConnected,
     VoidCallback? onWaiting,
-  }) async
-  {
+  }) async {
     if (await hasRealInternet()) {
-      onConnected();
+      onConnected.call();
       return;
     }
     onWaiting?.call();
-
     await for (final isConnected in onInternetChanged) {
       if (isConnected) {
         onConnected();

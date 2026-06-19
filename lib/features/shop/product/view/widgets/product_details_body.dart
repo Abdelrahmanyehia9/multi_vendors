@@ -63,6 +63,8 @@ class ProductDetailsBody extends StatelessWidget {
             spacing: 4.h,
             children: [
               ProductNameWithPrice(
+                size: 18.sp,
+                maxLines: null,
                 name: model.name.localized,
                 price: model.price,
               ),

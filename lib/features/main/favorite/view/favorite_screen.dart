@@ -10,8 +10,6 @@ import 'package:multi_vendor/core/widgets/scaffold/base_tab_bar.dart';
 import 'package:multi_vendor/features/main/favorite/logic/favorite_cubit.dart';
 import 'package:multi_vendor/features/vendors/view/widgets/vendor_card.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
-import 'package:multi_vendor/core/widgets/gap.dart';
-import 'package:multi_vendor/core/widgets/scaffold/base_appbar.dart';
 import 'package:multi_vendor/shared/view/layouts/product_grid.dart';
 import 'package:multi_vendor/features/main/favorite/data/model/favorite_model.dart';
 
@@ -49,14 +47,16 @@ class _FavoriteScreenState extends State<FavoriteScreen>
         );
 
         return Column(
+          spacing: 16.h,
           children: [
-            SizedBox(
-              height: 70.h,
-              child:  BaseAppBar(
-                title: AppStrings.favorites.tr(),
-                showLeading: false,
-              ),
-            ),
+            // SizedBox(
+            //   height: 70.h,
+            //   child:  BaseAppBar(
+            //     title: AppStrings.favorites.tr(),
+            //     showLeading: false,
+            //   ),
+            // ),
+
             if (!FeatureFlags.multiVendor)
               Expanded(child: products)
             else ...[
@@ -66,7 +66,6 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                 controller: controller,
                 tabs:  [AppStrings.products.tr(), AppStrings.vendors.tr()],
               ),
-              Gap.large(),
               Expanded(
                 child: TabBarView(
                   controller: controller,

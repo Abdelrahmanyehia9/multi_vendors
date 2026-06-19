@@ -10,6 +10,7 @@ class AppDeleteButton extends AppIconButton {
      super.onTap,
      super.tooltip = AppStrings.delete,
      super.iconColor,
+    super.size = 24,
      super.backGroundColor,
      super.enabled,
   });

@@ -5,11 +5,9 @@ import 'package:multi_vendor/core/cubit/connection_states.dart';
 import 'package:multi_vendor/core/extensions/safe_emit.dart';
 import 'package:multi_vendor/core/utils/helper/network_checker.dart';
 
-class ConnectionCubit extends Cubit<ConnectionStates>
-    with WidgetsBindingObserver {
+class ConnectionCubit extends Cubit<ConnectionStates> with WidgetsBindingObserver {
   bool hasNetwork = false;
   StreamSubscription? _internetSubscription;
-  Timer? _debounceTimer;
   final NetworkChecker checker = NetworkChecker.instance;
 
   ConnectionCubit() : super(ConnectionStateInitial());
@@ -23,7 +21,9 @@ class ConnectionCubit extends Cubit<ConnectionStates>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      getNetworkState();
+      Future.delayed(const Duration(milliseconds: 500), () {
+        getNetworkState();
+      });
     }
   }
 
@@ -42,29 +42,23 @@ class ConnectionCubit extends Cubit<ConnectionStates>
     }
   }
 
-  void _listenToConnectivity() {
-    _internetSubscription = checker.onInternetChanged.listen(
-          (event) {
-        _debounceTimer?.cancel();
-        _debounceTimer = Timer(const Duration(seconds: 3), () async {
-          hasNetwork = event;
-          if (hasNetwork) {
-            safeEmit(HaveConnectionWithNetwork());
-          } else {
-            if (await checker.isConnectedToNetwork()) {
-              safeEmit(HaveConnectionWithoutNetwork());
-            } else {
-              safeEmit(HaveNotConnection());
-            }
-          }
-        });
-      },
-    );
+  Future<void> _listenToConnectivity() async {
+    _internetSubscription = checker.onInternetChanged.listen((event) async {
+      hasNetwork = event;
+      if (hasNetwork) {
+        safeEmit(HaveConnectionWithNetwork());
+      } else {
+        if (await checker.isConnectedToNetwork()) {
+          safeEmit(HaveConnectionWithoutNetwork());
+        } else {
+          safeEmit(HaveNotConnection());
+        }
+      }
+    });
   }
 
   @override
   Future<void> close() {
-    _debounceTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _internetSubscription?.cancel();
     return super.close();

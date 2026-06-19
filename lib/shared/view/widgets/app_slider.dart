@@ -129,7 +129,7 @@ class _AppSliderState extends State<AppSlider> {
       context,
       child: SizedBox(
         height: context.height * 0.9,
-        child: AppPhotoView(images: widget.images!, selectedIndex: _currentIndex),
+        child: AppPhotoView.multiple(images: widget.images??[], index: _currentIndex),
       ),
     );
     },

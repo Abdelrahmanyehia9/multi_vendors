@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
+import 'package:multi_vendor/core/enum/notification_type.dart';
 import 'package:multi_vendor/core/errors/exceptions.dart';
 import 'package:multi_vendor/core/extensions/app_exception.dart';
 import 'package:multi_vendor/core/service/database_service.dart';
@@ -14,14 +15,20 @@ class NotificationRepository {
   NotificationRepository(this._db, this._realtime);
 
   Future<Either<AppException, List<NotificationModel>>>
-  getAllNotifications() async {
+  getAllNotifications({NotificationType? type}) async {
     try {
       final result = await _db.GET(
         table: RemoteDatabaseConstants.notification_table,
-        filter: (q) =>q.eq(RemoteDatabaseConstants.is_active_column, true).order(
-          RemoteDatabaseConstants.created_at_column,
-          ascending: false,
-        ),
+        filter: (q) {
+          var query = q.eq(RemoteDatabaseConstants.is_active_column, true);
+          if (type != null) {
+            query = query.eq('type', type.name);
+          }
+          return query.order(
+            RemoteDatabaseConstants.created_at_column,
+            ascending: false,
+          );
+        },
       );
       unawaited(_markAllAsRead());
       return right(result.map((e) => NotificationModel.fromJson(e)).toList());
@@ -70,15 +77,20 @@ class NotificationRepository {
     );
   }
 
-  Future<Either<AppException, Unit>> deleteNotification(List<int>?ids)async{
+  Future<Either<AppException, List<int>>> deleteNotification(List<int>?ids)async{
     try{
-    await _db.UPDATE_MANY(table: RemoteDatabaseConstants.notification_table ,
+  final response =  await _db.UPDATE_MANY(table: RemoteDatabaseConstants.notification_table ,
           data: {
             RemoteDatabaseConstants.is_active_column: false
           },
           filter:ids==null? (q)=>q.neq(RemoteDatabaseConstants.is_active_column, false): (q) =>  q.inFilter(RemoteDatabaseConstants.id_column, ids),
       );
-     return right(unit);
+  final deletedIds = response
+      .map((e) => e['id'])
+      .whereType<int>()
+      .toList();
+
+  return right(deletedIds);
     }catch(e){
       return left(e.toAppException);
     }

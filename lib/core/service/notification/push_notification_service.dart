@@ -9,14 +9,18 @@ class PushNotificationService {
   bool _initialized = false;
 
   Future<void> _initialize(String appId, {bool debug = false}) async {
-    if (_initialized) return;
-    OneSignal.initialize(appId);
-    if (debug) {
-      OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-    }
-    await requestPermission();
-    _initialized = true;
+try{
+  if (_initialized) return;
+  await OneSignal.initialize(appId).timeout(const Duration(seconds: 10));
+  if (debug) {
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  }
+  await requestPermission();
+  optIn();
+  _initialized = true;
+}catch(e){
+  return;
+}
   }
 
 

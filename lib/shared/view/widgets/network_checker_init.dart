@@ -18,14 +18,17 @@ class NetworkCheckerInit extends StatelessWidget {
     final double padding = MediaQuery.of(context).padding.top;
     return BlocBuilder<ConnectionCubit, ConnectionStates>(
       builder: (_, state) {
-        final hasNoInternet = state is HaveNotConnection || state is HaveConnectionWithoutNetwork;
+        final hasNoInternet = state is HaveNotConnection || state is HaveConnectionWithoutNetwork ;
+        final color = state is HaveNotConnection ? AppColors.error : AppColors.warning;
+        final icon = state is HaveNotConnection ? CupertinoIcons.wifi_slash : CupertinoIcons.info;
+        final text = state is HaveNotConnection ? AppStrings.networkError : AppStrings.unstableNetwork;
         return Material(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (hasNoInternet)
                 Container(
-                  color: AppColors.error,
+                  color: color,
                   alignment: Alignment.center,
                   width: double.infinity,
                   padding:  EdgeInsets.only(top: padding, bottom: 12.h),
@@ -34,14 +37,14 @@ class NetworkCheckerInit extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        CupertinoIcons.wifi_slash,
+                        Icon(
+                        icon,
                         color: Colors.white,
                       ),
                       SizedBox(
                         width: context.width*.6,
                         child: Text(
-                          AppStrings.networkError.tr() ,
+                          text.tr() ,
                           textAlign: TextAlign.center,
                           style: TextStyles.labelMedium
                               .copyWith(color: Colors.white),

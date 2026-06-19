@@ -68,7 +68,7 @@ class VendorCard extends StatelessWidget {
                     Row(
                       spacing: 8.w,
                       children: [
-                        _iconText(MvIcons.delivery, "40 ${AppConfigs.currency.name}"),
+                        _iconText(MvIcons.delivery, "40 ${AppConfigs.currency.text}"),
                         _iconText(MvIcons.timelapse, "20-50 ${AppStrings.minutePlural.tr()}"),
                       ],
                     ),
@@ -108,6 +108,7 @@ class VendorCardGrid extends StatelessWidget {
   Widget build(BuildContext context) => GridView.builder(
     itemCount: vendors.length,
     shrinkWrap: shrinkWrap,
+    padding: EdgeInsets.zero,
     physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,

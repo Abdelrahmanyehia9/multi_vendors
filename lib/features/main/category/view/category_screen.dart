@@ -71,7 +71,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   Future<void> _onRefresh(BuildContext context)async{
     context.read<MainCategoriesCubit>().getCategories();
-    context.read<SubCategoriesCubit>().getSubCategories();
+    context.read<SubCategoriesCubit>().getSubCategories(
+      parent: selectedCategory.value?.id,
+    );
   }
   @override
   void dispose() {

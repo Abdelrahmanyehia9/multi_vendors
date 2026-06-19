@@ -681,14 +681,19 @@ class AppStrings {
   static const String selectAll=      "select_all";
   static const String unSelectAll=    "unselect_all";
   static const String itemSelected = "item_selected";
-
   static const String agreePrivacyPolicy = "by_signing_up_you_agree_to_our";
   static const String privacyPolicy = "privacy_policy" ;
-
   static const networkErrorDescription = "network_error_description";
-
   static const String retry = "retry";
+  static const String orderHasAssigned ="order_has_been_assigned_to_captin";
+  static const String transactions = "transactions";
+  static const String promotions = "promotions";
+  static const String activity = "activity";
+  static const String others = "others";
+  static const String pressBackAgainForExit = "press_back_again_to_exit" ;
+  static const String appName = "app_name" ;
 
+  static const String  unstableNetwork = "un_stable_network";
 
 
 

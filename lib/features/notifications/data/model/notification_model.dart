@@ -1,4 +1,5 @@
 import 'package:multi_vendor/core/enum/notification_templates.dart';
+import 'package:multi_vendor/core/enum/notification_type.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/notifications/data/model/notification_payload.dart';
 
@@ -8,6 +9,7 @@ class NotificationModel {
   final Map<String, dynamic> message;
   final NotificationTemplates? template;
   final NotificationPayload? payload;
+  final NotificationType type;
   final String? url;
   final bool? isRead;
   final DateTime? createdAt;
@@ -17,6 +19,7 @@ class NotificationModel {
     required this.id,
     required this.title,
     required this.message,
+    required this.type,
     this.template,
     this.payload,
     this.url,
@@ -30,11 +33,10 @@ class NotificationModel {
         id: json['id'],
         title: json['title'],
         message: json['message'],
-        template: json['type'] == null
-            ? null
-            : NotificationTemplates.fromString(json['type']),
+        template: NotificationTemplates.fromString(json['template']),
         payload: json['data']==null?null:NotificationPayload.fromJson(json['data']),
         url: json['url'],
+        type: NotificationType.fromString(json['type']),
         isRead: json['is_read'],
         createdAt: json['created_at'] == null
             ? null
@@ -45,5 +47,6 @@ class NotificationModel {
   factory NotificationModel.fake()=> const  NotificationModel(id: FakeData.fakeInt,
           title: FakeData.fakeMapName,
           message: FakeData.fakeMapDescription,
+          type: NotificationType.transactions,
           template: NotificationTemplates.order_shipped) ;
 }

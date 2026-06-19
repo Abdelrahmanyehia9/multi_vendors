@@ -115,7 +115,7 @@ class _RatingStarsState extends State<RatingStars> with TickerProviderStateMixin
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.bodySmall.copyWith(
                       color: context.colors.surfaceContainer,
-                      fontSize: (widget.size - 6).sp,
+                      fontSize: (widget.size*.7).sp,
                     ),
                   ).paddingHr(4),
                 ],

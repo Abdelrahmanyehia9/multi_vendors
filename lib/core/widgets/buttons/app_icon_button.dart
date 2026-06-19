@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/core/extensions/colors.dart';
 import 'package:multi_vendor/core/extensions/context.dart';
+import 'package:multi_vendor/core/theme/decorations.dart';
 import 'package:multi_vendor/core/widgets/buttons/app_button.dart';
 
 class AppIconButton extends StatelessWidget {
@@ -38,7 +39,7 @@ class AppIconButton extends StatelessWidget {
     ;
     return AppButton.icon(
       onPressed: onTap,
-      borderRadius: radius?? 10.r,
+      borderRadius: radius?? Decorations.borderRadius8.r,
       isBlurEffect: blurry,
       toolTip: tooltip?.tr(),
       enabled: enabled,
