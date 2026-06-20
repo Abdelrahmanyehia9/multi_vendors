@@ -11,14 +11,11 @@ import 'package:multi_vendor/shared/data/repository/user_pref_repository.dart';
 class UserPreferencesCubit extends Cubit<UserPreferences> {
   final UserPrefRepository repository;
 
-  UserPreferencesCubit(this.repository)
-      : super(const UserPreferences());
+  UserPreferencesCubit(this.repository) : super(const UserPreferences());
 
   void init(BuildContext context) {
     final pref = repository.getPref();
-
     AppConfigs.locale = pref.locale ?? context.locale;
-
     safeEmit(
       pref.copyWith(
         locale: AppConfigs.locale,
@@ -26,11 +23,8 @@ class UserPreferencesCubit extends Cubit<UserPreferences> {
     );
   }
 
-  void toggleTheme() {
-    final pref = state.copyWith(
-      darkTheme: !(state.darkTheme??false),
-    );
-
+  void setThemeMode(ThemeMode mode) {
+    final pref = state.copyWith(themeMode: mode);
     safeEmit(pref);
     repository.updatePref(pref);
   }
@@ -47,7 +41,7 @@ class UserPreferencesCubit extends Cubit<UserPreferences> {
     safeEmit(pref);
     repository.updatePref(pref);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.pushNamedAndRemoveUntil(Routes.splash , predicate : (_)=>false );
+      context.pushNamedAndRemoveUntil(Routes.splash, predicate: (_) => false);
     });
   }
 }

@@ -1,10 +1,11 @@
-import 'dart:ui';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:multi_vendor/core/extensions/country.dart';
 import 'package:multi_vendor/core/extensions/data_type.dart';
 import 'package:multi_vendor/core/enum/user_roles.dart';
+import 'package:multi_vendor/core/extensions/theme_mode.dart';
 import 'package:multi_vendor/core/utils/helper/fake_data.dart';
 import 'package:multi_vendor/features/main/profile/data/model/address_model.dart';
 
@@ -147,26 +148,33 @@ class UserModel extends Equatable {
   );
 }
 
+
+
 class UserPreferences {
   final Locale? locale;
-  final bool? darkTheme;
+  final ThemeMode themeMode;
 
-  const UserPreferences({this.locale, this.darkTheme});
+  const UserPreferences({
+    this.locale,
+    this.themeMode = ThemeMode.system,
+  });
 
   factory UserPreferences.fromJson(Map<String, dynamic> json) =>
       UserPreferences(
         locale: json['locale'] == null ? null : Locale(json['locale']),
-        darkTheme: json['dark_theme'] ?? false,
+        themeMode: ThemeModeExt.fromString(json['theme_mode']),
       );
 
   Map<String, dynamic> toJson() => {
     'locale': locale?.languageCode,
-    'dark_theme': darkTheme,
+    'theme_mode': themeMode.name,
   };
 
-  UserPreferences copyWith({Locale? locale, bool? darkTheme}) =>
+  UserPreferences copyWith({Locale? locale, ThemeMode? themeMode}) =>
       UserPreferences(
         locale: locale ?? this.locale,
-        darkTheme: darkTheme ?? this.darkTheme,
+        themeMode: themeMode ?? this.themeMode,
       );
+
+
 }

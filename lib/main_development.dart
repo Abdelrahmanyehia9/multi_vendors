@@ -9,7 +9,7 @@ import 'package:multi_vendor/core/routes/app_router.dart';
 import 'package:multi_vendor/core/utils/app_constants.dart';
 import 'package:multi_vendor/core/utils/feature_flags.dart';
 import 'package:multi_vendor/avera.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide LocalStorage;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +32,6 @@ void main() async {
     FeatureFlags.init(),
     AppConfigs.init()
   ]) ;
-
   runApp(
     EasyLocalization(
       supportedLocales: const [

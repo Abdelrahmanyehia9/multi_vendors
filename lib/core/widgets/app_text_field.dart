@@ -132,6 +132,7 @@ class AppTextField extends StatelessWidget {
       borderRadius: borderRadius,
       borderWidth: borderWidth,
       borderColor: borderColor,
+
       helperStyle: helperStyle,
       hintStyle: hintStyle??TextStyles.bodyMedium.copyWith(
         color: context.colors.surfaceContainerLow
@@ -151,6 +152,7 @@ class AppTextField extends StatelessWidget {
       enabled: enabled,
       onChanged: onChange,
       onTap: onTap,
+      keyboardAppearance: context.theme.brightness,
       obscuringCharacter: obscuringCharacter,
       keyboardType: keyboardType,
       textInputAction: textInputAction,

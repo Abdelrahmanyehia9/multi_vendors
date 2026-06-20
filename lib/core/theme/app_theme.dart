@@ -79,6 +79,7 @@ class AppTheme {
   );
 }
 
+
 class _ColorScheme {
   const _ColorScheme._();
 

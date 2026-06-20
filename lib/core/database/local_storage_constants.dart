@@ -9,7 +9,7 @@ class LocalStorageConstants{
   static const String searchHistory = 'searchHistory';
 
   static String locale = 'locale';
-  static String isDark = 'isDark';
+  static String theme = 'themeMode';
 
 }
 

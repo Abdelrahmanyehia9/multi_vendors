@@ -12,6 +12,7 @@ class ConnectionCubit extends Cubit<ConnectionStates> with WidgetsBindingObserve
 
   ConnectionCubit() : super(ConnectionStateInitial());
 
+
   Future<void> init() async {
     WidgetsBinding.instance.addObserver(this);
     await getNetworkState();
@@ -21,18 +22,18 @@ class ConnectionCubit extends Cubit<ConnectionStates> with WidgetsBindingObserve
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        getNetworkState();
-      });
+      getNetworkState();
     }
   }
 
   Future<void> getNetworkState() async {
     final hasInternet = await checker.hasRealInternet();
+
     if (hasInternet) {
       hasNetwork = true;
       return safeEmit(HaveConnectionWithNetwork());
     }
+
     hasNetwork = false;
     final connected = await checker.isConnectedToNetwork();
     if (connected) {
@@ -48,7 +49,8 @@ class ConnectionCubit extends Cubit<ConnectionStates> with WidgetsBindingObserve
       if (hasNetwork) {
         safeEmit(HaveConnectionWithNetwork());
       } else {
-        if (await checker.isConnectedToNetwork()) {
+        final connected = await checker.isConnectedToNetwork();
+        if (connected) {
           safeEmit(HaveConnectionWithoutNetwork());
         } else {
           safeEmit(HaveNotConnection());

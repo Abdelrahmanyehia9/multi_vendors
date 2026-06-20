@@ -13,7 +13,7 @@ class UserPreferencesBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserPreferencesCubit, UserPreferences>(
       builder: (context, state) => builder(
-        state.darkTheme ==true ? ThemeMode.dark : ThemeMode.light,
+        state.themeMode,
         state.locale??context.locale,
       ),
     );

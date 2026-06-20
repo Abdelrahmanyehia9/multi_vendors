@@ -66,9 +66,13 @@ class MvIcons {
   static const IconData category = CupertinoIcons.square_grid_2x2 ;
   static const IconData info = CupertinoIcons.info;
   static const IconData theme = Icons.nightlight_round;
-  static const IconData light = Icons.dark_mode;
-  static const IconData dark = Icons.sunny;
+  static const IconData light = CupertinoIcons.sun_min_fill;
+  static const IconData dark = CupertinoIcons.moon_fill;
   static const IconData notification = CupertinoIcons.bell;
   static const IconData notificationOff = CupertinoIcons.bell_slash;
   static const IconData maintenance = Icons.auto_fix_high;
+  static const IconData mobile = Icons.phone_android;
+
+
 }
+
